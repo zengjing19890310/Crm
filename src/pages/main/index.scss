@@ -1,0 +1,61 @@
+section.main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  .menu {
+    transition: width linear .15s;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 280px;
+    background-color: #303641;
+    color: #fff;
+
+    &.collapse-menu {
+      width: 60px;
+    }
+  }
+  .content {
+    transition: left linear .15s;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 280px;
+
+    &.collapse-menu {
+      left: 60px;
+    }
+    .router-view {
+      position: absolute;
+      top: 140px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #f1f1f1;
+      .outer-container {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        overflow: auto;
+      }
+      .copyright {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 0 1rem;
+        text-align: right;
+        color: #898989;
+        font-size: 0.9rem;
+        height: 55px;
+        line-height: 55px;
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta charset="UTF-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+<body>
+<div id="app" v-cloak @click="clearModal">
+    <section class="main" id="intro">
+        <aside :class="['menu',{'collapse-menu':isCollapse}]">
+            <common-menu @collapse-menu="collapseMenu"></common-menu>
+            <!--<el-collapse v-model="activeName" accordion>-->
+                <!--<el-collapse-item title="首页" name="1">-->
+                    <!--<ul>-->
+                        <!--<li><a href="#">首页</a></li>-->
+                    <!--</ul>-->
+                <!--</el-collapse-item>-->
+                <!--<el-collapse-item title="客户管理" name="2">-->
+                    <!--<ul>-->
+                        <!--<li><a href="#">客户信息</a></li>-->
+                        <!--<li><a href="#">分享数据</a></li>-->
+                    <!--</ul>-->
+                <!--</el-collapse-item>-->
+                <!--<el-collapse-item title="系统管理" name="3">-->
+                    <!--<ul>-->
+                        <!--<li><a href="#">用户管理</a></li>-->
+                        <!--<li><a href="#">角色管理</a></li>-->
+                        <!--<li><a href="#">权限资源</a></li>-->
+                    <!--</ul>-->
+                <!--</el-collapse-item>-->
+            <!--</el-collapse>-->
+        </aside>
+        <div :class="['content',{'collapse-menu':isCollapse}]">
+            <common-header @goTestIM="goTestIM"></common-header>
+            <common-nav :current-nav="currentNav"></common-nav>
+            <div class="router-view">
+                <router-view ref="router"></router-view>
+                <footer class="copyright">
+                    Copyright （c）2017 骊驰集团. 苏ICP备11055878号-1
+                </footer>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="../../static/webim/webim.config.js"></script>
+<script src="../../static/webim/strophe-1.2.8.js"></script>
+<script src="../../static/webim/websdk-1.4.13.js"></script>
+</body>
+</html>

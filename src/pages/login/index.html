@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta charset="UTF-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+<body>
+    <div id="app" class="login-container" v-cloak>
+        <!--仅显示标题头部-->
+        <header class="login-header">
+            <div class="logo">
+                <img :src="logoUrl" alt="" />
+                <p>{{appName}}</p>
+            </div>
+            <div class="arrow-down">
+
+            </div>
+        </header>
+        <section class="main">
+            <div class="login-panel">
+                <!--<header>-->
+                    <!--<h3 class="title">用户登录</h3>-->
+                <!--</header>-->
+                <section class="form-container">
+                    <el-form label-position="left" :model="loginForm" label-width="" ref="loginForm" :rules="rules">
+                        <el-form-item label="" prop="phone">
+                            <el-input v-model="loginForm.phone" placeholder="请输入手机号" class="login-input" auto-complete="off">
+                                <!--<i class="el-icon-edit el-input__icon" slot="prefix"></i>-->
+                                <span slot="prefix" class="pre">
+                                    <i class="el-icon-mobile-phone el-input__icon" style="color:#626569;"></i>
+                                    <span class="line"></span>
+                                </span>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item label="" prop="password">
+                            <el-input v-model="loginForm.password" type="password" placeholder="请输入密码" class="login-input" auto-complete="off">
+                                <span slot="prefix" class="pre">
+                                    <i class="el-icon-edit el-input__icon" style="color:#626569;" slot="prefix"></i>
+                                    <span class="line"></span>
+                                </span>
+                            </el-input>
+                        </el-form-item>
+                        <!--<el-form-item label-width="">-->
+                            <!--<el-checkbox v-model="rememberMe">记住我的登录</el-checkbox>-->
+                        <!--</el-form-item>-->
+                        <el-form-item label-width="">
+                            <div>
+                                <el-button @click="login('loginForm')" class="login-submit">登 录</el-button>
+                                <p>
+                                    <a href="../forget" class="href left">忘记密码,怎么办？</a>
+                                    <a href="../register" class="href right">注册</a>
+                                </p>
+                            </div>
+                            <!--<el-button type="ghost" @click="reset('loginForm')">重 置</el-button>-->
+                        </el-form-item>
+                        <!--<img :src="qrCodeUrl" alt="">-->
+                    </el-form>
+                </section>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

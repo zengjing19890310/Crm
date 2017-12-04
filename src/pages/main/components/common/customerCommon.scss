@@ -1,0 +1,77 @@
+.main {
+  position: absolute;
+  background-color: #fff;
+  top: 2rem;
+  left: 1rem;
+  bottom: 3.4rem;
+  right: 1rem;
+  padding: 0 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+
+  //筛选框通用样式
+
+  .customer-container {
+    flex-grow: 1;
+    overflow: hidden;
+    table {
+      background-color: #ddd;
+      font-size: 14px;
+      thead {
+        tr {
+          height: 40px;
+        }
+      }
+      th, td {
+        vertical-align: middle;
+      }
+    }
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    .left-panel {
+      width: 100%;
+      overflow: auto;
+    }
+    .right-panel {
+      margin-left: 1rem;
+      line-height: normal;
+      width: 24rem;
+      > div:last-child {
+        margin-bottom: 0;
+      }
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: stretch;
+      > div {
+        background-color: #fff;
+        margin-bottom: 1rem;
+        flex-grow: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        > header {
+          border: 1px solid red;
+        }
+        > div {
+          border: 1px solid blue;
+          flex-grow: 1;
+          white-space: normal;
+          overflow-y: auto;
+        }
+      }
+    }
+  }
+
+  .handleButton {
+    margin-right: 0.8rem;
+    padding-right: 0.8rem;
+    &.删除 {
+      color: #ff7575;
+    }
+    &.修改 {
+      color: #2f9fed;
+    }
+  }}

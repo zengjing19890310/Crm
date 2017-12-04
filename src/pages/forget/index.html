@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta charset="UTF-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+<body>
+    <div id="app" class="login-container" v-cloak>
+        <!--仅显示标题头部-->
+        <header class="login-header">
+            <div class="logo">
+                <img :src="logoUrl" alt="" />
+                <p>{{logoText}}</p>
+            </div>
+            <div class="arrow-down">
+
+            </div>
+        </header>
+        <section class="main">
+            <div class="login-panel">
+                <!--<header>-->
+                    <!--<h3 class="title">忘记密码</h3>-->
+                <!--</header>-->
+                <section class="form-container">
+                    <el-form label-position="left" :model="forgetForm" label-width="" ref="forgetForm" :rules="rules">
+                        <el-form-item label="" prop="phone">
+                            <el-input v-model="forgetForm.phone" placeholder="请输入手机号" class="forget-input" auto-complete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="" prop="code">
+                            <el-row>
+                                <el-col :span="10">
+                                    <el-input v-model="forgetForm.code" placeholder="请输入验证码" class="forget-input" auto-complete="off"></el-input>
+                                </el-col>
+                                <el-col :span="14" style="text-align: right">
+                                    <el-button class="send-button" v-show="!sendCodeStatus.buttonDisabled" @click="sendCode">
+                                        {{sendCodeStatus.text}}
+                                    </el-button>
+                                    <el-button class="send-button" v-show="sendCodeStatus.buttonDisabled" :disabled="sendCodeStatus.buttonDisabled">
+                                        {{sendCodeStatus.text}}
+                                        <span v-show="sendCodeStatus.buttonDisabled">({{sendCodeStatus.time}})</span>
+                                    </el-button>
+                                </el-col>
+                            </el-row>
+                        </el-form-item>
+                        <el-form-item label="" prop="password">
+                            <el-input v-model="forgetForm.password" type="password" placeholder="请输入密码" class="forget-input" auto-complete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="" prop="checkPassword">
+                            <el-input v-model="forgetForm.checkPassword" type="password" placeholder="请输入密码" class="forget-input" auto-complete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button class="login-submit" @click="done('forgetForm')">完成</el-button>
+                        </el-form-item>
+                    </el-form>
+                </section>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
