@@ -161,6 +161,7 @@ const router = new VueRouter({
 	routes: routes
 });
 
+let checkToken = require("../../common/checkToken").checkToken;
 
 //注册路由守卫
 router.afterEach((to, from) => {
@@ -168,6 +169,8 @@ router.afterEach((to, from) => {
 		if (pathInfo[to.path]) {
 			mainView.currentNav = pathInfo[to.path];
 		}
+		//检查access_token
+		checkToken();
 	}, 0);
 });
 
@@ -213,3 +216,5 @@ let mainView = new Vue({
 		}
 	}
 });
+
+

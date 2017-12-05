@@ -48,9 +48,12 @@
                         <el-button type="primary" style="margin-top:1rem;" @click="sendMessage">
                             发送消息
                         </el-button>
+                        <el-button type="primary">
+                            发送图片
+                        </el-button>
                     </div>
                 </div>
-                <div class="message-panel">
+                <div class="message-panel" style="width:50%;">
                     <header>
                         接收消息
                     </header>
@@ -60,7 +63,7 @@
                         <div v-for="(log,index) in logs" :key="index"
                              :class="['message',{'my-message':log.from===userLogin.username,'other-message':log.to===userLogin.username}]">
                             <div :class="{'my-message':log.from===userLogin.username,'other-message':log.to===userLogin.username}">
-                                {{timeFormatter(log.timeStamp)}}
+                                <p style="color:#666;">{{timeFormatter(log.timeStamp)}}</p>
                                 <div>
                                     <span v-if="log.from===userLogin.username">我</span>
                                     <span v-else>{{log.from}}</span>
@@ -69,8 +72,8 @@
                                     <span v-else>{{log.to}}</span>
                                     说:
                                 </div>
-                                <div v-if="log.type==='text'">
-                                    {{log.message}}
+                                <div v-if="log.type==='text'" style="word-wrap: break-word;">
+                                    <pre> {{log.message}} </pre>
                                 </div>
                             </div>
                         </div>
@@ -100,11 +103,13 @@
                 },
                 message: '',
                 targetUser: null,
+                fromNickname: ''
             }
         },
         methods: {
             timeFormatter: util.timeFormatter,
             sendMessage() {
+                console.log(this.message);
                 let _this = this;
                 // 生成本地消息id
                 let id = this.connect.getUniqueId();
@@ -126,6 +131,7 @@
 //                            console.log(id, serverMsgId);
                             let obj = {
                                 from: _this.userLogin.username,
+                                fromNickname: _this.fromNickname,
                                 to: _this.targetUser,
                                 message: _this.message,
                                 timeStamp: timeStamp,
@@ -139,9 +145,8 @@
                         }
                     });
                     msg.body.chatType = 'singleChat';
-                    msg.body.ext.timeStamp = timeStamp;
-                    //文字消息
-                    msg.body.ext.type = type;
+//                    msg.body.ext.timeStamp = timeStamp;
+//                    //文字消息
                     this.connect.send(msg.body);
                 } else {
                     this.$message({
@@ -176,14 +181,20 @@
                     pwd: user.password,
                     appKey: WebIM.config.appkey,
                     success: function (res) {
-                        console.log('登录成功');
-//                        console.log(_this，res);
-
+                        console.log(res);
+//                        console.log('登录成功');
+                        _this.$message({
+                            type: 'success',
+                            message: '登录成功'
+                        });
+                        if (res.user.nickname) {
+                            _this.fromNickname = res.user.nickname;
+                        }
                         //设置消息传达的目标
-                        if (_this.userLogin.username === "user1") {
-                            _this.targetUser = "user123";
-                        } else if (_this.userLogin.username === "user123") {
-                            _this.targetUser = "user1";
+                        if (_this.userLogin.username === "user001") {
+                            _this.targetUser = "kefu001";
+                        } else if (_this.userLogin.username === "kefu001") {
+                            _this.targetUser = "user001";
                         }
                     },
                     error: function () {
@@ -227,6 +238,37 @@
                 isAutoLogin: true
             });
 
+//            贴图消息
+            document.addEventListener('paste', function (e) {
+                if (e.clipboardData && e.clipboardData.types) {
+                    if (e.clipboardData.items.length > 0) {
+                        if (/^image\/\w+$/.test(e.clipboardData.items[0].type)) {
+                            let blob = e.clipboardData.items[0].getAsFile();
+                            let url = window.URL.createObjectURL(blob);
+                            let id = conn.getUniqueId();             // 生成本地消息id
+                            let msg = new WebIM.message('img', id);  // 创建图片消息
+                            msg.set({
+                                apiUrl: WebIM.config.apiURL,
+                                file: {data: blob, url: url},
+                                to: _this.targetUser,                      // 接收消息对象
+                                roomType: false,
+                                chatType: 'singleChat',
+                                onFileUploadError: function (error) {
+                                    console.log('Error');
+                                },
+                                onFileUploadComplete: function (data) {
+                                    console.log('Complete');
+                                },
+                                success: function (id) {
+                                    console.log('Success');
+                                }
+                            });
+                            _this.connect.send(msg.body);
+                        }
+                    }
+                }
+            });
+
             this.connect.listen({
                 onOpened: function (res) {          //连接成功回调
                     // 如果isAutoLogin设置为false，那么必须手动设置上线，否则无法收消息
@@ -239,17 +281,22 @@
                 },         //连接关闭回调
                 onTextMessage: function (message) {
                     console.log(message);
+                    let timeStamp = new Date();
+                    if (message.delay) {
+                        timeStamp = message.delay;
+                    }
                     _this.logs.push({
                         from: message.from,
                         to: message.to,
                         message: message.data,
-                        timeStamp: message.ext.timeStamp,
-                        type: message.ext.type
-                    })
+                        timeStamp: timeStamp,
+                        type: 'text'
+                    });
                 },    //收到文本消息
                 onEmojiMessage: function (message) {
                 },   //收到表情消息
                 onPictureMessage: function (message) {
+                    console.log(message, '收到图片消息');
                 }, //收到图片消息
                 onCmdMessage: function (message) {
                 },     //收到命令消息
@@ -260,14 +307,14 @@
                 onFileMessage: function (message) {
                 },    //收到文件消息
                 onVideoMessage: function (message) {
-                    var node = document.getElementById('privateVideo');
-                    var option = {
+                    let node = document.getElementById('privateVideo');
+                    let option = {
                         url: message.url,
                         headers: {
                             'Accept': 'audio/mp4'
                         },
                         onFileDownloadComplete: function (response) {
-                            var objectURL = WebIM.utils.parseDownloadResponse.call(conn, response);
+                            let objectURL = WebIM.utils.parseDownloadResponse.call(conn, response);
                             node.src = objectURL;
                         },
                         onFileDownloadError: function () {
@@ -283,20 +330,29 @@
                 onInviteMessage: function (message) {
                 },  //处理群组邀请
                 onOnline: function () {
+                    console.log('本机网络连接成功')
                 },                  //本机网络连接成功
                 onOffline: function () {
+                    console.log('本机网络掉线');
                 },                 //本机网络掉线
                 onError: function (message) {
+                    console.error(message);
                 },          //失败回调
                 onBlacklistUpdate: function (list) {       //黑名单变动
                     // 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
                     console.log(list);
                 },
                 onReceivedMessage: function (message) {
+                    console.log(new Date());
+                    console.log('消息送达服务器', message);
+                    //消息送达服务器的时间
+
                 },    //收到消息送达服务器回执
                 onDeliveredMessage: function (message) {
+                    console.log('消息送达客户端', message);
                 },   //收到消息送达客户端回执
                 onReadMessage: function (message) {
+                    console.log('消息已读', message);
                 },        //收到消息已读回执
                 onCreateGroup: function (message) {
                 },        //创建群组成功回执（需调用createGroupNew）
@@ -347,10 +403,10 @@
                     width: 50%;
                 }
                 .my-message {
-                    text-align: left;
+                    text-align: right;
                 }
                 .other-message {
-                    text-align: right;
+                    text-align: left;
                 }
             }
         }

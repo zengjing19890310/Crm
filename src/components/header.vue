@@ -16,13 +16,13 @@
         <div class="user-information">
             <span class="shot-line"></span>
             <div>
-                <p>{{user}}</p>
-                <img class="user-picture" src="" alt="头像"/>
+                <p>{{userInformation.nickname || '-'}}</p>
+                <img class="user-picture" :src="userInformation.photo" alt="头像"/>
             </div>
         </div>
         <div class="logout">
             <span class="shot-line"></span>
-            <div>
+            <div @click="logout">
                 <p>退出</p>
                 <span class="logout-icon"></span>
             </div>
@@ -31,12 +31,21 @@
 </template>
 
 <script>
+    let getUserInformation = require('../common/userInformation');
     export default {
         data() {
             return {
                 messageCount: 5,
-                user: '小老师'
+                userInformation: {
+                    nickname: '',
+                    mobile: '',
+                    photo: ''
+                }
             }
+        },
+        mounted() {
+            //获取用户信息
+            getUserInformation.getUserInformation(this);
         },
         methods: {
             helpCenter() {
@@ -45,6 +54,17 @@
             testIM() {
                 this.$router.push({
                     path: "/testIM",
+                })
+            },
+            logout() {
+                this.$message({
+                    type: "warning",
+                    message: "正在登出...",
+                    duration: 1500,
+                    onClose: function () {
+                        window.localStorage.removeItem("access_token");
+                        window.location.href = "../login";
+                    }
                 })
             }
         }
@@ -99,7 +119,7 @@
             }
         }
         .user-information {
-            width: 110px;
+            width: 150px;
             div {
                 display: flex;
                 flex-direction: row;
@@ -132,6 +152,7 @@
             div {
                 display: flex;
                 flex-direction: row;
+                cursor: pointer;
                 align-items: center;
                 .logout-icon {
                     display: inline-block;

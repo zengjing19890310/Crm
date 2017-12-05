@@ -42,6 +42,9 @@ module.exports = {
             new webpack.DefinePlugin({ //定义全局常量,转换接口地址
                 API: function (api) {
                     return 'http://192.168.0.109:8888' + api;
+                },
+                APIMA: function(api) {
+                    return 'http://mengcan.vicp.io' + api;
                 }
             }),
             new webpack.ProvidePlugin({//自动加载模块。 任何时候，当 identifier 被当作未赋值的变量时， module 就会自动被加载，并且 identifier 会被这个 module 输出的内容所赋值。
@@ -95,7 +98,7 @@ module.exports = {
             //     var chunks = [file,'socket','common'];
             // }
             plugins.push(new HtmlWebpackPlugin({//每打包一个HTML文件,需要一个插件指明响应的模版和输出文件名
-                title: '好融易客户管理系统CRM',//名称,在页面中title内容为<title><%= htmlWebpackPlugin.options.title %></title>
+                title: '融开心客户管理系统CRM',//名称,在页面中title内容为<title><%= htmlWebpackPlugin.options.title %></title>
                 template: path.resolve(__dirname, '../src/pages', file, 'index.html'),
                 filename: path.resolve(__dirname, '../dist', file, 'index.html'),
                 //打包模块的顺序约定,默认是从后向前打包

@@ -74,14 +74,42 @@ let forgetView = new Vue({
 		done(formName) {
 			this.$refs[formName].validate((valid) => {
 				if (valid) {
-					this.$message({
-						message: "找回密码成功,请重新登录!",
-						type: "success",
-						duration: 1500,
-						onClose: () => {
-							window.location.href = "../login";
-						}
-					});
+					let obj = {
+						mobile: this.forgetForm.phone,
+						code: this.forgetForm.code,
+						password: this.forgetForm.password
+					};
+
+					this.$http.put(API("/sysuser"), obj)
+						.then(
+							(res) => {
+								if (res.body) {
+									let data = res.body;
+									if (data && data.code === 0 && data.msg === "成功") {
+										this.$message({
+											type: "success",
+											message: "修改密码成功,即将返回登录页...",
+											duration: 1500,
+											onClose: () => {
+												window.location.href = "../login";
+											}
+										});
+									}
+								}
+							},
+							(res) => {
+								console.error(res);
+							}
+						);
+
+					// this.$message({
+					// 	message: "找回密码成功,请重新登录!",
+					// 	type: "success",
+					// 	duration: 1500,
+					// 	onClose: () => {
+					// 		window.location.href = "../login";
+					// 	}
+					// });
 				} else {
 					this.$message({
 						message: "输入有误!",
@@ -94,6 +122,15 @@ let forgetView = new Vue({
 		},
 		sendCode() {
 			if (!this.sendCodeStatus.buttonDisabled) {
+				this.$http.get(API(`/code/sms?mobile=${this.forgetForm.phone}`))
+					.then(
+						(res) => {
+							console.log(res);
+						},
+						(res) => {
+							console.error(res);
+						}
+					);
 				this.sendCodeStatus.buttonDisabled = true;
 				this.sendCodeStatus.text = "重新发送";
 				let timer = setInterval(() => {
@@ -109,7 +146,5 @@ let forgetView = new Vue({
 			}
 		}
 	},
-	components: {
-
-	}
+	components: {}
 });

@@ -73,14 +73,71 @@ let register = new Vue({
 		done(formName) {
 			this.$refs[formName].validate((valid) => {
 				if (valid) {
-					this.$message({
-						message: "注册成功!",
-						type: "success",
-						duration: 1500,
-						onClose: () => {
-							window.location.href = "../main";
-						}
-					});
+					//发送注册请求
+					let obj = {
+						mobile: this.registerForm.phone,
+						code: this.registerForm.code,
+						password: this.registerForm.password
+					};
+					this.$http.post(API("/sysuser/regiter"), obj)
+						.then(
+							(res) => {
+								if (res.body) {
+									let data = res.body;
+									if (data && data.code === 0 && data.msg === "成功") {
+										this.$message({
+											message: "注册成功,即将自动跳转...",
+											type: "success",
+											duration: 1500,
+											onClose: () => {
+												this.$http({
+													url: API(`/authentication/form?username=${this.registerForm.phone}&password=${this.registerForm.password}`),
+													method: "POST",
+													headers: {
+														"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+														"Authorization": "Basic bGljaGk6YWJjZGVm",
+														"deviceId": this.registerForm.phone
+													}
+												}).then(
+													(res) => {
+														//请求成功
+														if (res.ok && res.status === 200) {
+															let data = res.body;
+															if (data.code === 1) {
+																this.$message({
+																	type: "error",
+																	message: data.msg
+																});
+															} else {
+																//获取token并存储在本地
+																let access_token = data.access_token;
+																if (access_token) {
+																	window.localStorage.setItem("access_token", access_token);
+																	window.location.href = "../main";
+																}
+															}
+														}
+													},
+													(res) => {
+
+													}
+												);
+											}
+										});
+									} else {
+										this.$message({
+											message: `注册失败:${data.msg}!`,
+											type: "error",
+											duration: 1500
+										});
+									}
+								}
+
+							},
+							(res) => {
+								console.error(res);
+							}
+						);
 				} else {
 					this.$message({
 						message: "输入有误!",
@@ -93,6 +150,15 @@ let register = new Vue({
 		},
 		sendCode() {
 			if (!this.sendCodeStatus.buttonDisabled) {
+				this.$http.get(API(`/code/sms?mobile=${this.registerForm.phone}`))
+					.then(
+						(res) => {
+							console.log(res);
+						},
+						(res) => {
+							console.error(res);
+						}
+					);
 				this.sendCodeStatus.buttonDisabled = true;
 				this.sendCodeStatus.text = "重新发送";
 				let timer = setInterval(() => {
@@ -108,7 +174,5 @@ let register = new Vue({
 			}
 		}
 	},
-	components: {
-
-	}
+	components: {}
 });

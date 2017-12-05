@@ -1,6 +1,5 @@
 require("./index.scss");
 require("../../common/common");
-let loginCheck = require("../../../static/loginCheck");
 
 let checkPhone = (rule, value, callback) => {
 	let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
@@ -38,33 +37,61 @@ let loginView = new Vue({
 				{validator: checkPassword, trigger: "blur"}
 			]
 		},
-		rememberMe: false,
-		qrCodeUrl: require("../../common/images/baidu.png")
+		rememberMe: false
 	},
-	components: {
-
+	components: {},
+	http: {
+		//登录请求头
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+			"Authorization": "Basic bGljaGk6YWJjZGVm"
+		}
 	},
 	methods: {
-		login(formName) {
-			// console.log('登录');
-			this.$refs[formName].validate((valid) => {
+		onSubmit() {
+			this.$refs.loginForm.validate((valid) => {
 				if (valid) {
-					if (loginCheck(this.loginForm)) {
-						this.$message({
-							message: "登录成功",
-							type: "success",
-							duration: 3000,
-							onClose: () => {
-								window.location.href = "../main";
+					// 13667159565  123456
+					this.$http({
+						// url:`http://mengcan.vicp.io/authentication/form?username=${this.loginForm.phone}&password=${this.loginForm.password}`,
+						url: API(`/authentication/form?username=${this.loginForm.phone}&password=${this.loginForm.password}`),
+						method: "POST",
+						headers: {
+							"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+							"Authorization": "Basic bGljaGk6YWJjZGVm",
+							"deviceId": this.loginForm.phone
+						}
+					}).then(
+						(res) => {
+							console.log(res);
+							//请求成功
+							if (res.ok && res.status === 200) {
+								let data = res.body;
+								if (data.code === 1) {
+									this.$message({
+										type: "error",
+										message: data.msg
+									});
+								} else {
+									//获取token并存储在本地
+									let access_token = data.access_token;
+									if (access_token) {
+										window.localStorage.setItem("access_token", access_token);
+										this.$message({
+											type: "success",
+											message: "登陆成功,即将自动跳转...",
+											onClose: function () {
+												window.location.href = "../main";
+											}
+										});
+									}
+								}
 							}
-						});
-					} else {
-						this.$message({
-							message: "登录失败!",
-							type: "error",
-							duration: 3000
-						});
-					}
+						},
+						(res) => {
+							// console.error(res);
+						}
+					);
 				} else {
 					this.$message({
 						message: "输入有误!",
@@ -81,3 +108,10 @@ let loginView = new Vue({
 		}
 	}
 });
+
+if (!window["localStorage"]) {
+	loginView.$message({
+		type: "error",
+		message: "当前浏览器不能使用本地存储,请更换浏览器"
+	});
+}
