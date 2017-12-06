@@ -5,15 +5,23 @@ let checkPhone = (rule, value, callback) => {
 	let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
 	if (value === "") {
 		callback(new Error("请输入手机号!"));
+		register.sendCodeStatus.buttonDisabled = true;
 	} else if (!reg.test(value)) {
 		callback(new Error("手机号格式错误!"));
+		register.sendCodeStatus.buttonDisabled = true;
 	} else {
 		callback();
+		//如果当前没有倒计时在走,则把发送按钮变为可用
+		if (!register.timer) {
+			register.sendCodeStatus.buttonDisabled = false;
+		}
 	}
 };
 let validatePassword = (rule, value, callback) => {
 	if (value === "") {
 		callback(new Error("请输入密码!"));
+	} else if (value.length < 6) {
+		callback(new Error("密码至少6位!"));
 	} else {
 		if (register.registerForm.checkPassword !== "") {
 			register.$refs.registerForm.validateField("checkPassword");
@@ -65,9 +73,11 @@ let register = new Vue({
 		},
 		sendCodeStatus: {
 			text: "发送验证码",
-			time: 60,
+			time: 0,
 			buttonDisabled: false
-		}
+		},
+		//倒计时计时器
+		timer: null
 	},
 	methods: {
 		done(formName) {
@@ -149,25 +159,37 @@ let register = new Vue({
 			});
 		},
 		sendCode() {
+			// 单独验证电话号字段
+			this.$refs["registerForm"].validateField("phone", (error) => {
+				// if(error){
+				// 	console.error(error);
+				// }
+			});
 			if (!this.sendCodeStatus.buttonDisabled) {
 				this.$http.get(API(`/code/sms?mobile=${this.registerForm.phone}`))
 					.then(
 						(res) => {
-							console.log(res);
+							if (res.ok && res.status === 200) {
+								console.log(res);
+							}
 						},
 						(res) => {
 							console.error(res);
 						}
 					);
-				this.sendCodeStatus.buttonDisabled = true;
-				this.sendCodeStatus.text = "重新发送";
-				let timer = setInterval(() => {
+
+				this.sendCodeStatus = {
+					buttonDisabled: true,
+					text: "重新发送",
+					time: 60
+				};
+				this.timer = setInterval(() => {
 					if (this.sendCodeStatus.time > 1) {
 						this.sendCodeStatus.time--;
 					} else {
-						clearInterval(timer);
-						timer = null;
-						this.sendCodeStatus.time = 60;
+						clearInterval(this.timer);
+						this.timer = null;
+						this.sendCodeStatus.time = 0;
 						this.sendCodeStatus.buttonDisabled = false;
 					}
 				}, 1000);

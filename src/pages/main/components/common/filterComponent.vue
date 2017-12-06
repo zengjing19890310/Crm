@@ -27,7 +27,7 @@
             </el-button>
             <el-dropdown trigger="click">
                 <span class="el-dropdown-link el-icon-more"
-                      style="background-color:rgba(199, 230, 249, 1);color:rgba(0, 153, 255, 1);padding:7px 15px;"></span>
+                      style="background-color:#303641;color:#fff;padding:7px 15px;border-radius:3px;"></span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item style="font-size: 12px;">
                         <i class="el-icon-delete" style="color:#FA5555"></i> 删除

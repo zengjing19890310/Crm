@@ -31,7 +31,8 @@
 </template>
 
 <script>
-    let getUserInformation = require('../common/userInformation');
+    let getUserInformation = require('../common/userInformation'),
+        util = require("../common/util");
     export default {
         data() {
             return {
@@ -57,15 +58,16 @@
                 })
             },
             logout() {
-                this.$message({
-                    type: "warning",
-                    message: "正在登出...",
-                    duration: 1500,
-                    onClose: function () {
-                        window.localStorage.removeItem("access_token");
-                        window.location.href = "../login";
-                    }
-                })
+                util.logout("normal");
+//                this.$message({
+//                    type: "warning",
+//                    message: "正在登出...",
+//                    duration: 1500,
+//                    onClose: function () {
+//                        window.localStorage.removeItem("access_token");
+//                        window.location.href = "../login";
+//                    }
+//                })
             }
         }
     }

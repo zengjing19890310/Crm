@@ -39,7 +39,6 @@
 </template>
 
 <script>
-    const URL = '/file/upload';
     export default {
         data() {
             return {

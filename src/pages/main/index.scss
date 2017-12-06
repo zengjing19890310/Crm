@@ -4,6 +4,7 @@ section.main {
   left: 0;
   right: 0;
   bottom: 0;
+  min-width: 920px;
   .menu {
     transition: width linear .15s;
     position: absolute;
@@ -46,7 +47,7 @@ section.main {
       }
       .copyright {
         position: absolute;
-        bottom: 0;
+        bottom: 10px;
         left: 0;
         right: 0;
         padding: 0 1rem;

@@ -32,12 +32,12 @@
                                     <el-input v-model="registerForm.code" class="forget-input" placeholder="请输入验证码"></el-input>
                                 </el-col>
                                 <el-col :span="14" style="text-align: right">
-                                    <el-button class="send-button" v-show="!sendCodeStatus.buttonDisabled" @click="sendCode">
+                                    <el-button class="send-button" v-show="!sendCodeStatus.buttonDisabled" @click="sendCode('registerForm')">
                                         {{sendCodeStatus.text}}
                                     </el-button>
                                     <el-button class="send-button" v-show="sendCodeStatus.buttonDisabled" :disabled="sendCodeStatus.buttonDisabled">
                                         {{sendCodeStatus.text}}
-                                        <span v-show="sendCodeStatus.buttonDisabled">({{sendCodeStatus.time}})</span>
+                                        <span v-show="sendCodeStatus.buttonDisabled&&sendCodeStatus.time">({{sendCodeStatus.time}})</span>
                                     </el-button>
                                 </el-col>
                             </el-row>

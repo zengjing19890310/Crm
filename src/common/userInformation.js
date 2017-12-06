@@ -1,3 +1,5 @@
+let util = require("../common/util");
+
 function getUserInformation(vm) {
 	if (!window["localStorage"]) {
 		window.Bus.$message({
@@ -12,7 +14,12 @@ function getUserInformation(vm) {
 		// console.log("传入token,获取用户信息", access_token);
 		vm.$http({
 			method: "get",
-			url: API("/sysuser")
+			url: API("/sysuser"),
+			options:{
+				headers:{
+					Authorization: `bearer ${access_token}`
+				}
+			}
 		}).then(
 			(res) => {
 				if (res.ok && res.status === 200) {
@@ -20,24 +27,18 @@ function getUserInformation(vm) {
 						let data = res.body;
 						if (data.code === 0 && data.msg === "成功") {
 							if (data.data) {
-							    // console.log(data.data);
 								vm.userInformation = data.data;
 							}
+						}else {
+							util.logout("access_token");
 						}
 					}
 				} else {
-					vm.$message({
-						type: "error",
-						message: "用户身份获取异常!"
-					});
+					util.logout("error");
 				}
 			},
 			(res) => {
-				// console.error(res);
-				vm.$message({
-					type: "error",
-					message: "用户身份获取异常!"
-				});
+				util.logout("error");
 			}
 		);
 	}

@@ -5,15 +5,23 @@ let checkPhone = (rule, value, callback) => {
 	let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
 	if (value === "") {
 		callback(new Error("请输入手机号!"));
+		forgetView.sendCodeStatus.buttonDisabled = true;
 	} else if (!reg.test(value)) {
 		callback(new Error("手机号格式错误!"));
+		forgetView.sendCodeStatus.buttonDisabled = true;
 	} else {
 		callback();
+		//如果当前没有倒计时在走,则把发送按钮变为可用
+		if (!forgetView.timer) {
+			forgetView.sendCodeStatus.buttonDisabled = false;
+		}
 	}
 };
 let validatePassword = (rule, value, callback) => {
 	if (value === "") {
 		callback(new Error("请输入密码!"));
+	} else if (value.length < 6) {
+		callback(new Error("密码至少6位!"));
 	} else {
 		if (forgetView.forgetForm.checkPassword !== "") {
 			forgetView.$refs.forgetForm.validateField("checkPassword");
@@ -66,9 +74,11 @@ let forgetView = new Vue({
 		},
 		sendCodeStatus: {
 			text: "发送验证码",
-			time: 60,
-			buttonDisabled: false
-		}
+			time: 0,
+			buttonDisabled: true
+		},
+		//倒计时计时器
+		timer: null
 	},
 	methods: {
 		done(formName) {
@@ -92,6 +102,20 @@ let forgetView = new Vue({
 											duration: 1500,
 											onClose: () => {
 												window.location.href = "../login";
+											}
+										});
+									} else {
+										this.$message({
+											type: "error",
+											message: data.msg,
+											duration: 1500,
+											onClose: () => {
+												// this.forgetForm = {
+												// 	phone: "",
+												// 	code: "",
+												// 	password: "",
+												// 	checkPassword: ""
+												// };
 											}
 										});
 									}
@@ -121,6 +145,12 @@ let forgetView = new Vue({
 			});
 		},
 		sendCode() {
+			// 单独验证电话号字段
+			this.$refs["forgetForm"].validateField("phone", (error) => {
+				// if(error){
+				// 	console.error(error);
+				// }
+			});
 			if (!this.sendCodeStatus.buttonDisabled) {
 				this.$http.get(API(`/code/sms?mobile=${this.forgetForm.phone}`))
 					.then(

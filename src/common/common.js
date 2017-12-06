@@ -22,6 +22,7 @@ if (!window["localStorage"]) {
 	});
 }
 
+//全局设置请求头,将access_token放入请求头
 let access_token = window.localStorage.getItem("access_token");
 if (access_token) {
 	Vue.http.options.headers = {

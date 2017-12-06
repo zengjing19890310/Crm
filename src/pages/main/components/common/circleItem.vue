@@ -5,9 +5,9 @@
             <transition name="el-fade-in">
                 <div class="modal" v-show="modal" @click.stop>
                     <!--这是模态框-->
-                    <i class="el-icon-upload icon-blue" @click="uploadImage(circleData.id)"></i>
-                    <i class="el-icon-edit-outline icon-blue"></i>
-                    <i class="el-icon-delete icon-red"></i>
+                    <i class="modal-upload" @click="uploadImage(circleData.id)"></i>
+                    <i class="modal-edit"></i>
+                    <i class="modal-delete"></i>
                 </div>
             </transition>
         </div>
@@ -43,7 +43,7 @@
         methods: {
             uploadImage(id) {
 //                console.log('上传图片',id)
-                this.$emit('uploadItemImage',id);
+                this.$emit('upload-item-image', id);
             },
             imageUrl(url) {
                 return url ? `http://${url}` : '';
@@ -60,8 +60,6 @@
 </script>
 
 <style lang="scss" scoped>
-    $blue: #409EFF;
-    $red: #FA5555;
     .circle-item {
         width: 305px;
         height: 281px;
@@ -74,9 +72,9 @@
         justify-content: flex-start;
         border-radius: 5px;
         overflow: hidden;
-        -webkit-box-shadow: 0 2px 5px 1px rgba(0,0,0,.1);
-        -moz-box-shadow: 0 2px 5px 1px rgba(0,0,0,.1);
-        box-shadow: 0 2px 5px 1px rgba(0,0,0,.1);
+        -webkit-box-shadow: 0 2px 5px 1px rgba(0, 0, 0, .1);
+        -moz-box-shadow: 0 2px 5px 1px rgba(0, 0, 0, .1);
+        box-shadow: 0 2px 5px 1px rgba(0, 0, 0, .1);
         .image-wrapper {
             height: 160px;
             position: relative;
@@ -92,7 +90,7 @@
                 right: 0;
                 top: 0;
                 bottom: 0;
-                background-color: rgba(255, 255, 255, .75);
+                background-color: rgba(3, 3, 3, .8);
                 display: flex;
                 flex-direction: row;
                 align-items: center;
@@ -100,12 +98,21 @@
                 font-size: 2rem;
                 > i {
                     cursor: pointer;
+                    display: inline-block;
+                    text-align: center;
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    border-radius: 5px;
                 }
-                .icon-blue {
-                    color: $blue;
+                .modal-upload {
+                    background: #fff url(../../../../common/images/modal-upload.png) no-repeat center;
                 }
-                .icon-red {
-                    color: $red;
+                .modal-edit {
+                    background: #fff url(../../../../common/images/modal-edit.png) no-repeat center;
+                }
+                .modal-delete {
+                    background: #fff url(../../../../common/images/modal-delete.png) no-repeat center;
                 }
             }
         }
@@ -116,7 +123,7 @@
             flex-direction: column;
             justify-content: space-around;
             align-items: stretch;
-            padding:0 1rem;
+            padding: 0 1rem;
             font-size: 0.8rem;
             h4 {
                 flex-grow: 2;
