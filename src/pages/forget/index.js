@@ -161,15 +161,18 @@ let forgetView = new Vue({
 							console.error(res);
 						}
 					);
-				this.sendCodeStatus.buttonDisabled = true;
-				this.sendCodeStatus.text = "重新发送";
-				let timer = setInterval(() => {
+				this.sendCodeStatus = {
+					buttonDisabled: true,
+					text: "重新发送",
+					time: 60
+				};
+				this.timer = setInterval(() => {
 					if (this.sendCodeStatus.time > 1) {
 						this.sendCodeStatus.time--;
 					} else {
-						clearInterval(timer);
-						timer = null;
-						this.sendCodeStatus.time = 60;
+						clearInterval(this.timer);
+						this.timer = null;
+						this.sendCodeStatus.time = 0;
 						this.sendCodeStatus.buttonDisabled = false;
 					}
 				}, 1000);

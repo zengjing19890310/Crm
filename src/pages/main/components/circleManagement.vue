@@ -6,23 +6,48 @@
             <div class="circle-container">
                 <circle-item v-for="circle in circleList"
                              :key="circle.id"
-                             :circle-data="circle" ref="circleItem" @upload-item-image="uploadItemImage"></circle-item>
+                             :circle-data="circle" ref="circleItem" @upload-circle="uploadCircle"></circle-item>
             </div>
         </section>
         <div @click.stop>
             <el-dialog
-                    title="点击上传图片"
                     :visible.sync="uploadItemImageVisible"
+                    :before-close="handleClose"
+                    :close-on-click-modal="false"
+                    :close-on-press-escape="false"
                     width="30%">
-                <el-upload
-                        :action="uploadUrl"
-                        :before-upload="beforeUpload"
-                        :on-success="handleSuccess"
-                        :show-file-list="false"
-                        style="text-align: center"
-                        accept="image/*">
-                    <el-button type="primary" style="min-width: 200px;">选择文件</el-button>
-                </el-upload>
+                <!--title	Dialog 标题区的内容-->
+                <div slot="title">
+                    <h4>编辑圈子信息</h4>
+                </div>
+                <div class="dialog-container">
+                    <div style="margin-bottom: 1rem;">
+                        <span>圈子名称</span>
+                        <el-input type="text" placeholder="请输入圈子名称" v-model="currentCircle.name"></el-input>
+                    </div>
+                    <div>
+                        <span>圈子图片</span>
+                        <el-upload
+                                ref="upload"
+                                :action="uploadUrl"
+
+                                :show-file-list="true"
+                                :multiple="false"
+                                :auto-upload="false"
+
+                                :on-success="handleSuccess"
+                                :on-change="handleChange"
+                                style="text-align: center"
+                                accept="image/*">
+                            <el-button slot="trigger" style="min-width: 200px;" type="primary">更改圈子图片</el-button>
+                        </el-upload>
+                    </div>
+                </div>
+                <!--footer	Dialog 按钮操作区的内容-->
+                <div slot="footer">
+                    <el-button type="primary" @click="submitUpdate" :loading="false">提交</el-button>
+                    <el-button @click="handleClose">取消</el-button>
+                </div>
             </el-dialog>
         </div>
     </div>
@@ -44,6 +69,11 @@
                 uploadItemImageVisible: false,
                 uploadUrl: API('/file/upload'),
                 circleId: null,
+                currentCircle: {
+                    id: null,
+                    name: null,
+                    url: null
+                },
             }
         },
         mounted() {
@@ -51,7 +81,10 @@
         },
         methods: {
             getData() {
-                this.$http.get(API(`/circle?page=${this.page}&size=${this.size}`)).then(
+                this.$http({
+                    url: API(`/circle?page=${this.page}&size=${this.size}`),
+                    method: 'get'
+                }).then(
                     (res) => {
                         let response = res.data;
                         if (response.code === 0 && response.msg === "成功") {
@@ -66,12 +99,30 @@
                     }
                 );
             },
-            beforeUpload(file) {
-//                console.log('上传前', file);
+            //处理模态框处理
+            handleClose() {
+                this.uploadItemImageVisible = false;
+                this.currentCircle = {
+                    id: null,
+                    name: null,
+                    url: null
+                }
             },
+            //点击上传按钮时,清空队列
+            submitUpdate() {
+                console.log('提交修改');
+                //获取上传的文件
+                console.log(this.$refs.upload.uploadFiles);
+            },
+            handleChange(file, fileList) {
+                if (fileList.length === 2) {
+                    fileList.shift();
+                }
+            },
+
             handleSuccess(res, file) {
                 console.log('上传成功', res, file);
-                this.uploadItemImageVisible = false;
+//                this.uploadItemImageVisible = false;
                 if (res.code === 0 && res.msg === '成功') {
                     //遍历圈子列表,获取更多的
                     if (this.circleList && this.circleList.length !== 0) {
@@ -115,10 +166,11 @@
                     }
                 }
             },
-            uploadItemImage(id) {
-//                console.log('上传圈子图片', id);
+            uploadCircle(id, circle) {
+                console.log('选中圈子', id, circle);
                 this.uploadItemImageVisible = true;
                 this.circleId = id;
+                this.currentCircle = circle;
             },
             newCircle() {
                 let obj = {
@@ -187,9 +239,5 @@
             align-content: flex-start;
             align-items: center;
         }
-    }
-
-    .el-upload.el-upload--text {
-        width: 100%;
     }
 </style>

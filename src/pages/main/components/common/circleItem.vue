@@ -5,8 +5,8 @@
             <transition name="el-fade-in">
                 <div class="modal" v-show="modal" @click.stop>
                     <!--这是模态框-->
-                    <i class="modal-upload" @click="uploadImage(circleData.id)"></i>
-                    <i class="modal-edit"></i>
+                    <!--<i class="modal-upload"></i>-->
+                    <i class="modal-edit" @click="uploadCircle(circleData.id)"></i>
                     <i class="modal-delete"></i>
                 </div>
             </transition>
@@ -41,9 +41,8 @@
             });
         },
         methods: {
-            uploadImage(id) {
-//                console.log('上传图片',id)
-                this.$emit('upload-item-image', id);
+            uploadCircle(id) {
+                this.$emit('upload-circle', id,this.circleData);
             },
             imageUrl(url) {
                 return url ? `http://${url}` : '';
@@ -61,9 +60,9 @@
 
 <style lang="scss" scoped>
     .circle-item {
-        width: 305px;
-        height: 281px;
-        margin: 0.5rem;
+        width: 30%;
+        margin: 1rem;
+        height: 280px;
         flex-grow: 0;
         flex-shrink: 0;
         background-color: #fff;

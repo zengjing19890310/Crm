@@ -13,7 +13,10 @@ function checkToken() {
 
 	if (access_token) {
 		//对token进行效验?
-		return true;
+		//全局设置请求头,将access_token放入请求头
+		Vue.http.options.headers = {
+			Authorization: `bearer ${access_token}`
+		};
 	} else {
 		util.logout("access_token");
 	}

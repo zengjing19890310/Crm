@@ -65,7 +65,7 @@
             "data-count": Number
         },
         mounted() {
-            console.log(this.dataCount);
+//            console.log(this.dataCount);
         }
     }
 </script>
