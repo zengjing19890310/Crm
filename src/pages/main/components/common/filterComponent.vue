@@ -10,11 +10,13 @@
                 <el-input size="small" placeholder="搜索" v-model="keyword" class="search-input">
                     <span slot="suffix" class="el-icon-search filter-input-icon"></span>
                 </el-input>
-                <el-select v-model="department" placeholder="请选择部门" size="small" class="department-select">
+                <el-select v-model="department" placeholder="请选择部门" size="small" class="department-select"
+                           v-show="moduleName!=='circleManagement'">
                     <el-option v-for="(department,index) in departments" :key="index" :label="department"
                                :value="department"></el-option>
                 </el-select>
-                <el-select v-model="role" placeholder="请选择角色" size="small" class="role-select">
+                <el-select v-model="role" placeholder="请选择角色" size="small" class="role-select"
+                           v-show="moduleName!=='circleManagement'">
                     <el-option v-for="(role,index) in roles" :key="index" :label="role"
                                :value="role"></el-option>
                 </el-select>
@@ -22,7 +24,7 @@
         </div>
         <div class="handle-wrapper">
             <!--icon="el-icon-circle-plus-outline"-->
-            <el-button type="primary" size="mini" class="add-button">
+            <el-button type="primary" size="mini" class="add-button" @click="addItem">
                 新添
             </el-button>
             <el-dropdown trigger="click">
@@ -45,7 +47,6 @@
     export default {
         data() {
             return {
-//                dataTotal: 0,
                 department: '',
                 departments: [
                     'K团',
@@ -59,13 +60,23 @@
                     '经理',
                     '销售人员'
                 ],
+                moduleName: null
             }
         },
         props: {
-            "data-count": Number
+            "data-count": Number,
+            "filter-name": String
+        },
+        created() {
+            this.moduleName = this.filterName;
         },
         mounted() {
-//            console.log(this.dataCount);
+
+        },
+        methods: {
+            addItem (){
+                this.$emit('add-item',this.moduleName);
+            }
         }
     }
 </script>

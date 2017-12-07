@@ -1,25 +1,22 @@
 let util = require("../common/util");
 
 function getUserInformation(vm) {
-	if (!window["localStorage"]) {
+	if (!window["sessionStorage"]) {
 		window.Bus.$message({
 			type: "error",
 			message: "当前浏览器不能使用本地存储,请更换浏览器"
 		});
 		return false;
 	}
-	let access_token = window.localStorage.getItem("access_token"),
-		userInformation = null;
+	let access_token = window.sessionStorage.getItem("access_token");
 	if (access_token) {
-		// console.log("传入token,获取用户信息", access_token);
 		vm.$http({
-			method: "get",
 			url: API("/sysuser"),
-			options:{
-				headers:{
-					Authorization: `bearer ${access_token}`
-				}
-			}
+			method: "get",
+			//请求时设置请求头
+			// headers: {
+			// 	Authorization:`bearer ${access_token}`
+			// },
 		}).then(
 			(res) => {
 				if (res.ok && res.status === 200) {
@@ -29,7 +26,7 @@ function getUserInformation(vm) {
 							if (data.data) {
 								vm.userInformation = data.data;
 							}
-						}else {
+						} else {
 							util.logout("access_token");
 						}
 					}

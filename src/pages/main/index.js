@@ -1,6 +1,8 @@
 require("../../common/common");
 require("./index.scss");
 
+
+
 import commonHeader from "../../components/header.vue";
 import commonMenu from "../../components/menu.vue";
 import commonNav from "../../components/nav.vue";
@@ -162,6 +164,7 @@ const router = new VueRouter({
 });
 
 let checkToken = require("../../common/checkToken").checkToken;
+checkToken();
 
 //注册路由守卫
 router.afterEach((to, from) => {
@@ -169,10 +172,12 @@ router.afterEach((to, from) => {
 		if (pathInfo[to.path]) {
 			mainView.currentNav = pathInfo[to.path];
 		}
-		//检查access_token
+		//跳转路由时,检查access_token
 		checkToken();
 	}, 0);
 });
+
+let access_token = window.sessionStorage.getItem("access_token");
 
 let mainView = new Vue({
 	el: "#app",

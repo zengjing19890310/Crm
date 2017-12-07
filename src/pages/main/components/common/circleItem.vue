@@ -7,19 +7,19 @@
                     <!--这是模态框-->
                     <!--<i class="modal-upload"></i>-->
                     <i class="modal-edit" @click="uploadCircle(circleData.id)"></i>
-                    <i class="modal-delete"></i>
+                    <i class="modal-delete" @click="deleteCircle(circleData.id)"></i>
                 </div>
             </transition>
         </div>
         <div class="text-wrapper">
             <h4>
-                {{circleData.name}}
+                {{circleData.name || "-"}}
             </h4>
             <p>
-                创建者：{{circleData.createUserId}}
+                创建者：{{circleData.createUserId || "-"}}
             </p>
             <p class="time">
-                创建时间：{{circleData.createTime}}
+                创建时间：{{circleData.createTime || "-"}}
             </p>
         </div>
     </div>
@@ -33,7 +33,8 @@
             }
         },
         props: {
-            circleData: Object
+            circleData: Object,
+            index: Number
         },
         mounted() {
             window.Bus.$on('clear-modal', () => {
@@ -42,7 +43,10 @@
         },
         methods: {
             uploadCircle(id) {
-                this.$emit('upload-circle', id,this.circleData);
+                this.$emit('edit-circle', id, this.circleData);
+            },
+            deleteCircle(id) {
+                this.$emit('delete-circle', id, this.index);
             },
             imageUrl(url) {
                 return url ? `http://${url}` : '';

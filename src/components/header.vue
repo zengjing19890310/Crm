@@ -46,7 +46,15 @@
         },
         mounted() {
             //获取用户信息
+//            console.log("获取用户信息",this);
             getUserInformation.getUserInformation(this);
+        },
+        watch: {
+            userInformation(userInformation) {
+                window.Bus.$on('getUserInformation',(vm) =>{
+                    vm.userInformation = userInformation;
+                });
+            }
         },
         methods: {
             helpCenter() {

@@ -2,21 +2,21 @@
 let util = require("../common/util");
 
 function checkToken() {
-	if (!window["localStorage"]) {
+	if (!window["sessionStorage"]) {
 		window.Bus.$message({
 			type: "error",
 			message: "当前浏览器不能使用本地存储,请更换浏览器"
 		});
 		return false;
 	}
-	let access_token = window.localStorage.getItem("access_token");
+	let access_token = window.sessionStorage.getItem("access_token");
 
 	if (access_token) {
 		//对token进行效验?
-		//全局设置请求头,将access_token放入请求头
-		Vue.http.options.headers = {
-			Authorization: `bearer ${access_token}`
-		};
+		//如果有token,并且token没有被设置在全局设置请求头,将access_token放入请求头
+		if(!Vue.http.headers.common["Authorization"]){
+			Vue.http.headers.common["Authorization"] = `bearer ${access_token}`;
+		}
 	} else {
 		util.logout("access_token");
 	}

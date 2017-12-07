@@ -63,7 +63,6 @@ let loginView = new Vue({
 						}
 					}).then(
 						(res) => {
-							console.log(res);
 							//请求成功
 							if (res.ok && res.status === 200) {
 								let data = res.body;
@@ -76,7 +75,7 @@ let loginView = new Vue({
 									//获取token并存储在本地
 									let access_token = data.access_token;
 									if (access_token) {
-										window.localStorage.setItem("access_token", access_token);
+										window.sessionStorage.setItem("access_token", access_token);
 										this.$message({
 											type: "success",
 											message: "登陆成功,即将自动跳转...",
@@ -109,7 +108,7 @@ let loginView = new Vue({
 	}
 });
 
-if (!window["localStorage"]) {
+if (!window["sessionStorage"]) {
 	loginView.$message({
 		type: "error",
 		message: "当前浏览器不能使用本地存储,请更换浏览器"

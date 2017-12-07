@@ -15,7 +15,7 @@ Vue.use(VueQuillEditor);
 //全局变量，用于保存数据总线
 window.Bus = new Vue();
 
-if (!window["localStorage"]) {
+if (!window["sessionStorage"]) {
 	window.Bus.$message({
 		type: "error",
 		message: "当前浏览器不能使用本地存储,请更换浏览器"
