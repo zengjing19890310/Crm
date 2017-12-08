@@ -16,7 +16,7 @@
                 {{circleData.name || "-"}}
             </h4>
             <p>
-                创建者：{{circleData.createUserId || "-"}}
+                创建者：{{circleData.nickname || "-"}}
             </p>
             <p class="time">
                 创建时间：{{circleData.createTime || "-"}}

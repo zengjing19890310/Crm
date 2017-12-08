@@ -122,7 +122,7 @@ let register = new Vue({
 																//获取token并存储在本地
 																let access_token = data.access_token;
 																if (access_token) {
-																	window.localStorage.setItem("access_token", access_token);
+																	window.sessionStorage.setItem("access_token", access_token);
 																	window.location.href = "../main";
 																}
 															}

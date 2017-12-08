@@ -1,17 +1,19 @@
 <template>
     <!--圈子管理-->
     <div class="outer-container">
-        <section class="main">
+        <section class="main" v-loading="getDataLock" element-loading-text="加载中...">
             <filter-component :data-count="dataTotal" filter-name="circleManagement"
                               @add-item="addItem"></filter-component>
-            <div class="circle-container">
-                <circle-item v-for="(circle,index) in circleList"
-                             :index="index"
-                             :key="circle.id"
-                             :circle-data.once="circle"
-                             ref="circleItem"
-                             @edit-circle="editCircle"
-                             @delete-circle="deleteCircle"></circle-item>
+            <div class="circle-container" id="circle-container">
+                <div class="circle-wrapper">
+                    <circle-item v-for="(circle,index) in circleList"
+                                 :index="index"
+                                 :key="circle.id"
+                                 :circle-data.once="circle"
+                                 ref="circleItem"
+                                 @edit-circle="editCircle"
+                                 @delete-circle="deleteCircle"></circle-item>
+                </div>
             </div>
         </section>
         <!--编辑圈子弹框-->
@@ -127,13 +129,16 @@
                     createUserId: "",
                     introduce: "",
                     name: "",
-                    url: ""
+                    url: "",
+                    sort1: 0
                 },
                 //按钮loading控制
                 submitButtonLoading: false,
 
                 //用户信息获取
-                userInformation: {}
+                userInformation: {},
+
+                getDataLock: false
             }
         },
         computed: {
@@ -143,20 +148,79 @@
         },
         mounted() {
             this.getData();
+            //获取视窗容器
+            let circleContainer = document.getElementById("circle-container"),
+                //获取内部包裹容器高度
+                circleWrapper = document.getElementsByClassName("circle-wrapper")[0];
+
+            let handler = (e) => {
+                //如果鼠标向上滚动,不应触发再次加载更多数据
+                if (e.delayY < 0) {
+                    return;
+                }
+                if (this.getDataLock) {
+                    this.$message({
+                        type: "warning",
+                        message: "请耐心等待当前数据加载完成..."
+                    });
+                    return;
+                }
+                if (circleWrapper.clientHeight <= circleContainer.clientHeight + circleContainer.scrollTop) {
+                    this.getData("more");
+                }
+            };
+
+            //首次加载数据后，内表高度如果小于视窗高度，则不出现滚动条
+            /*IE注册事件*/
+            if (circleContainer.attachEvent) {
+                circleContainer.attachEvent('onmousewheel', handler);
+            }
+            /*Firefox注册事件*/
+            if (circleContainer.addEventListener) {
+                circleContainer.addEventListener('DOMMouseScroll', handler, false);
+                circleContainer.addEventListener('scroll', handler);
+            }
         },
         methods: {
             //获取圈子列表
-            getData() {
+            getData(type) {
+                this.getDataLock = true;
+                //如果当前圈子列表不为空
+                //size应该是取所有的长度
+                let size = this.size,
+                    page = this.page;
+                if (type === "newCircle") {
+                    //插入1条新圈子数据,位置处于顶置
+                    page = 1;
+                    size = this.circleList.length + 1;
+                } else if (type === "more") {
+                    //获取更多条数据
+                    this.page++;
+                    page = this.page;
+                }
                 this.$http({
-                    url: API(`/circle?page=${this.page}&size=${this.size}`),
+                    url: API(`/circle?page=${page}&size=${size}`),
                     method: 'get'
                 }).then(
                     (res) => {
                         let response = res.data;
                         if (response.code === 0 && response.msg === "成功") {
                             if (response.data) {
-                                this.circleList = response.data.list;
-                                this.dataTotal = this.circleList.length;
+                                let data = response.data,
+                                    list = data.list;
+                                if (!type || type === "newCircle") {
+                                    this.circleList = list;
+                                } else if (type === "more") {
+                                    if (this.page <= data.lastPage) {
+                                        this.circleList = this.circleList.concat(list);
+                                    } else {
+                                        this.$message({
+                                            type: "warning",
+                                            message: "没有更多数据了"
+                                        });
+                                        this.page--;
+                                    }
+                                }
                             }
                         } else {
                             this.$message({
@@ -164,13 +228,14 @@
                                 message: response.msg
                             })
                         }
+                        this.getDataLock = false;
                     },
                     (res) => {
-//                        let response = res.data;
                         this.$message({
                             type: 'error',
                             message: '请求异常!'
-                        })
+                        });
+                        this.getDataLock = false;
                     }
                 );
             },
@@ -256,12 +321,17 @@
                                 } else {
                                     this.$message({
                                         type: 'error',
-                                        message: `更新圈子失败:${currentCircle.id}`
+                                        message: `更新圈子失败:${data.msg}`
                                     });
                                 }
                             }
-                            this.handleEditClose();
+                        } else {
+                            this.$message({
+                                type: "error",
+                                message: "更新圈子失败"
+                            })
                         }
+                        this.handleEditClose();
                     },
                     (res) => {
 //                        console.error(res);
@@ -377,6 +447,7 @@
             //关闭添加圈子模态框
             handleNewClose() {
                 this.newModalVisible = false;
+                this.submitButtonLoading = false;
                 this.newCircle = {
                     createUserId: "",
                     introduce: "",
@@ -406,8 +477,11 @@
                 //向后台提交添加请求
                 //通过数据总线向header组件获取用户信息
                 window.Bus.$emit('getUserInformation', this);
-//                console.log(this.userInformation);
                 newCircle.createUserId = this.userInformation.id;
+                //获取把新增圈子顶置的sort1字段值,新圈子sort1字段为新值
+                if (this.circleList && this.circleList.length !== 0) {
+                    newCircle.sort1 = this.circleList[0].sort1;
+                }
                 this.$http({
                     url: API("/circle"),
                     method: "post",
@@ -422,7 +496,7 @@
                                         type: "success",
                                         message: "添加圈子成功"
                                     });
-                                    this.getData();
+                                    this.getData("newCircle");
                                 } else {
                                     this.$message({
                                         type: "error",
@@ -432,7 +506,7 @@
                             } else {
                                 this.$message({
                                     type: "error",
-                                    message: "返回内容错误"
+                                    message: "请求错误,添加圈子失败"
                                 })
                             }
                         } else {
@@ -441,12 +515,14 @@
                                 message: "添加圈子失败"
                             })
                         }
+                        this.handleNewClose();
                     },
                     (res) => {
                         this.$message({
                             type: "error",
                             message: "添加圈子失败"
-                        })
+                        });
+                        this.handleNewClose();
                     }
                 )
             }
@@ -473,13 +549,14 @@
         .circle-container {
             flex-grow: 1;
             overflow: auto;
-            /*border: 1px solid blue;*/
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            align-content: flex-start;
-            align-items: center;
+            .circle-wrapper {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                align-content: flex-start;
+                align-items: center;
+            }
         }
     }
 </style>
