@@ -2,7 +2,6 @@ require("../../common/common");
 require("./index.scss");
 
 
-
 import commonHeader from "../../components/header.vue";
 import commonMenu from "../../components/menu.vue";
 import commonNav from "../../components/nav.vue";
@@ -15,6 +14,7 @@ import permissionManagement from "./components/permissionManagement.vue";
 import customerShare from "./components/customerShare.vue";
 import publishArticle from "./components/publishArticle.vue";
 import circleManangement from "./components/circleManagement.vue";
+import circleDetail from "./components/circleDetail.vue";
 
 import testIM from "./components/testIM.vue";
 
@@ -22,39 +22,53 @@ import testIM from "./components/testIM.vue";
 const routes = [
 	{
 		path: "/circleManagement",
+		name: "circleManagement",
 		component: circleManangement,
+		children: []
+	},
+	{
+		path: "/circleDetail/:id",
+		name: "circleDetail",
+		component: circleDetail
 	},
 	{
 		path: "/publishArticle",
+		name: "publishArticle",
 		component: publishArticle,
 	},
 	{
 		path: "/customerShare",
+		name: "customerShare",
 		component: customerShare,
 		children: []
 	},
 	{
 		path: "/customerInformation",
+		name: "customerInformation",
 		component: customerInformation,
 		children: []
 	},
 	{
 		path: "/homepage",
+		name: "homepage",
 		component: homepage,
 		children: []
 	},
 	{
 		path: "/userManagement",
+		name: "userManagement",
 		component: userManagement,
 		children: []
 	},
 	{
 		path: "/roleManagement",
+		name: "roleManagement",
 		component: roleManagement,
 		children: []
 	},
 	{
 		path: "/permissionManagement",
+		name: "permissionManagement",
 		component: permissionManagement,
 		children: []
 	},
@@ -67,13 +81,13 @@ const routes = [
 ];
 
 let pathInfo = {
-	"/homepage": [
+	"homepage": [
 		{
 			path: "/",
 			name: "首页"
 		}
 	],
-	"/customerInformation": [
+	"customerInformation": [
 		{
 			path: "/",
 			name: "客户管理"
@@ -83,7 +97,7 @@ let pathInfo = {
 			name: "客户信息"
 		}
 	],
-	"/customerShare": [
+	"customerShare": [
 		{
 			path: "/",
 			name: "客户管理"
@@ -93,7 +107,7 @@ let pathInfo = {
 			name: "分享关系"
 		}
 	],
-	"/publishArticle": [
+	"publishArticle": [
 		{
 			path: "/",
 			name: "内容管理"
@@ -107,7 +121,7 @@ let pathInfo = {
 			name: "发表文章"
 		}
 	],
-	"/circleManagement": [
+	"circleManagement": [
 		{
 			path: "/",
 			name: "内容管理"
@@ -117,7 +131,21 @@ let pathInfo = {
 			name: "圈子管理"
 		}
 	],
-	"/userManagement": [
+	"circleDetail": [
+		{
+			path: "/",
+			name: "内容管理"
+		},
+		{
+			path: "/circleManagement",
+			name: "圈子管理"
+		},
+		{
+			path: "",
+			name: "圈子详情"
+		}
+	],
+	"userManagement": [
 		{
 			path: "/",
 			name: "系统管理"
@@ -127,7 +155,7 @@ let pathInfo = {
 			name: "用户管理"
 		}
 	],
-	"/roleManagement": [
+	"roleManagement": [
 		{
 			path: "/",
 			name: "系统管理"
@@ -137,7 +165,7 @@ let pathInfo = {
 			name: "角色管理"
 		}
 	],
-	"/permissionManagement": [
+	"permissionManagement": [
 		{
 			path: "/",
 			name: "系统管理"
@@ -147,7 +175,7 @@ let pathInfo = {
 			name: "权限资源"
 		}
 	],
-	"/testIM": [
+	"testIM": [
 		{
 			path: "/",
 			name: "首页"
@@ -169,8 +197,9 @@ checkToken();
 //注册路由守卫
 router.afterEach((to, from) => {
 	setTimeout(function () {
-		if (pathInfo[to.path]) {
-			mainView.currentNav = pathInfo[to.path];
+	    let path = pathInfo[to.name];
+		if (path) {
+			mainView.currentNav = path;
 		}
 		//跳转路由时,检查access_token
 		checkToken();

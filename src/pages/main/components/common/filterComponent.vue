@@ -7,8 +7,9 @@
         </div>
         <div class="filter-wrapper">
             <div class="condition-wrapper">
-                <el-input size="small" placeholder="搜索" v-model="keyword" class="search-input">
-                    <span slot="suffix" class="el-icon-search filter-input-icon"></span>
+                <el-input size="small" placeholder="搜索" v-model="keyword" class="search-input"
+                          @keyup.enter.native="searchKeyword">
+                    <span slot="suffix" class="el-icon-search filter-input-icon" @click="searchKeyword"></span>
                 </el-input>
                 <el-select v-model="department" placeholder="请选择部门" size="small" class="department-select"
                            v-show="moduleName!=='circleManagement'">
@@ -27,7 +28,7 @@
             <el-button type="primary" size="mini" class="add-button" @click="addItem">
                 新添
             </el-button>
-            <el-dropdown trigger="click">
+            <el-dropdown trigger="click" v-show="moduleName!=='circleManagement'">
                 <span class="el-dropdown-link el-icon-more"
                       style="background-color:#303641;color:#fff;padding:7px 15px;border-radius:3px;"></span>
                 <el-dropdown-menu slot="dropdown">
@@ -60,7 +61,8 @@
                     '经理',
                     '销售人员'
                 ],
-                moduleName: null
+                moduleName: null,
+                keyword: null
             }
         },
         props: {
@@ -74,8 +76,18 @@
 
         },
         methods: {
-            addItem (){
-                this.$emit('add-item',this.moduleName);
+            addItem() {
+                this.$emit('add-item', this.moduleName);
+            },
+            searchKeyword() {
+//                if (!this.keyword.trim()) {
+//                    this.$message({
+//                        type: "error",
+//                        message: "搜索关键字不能为空"
+//                    });
+//                    this.keyword = "";
+//                }
+                this.$emit('search-keyword', this.keyword, this.moduleName);
             }
         }
     }
@@ -117,6 +129,7 @@
                         font-size: 1.4rem;
                         position: relative;
                         top: 0.3rem;
+                        cursor: pointer;
                     }
                 }
                 .department-select {

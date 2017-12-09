@@ -43,7 +43,7 @@ module.exports = {
                 API: function (api) {
                     return 'http://192.168.0.109:8888' + api;
                 },
-                APIMA: function(api) {
+                APIDEV: function(api) {
                     return 'http://mengcan.vicp.io' + api;
                 }
             }),

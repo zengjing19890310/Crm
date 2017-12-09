@@ -12,7 +12,7 @@
             </transition>
         </div>
         <div class="text-wrapper">
-            <h4>
+            <h4 @click="goCircleDetail(circleData.id)">
                 {{circleData.name || "-"}}
             </h4>
             <p>
@@ -57,6 +57,9 @@
             },
             hideModal() {
                 console.log('隐藏模态框');
+            },
+            goCircleDetail(id) {
+                this.$emit('circle-detail',id);
             }
         }
     }
@@ -133,6 +136,10 @@
                 display: flex;
                 flex-direction: row;
                 align-items: center;
+                cursor: pointer;
+                &:hover {
+                    color:#303641;
+                }
             }
             p {
                 flex-grow: 1;

@@ -41,13 +41,15 @@ module.exports = {
 			message: message,
 			duration: 1500,
 			onClose: function () {
-				window.sessionStorage.removeItem("access_token");
-				window.location.href = "../login";
+				// window.sessionStorage.removeItem("access_token");
+				// window.location.href = "../login";
 				//可能某些情况不需要跳转到登录,需要进行特殊处理
 				// if (statusCode !== 9 && statusCode !== 2) {
 				// 	window.location.href = "../login";
 				// }
 			}
 		});
+		window.sessionStorage.removeItem("access_token");
+		window.location.href = "../login";
 	}
 };

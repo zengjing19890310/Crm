@@ -3,7 +3,7 @@
     <div class="outer-container">
         <section class="main" v-loading="getDataLock" element-loading-text="加载中...">
             <filter-component :data-count="dataTotal" filter-name="circleManagement"
-                              @add-item="addItem"></filter-component>
+                              @add-item="addItem" @search-keyword="searchKeyword"></filter-component>
             <div class="circle-container" id="circle-container">
                 <div class="circle-wrapper">
                     <circle-item v-for="(circle,index) in circleList"
@@ -12,7 +12,9 @@
                                  :circle-data.once="circle"
                                  ref="circleItem"
                                  @edit-circle="editCircle"
-                                 @delete-circle="deleteCircle"></circle-item>
+                                 @delete-circle="deleteCircle"
+                                 @circle-detail="goCircleDetail"></circle-item>
+
                 </div>
             </div>
         </section>
@@ -138,7 +140,9 @@
                 //用户信息获取
                 userInformation: {},
 
-                getDataLock: false
+                getDataLock: false,
+                //搜索关键字
+                keyword:""
             }
         },
         computed: {
@@ -182,6 +186,21 @@
             }
         },
         methods: {
+            //关键字搜索
+            searchKeyword(keyword, moduleName) {
+//                console.log("关键字搜索", keyword, moduleName);
+                this.keyword = keyword;
+                //翻回第一页
+                this.page = 1;
+                this.getData();
+            },
+            //跳转圈子详情页面
+            goCircleDetail(id) {
+                console.log(`跳转到圈子详情${id}`);
+                this.$router.push({
+                    path: `/circleDetail/${id}`
+                });
+            },
             //获取圈子列表
             getData(type) {
                 this.getDataLock = true;
@@ -189,6 +208,7 @@
                 //size应该是取所有的长度
                 let size = this.size,
                     page = this.page;
+
                 if (type === "newCircle") {
                     //插入1条新圈子数据,位置处于顶置
                     page = 1;
@@ -198,8 +218,15 @@
                     this.page++;
                     page = this.page;
                 }
+
+                let url = API(`/circle?page=${page}&size=${size}`);
+
+                //如果有关键字,获取更多页时
+                if (this.keyword.trim()) {
+                    url = API(`/circle/get/${this.keyword}?page=${page}&size=${size}`);
+                }
                 this.$http({
-                    url: API(`/circle?page=${page}&size=${size}`),
+                    url: url,
                     method: 'get'
                 }).then(
                     (res) => {
@@ -253,11 +280,12 @@
                 window.Bus.$emit("clear-modal");
             },
             submitEdit() {
-                if (!this.currentCircle.name) {
+                if (!this.currentCircle.name.trim()) {
                     this.$message({
                         type: "error",
                         message: "圈子名称不能为空"
                     });
+                    this.currentCircle.name = null;
                     return;
                 }
                 this.submitButtonLoading = true;
@@ -310,7 +338,7 @@
                                 if (data.code === 0 && data.msg === "成功") {
                                     this.$message({
                                         type: 'success',
-                                        message: `成功更新圈子:${currentCircle.id}`
+                                        message: `更新圈子成功`
                                     });
                                     //前端更圈子数据
                                     this.circleList.forEach((circle, index) => {
@@ -335,7 +363,7 @@
                     },
                     (res) => {
 //                        console.error(res);
-                        let message = currentCircle.id;
+                        let message = "";
                         if (res.error) {
                             switch (res.error) {
                                 case 'invalid_token':
@@ -345,7 +373,7 @@
                         }
                         this.$message({
                             type: 'error',
-                            message: `更新圈子失败:${message}`,
+                            message: `更新圈子失败${message}`,
                             onClose: () => {
 
                             }
@@ -361,7 +389,7 @@
             },
             deleteCircle(id, index) {
                 if (id) {
-                    this.$confirm(`确定删除圈子${id}?`, "删除圈子", {
+                    this.$confirm(`确定删除圈子?`, "删除圈子", {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
@@ -377,11 +405,11 @@
                                         if (data.code === 0 && data.msg === "成功") {
                                             this.$message({
                                                 type: "success",
-                                                message: `成功删除圈子:${id}`
+                                                message: `删除成功圈子`
                                             });
                                             this.circleList.splice(index, 1);
                                         } else {
-                                            let message = `删除圈子:${id}失败`;
+                                            let message = `删除圈子失败`;
                                             if (res.body) {
                                                 if (res.body.msg) {
                                                     message = res.body.msg;
@@ -395,7 +423,7 @@
                                     }
                                 },
                                 (res) => {
-                                    let message = `删除圈子:${id}失败`;
+                                    let message = `删除圈子失败`;
                                     if (res.body) {
                                         if (res.body.msg) {
                                             message = res.body.msg;
@@ -425,11 +453,12 @@
                 this.newModalVisible = true;
             },
             submitNew() {
-                if (!this.newCircle.name) {
+                if (!this.newCircle.name.trim()) {
                     this.$message({
                         type: "error",
                         message: "圈子名称不能为空"
                     });
+                    this.newCircle.name = null;
                     return;
                 }
                 this.submitButtonLoading = true;
