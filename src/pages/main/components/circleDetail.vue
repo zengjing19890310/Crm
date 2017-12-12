@@ -41,11 +41,11 @@
                 circleId: null,
                 getDataLock: false,
                 page: 1,
-                size: 10,
+                size: 7,
                 circleData: {},
                 postsList: [],
                 currentPost: {},
-                keyword:""
+                keyword: ""
             }
         },
         computed: {
@@ -64,6 +64,40 @@
         created() {
 
         },
+        mounted() {
+            //获取视窗容器
+            let postContainer = document.getElementById("post-container"),
+                //获取内部包裹容器高度
+                postWrapper = document.getElementsByClassName("post-wrapper")[0];
+
+            let handler = (e) => {
+                //如果鼠标向上滚动,不应触发再次加载更多数据
+                if (e.delayY < 0) {
+                    return;
+                }
+                if (this.getDataLock) {
+                    this.$message({
+                        type: "warning",
+                        message: "请耐心等待当前数据加载完成..."
+                    });
+                    return;
+                }
+                if (postWrapper.clientHeight <= postContainer.clientHeight + postContainer.scrollTop) {
+                    this.fetchPosts("more");
+                }
+            };
+
+            //首次加载数据后，内表高度如果小于视窗高度，则不出现滚动条
+            /*IE注册事件*/
+            if (postContainer.attachEvent) {
+                postContainer.attachEvent('onmousewheel', handler);
+            }
+            /*Firefox注册事件*/
+            if (postContainer.addEventListener) {
+                postContainer.addEventListener('DOMMouseScroll', handler, false);
+                postContainer.addEventListener('scroll', handler);
+            }
+        },
         methods: {
             editPost(id, post) {
 //                console.log("编辑帖子", id, post);
@@ -76,7 +110,6 @@
                 });
             },
             deletePost(id, index) {
-                console.log("删除帖子", id, index);
                 if (id) {
                     this.$confirm(`确定删除圈子?`, "删除圈子", {
                         confirmButtonText: '确定',
@@ -199,14 +232,34 @@
                             if (response.data) {
                                 let data = response.data,
                                     list = data.list;
-                                this.postsList = list;
+                                if (!type || type === "newPost") {
+                                    this.postsList = list;
+                                } else if (type === "more") {
+                                    if (this.page <= data.lastPage) {
+                                        this.postsList = this.postsList.concat(list);
+                                    } else {
+                                        this.$message({
+                                            type: "warning",
+                                            message: "没有更多数据了"
+                                        });
+                                        this.page--;
+                                    }
+                                }
                             }
+                        } else {
+                            this.$message({
+                                type: 'error',
+                                message: response.msg
+                            })
                         }
                         this.getDataLock = false;
                     },
                     (res) => {
+                        this.$message({
+                            type: 'error',
+                            message: '请求异常!'
+                        });
                         this.getDataLock = false;
-                        console.error(res);
                     }
                 )
             },
@@ -236,17 +289,19 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            position: relative;
             .post-container {
                 flex-grow: 1;
                 overflow: auto;
                 margin-top: 40px;
-                display: flex;
+                /*display: flex;*/
                 .post-wrapper {
-                    flex-grow: 1;
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
                     justify-content: flex-start;
+                    align-content: flex-start;
+                    align-items: center;
                 }
             }
             .top {

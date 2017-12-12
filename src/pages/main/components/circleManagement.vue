@@ -142,7 +142,7 @@
 
                 getDataLock: false,
                 //搜索关键字
-                keyword:""
+                keyword: ""
             }
         },
         computed: {
