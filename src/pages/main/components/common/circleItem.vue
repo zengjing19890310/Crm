@@ -6,7 +6,7 @@
                 <div class="modal" v-show="modal" @click.stop>
                     <!--这是模态框-->
                     <!--<i class="modal-upload"></i>-->
-                    <i class="modal-edit" @click="uploadCircle(circleData.id)"></i>
+                    <i class="modal-edit" @click="editCircle(circleData.id)"></i>
                     <i class="modal-delete" @click="deleteCircle(circleData.id)"></i>
                 </div>
             </transition>
@@ -42,7 +42,7 @@
             });
         },
         methods: {
-            uploadCircle(id) {
+            editCircle(id) {
                 this.$emit('edit-circle', id, this.circleData);
             },
             deleteCircle(id) {
@@ -68,7 +68,7 @@
 <style lang="scss" scoped>
     .circle-item {
         width: 30%;
-        margin: 1rem;
+        margin: 0.5rem;
         height: 280px;
         flex-grow: 0;
         flex-shrink: 0;
@@ -137,6 +137,7 @@
                 flex-direction: row;
                 align-items: center;
                 cursor: pointer;
+                font-weight: normal;
                 &:hover {
                     color:#303641;
                 }

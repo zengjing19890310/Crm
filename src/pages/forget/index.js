@@ -90,41 +90,44 @@ let forgetView = new Vue({
 						password: this.forgetForm.password
 					};
 
-					this.$http.put(API("/sysuser"), obj)
-						.then(
-							(res) => {
-								if (res.body) {
-									let data = res.body;
-									if (data && data.code === 0 && data.msg === "成功") {
-										this.$message({
-											type: "success",
-											message: "修改密码成功,即将返回登录页...",
-											duration: 1500,
-											onClose: () => {
-												window.location.href = "../login";
-											}
-										});
-									} else {
-										this.$message({
-											type: "error",
-											message: data.msg,
-											duration: 1500,
-											onClose: () => {
-												// this.forgetForm = {
-												// 	phone: "",
-												// 	code: "",
-												// 	password: "",
-												// 	checkPassword: ""
-												// };
-											}
-										});
-									}
+					this.$http({
+						method: "put",
+						url: API("/sysuser"),
+						body: obj
+					}).then(
+						(res) => {
+							if (res.body) {
+								let data = res.body;
+								if (data && data.code === 0 && data.msg === "成功") {
+									this.$message({
+										type: "success",
+										message: "修改密码成功,即将返回登录页...",
+										duration: 1500,
+										onClose: () => {
+											window.location.href = "../login";
+										}
+									});
+								} else {
+									this.$message({
+										type: "error",
+										message: data.msg,
+										duration: 1500,
+										onClose: () => {
+											// this.forgetForm = {
+											// 	phone: "",
+											// 	code: "",
+											// 	password: "",
+											// 	checkPassword: ""
+											// };
+										}
+									});
 								}
-							},
-							(res) => {
-								console.error(res);
 							}
-						);
+						},
+						(res) => {
+							console.error(res);
+						}
+					);
 
 					// this.$message({
 					// 	message: "找回密码成功,请重新登录!",

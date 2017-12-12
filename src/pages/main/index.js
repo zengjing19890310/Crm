@@ -16,10 +16,17 @@ import publishArticle from "./components/publishArticle.vue";
 import circleManangement from "./components/circleManagement.vue";
 import circleDetail from "./components/circleDetail.vue";
 
+import editor from "./components/editor.vue";
+
 import testIM from "./components/testIM.vue";
 
 //路由配置同步传输面包屑导航信息
 const routes = [
+	{
+		path: "/editor/:id",
+		name: "editor",
+		component: editor
+	},
 	{
 		path: "/circleManagement",
 		name: "circleManagement",
@@ -81,6 +88,20 @@ const routes = [
 ];
 
 let pathInfo = {
+	"editor": [
+		{
+			path: "/",
+			name: "内容管理"
+		},
+		{
+			path: "/circleManagement",
+			name: "圈子管理"
+		},
+		{
+			path: "",
+			name: "编辑帖子"
+		}
+	],
 	"homepage": [
 		{
 			path: "/",
@@ -197,7 +218,7 @@ checkToken();
 //注册路由守卫
 router.afterEach((to, from) => {
 	setTimeout(function () {
-	    let path = pathInfo[to.name];
+		let path = pathInfo[to.name];
 		if (path) {
 			mainView.currentNav = path;
 		}
@@ -206,7 +227,7 @@ router.afterEach((to, from) => {
 	}, 0);
 });
 
-let access_token = window.sessionStorage.getItem("access_token");
+let token = window.sessionStorage.getItem("token");
 
 let mainView = new Vue({
 	el: "#app",

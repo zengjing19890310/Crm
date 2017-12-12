@@ -12,12 +12,12 @@
                     <span slot="suffix" class="el-icon-search filter-input-icon" @click="searchKeyword"></span>
                 </el-input>
                 <el-select v-model="department" placeholder="请选择部门" size="small" class="department-select"
-                           v-show="moduleName!=='circleManagement'">
+                           v-show="moduleType!=='noSelect'">
                     <el-option v-for="(department,index) in departments" :key="index" :label="department"
                                :value="department"></el-option>
                 </el-select>
                 <el-select v-model="role" placeholder="请选择角色" size="small" class="role-select"
-                           v-show="moduleName!=='circleManagement'">
+                           v-show="moduleType!=='noSelect'">
                     <el-option v-for="(role,index) in roles" :key="index" :label="role"
                                :value="role"></el-option>
                 </el-select>
@@ -28,7 +28,7 @@
             <el-button type="primary" size="mini" class="add-button" @click="addItem">
                 新添
             </el-button>
-            <el-dropdown trigger="click" v-show="moduleName!=='circleManagement'">
+            <el-dropdown trigger="click" v-show="moduleType!=='noSelect'">
                 <span class="el-dropdown-link el-icon-more"
                       style="background-color:#303641;color:#fff;padding:7px 15px;border-radius:3px;"></span>
                 <el-dropdown-menu slot="dropdown">
@@ -67,10 +67,10 @@
         },
         props: {
             "data-count": Number,
-            "filter-name": String
+            "filter-type": String
         },
         created() {
-            this.moduleName = this.filterName;
+            this.moduleType = this.filterType;
         },
         mounted() {
 
@@ -123,7 +123,7 @@
                 align-items: center;
                 flex-flow: nowrap;
                 .search-input {
-                    width: 260px;
+                    max-width:40%;
                     margin-right: 20px;
                     .filter-input-icon {
                         font-size: 1.4rem;
@@ -133,11 +133,11 @@
                     }
                 }
                 .department-select {
-                    width: 160px;
+                    max-width: 30%;
                     margin-right: 20px;
                 }
                 .role-select {
-                    width: 160px;
+                    max-width: 30%;
                 }
             }
         }

@@ -2,7 +2,7 @@
     <!--圈子管理-->
     <div class="outer-container">
         <section class="main" v-loading="getDataLock" element-loading-text="加载中...">
-            <filter-component :data-count="dataTotal" filter-name="circleManagement"
+            <filter-component :data-count="dataTotal" filter-type="noSelect"
                               @add-item="addItem" @search-keyword="searchKeyword"></filter-component>
             <div class="circle-container" id="circle-container">
                 <div class="circle-wrapper">
@@ -196,7 +196,7 @@
             },
             //跳转圈子详情页面
             goCircleDetail(id) {
-                console.log(`跳转到圈子详情${id}`);
+//                console.log(`跳转到圈子详情${id}`);
                 this.$router.push({
                     path: `/circleDetail/${id}`
                 });
@@ -204,8 +204,6 @@
             //获取圈子列表
             getData(type) {
                 this.getDataLock = true;
-                //如果当前圈子列表不为空
-                //size应该是取所有的长度
                 let size = this.size,
                     page = this.page;
 
@@ -328,7 +326,7 @@
                 this.$http({
                     url: API("/circle"),
                     method: "put",
-                    params: currentCircle
+                    body: currentCircle
                 }).then(
                     (res) => {
                         if (res.ok && res.status === 200) {

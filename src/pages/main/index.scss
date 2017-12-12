@@ -4,7 +4,7 @@ section.main {
   left: 0;
   right: 0;
   bottom: 0;
-  min-width: 920px;
+  //min-width: 920px;
   .menu {
     transition: width linear .15s;
     position: absolute;
@@ -58,5 +58,11 @@ section.main {
         line-height: 55px;
       }
     }
+  }
+}
+
+.editor-overview {
+  img {
+    max-width: 100%;
   }
 }

@@ -37,7 +37,8 @@ let loginView = new Vue({
 				{validator: checkPassword, trigger: "blur"}
 			]
 		},
-		rememberMe: false
+		rememberMe: false,
+		loginButtonLoading: false
 	},
 	components: {},
 	http: {
@@ -51,7 +52,7 @@ let loginView = new Vue({
 		onSubmit() {
 			this.$refs.loginForm.validate((valid) => {
 				if (valid) {
-					// 13667159565  123456
+					this.loginButtonLoading = true;
 					this.$http({
 						// url:`http://mengcan.vicp.io/authentication/form?username=${this.loginForm.phone}&password=${this.loginForm.password}`,
 						url: API(`/authentication/form?username=${this.loginForm.phone}&password=${this.loginForm.password}`),
@@ -72,14 +73,16 @@ let loginView = new Vue({
 										message: data.msg
 									});
 								} else {
-									//获取token并存储在本地
-									let access_token = data.access_token;
-									if (access_token) {
-										window.sessionStorage.setItem("access_token", access_token);
+									//获取username并存储在本地
+									let username = data.data.username;
+									if (username) {
+										window.sessionStorage.setItem("token", username);
 										this.$message({
 											type: "success",
 											message: "登陆成功,即将自动跳转...",
-											onClose: function () {
+											duration: 1500,
+											onClose: () => {
+												this.loginButtonLoading = false;
 												window.location.href = "../main";
 											}
 										});
@@ -95,8 +98,9 @@ let loginView = new Vue({
 					this.$message({
 						message: "输入有误!",
 						type: "error",
-						duration: 3000
+						duration: 1500
 					});
+					this.loginButtonLoading = false;
 					// console.log('error submit!!');
 					return false;
 				}

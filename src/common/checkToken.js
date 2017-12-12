@@ -9,13 +9,13 @@ function checkToken() {
 		});
 		return false;
 	}
-	let access_token = window.sessionStorage.getItem("access_token");
+	let token = window.sessionStorage.getItem("token");
 
-	if (access_token) {
+	if (token) {
 		//对token进行效验?
 		//如果有token,并且token没有被设置在全局设置请求头,将access_token放入请求头
-		if(!Vue.http.headers.common["Authorization"]){
-			Vue.http.headers.common["Authorization"] = `bearer ${access_token}`;
+		if(!Vue.http.headers.common["token"]){
+			Vue.http.headers.common["token"] = token;
 		}
 	} else {
 		util.logout("access_token");

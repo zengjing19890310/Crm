@@ -8,15 +8,11 @@ function getUserInformation(vm) {
 		});
 		return false;
 	}
-	let access_token = window.sessionStorage.getItem("access_token");
-	if (access_token) {
+	let token = window.sessionStorage.getItem("token");
+	if (token) {
 		vm.$http({
 			url: API("/sysuser"),
-			method: "get",
-			//请求时设置请求头
-			// headers: {
-			// 	Authorization:`bearer ${access_token}`
-			// },
+			method: "get"
 		}).then(
 			(res) => {
 				if (res.ok && res.status === 200) {
@@ -27,6 +23,10 @@ function getUserInformation(vm) {
 								vm.userInformation = data.data;
 							}
 						} else {
+							vm.$message({
+								type: "error",
+								message: data.msg
+							});
 							util.logout("access_token");
 						}
 					}

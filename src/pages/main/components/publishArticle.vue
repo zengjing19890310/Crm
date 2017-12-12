@@ -111,7 +111,6 @@
                                 }
                             });
                         }
-                        console.log(data);
                     },
                     (res) => {
                         console.error(res)

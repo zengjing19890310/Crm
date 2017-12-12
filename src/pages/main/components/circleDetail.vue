@@ -1,7 +1,7 @@
 <template>
     <div class="outer-container">
         <section class="main" v-loading="getDataLock" element-loading-text="加载中...">
-            <filter-component :data-count="dataTotal" filter-name="circleManagement"
+            <filter-component :data-count="dataTotal" filter-type="noSelect"
                               @add-item="addItem" @search-keyword="searchKeyword"></filter-component>
             <div class="circle-detail-container" id="circle-detail-container">
                 <header class="top">
@@ -22,8 +22,8 @@
                                    :index="index"
                                    :key="post.id"
                                    :post-data.once="post"
-                                   @edit-circle="editCircle"
-                                   @delete-circle="deleteCircle"></post-item>
+                                   @edit-post="editPost"
+                                   @delete-post="deletePost"></post-item>
                     </div>
                 </div>
             </div>
@@ -44,6 +44,13 @@
                 size: 10,
                 circleData: {},
                 postsList: [],
+                currentPost: {},
+                keyword:""
+            }
+        },
+        computed: {
+            dataTotal() {
+                return this.postsList ? this.postsList.length : 0;
             }
         },
         beforeRouteEnter(to, from, next) {
@@ -58,6 +65,73 @@
 
         },
         methods: {
+            editPost(id, post) {
+//                console.log("编辑帖子", id, post);
+                this.$router.push({
+                    name: "editor",
+                    params: {
+                        id: id,
+                        post: post
+                    }
+                });
+            },
+            deletePost(id, index) {
+                console.log("删除帖子", id, index);
+                if (id) {
+                    this.$confirm(`确定删除圈子?`, "删除圈子", {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(
+                        () => {
+                            this.$http({
+                                url: API(`/circle/article/${id}`),
+                                method: "delete"
+                            }).then(
+                                (res) => {
+                                    if (res.ok && res.status === 200) {
+                                        let data = res.body;
+                                        if (data.code === 0 && data.msg === "成功") {
+                                            this.$message({
+                                                type: "success",
+                                                message: `删除帖子成功`
+                                            });
+                                            this.postsList.splice(index, 1);
+                                        } else {
+                                            let message = `删除帖子失败`;
+                                            if (res.body) {
+                                                if (res.body.msg) {
+                                                    message = res.body.msg;
+                                                }
+                                            }
+                                            this.$message({
+                                                type: "error",
+                                                message: message
+                                            })
+                                        }
+                                    }
+                                },
+                                (res) => {
+                                    let message = `删除帖子失败`;
+                                    if (res.body) {
+                                        if (res.body.msg) {
+                                            message = res.body.msg;
+                                        }
+                                    }
+                                    this.$message({
+                                        type: "error",
+                                        message: message
+                                    })
+                                }
+                            )
+                        }
+                    ).catch(
+                        () => {
+
+                        }
+                    )
+                }
+            },
             fetchId(circleId) {
                 if (circleId) {
                     this.circleId = circleId;
@@ -98,7 +172,23 @@
                 let page = this.page,
                     size = this.size,
                     url;
+
+                if (type === "newPost") {
+                    //插入1条新帖子数据,位置处于顶置
+                    page = 1;
+                    size = this.postsList.length + 1;
+                } else if (type === "more") {
+                    //获取更多条数据
+                    this.page++;
+                    page = this.page;
+                }
+
                 url = API(`/circle/article?page=${page}&size=${size}&circleId=${this.circleId}`);
+
+                //如果有关键字,获取更多页时需要调用其他接口
+                if (this.keyword.trim()) {
+                    url = API(`/circle/article/get/${this.keyword}?page=${page}&size=${size}`);
+                }
                 this.$http({
                     url: url,
                     method: 'get'
@@ -119,6 +209,9 @@
                         console.error(res);
                     }
                 )
+            },
+            searchKeyword(keyword) {
+                this.keyword = keyword;
             }
         },
         components: {
@@ -184,6 +277,7 @@
                     h4 {
                         font-size: 1.5rem;
                         margin-bottom: 25px;
+                        font-weight: normal;
                     }
                     .circle-information {
                         display: flex;

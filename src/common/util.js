@@ -2,6 +2,28 @@ Vue.use(VueResource);
 Vue.use(element);
 
 module.exports = {
+	//抓去URL后面的参数
+	fetchParam(search, param) {
+		let parseSearch = function (search) {
+			let params = search.substr(1),
+				paramArray = params.split("&"),
+				searchObject = {};
+			if (paramArray && paramArray.length !== 0) {
+				let arr = [];
+				paramArray.forEach(function(value,index){
+					if(value){
+						arr = value.split("=");
+						if(arr[0]){
+							searchObject[arr[0]] = arr[1];
+						}
+					}
+				});
+			}
+			return searchObject;
+		};
+		let searchObject = parseSearch(search);
+		return searchObject[param] ? searchObject[param] : "";
+	},
 	//处理时间格式
 	timeFormatter(timeStamp) {
 		let prependZero = (value) => {
@@ -49,7 +71,7 @@ module.exports = {
 				// }
 			}
 		});
-		window.sessionStorage.removeItem("access_token");
+		window.sessionStorage.removeItem("token");
 		window.location.href = "../login";
 	}
 };
