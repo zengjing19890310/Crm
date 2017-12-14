@@ -1,4 +1,8 @@
 .post-container {
+  &.ql-editor {
+    padding: 0;
+    white-space: normal;
+  }
   &.isApp {
     margin-top: 60px;
   }
@@ -29,10 +33,10 @@
     span {
       font-size: 0.6rem;
       color: #f67e7a;
-      border:1px solid #f67e7a;
+      border: 1px solid #f67e7a;
       display: inline-block;
-      width:65px;
-      height:28px;
+      width: 65px;
+      height: 28px;
       line-height: 28px;
       -webkit-border-radius: 14px;
       -moz-border-radius: 14px;

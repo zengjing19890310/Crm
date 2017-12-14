@@ -40,7 +40,7 @@
                         <el-upload
                                 ref="editUpload"
                                 :action="uploadUrl"
-
+                                :headers="headers"
                                 :show-file-list="true"
                                 :multiple="false"
                                 :auto-upload="false"
@@ -83,7 +83,7 @@
                         <el-upload
                                 ref="newUpload"
                                 :action="uploadUrl"
-
+                                :headers="headers"
                                 :show-file-list="true"
                                 :multiple="false"
                                 :auto-upload="false"
@@ -148,6 +148,13 @@
         computed: {
             dataTotal() {
                 return this.circleList ? this.circleList.length : 0;
+            },
+            headers() {
+                let headers = {};
+                if (sessionStorage.getItem('token')) {
+                    headers.token = sessionStorage.getItem('token');
+                }
+                return headers;
             }
         },
         mounted() {
@@ -220,7 +227,7 @@
                 let url = API(`/circle?page=${page}&size=${size}`);
 
                 //如果有关键字,获取更多页时
-                if (this.keyword.trim()) {
+                if (this.keyword && this.keyword.trim()) {
                     url = API(`/circle/get/${this.keyword}?page=${page}&size=${size}`);
                 }
                 this.$http({
@@ -563,16 +570,8 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "common/style/main";
     .main {
-        position: absolute;
-        background-color: #fff;
-        top: 2rem;
-        left: 1rem;
-        bottom: 3.4rem;
-        right: 1rem;
-        padding: 0 1rem 1rem 1rem;
-        display: flex;
-        flex-direction: column;
         .circle-container {
             flex-grow: 1;
             overflow: auto;

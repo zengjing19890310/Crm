@@ -360,14 +360,8 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "common/style/main";
     .main {
-        position: absolute;
-        top: 2rem;
-        left: 1rem;
-        bottom: 3.4rem;
-        right: 1rem;
-        padding: 0 1rem 1rem 1rem;
-        background-color: #fff;
         .list-table {
             position: absolute;
             top: 4rem;

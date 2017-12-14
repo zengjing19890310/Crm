@@ -2,14 +2,7 @@
     <div class="circle-item">
         <div class="image-wrapper" @click.stop="showModal">
             <img :src="imageUrl(circleData.url)" alt="" class="image">
-            <transition name="el-fade-in">
-                <div class="modal" v-show="modal" @click.stop>
-                    <!--这是模态框-->
-                    <!--<i class="modal-upload"></i>-->
-                    <i class="modal-edit" @click="editCircle(circleData.id)"></i>
-                    <i class="modal-delete" @click="deleteCircle(circleData.id)"></i>
-                </div>
-            </transition>
+            <modal-component @edit="editCircle" @delete="deleteCircle" :modal="modal"></modal-component>
         </div>
         <div class="text-wrapper">
             <h4 @click="goCircleDetail(circleData.id)">
@@ -26,6 +19,8 @@
 </template>
 
 <script>
+    import modalComponent from "./modal.vue";
+
     export default {
         data() {
             return {
@@ -42,11 +37,11 @@
             });
         },
         methods: {
-            editCircle(id) {
-                this.$emit('edit-circle', id, this.circleData);
+            editCircle() {
+                this.$emit('edit-circle', this.circleData.id, this.circleData);
             },
-            deleteCircle(id) {
-                this.$emit('delete-circle', id, this.index);
+            deleteCircle() {
+                this.$emit('delete-circle', this.circleData.id, this.index);
             },
             imageUrl(url) {
                 return url ? `http://${url}` : '';
@@ -58,9 +53,12 @@
             hideModal() {
                 console.log('隐藏模态框');
             },
-            goCircleDetail(id) {
-                this.$emit('circle-detail',id);
+            goCircleDetail() {
+                this.$emit('circle-detail', this.circleData.id);
             }
+        },
+        components: {
+            "modal-component": modalComponent
         }
     }
 </script>
@@ -89,38 +87,6 @@
                 height: 100%;
                 display: block;
             }
-            /*模态框*/
-            .modal {
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                background-color: rgba(3, 3, 3, .8);
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-around;
-                font-size: 2rem;
-                > i {
-                    cursor: pointer;
-                    display: inline-block;
-                    text-align: center;
-                    width: 40px;
-                    height: 40px;
-                    line-height: 40px;
-                    border-radius: 5px;
-                }
-                .modal-upload {
-                    background: #fff url(../../../../common/images/modal-upload.png) no-repeat center;
-                }
-                .modal-edit {
-                    background: #fff url(../../../../common/images/modal-edit.png) no-repeat center;
-                }
-                .modal-delete {
-                    background: #fff url(../../../../common/images/modal-delete.png) no-repeat center;
-                }
-            }
         }
         .text-wrapper {
             flex-grow: 1;
@@ -139,7 +105,7 @@
                 cursor: pointer;
                 font-weight: normal;
                 &:hover {
-                    color:#303641;
+                    color: #303641;
                 }
             }
             p {

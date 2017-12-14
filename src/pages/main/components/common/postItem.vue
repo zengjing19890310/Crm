@@ -8,20 +8,20 @@
             {{postData.content}}
         </div>
         <footer class="post-information">
-            <span style="margin-right: 20px;">撰稿:{{postData.nickname || '-'}}</span>
-            <span>创建时间:{{postData.createTime || '-'}}</span>
+            <span style="margin-right: 20px;">撰稿: {{postData.nickname || '-'}}</span>
+            <span>创建时间: {{postData.createTime || '-'}}</span>
         </footer>
-        <transition name="el-fade-in">
-            <div class="post-modal" @click.stop v-show="modal">
-                <i class="modal-edit" @click="editPost(postData.id)"></i>
-                <i class="modal-overview el-icon-view" size="36" @click="overviewPost(postData.id)"></i>
-                <i class="modal-delete" @click="deletePost(postData.id)"></i>
-            </div>
-        </transition>
+        <modal-component @edit="editPost" @delete="deletePost" :modal="modal">
+            <template slot="overview">
+                <i class="modal-overview el-icon-view" size="24" @click="overviewPost"></i>
+            </template>
+        </modal-component>
     </div>
 </template>
 
 <script>
+    import modalComponent from "./modal.vue";
+
     export default {
         data() {
             return {
@@ -33,7 +33,7 @@
             index: Number
         },
         mounted() {
-            console.log(this.postData);
+//            console.log(this.postData);
             window.Bus.$on('clear-modal', () => {
                 this.modal = false;
             });
@@ -43,18 +43,18 @@
                 window.Bus.$emit("clear-modal");
                 this.modal = true;
             },
-            editPost(id) {
-                this.$emit("edit-post", id, this.postData);
+            editPost() {
+                this.$emit("edit-post", this.postData.id, this.postData);
             },
-            deletePost(id) {
-                this.$emit("delete-post", id, this.index);
+            deletePost() {
+                this.$emit("delete-post", this.postData.id, this.index);
             },
-            overviewPost(id) {
-//                console.log("查看帖子预览", id);
-//                let Top = (window.screen.availHeight-667)/2, //获得窗口的垂直位置;
-//                    Left = (window.screen.availWidth-375)/2; //获得窗口的水平位置;
-                window.open(`../overview/index.html?id=${id}`, `预览帖子${id}`, `height=667, width=375, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no`)
+            overviewPost() {
+                window.open(`../overview/index.html?id=${this.postData.id}`, `预览帖子${this.postData.id}`, `height=667, width=375, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no`)
             }
+        },
+        components: {
+            "modal-component": modalComponent
         }
     }
 </script>
@@ -102,25 +102,17 @@
             overflow: auto;
         }
         .post-information {
+            flex-shrink: 0;
             height: 40px;
-            font-size: 0.8rem;
-            line-height: 50px;
+            font-size: 0.6rem;
             border-top: 1px solid #d8dce5;
             color: #7a8190;
-        }
-        /*模态框样式*/
-        .post-modal {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            background-color: rgba(48, 54, 65, .5);
             display: flex;
-            flex-direction: row;
-            align-items: center;
+            flex-direction: column;
             justify-content: space-around;
-            > i {
+        }
+        .modal {
+            .modal-overview {
                 cursor: pointer;
                 display: inline-block;
                 text-align: center;
@@ -128,19 +120,9 @@
                 height: 40px;
                 line-height: 40px;
                 border-radius: 5px;
-            }
-            .modal-overview {
+                font-size: 24px;
                 background-color: #fff;
                 color:#999999;
-            }
-            .modal-upload {
-                background: #fff url(../../../../common/images/modal-upload.png) no-repeat center;
-            }
-            .modal-edit {
-                background: #fff url(../../../../common/images/modal-edit.png) no-repeat center;
-            }
-            .modal-delete {
-                background: #fff url(../../../../common/images/modal-delete.png) no-repeat center;
             }
         }
     }

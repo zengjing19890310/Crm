@@ -74,9 +74,14 @@ let loginView = new Vue({
 									});
 								} else {
 									//获取username并存储在本地
-									let username = data.data.username;
-									if (username) {
-										window.sessionStorage.setItem("token", username);
+									let token = data.data.username,
+										nickname = data.data.nickname,
+										userId = data.data.id;
+									if (token) {
+										window.sessionStorage.setItem("token", token);
+										window.sessionStorage.setItem("userId", userId);
+										window.sessionStorage.setItem("nickname", nickname);
+										window.sessionStorage.setItem("userInformation", JSON.stringify(data.data));
 										this.$message({
 											type: "success",
 											message: "登陆成功,即将自动跳转...",

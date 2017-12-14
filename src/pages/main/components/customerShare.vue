@@ -142,5 +142,5 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "common/customerCommon";
+    @import "common/style/customerCommon";
 </style>

@@ -16,6 +16,9 @@ import publishArticle from "./components/publishArticle.vue";
 import circleManangement from "./components/circleManagement.vue";
 import circleDetail from "./components/circleDetail.vue";
 
+import offlineCourses from "./components/offlineCourses.vue";
+import videoCourses from "./components/videoCourses.vue";
+
 import editor from "./components/editor.vue";
 
 import testIM from "./components/testIM.vue";
@@ -23,7 +26,22 @@ import testIM from "./components/testIM.vue";
 //路由配置同步传输面包屑导航信息
 const routes = [
 	{
-		path: "/editor/:id",
+		path: "/offlineCourses",
+		name: "offlineCourses",
+		component: offlineCourses
+	},
+	{
+		path: "/videoCourses",
+		name: "videoCourses",
+		component: videoCourses
+	},
+	{
+		path: "/editor/:circleId/add",
+		name: "addEditor",
+		component: editor
+	},
+	{
+		path: "/editor/:postId",
 		name: "editor",
 		component: editor
 	},
@@ -88,6 +106,40 @@ const routes = [
 ];
 
 let pathInfo = {
+	"videoCourses": [
+		{
+			path: "/",
+			name: "内容管理"
+		},
+		{
+			path: "/videoCourses",
+			name: "视频课程"
+		}
+	],
+	"offlineCourses": [
+		{
+			path: "/",
+			name: "内容管理"
+		},
+		{
+			path: "/offlineCourses",
+			name: "离线课程"
+		}
+	],
+	"addEditor": [
+		{
+			path: "/",
+			name: "内容管理"
+		},
+		{
+			path: "/circleManagement",
+			name: "圈子管理"
+		},
+		{
+			path: "",
+			name: "添加帖子"
+		}
+	],
 	"editor": [
 		{
 			path: "/",

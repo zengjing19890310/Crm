@@ -120,9 +120,14 @@ let register = new Vue({
 																});
 															} else {
 																//获取token并存储在本地
-																let token = data.data.username;
+																let token = data.data.username,
+																	nickname = data.data.nickname,
+																	userId = data.data.id;
 																if (token) {
 																	window.sessionStorage.setItem("token", token);
+																	window.sessionStorage.setItem("userId", userId);
+																	window.sessionStorage.setItem("nickname", nickname);
+																	window.sessionStorage.setItem("userInformation", JSON.stringify(data.data));
 																	window.location.href = "../main";
 																}
 															}

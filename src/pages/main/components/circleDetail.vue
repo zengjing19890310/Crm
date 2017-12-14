@@ -41,7 +41,7 @@
                 circleId: null,
                 getDataLock: false,
                 page: 1,
-                size: 7,
+                size: 20,
                 circleData: {},
                 postsList: [],
                 currentPost: {},
@@ -99,12 +99,21 @@
             }
         },
         methods: {
+            addItem() {
+//                console.log("添加一个帖子", this.circleId);
+                this.$router.push({
+                    name: "addEditor",
+                    params: {
+                        circleId: this.circleId
+                    }
+                });
+            },
             editPost(id, post) {
 //                console.log("编辑帖子", id, post);
                 this.$router.push({
                     name: "editor",
                     params: {
-                        id: id,
+                        postId: id,
                         post: post
                     }
                 });
@@ -219,8 +228,8 @@
                 url = API(`/circle/article?page=${page}&size=${size}&circleId=${this.circleId}`);
 
                 //如果有关键字,获取更多页时需要调用其他接口
-                if (this.keyword.trim()) {
-                    url = API(`/circle/article/get/${this.keyword}?page=${page}&size=${size}`);
+                if (this.keyword && this.keyword.trim()) {
+                    url = API(`/circle/article/get/${this.keyword}/${this.circleId}?page=${page}&size=${size}`);
                 }
                 this.$http({
                     url: url,
@@ -265,6 +274,9 @@
             },
             searchKeyword(keyword) {
                 this.keyword = keyword;
+                //翻回第一页
+                this.page = 1;
+                this.fetchPosts();
             }
         },
         components: {
@@ -275,16 +287,8 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "common/style/main";
     .main {
-        position: absolute;
-        background-color: #fff;
-        top: 2rem;
-        left: 1rem;
-        bottom: 3.4rem;
-        right: 1rem;
-        padding: 0 1rem 1rem 1rem;
-        display: flex;
-        flex-direction: column;
         .circle-detail-container {
             flex-grow: 1;
             display: flex;

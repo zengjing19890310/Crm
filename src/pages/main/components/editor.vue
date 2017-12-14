@@ -26,14 +26,16 @@
                         <button ref="selectImage">选择文件</button>
                     </el-upload>
                 </div>
-                <div class="editor-overview" v-html="postContent.content">
-
-                    <!--<quill-editor-->
-                    <!--v-model="postContent.content"-->
-                    <!--ref="editor"-->
-                    <!--:options="{}"-->
-                    <!--:style="{height:editorHeight+'px',width:'100%'}">-->
-                    <!--</quill-editor>-->
+                <div class="editor-overview ql-editor">
+                    <header>
+                        <div class="title">
+                            {{postContent.title}}
+                        </div>
+                        <div class="nickname">
+                            {{postContent.nickname}}
+                        </div>
+                    </header>
+                    <div class="overview-content" v-html="postContent.content"></div>
                 </div>
             </div>
             <footer style="margin:20px 0; text-align: right">
@@ -80,11 +82,15 @@
                 },
                 uploadUrl: API('/file/upload'),
                 embedIndex: 0,
-                submitButtonLoading: false
+                submitButtonLoading: false,
+                //存放一个上传图片时的消息提示实例
+                message: null,
+                userInformation: null
             }
         },
         created() {
-            this.postId = this.$route.params.id;
+            //如果传入了postId,则是修改帖子内容
+            this.postId = this.$route.params.postId;
             if (this.postId) {
                 //获取帖子Id和帖子内容
                 this.$http({
@@ -106,6 +112,18 @@
                     }
                 );
             } else {
+//                {
+//                    "circleId": 0,
+//                    "content": "string",
+//                    "createUserId": "string",
+//                    "id": 0,
+//                    "sort": 0,
+//                    "title": "string"
+//                }
+                //新增帖子,从本地存储中获取nickname
+                this.postContent.nickname = window.sessionStorage.getItem("nickname");
+                this.postContent.createUserId = window.sessionStorage.getItem("userId");
+                this.postContent.circleId = this.$route.params.circleId;
                 this.postLoading = false;
             }
         },
@@ -132,20 +150,21 @@
         methods: {
             beforeUpload(file) {
                 this.submitButtonLoading = true;
-                this.$message({
+                this.message = this.$message({
                     type: "warning",
                     message: "图片上传中,请耐心等待...",
                     duration: 0
-                })
+                });
 //                console.log('上传前', file);
             },
             handleSuccess(res, file) {
-                this.$message.close();
+                this.message.close();
+                console.log("期待被执行");
                 this.submitButtonLoading = false;
 //                console.log('上传成功', res, file);
                 if (res.code === 0 && res.msg === '成功') {
                     if (this.uploadType === 'image') {
-                        this.quill.insertEmbed(this.embedIndex, 'image', `http://${res.data}`);
+                        this.quill.insertEmbed(15, 'image', `http://${res.data}`);
                         this.embedIndex++;
                     }
                 }
@@ -161,35 +180,55 @@
                 this.$router.go(-1);
             },
             submit() {
-                if (!this.postContent.title.trim()) {
+                if(!this.postContent.title||!this.postContent.title.trim()){
                     this.$message({
                         type: "error",
                         message: "请填写帖子标题!"
                     });
                     return;
                 }
-                console.log();
+                this.submitButtonLoading = true;
+                let method,
+                    message;
+                if (this.postId) { //编辑某个帖子
+                    method = "put";
+                    message = "编辑";
+                } else { //新增一个帖子
+                    method = "post";
+                    message = "发帖";
+                }
                 this.$http({
                     url: API("/circle/article"),
-                    method: "put",
+                    method: method,
                     body: this.postContent
                 }).then(
                     (res) => {
                         let data = res.data;
                         if (data.code === 0 && data.msg === '成功') {
                             this.$message({
-                                message: '编辑成功,即将返回帖子列表...',
-                                type: 'success',
+                                message: `${message}成功,即将返回帖子列表...`,
+                                type: "success",
                                 duration: 1500,
                                 onClose: () => {
                                     this.embedIndex = 0;
+                                    this.submitButtonLoading = false;
                                     this.$router.go(-1);
                                 }
                             });
+                        } else {
+                            this.$message({
+                                message: data.msg,
+                                type:"error"
+                            });
+                            this.submitButtonLoading = false;
                         }
                     },
                     (res) => {
-
+                        this.$message({
+                            message: "请求错误",
+                            type:"error"
+                        });
+                        this.submitButtonLoading = false;
                     }
                 );
             }
@@ -198,16 +237,8 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "common/style/main";
     .main {
-        position: absolute;
-        background-color: #fff;
-        top: 2rem;
-        left: 1rem;
-        bottom: 3.4rem;
-        right: 1rem;
-        padding: 0 1rem 1rem 1rem;
-        display: flex;
-        flex-direction: column;
         .post-title {
             flex-shrink: 0;
             height: 5rem;
@@ -227,14 +258,43 @@
                 /*overflow: hidden;*/
                 /*overflow: auto;*/
             }
-            .editor-overview {
+            .editor-overview.ql-editor {
                 width: 320px;
                 margin-left: 1rem;
-                border: 1px solid red;
+                border: 1px solid #ddd;
                 overflow: auto;
                 word-break: break-all;
                 flex-shrink: 0;
-                line-height: normal;
+                height: auto;
+                padding: 0;
+                white-space: normal;
+                header {
+                    padding: 1.2rem .8rem 1.35rem;
+                    .title {
+                        color: rgb(48, 48, 48);
+                        font-size: 22px;
+                        font-weight: bold;
+                    }
+                    .nickname {
+                        color: #303030;
+                        font-size: 14px;
+                    }
+                }
+                .overview-content {
+                    padding: 0 .8rem;
+                }
+                p {
+                    font-family: Helvetica;
+                    font-size: 18px;
+                    line-height: 32px;
+                    color: rgb(96, 96, 96);
+                    //text-align: justify;
+                    word-wrap: break-word;
+                }
+
+                img {
+                    max-width: 100%;
+                }
             }
         }
         .label {

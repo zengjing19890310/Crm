@@ -73,16 +73,26 @@
                     <el-collapse-transition>
                         <ul :class="['child-menu',{'collapse-menu':isCollapse}]" v-show="curr==='3'"
                             @click="clearChildMenu">
-                            <li>
-                                <router-link to="/publishArticle">
-                                    <!--<i class="el-icon-edit"></i>-->
-                                    <p>发布文章</p>
-                                </router-link>
-                            </li>
+                            <!--<li>-->
+                                <!--<router-link to="/publishArticle">-->
+                                    <!--&lt;!&ndash;<i class="el-icon-edit"></i>&ndash;&gt;-->
+                                    <!--<p>发布文章</p>-->
+                                <!--</router-link>-->
+                            <!--</li>-->
                             <li>
                                 <router-link to="/circleManagement">
                                     <!--<i class="el-icon-edit"></i>-->
                                     <p>圈子管理</p>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/offlineCourses">
+                                    线下课程
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/videoCourses">
+                                    视频课程
                                 </router-link>
                             </li>
                         </ul>

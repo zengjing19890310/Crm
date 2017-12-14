@@ -7,7 +7,8 @@
         </div>
         <div class="filter-wrapper">
             <div class="condition-wrapper">
-                <el-input size="small" placeholder="搜索" v-model="keyword" class="search-input"
+                <el-input size="small" placeholder="搜索" v-model="keyword"
+                          :class="['search-input',{'no-select':moduleType==='noSelect'}]"
                           @keyup.enter.native="searchKeyword">
                     <span slot="suffix" class="el-icon-search filter-input-icon" @click="searchKeyword"></span>
                 </el-input>
@@ -80,13 +81,6 @@
                 this.$emit('add-item', this.moduleName);
             },
             searchKeyword() {
-//                if (!this.keyword.trim()) {
-//                    this.$message({
-//                        type: "error",
-//                        message: "搜索关键字不能为空"
-//                    });
-//                    this.keyword = "";
-//                }
                 this.$emit('search-keyword', this.keyword, this.moduleName);
             }
         }
@@ -123,8 +117,12 @@
                 align-items: center;
                 flex-flow: nowrap;
                 .search-input {
-                    max-width:40%;
+                    max-width: 40%;
                     margin-right: 20px;
+                    &.no-select {
+                        max-width: 100%;
+                        width: 100%;
+                    }
                     .filter-input-icon {
                         font-size: 1.4rem;
                         position: relative;
