@@ -39,49 +39,87 @@
                 <!--"url": "string"-->
                 <!--}-->
                 <div class="left-form" @click.stop>
-                    <el-form ref="courseForm" :module="courseForm" label-width="80px" size="small">
-                        <el-form-item label="课程名称">
+                    <el-form ref="courseForm" :model="courseForm" label-width="80px" size="small" :rules="rules">
+                        <el-form-item label="课程名称" prop="title">
                             <el-input v-model="courseForm.title"></el-input>
                         </el-form-item>
-                        <el-form-item label="开课老师">
+                        <el-form-item label="开课老师" prop="teacherId">
                             <el-select v-model="courseForm.teacherId" placeholder="请选择">
                                 <el-option label="张老师" value="1111111"></el-option>
                                 <el-option label="王老师" value="2222222"></el-option>
                                 <el-option label="李老师" value="3333333"></el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="开课时间">
+                        <el-form-item label="开课时间" prop="startTime">
+                            <!--2017-12-11 10:31:27-->
                             <el-date-picker
                                     v-model="courseForm.startTime"
                                     type="datetime"
-                                    placeholder="选择日期时间">
+                                    placeholder="选择日期时间"
+                                    :picker-options="startOptions"
+                                    format="yyyy-MM-dd HH:mm:ss"
+                                    :readonly="false"
+                                    :editable="false"
+                            >
                             </el-date-picker>
                         </el-form-item>
-                        <el-form-item label="结束时间">
+                        <el-form-item label="结束时间" prop="endTime">
                             <el-date-picker
                                     v-model="courseForm.endTime"
                                     type="datetime"
-                                    placeholder="选择日期时间">
+                                    placeholder="选择日期时间"
+                                    :picker-options="endOptions"
+                                    format="yyyy-MM-dd HH:mm:ss"
+                                    :readonly="false"
+                                    :editable="false"
+                            >
                             </el-date-picker>
                         </el-form-item>
-                        <el-form-item label="课程封面">
-                            {{courseForm.courseUrl}}
-                            <el-upload>
-                                <button>浏览</button>
+                        <el-form-item label="课程封面" prop="courseUrl">
+                            <!--{{courseForm.courseUrl}}-->
+                            <el-upload
+                                    ref="upload"
+                                    :action="uploadUrl"
+                                    :headers="headers"
+                                    :show-file-list="true"
+                                    :multiple="false"
+                                    :auto-upload="true"
+
+                                    :on-success="handleSuccess"
+                                    :on-change="handleChange"
+                                    :on-error="handleError"
+                                    :on-remove="handleRemove"
+                                    :on-progress="handleProgress"
+                                    accept="image/*">
+                                <el-button slot="trigger" style="min-width: 100%;" type="primary" :loading="uploading">
+                                    选择课程封面
+                                </el-button>
+                                <!--<el-button @click="handleUpload" :loading="uploading">上传</el-button>-->
                             </el-upload>
                         </el-form-item>
-                        <el-form-item label="视频介绍">
+                        <el-form-item label="视频介绍" prop="url">
                             <el-input v-model="courseForm.url"></el-input>
                         </el-form-item>
                     </el-form>
                 </div>
                 <!--右侧提供预览区域-->
                 <div class="right-overview">
-
+                    <div class="image-overview">
+                        <!--{{courseForm.courseUrl}}-->
+                        <img v-if="courseForm.courseUrl" :src="overviewUrl(courseForm.courseUrl)" alt="">
+                    </div>
+                    <div class="video-overview">
+                        {{courseForm.url}}
+                    </div>
                 </div>
             </div>
             <div slot="footer">
-                这是底部
+                <el-button type="primary" @click="submit" size="small" :loading="uploading||inSubmit">
+                    确定
+                </el-button>
+                <el-button @click="dialogClose" size="small" :loading="uploading||inSubmit">
+                    取消
+                </el-button>
             </div>
         </el-dialog>
     </div>
@@ -94,23 +132,62 @@
     export default {
         data() {
             return {
+                startOptions: {},
+                endOptions: {
+                    disabledDate: (time) => {
+                        if (this.courseForm.startTime) {
+                            //如果有选中的起始时间,则结束时间在起始时间之后
+                            if (time.getTime && this.courseForm.startTime.getTime) {
+                                return time.getTime() < this.courseForm.startTime.getTime();
+                            } else {
+                                return new Date(time).getTime() < new Date(this.courseForm.startTime).getTime();
+                            }
+                        } else {
+                            return false;
+                        }
+                    }
+                },
+                uploadUrl: API('/file/upload'),
+                uploading: false,
                 offlineCoursesList: [],
                 page: 1,
                 size: 20,
                 getDataLock: false,
-                currentCourse: {},
                 dialogVisible: false,
                 dialogTitle: "",
                 //绑定表单内容
                 courseForm: {
                     title: "",
                     teacherId: "",
-                    startTime: null,
-                    endTime: null,
-                    url:"",
-                    courseUrl:"",
-
-                }
+                    startTime: "",
+                    endTime: "",
+                    courseUrl: "",
+                    url: "",
+                },
+                inSubmit: false,
+                //表单验证规则
+                rules: {
+                    title: [
+                        {required: true, message: "请输入课程名称", trigger: "blur"}
+                    ],
+                    teacherId: [
+                        {required: true, message: "请选择开课老师", trigger: "change"}
+                    ],
+                    startTime: [
+                        {type: "date", required: true, message: "请选择开课时间", trigger: "change"}
+                    ],
+                    endTime: [
+                        {type: "date", required: true, message: "请选择结束时间", trigger: "change"}
+                    ],
+//                    courseUrl:[
+//                        {required: true, message: "请上传封面图片", trigger: "blur"}
+//                    ],
+//                    url: [
+//                        {required: true, message: "请添加视频介绍", trigger: "blur"}
+//                    ]
+                },
+                //确定模态框用途,是新增或者编辑
+                modalType: ""
             }
         },
         created() {
@@ -153,6 +230,13 @@
         computed: {
             dataTotal() {
                 return this.offlineCoursesList ? this.offlineCoursesList.length : 0;
+            },
+            headers() {
+                let headers = {};
+                if (sessionStorage.getItem('token')) {
+                    headers.token = sessionStorage.getItem('token');
+                }
+                return headers;
             }
         },
         components: {
@@ -160,6 +244,109 @@
             "course-item": courseItem
         },
         methods: {
+            //生成图片URL
+            overviewUrl(src) {
+                return src ? `http://${src}` : "";
+            },
+            //上传列表变化
+            handleChange(file, fileList) {
+                if (fileList.length === 2) {
+                    fileList.shift();
+                }
+            },
+            //上传图片成功
+            handleSuccess(res, file, fileList) {
+                if (res.code === 0 && res.msg === '成功') {
+                    if (res.data) {
+                        this.courseForm.courseUrl = res.data;
+                    }
+                    this.$message({
+                        type: "success",
+                        message: "封面图片上传成功"
+                    });
+                }
+                this.uploading = false;
+            },
+            //上传失败
+            handleError() {
+                this.uploading = false;
+                this.$message({
+                    type: "error",
+                    message: "上传图片失败"
+                });
+            },
+            //移除上传文件时
+            handleRemove() {
+                this.courseForm.courseUrl = "";
+            },
+            //处理上传过程中
+            handleProgress(event, file, fileList) {
+                this.uploading = true;
+            },
+            //触发图片上传
+            handleUpload() {
+                //判断上传封面图片是否已经上传
+                let upload = this.$refs.upload,
+                    files = upload.uploadFiles,
+                    file = files[0];
+                if (files.length !== 0 && !file.response) {
+                    this.uploading = true;
+                    this.$refs.upload.submit();
+                } else {
+                    this.$message({
+                        type: "error",
+                        message: "请选择图片",
+                        duration: 1500
+                    })
+                }
+
+            },
+            handlePost() {
+                this.$http({
+                    method: "post",
+                    url: API(""),
+                    body: this.courseForm
+                }).then(
+                    () => {
+
+                    },
+                    () => {
+
+                    }
+                )
+            },
+            //提交表单
+            submit() {
+                this.$refs.courseForm.validate((result) => {
+                    if (result) {
+                        this.inSubmit = true;
+                        console.log("通过效验");
+                        //判断上传封面图片是否已经上传
+                        let upload = this.$refs.upload,
+                            files = upload.uploadFiles,
+                            file = files[0];
+                        //当文件列表长度不为0且当中的文件未上传时
+                        if (files.length !== 0 && !file.response) {
+                            //上传图片,并在图片提交完成后提交作业
+                            this.handleUpload();
+                        }
+                        this.handlePost();
+                    } else {
+//                        console.log("未通过效验");
+//                        console.log(this.courseForm);
+                        this.$message({
+                            type: "error",
+                            message: "请正确填写课程信息",
+                            duration: 1500
+                        })
+                    }
+                });
+
+
+            },
+            dialogClose() {
+                this.dialogVisible = false;
+            },
             openHandle() {
                 //模态框打开事件
                 console.log("打开模态框");
@@ -167,9 +354,28 @@
             closeHandle() {
                 //模态框关闭事件
                 console.log("关闭模态框,重置状态");
+                if (this.modalType === "edit") {
+                    this.courseForm = {
+                        title: "",
+                        teacherId: "",
+                        startTime: "",
+                        endTime: "",
+                        courseUrl: "",
+                        url: "",
+                    };
+                }
+                //模态框关闭时,需要重置表单内容和效验状态
+                this.$refs.courseForm.resetFields();
+                this.$refs.courseForm.clearValidate();
+                //清除上传队列
+                this.$refs.upload.clearFiles();
+                this.modalType = "";
             },
             editCourse(id, course) {
                 console.log("编辑", id, course);
+                this.modalType = "edit";
+                this.dialogVisible = true;
+                this.courseForm = JSON.parse(JSON.stringify(course));
             },
             deleteCourse(id, index) {
                 console.log("删除", id, index);
@@ -241,9 +447,10 @@
                 );
             },
             addItem() {
-                console.log("添加课程");
+//                console.log("添加课程");
                 this.dialogTitle = "添加";
                 this.dialogVisible = true;
+                this.modalType = "add";
             },
             searchKeyword(keyword) {
                 this.keyword = keyword;
@@ -277,6 +484,31 @@
                 min-height: 100px;
                 border: 1px solid #ddd;
                 padding: 1rem;
+                max-height:380px;
+                overflow-y: auto;
+            }
+            .left-form {
+
+            }
+            .right-overview {
+                display: flex;
+                flex-direction: column;
+                .image-overview {
+                    flex-grow: 1;
+                    flex-shrink: 0;
+                    img {
+                        max-width: 100%;
+                        max-height: 190px;
+                        vertical-align: middle;
+                    }
+                }
+                .video-overview {
+                    flex-grow: 1;
+                    flex-shrink: 0;
+                    iframe {
+                        vertical-align: middle;
+                    }
+                }
             }
         }
     }
