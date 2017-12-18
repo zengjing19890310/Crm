@@ -57,7 +57,7 @@
                                   class="forget-input" auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button class="login-submit" @click="done('forgetForm')">完成</el-button>
+                        <el-button class="login-submit" @click="done('forgetForm')" :loading="forgetLoading">完成</el-button>
                     </el-form-item>
                 </el-form>
             </section>

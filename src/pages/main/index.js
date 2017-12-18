@@ -17,7 +17,8 @@ import circleManangement from "./components/circleManagement.vue";
 import circleDetail from "./components/circleDetail.vue";
 
 import offlineCourses from "./components/offlineCourses.vue";
-import videoCourses from "./components/videoCourses.vue";
+import onlineCourses from "./components/onlineCourses.vue";
+import offlineVideoOverview from "./components/offlineVideoOverview.vue";
 
 import editor from "./components/editor.vue";
 
@@ -26,14 +27,19 @@ import testIM from "./components/testIM.vue";
 //路由配置同步传输面包屑导航信息
 const routes = [
 	{
+		path: "/offlineVideoOverview/:courseId",
+		name: "offlineVideoOverview",
+		component: offlineVideoOverview
+	},
+	{
 		path: "/offlineCourses",
 		name: "offlineCourses",
 		component: offlineCourses
 	},
 	{
-		path: "/videoCourses",
-		name: "videoCourses",
-		component: videoCourses
+		path: "/onlineCourses",
+		name: "onlineCourses",
+		component: onlineCourses
 	},
 	{
 		path: "/editor/:circleId/add",
@@ -106,16 +112,6 @@ const routes = [
 ];
 
 let pathInfo = {
-	"videoCourses": [
-		{
-			path: "/",
-			name: "内容管理"
-		},
-		{
-			path: "/videoCourses",
-			name: "视频课程"
-		}
-	],
 	"offlineCourses": [
 		{
 			path: "/",
@@ -123,7 +119,31 @@ let pathInfo = {
 		},
 		{
 			path: "/offlineCourses",
-			name: "离线课程"
+			name: "线下课程"
+		}
+	],
+	"offlineVideoOverview": [
+		{
+			path: "/",
+			name: "内容管理"
+		},
+		{
+			path: "/offlineCourses",
+			name: "线下课程"
+		},
+		{
+			path: "/offlineVideoOverview",
+			name: "线下课程预览"
+		}
+	],
+	"onlineCourses": [
+		{
+			path: "/",
+			name: "内容管理"
+		},
+		{
+			path: "/onlineCourses",
+			name: "线上课程"
 		}
 	],
 	"addEditor": [
@@ -293,23 +313,28 @@ let mainView = new Vue({
 		activeName: "1",
 		isCollapse: false,
 		currentNav: [],
+		resizeLock: false
+	},
+	watch: {
+
 	},
 	mounted() {
-		let _this = this;
-
-		function checkWidth() {
-			const WIDTH = document.body.clientWidth;
-			WIDTH <= 1024 ? _this.isCollapse = true : _this.isCollapse = false;
-			window.Bus.$emit("resize-window", _this.isCollapse);
-		}
-
-		checkWidth();
-
-		window.onresize = function () {
-			checkWidth();
-		};
+		this.checkWidth();
+		window.addEventListener("resize", this.checkWidth);
 	},
 	methods: {
+		checkWidth() {
+			//400毫秒只能触发一次
+			if(!this.resizeLock){
+				this.resizeLock = true;
+				let WIDTH = document.body.clientWidth;
+				WIDTH <= 1024 ? this.isCollapse = true : this.isCollapse = false;
+				window.Bus.$emit("resize-window", this.isCollapse);
+				setTimeout(()=>{
+					this.resizeLock = false;
+				},400);
+			}
+		},
 		clearModal() {
 			window.Bus.$emit("clear-modal");
 			window.Bus.$emit("clear-child-menu");

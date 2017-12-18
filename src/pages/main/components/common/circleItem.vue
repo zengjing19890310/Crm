@@ -1,7 +1,7 @@
 <template>
     <div class="circle-item">
         <div class="image-wrapper" @click.stop="showModal">
-            <img :src="imageUrl(circleData.url)" alt="" class="image">
+            <img :src="circleData.url" alt="" class="image">
             <modal-component @edit="editCircle" @delete="deleteCircle" :modal="modal"></modal-component>
         </div>
         <div class="text-wrapper">

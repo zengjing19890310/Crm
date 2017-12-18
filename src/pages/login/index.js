@@ -72,6 +72,7 @@ let loginView = new Vue({
 										type: "error",
 										message: data.msg
 									});
+									this.loginButtonLoading = false;
 								} else {
 									//获取username并存储在本地
 									let token = data.data.username,

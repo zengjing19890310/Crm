@@ -50,6 +50,7 @@ let register = new Vue({
 	el: "#app",
 	data: {
 		logoUrl: require("../../common/images/logo.png"),
+		registerLoading: false,
 		registerText: "亲！还没有马甲，赶紧的穿上",
 		registerForm: {
 			phone: "",
@@ -83,6 +84,7 @@ let register = new Vue({
 		done(formName) {
 			this.$refs[formName].validate((valid) => {
 				if (valid) {
+					this.registerLoading = true;
 					//发送注册请求
 					let obj = {
 						mobile: this.registerForm.phone,
@@ -128,13 +130,14 @@ let register = new Vue({
 																	window.sessionStorage.setItem("userId", userId);
 																	window.sessionStorage.setItem("nickname", nickname);
 																	window.sessionStorage.setItem("userInformation", JSON.stringify(data.data));
+																	this.registerLoading = false;
 																	window.location.href = "../main";
 																}
 															}
 														}
 													},
 													(res) => {
-
+														this.registerLoading = false;
 													}
 												);
 											}
@@ -145,6 +148,7 @@ let register = new Vue({
 											type: "error",
 											duration: 1500
 										});
+										this.registerLoading = false;
 									}
 								}
 

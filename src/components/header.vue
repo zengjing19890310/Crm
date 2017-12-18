@@ -83,7 +83,7 @@
 
 <style lang="scss" scoped>
     .header-container {
-        height: 90px;
+        height: 50px;
         border-bottom: 1px solid #eeeeee;
         box-sizing: border-box;
         display: flex;

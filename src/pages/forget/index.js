@@ -50,6 +50,7 @@ let forgetView = new Vue({
 	el: "#app",
 	data: {
 		title: "忘记密码",
+		forgetLoading: false,
 		logoUrl: require("../../common/images/logo.png"),
 		logoText: "亲！忘记了，不怕用手机直接找回",
 		forgetForm: {
@@ -84,6 +85,7 @@ let forgetView = new Vue({
 		done(formName) {
 			this.$refs[formName].validate((valid) => {
 				if (valid) {
+					this.forgetLoading = true;
 					let obj = {
 						mobile: this.forgetForm.phone,
 						code: this.forgetForm.code,
@@ -104,6 +106,7 @@ let forgetView = new Vue({
 										message: "修改密码成功,即将返回登录页...",
 										duration: 1500,
 										onClose: () => {
+											this.forgetLoading = false;
 											window.location.href = "../login";
 										}
 									});
@@ -123,8 +126,10 @@ let forgetView = new Vue({
 									});
 								}
 							}
+							this.forgetLoading = false;
 						},
 						(res) => {
+							this.forgetLoading = false;
 							console.error(res);
 						}
 					);

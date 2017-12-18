@@ -159,12 +159,13 @@
             },
             handleSuccess(res, file) {
                 this.message.close();
-                console.log("期待被执行");
+//                console.log("期待被执行");
                 this.submitButtonLoading = false;
 //                console.log('上传成功', res, file);
                 if (res.code === 0 && res.msg === '成功') {
                     if (this.uploadType === 'image') {
-                        this.quill.insertEmbed(15, 'image', `http://${res.data}`);
+//                        this.quill.insertEmbed(15, 'image', `http://${res.data}`);
+                        this.quill.insertEmbed(15, 'image', res.data);
                         this.embedIndex++;
                     }
                 }

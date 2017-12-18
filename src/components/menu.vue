@@ -6,7 +6,7 @@
                 <p>{{menuTitle}}</p>
             </div>
 
-            <span class="collapse-icon" @click="collapseMenu">
+            <span :class="['collapse-icon',{'collapse-menu':isCollapse}]" @click="collapseMenu">
 
             </span>
         </div>
@@ -74,10 +74,10 @@
                         <ul :class="['child-menu',{'collapse-menu':isCollapse}]" v-show="curr==='3'"
                             @click="clearChildMenu">
                             <!--<li>-->
-                                <!--<router-link to="/publishArticle">-->
-                                    <!--&lt;!&ndash;<i class="el-icon-edit"></i>&ndash;&gt;-->
-                                    <!--<p>发布文章</p>-->
-                                <!--</router-link>-->
+                            <!--<router-link to="/publishArticle">-->
+                            <!--&lt;!&ndash;<i class="el-icon-edit"></i>&ndash;&gt;-->
+                            <!--<p>发布文章</p>-->
+                            <!--</router-link>-->
                             <!--</li>-->
                             <li>
                                 <router-link to="/circleManagement">
@@ -91,8 +91,8 @@
                                 </router-link>
                             </li>
                             <li>
-                                <router-link to="/videoCourses">
-                                    视频课程
+                                <router-link to="/onlineCourses">
+                                    线上课程
                                 </router-link>
                             </li>
                         </ul>
@@ -149,7 +149,7 @@
             align-items: center;
             justify-content: space-between;
             .logo {
-                margin-left: 20px;
+                /*margin-left: 20px;*/
                 p {
                     font-size: 0.9rem;
                     text-align: center;
@@ -158,12 +158,15 @@
             .collapse-icon {
                 width: 30px;
                 height: 30px;
-                margin: 0 15px;
+                /*margin: 0 15px;*/
                 -webkit-border-radius: 5px;
                 -moz-border-radius: 5px;
                 border-radius: 5px;
                 background: #2b303a url(../common/images/collapse.png) no-repeat;
                 cursor: pointer;
+                &.collapse-menu {
+                    margin: 0 15px;
+                }
             }
         }
         .menu-parent {

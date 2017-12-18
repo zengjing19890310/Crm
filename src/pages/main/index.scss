@@ -11,7 +11,7 @@ section.main {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 280px;
+    width: 180px;
     background-color: #303641;
     color: #fff;
 
@@ -25,14 +25,14 @@ section.main {
     right: 0;
     top: 0;
     bottom: 0;
-    left: 280px;
+    left: 180px;
 
     &.collapse-menu {
       left: 60px;
     }
     .router-view {
       position: absolute;
-      top: 140px;
+      top: 100px;
       left: 0;
       right: 0;
       bottom: 0;
@@ -47,7 +47,7 @@ section.main {
       }
       .copyright {
         position: absolute;
-        bottom: 10px;
+        bottom: 0;
         left: 0;
         right: 0;
         padding: 0 1rem;

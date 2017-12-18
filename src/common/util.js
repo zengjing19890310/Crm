@@ -2,7 +2,13 @@ Vue.use(VueResource);
 Vue.use(element);
 
 module.exports = {
-	//抓去URL后面的参数
+	//抓去iframe src字段
+	fetchSrc(src) {
+		let reg = /src="([^"]+)"/;
+		src.match(reg);
+		return RegExp.$1;
+	},
+	//抓取URL后面的参数
 	fetchParam(search, param) {
 		let parseSearch = function (search) {
 			let params = search.substr(1),
@@ -10,10 +16,10 @@ module.exports = {
 				searchObject = {};
 			if (paramArray && paramArray.length !== 0) {
 				let arr = [];
-				paramArray.forEach(function(value,index){
-					if(value){
+				paramArray.forEach(function (value, index) {
+					if (value) {
 						arr = value.split("=");
-						if(arr[0]){
+						if (arr[0]) {
 							searchObject[arr[0]] = arr[1];
 						}
 					}
