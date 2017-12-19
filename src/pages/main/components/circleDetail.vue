@@ -45,12 +45,8 @@
                 circleData: {},
                 postsList: [],
                 currentPost: {},
-                keyword: ""
-            }
-        },
-        computed: {
-            dataTotal() {
-                return this.postsList ? this.postsList.length : 0;
+                keyword: "",
+                dataTotal: 0
             }
         },
         beforeRouteEnter(to, from, next) {
@@ -241,6 +237,10 @@
                             if (response.data) {
                                 let data = response.data,
                                     list = data.list;
+
+                                //获取数据总条数
+                                this.dataTotal = data.total;
+
                                 if (!type || type === "newPost") {
                                     this.postsList = list;
                                 } else if (type === "more") {
@@ -288,6 +288,7 @@
 
 <style lang="scss" scoped>
     @import "common/style/main";
+
     .main {
         .circle-detail-container {
             flex-grow: 1;

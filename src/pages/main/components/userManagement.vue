@@ -2,11 +2,12 @@
     <div class="outer-container">
         <!--<h4>用户管理</h4>-->
         <section class="main">
-            <filter-component></filter-component>
+            <filter-component :data-count="dataTotal" @add-item="addItem"
+                              @search-keyword="searchKeyword"></filter-component>
             <div class="list-table" id="list-table">
                 <el-table
                         v-loading="loading"
-                        :data="tableData"
+                        :data="userList"
                         style="width: 100%;font-size: 12px;"
                         :height="tableHeight">
                     <el-table-column
@@ -92,56 +93,13 @@
 
 <script>
     import filterComponent from "./common/filterComponent.vue";
-    export default {
-        methods: {
-            loadMore() {
-                let _this = this;
-                setTimeout(function () {
-                    _this.tableData = _this.tableData.concat(
-                        [{
-                            checkStatus: false,
-                            index: 2,
-                            name: '曾竞2',
-                            phone: '15922989373',
-                            department: '开发部',
-                            role: [
-                                'web前端开发',
-                                '团长',
-                                '经理',
-                                '销售人员'
-                            ],
-                            handle: [
-                                '删除用户',
-                                '修改用户'
-                            ]
-                        }, {
-                            checkStatus: false,
-                            index: 3,
-                            name: '曾竞2',
-                            phone: '15922989373',
-                            department: '开发部',
-                            role: [
-                                'web前端开发',
-                                '团长',
-                                '销售人员'
-                            ],
-                            handle: [
-                                '删除用户'
-                            ]
-                        }]
-                    );
-                    _this.loading = false;
-                }, 3000);
-            },
-            handleSelectionChange() {
 
-            }
-        },
+    export default {
         data() {
             return {
                 loading: false,
+                userList: [],
                 colSpan: [],
-                dataTotal: 0,
                 keyword: '',
                 department: '',
                 departments: [
@@ -156,182 +114,54 @@
                     '经理',
                     '销售人员'
                 ],
-                tableData: [
-                    {
-                        checkStatus: true,
-                        index: 1,
-                        name: '曾竞',
-                        phone: '15922989373',
-                        department: '开发部',
-                        role: [
-                            'web前端开发',
-                            '销售人员'
-                        ],
-                        handle: [
-                            '删除用户',
-                        ]
-                    },
-                    {
-                        checkStatus: false,
-                        index: 1,
-                        name: '曾竞',
-                        phone: '15922989373',
-                        department: '开发部',
-                        role: [
-                            'web前端开发',
-                            '团长',
-                            '经理',
-                            '销售人员'
-                        ],
-                        handle: [
-                            '修改用户'
-                        ]
-                    },
-                    {
-                        checkStatus: false,
-                        index: 1,
-                        name: '曾竞',
-                        phone: '15922989373',
-                        department: '开发部',
-                        role: [
-                            'web前端开发',
-                            '团长',
-                            '经理',
-                            '销售人员'
-                        ],
-                        handle: [
-                            '删除用户',
-                            '修改用户'
-                        ]
-                    },
-                    {
-                        checkStatus: false,
-                        index: 1,
-                        name: '曾竞',
-                        phone: '15922989373',
-                        department: '开发部',
-                        role: [
-                            'web前端开发',
-                            '团长',
-                            '经理',
-                            '销售人员'
-                        ],
-                        handle: [
-                            '删除用户',
-                            '修改用户'
-                        ]
-                    },
-                    {
-                        checkStatus: false,
-                        index: 1,
-                        name: '曾竞',
-                        phone: '15922989373',
-                        department: '开发部',
-                        role: [
-                            'web前端开发',
-                            '团长',
-                            '经理',
-                            '销售人员'
-                        ],
-                        handle: [
-                            '删除用户',
-                            '修改用户'
-                        ]
-                    },
-                    {
-                        checkStatus: false,
-                        index: 1,
-                        name: '曾竞',
-                        phone: '15922989373',
-                        department: '开发部',
-                        role: [
-                            'web前端开发',
-                            '团长',
-                            '经理',
-                            '销售人员'
-                        ],
-                        handle: [
-                            '删除用户',
-                            '修改用户'
-                        ]
-                    },
-                    {
-                        checkStatus: false,
-                        index: 1,
-                        name: '曾竞',
-                        phone: '15922989373',
-                        department: '开发部',
-                        role: [
-                            'web前端开发',
-                            '团长',
-                            '经理',
-                            '销售人员'
-                        ],
-                        handle: [
-                            '删除用户',
-                            '修改用户'
-                        ]
-                    },
-                    {
-                        checkStatus: false,
-                        index: 1,
-                        name: '曾竞',
-                        phone: '15922989373',
-                        department: '开发部',
-                        role: [
-                            'web前端开发',
-                            '团长',
-                            '经理',
-                            '销售人员'
-                        ],
-                        handle: [
-                            '删除用户',
-                            '修改用户'
-                        ]
-                    },
-                    {
-                        checkStatus: false,
-                        index: 1,
-                        name: '曾竞',
-                        phone: '15922989373',
-                        department: '开发部',
-                        role: [
-                            'web前端开发',
-                            '团长',
-                            '经理',
-                            '销售人员'
-                        ],
-                        handle: [
-                            '删除用户',
-                            '修改用户'
-                        ]
-                    },
-                    {
-                        checkStatus: false,
-                        index: 1,
-                        name: '曾竞',
-                        phone: '15922989373',
-                        department: '开发部',
-                        role: [
-                            'web前端开发',
-                            '团长',
-                            '经理',
-                            '销售人员'
-                        ],
-                        handle: [
-                            '删除用户',
-                            '修改用户'
-                        ]
+                tableHeight: 100,
+                dataTotal: 0,
+                size: 20,
+                page: 1
+            }
+        },
+        methods: {
+            fetchUserList() {
+                let url, method,
+                    size = this.size,
+                    page = this.page;
+                url = API("/sysuser/all");
+                method = "get";
+                this.$http({
+                    url: url,
+                    method: method,
+                    params: {
+                        page: page,
+                        size: size
                     }
-                ],
-                tableHeight: 100
+                }).then(
+                    (res) => {
+                        let response = res.body;
+                        if (response) {
+                            if (response.code === 0 && response.msg === "成功") {
+                                let data = response.data,
+                                    list = data.list;
+                                this.dataTotal = data.total;
+                                this.userList = list;
+                                console.log(list);
+                            }
+                        }
+                        console.log(res);
+                    },
+                    (res) => {
+
+                    }
+                )
+            },
+            handleSelectionChange() {
+
             }
         },
         components: {
             "filter-component": filterComponent
         },
         created() {
-            this.dataTotal = this.tableData.length;
+            this.fetchUserList();
         },
         mounted() {
             const TRHEIGHT = 50;//通过行高动态计算首屏的数据条数最小数，直接顶出滚动条
@@ -353,14 +183,15 @@
                 }
             };
             //首次加载数据后，内表高度如果小于视窗高度，则不出现滚动条
-            scrollView.addEventListener('wheel', handler);
-            scrollView.addEventListener('scroll',handler);
+//            scrollView.addEventListener('wheel', handler);
+//            scrollView.addEventListener('scroll',handler);
         }
     }
 </script>
 
 <style lang="scss" scoped>
     @import "common/style/main";
+
     .main {
         .list-table {
             position: absolute;

@@ -43,7 +43,6 @@
                     this.resizeLock = true;
                     let overviewWrapperHeight = document.getElementsByClassName("overview-wrapper");
                     this.videoHeight = overviewWrapperHeight[0].clientHeight;
-                    console.log(this.videoHeight);
                     setTimeout(()=>{
                         this.resizeLock = false;
                     },400);

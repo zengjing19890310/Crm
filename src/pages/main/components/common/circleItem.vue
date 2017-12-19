@@ -85,7 +85,7 @@
         padding: 10px;
 
         .image-wrapper {
-            height: 100px;
+            height: 120px;
             position: relative;
             .image {
                 width: 100%;

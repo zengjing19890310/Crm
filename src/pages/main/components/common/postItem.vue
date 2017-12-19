@@ -3,10 +3,20 @@
         <header class="post-title">
             {{postData.title}}
         </header>
-        <div class="post-digest">
-            <!--显示摘要-->
-            {{postData.content}}
+        <!--<div class="post-digest ql-editor" v-html="postData.content">-->
+        <!--&lt;!&ndash;显示摘要&ndash;&gt;-->
+        <!--&lt;!&ndash;{{postData.content}}&ndash;&gt;-->
+        <!--</div>-->
+        <div class="post-overview">
+            <div class="post-url">
+                <img :src="postData.articleImg" alt="">
+            </div>
+            <!--<div class="post-digest">-->
+                <!--&lt;!&ndash;显示摘要&ndash;&gt;-->
+                <!--{{postData.content}}-->
+            <!--</div>-->
         </div>
+
         <footer class="post-information">
             <span style="margin-right: 20px;">撰稿: {{postData.nickname || '-'}}</span>
             <span>创建时间: {{postData.createTime || '-'}}</span>
@@ -62,7 +72,7 @@
 <style lang="scss" scoped>
     .post-item {
         box-sizing: border-box;
-        width: 24%;
+        width: 18%;
         min-width: 285px;
         height: 195px;
         margin: 5px;
@@ -90,17 +100,34 @@
             text-overflow: ellipsis;
             overflow: hidden;
         }
-        .post-digest {
-            word-break: break-all;
-            font-size: 0.8rem;
-            line-height: 1rem;
+        .post-overview {
+            display: flex;
             flex-grow: 1;
-            color: #7a8190;
-            text-overflow: ellipsis;
-            margin-top: 10px;
-            padding-bottom: 10px;
-            overflow: auto;
+            .post-url {
+                width: 100px;
+                flex-grow: 0;
+                flex-shrink: 0;
+                overflow: hidden;
+                img {
+                    display: block;
+                    height: 100%;
+                    width: 100%;
+                }
+                margin-right:0.5rem;
+            }
+            /*.post-digest {*/
+                /*word-break: break-all;*/
+                /*font-size: 0.8rem;*/
+                /*line-height: 1rem;*/
+                /*flex-grow: 1;*/
+                /*color: #7a8190;*/
+                /*text-overflow: ellipsis;*/
+                /*margin-top: 10px;*/
+                /*padding-bottom: 10px;*/
+                /*overflow: auto;*/
+            /*}*/
         }
+
         .post-information {
             flex-shrink: 0;
             height: 40px;
@@ -122,7 +149,32 @@
                 border-radius: 5px;
                 font-size: 24px;
                 background-color: #fff;
-                color:#999999;
+                color: #999999;
+            }
+        }
+        .post-digest.ql-editor {
+            overflow: hidden;
+            word-break: break-all;
+            font-size: 0.8rem;
+            line-height: 1rem;
+            flex-grow: 0;
+            flex-shrink: 1;
+            padding: 0;
+            white-space: normal;
+            .overview-content {
+                padding: 0 .8rem;
+            }
+            p {
+                font-family: Helvetica;
+                font-size: 18px;
+                line-height: 32px;
+                color: rgb(96, 96, 96);
+                //text-align: justify;
+                word-wrap: break-word;
+            }
+
+            img {
+                max-width: 100%;
             }
         }
     }

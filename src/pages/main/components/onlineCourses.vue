@@ -108,7 +108,7 @@
             let nonnegative = (rule, value, callback) => {
                 if (value < 0) {
                     callback(new Error('输入不能为负值'));
-                }else {
+                } else {
                     callback();
                 }
             };
@@ -159,7 +159,8 @@
                     {id: 2, level: 2, name: "等级2"},
                     {id: 3, level: 3, name: "等级3"},
                     {id: 4, level: 4, name: "等级4"}
-                ]
+                ],
+                dataTotal: 0
             }
         },
         created() {
@@ -201,9 +202,6 @@
             }
         },
         computed: {
-            dataTotal() {
-                return this.onlineCoursesList ? this.onlineCoursesList.length : 0;
-            },
             headers() {
                 let headers = {};
                 if (sessionStorage.getItem('token')) {
@@ -437,6 +435,7 @@
                             if (response.code === 0 && response.msg === "成功") {
                                 if (response.data) {
                                     let list = response.data.list;
+                                    this.dataTotal = response.data.total;
                                     if (!type || type === "newCourse") {
                                         this.onlineCoursesList = list;
                                     } else if (type === "more") {

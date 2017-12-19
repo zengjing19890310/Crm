@@ -159,7 +159,7 @@
             let nonnegative = (rule, value, callback) => {
                 if (value < 0) {
                     callback(new Error('输入不能为负值'));
-                }else {
+                } else {
                     callback();
                 }
             };
@@ -282,7 +282,8 @@
                     }
                 ],
                 //提交表单的形式,更新put或者新增post
-                method: ""
+                method: "",
+                dataTotal: 0
             }
         },
         created() {
@@ -324,9 +325,6 @@
             }
         },
         computed: {
-            dataTotal() {
-                return this.offlineCoursesList ? this.offlineCoursesList.length : 0;
-            },
             headers() {
                 let headers = {};
                 if (sessionStorage.getItem('token')) {
@@ -384,10 +382,6 @@
             timeChange(value) {
 
             },
-            //生成图片URL
-//            overviewUrl(src) {
-//                return src ? `http://${src}` : "";
-//            },
             //上传列表变化
             handleChange(file, fileList) {
                 if (fileList.length === 2) {
@@ -635,6 +629,7 @@
                             if (data.code === 0 && data.msg === "成功") {
                                 if (data.data) {
                                     let list = data.data.list;
+                                    this.dataTotal = data.data.total;
                                     if (!type || type === "newCourse") {
                                         this.offlineCoursesList = list;
                                     } else if (type === "more") {

@@ -1,10 +1,41 @@
 <template>
     <div class="outer-container">
         <section class="main" v-loading="postLoading" element-loading-text="加载中...">
-            <header class="post-title">
-                <div class="label">标题</div>
-                <el-input v-model="postContent.title" size="small" style="width:400px;"></el-input>
-            </header>
+            <div class="cover-overview" v-show="postContent.articleImg">
+                <img :src="postContent.articleImg" alt="">
+            </div>
+            <!--<header class="post-title">-->
+            <!--<div class="label">标题</div>-->
+            <!--<el-input v-model="postContent.title" size="small" style="width:400px;"></el-input>-->
+            <!--</header>-->
+            <div class="post-uploader">
+                <!--:rules="rules"-->
+                <el-form ref="postForm" :model="postContent" label-width="80px" size="small" label-position="left"
+                         :rules="rules">
+                    <el-form-item label="帖子标题" prop="title">
+                        <el-input v-model="postContent.title" size="small" style="width:400px;"></el-input>
+                    </el-form-item>
+                    <el-form-item label="帖子封面" prop="articleImg">
+                        <el-input v-show="false" v-model="postContent.articleImg"></el-input>
+                        <el-upload
+                                ref="upload"
+                                :action="uploadUrl"
+                                :headers="headers"
+                                :show-file-list="false"
+                                :multiple="false"
+                                :auto-upload="true"
+
+                                :on-change="handleCoverChange"
+                                :before-upload="beforeCoverUpload"
+                                :on-success="handleCoverSuccess"
+                                :on-error="handleError"
+
+                                accept="image/*">
+                            <el-button slot="trigger" type="primary" :loading="uploading">上传封面图片</el-button>
+                        </el-upload>
+                    </el-form-item>
+                </el-form>
+            </div>
             <div class="post-content">
                 <div class="label">内容</div>
                 <div class="editor-wrapper">
@@ -39,7 +70,9 @@
                 </div>
             </div>
             <footer style="margin:20px 0; text-align: right">
-                <el-button type="primary" size="small" @click="submit" :loading="submitButtonLoading"> 确 认 </el-button>
+                <el-button type="primary" size="small" @click="submit" :loading="submitButtonLoading||uploading">
+                    确 认
+                </el-button>
                 <el-button size="small" @click="cancel"> 取 消 </el-button>
             </footer>
         </section>
@@ -69,6 +102,13 @@
     ];
     export default {
         data() {
+            let notEmpty = (rule, value, callback) => {
+                if (!value || !value.trim()) {
+                    callback(new Error("不能为空"));
+                } else {
+                    callback();
+                }
+            };
             return {
                 postId: null,
                 postLoading: true,
@@ -85,7 +125,20 @@
                 submitButtonLoading: false,
                 //存放一个上传图片时的消息提示实例
                 message: null,
-                userInformation: null
+                userInformation: null,
+                resizeLock: false,
+                rules: {
+                    articleImg: [
+                        {required: true, message: "请上传封面图片", trigger: "blur"},
+                        {validator: notEmpty, trigger: "blur"}
+                    ],
+                    title: [
+                        {required: true, message: "请输入标题", trigger: "blur"},
+                        {validator: notEmpty, trigger: "blur"}
+                    ]
+
+                },
+                uploading: false
             }
         },
         created() {
@@ -128,12 +181,9 @@
             }
         },
         mounted() {
-            //获取编辑框包裹的高度
-            let wrapper = document.getElementsByClassName("editor-wrapper"),
-                //获取上方工具条的高度
-                toolbar = document.getElementsByClassName("ql-toolbar");
-            this.editorHeight = wrapper[0].clientHeight - toolbar[0].clientHeight - 2;
-
+            this.calcHeight();
+            //给window添加事件监听
+            window.addEventListener('resize', this.calcHeight);
             this.quill = this.$refs.editor.quill;
             // 为图片ICON绑定事件  getModule 为编辑器的内部属性
             this.quill.getModule('toolbar').addHandler('image', this.imgHandler);
@@ -148,6 +198,33 @@
             }
         },
         methods: {
+            calcHeight() {
+                if (!this.resizeLock) {
+                    this.resizeLock = true;
+                    //获取编辑框包裹的高度
+                    let wrapper = document.getElementsByClassName("editor-wrapper"),
+                        //获取上方工具条的高度
+                        toolbar = document.getElementsByClassName("ql-toolbar");
+                    this.editorHeight = wrapper[0].clientHeight - toolbar[0].clientHeight - 2;
+                    setTimeout(() => {
+                        this.resizeLock = false;
+                    }, 400);
+                }
+
+            },
+            handleCoverChange(file, fileList) {
+                if (fileList.length === 2) {
+                    fileList.shift();
+                }
+            },
+            beforeCoverUpload(file) {
+                this.uploading = true;
+                this.message = this.$message({
+                    type: "warning",
+                    message: "封面上传中,请耐心等待...",
+                    duration: 0
+                });
+            },
             beforeUpload(file) {
                 this.submitButtonLoading = true;
                 this.message = this.$message({
@@ -156,6 +233,19 @@
                     duration: 0
                 });
 //                console.log('上传前', file);
+            },
+            handleCoverSuccess(res, file) {
+                this.message.close();
+                this.uploading = false;
+                if (res.code === 0 && res.msg === '成功') {
+                    this.$message({
+                        type: "success",
+                        message: "封面上传成功",
+                        duration: 1500
+                    });
+                    this.postContent.articleImg = res.data;
+                    this.$refs.postForm.validateField("articleImg");
+                }
             },
             handleSuccess(res, file) {
                 this.message.close();
@@ -171,7 +261,14 @@
                 }
             },
             handleError() {
+                this.message.close();
                 this.submitButtonLoading = false;
+                this.uploading = false;
+                this.$message({
+                    type: "error",
+                    message: "图片上传失败",
+                    duration: 1500
+                });
             },
             imgHandler(e) {
                 this.$refs.selectImage.click();
@@ -181,57 +278,76 @@
                 this.$router.go(-1);
             },
             submit() {
-                if(!this.postContent.title||!this.postContent.title.trim()){
-                    this.$message({
-                        type: "error",
-                        message: "请填写帖子标题!"
-                    });
-                    return;
-                }
-                this.submitButtonLoading = true;
-                let method,
-                    message;
-                if (this.postId) { //编辑某个帖子
-                    method = "put";
-                    message = "编辑";
-                } else { //新增一个帖子
-                    method = "post";
-                    message = "发帖";
-                }
-                this.$http({
-                    url: API("/circle/article"),
-                    method: method,
-                    body: this.postContent
-                }).then(
-                    (res) => {
-                        let data = res.data;
-                        if (data.code === 0 && data.msg === '成功') {
-                            this.$message({
-                                message: `${message}成功,即将返回帖子列表...`,
-                                type: "success",
-                                duration: 1500,
-                                onClose: () => {
-                                    this.embedIndex = 0;
-                                    this.submitButtonLoading = false;
-                                    this.$router.go(-1);
-                                }
-                            });
-                        } else {
-                            this.$message({
-                                message: data.msg,
-                                type:"error"
-                            });
-                            this.submitButtonLoading = false;
+                this.$refs.postForm.validate((result) => {
+                    if (result) {
+                        this.submitButtonLoading = true;
+                        let method,
+                            message;
+                        if (this.postId) { //编辑某个帖子
+                            method = "put";
+                            message = "编辑";
+                        } else { //新增一个帖子
+                            method = "post";
+                            message = "发帖";
                         }
-                    },
-                    (res) => {
+                        this.$http({
+                            url: API("/circle/article"),
+                            method: method,
+                            body: this.postContent
+                        }).then(
+                            (res) => {
+                                let data = res.data;
+                                if (data.code === 0 && data.msg === '成功') {
+                                    this.$message({
+                                        message: `${message}成功,即将返回帖子列表...`,
+                                        type: "success",
+                                        duration: 1500,
+                                        onClose: () => {
+                                            this.embedIndex = 0;
+                                            this.submitButtonLoading = false;
+                                            this.$router.go(-1);
+                                        }
+                                    });
+                                } else {
+                                    this.$message({
+                                        message: data.msg,
+                                        type: "error"
+                                    });
+                                    this.submitButtonLoading = false;
+                                }
+                            },
+                            (res) => {
+                                this.$message({
+                                    message: "请求错误",
+                                    type: "error"
+                                });
+                                this.submitButtonLoading = false;
+                            }
+                        );
+                    }else {
+                        let method,
+                            message;
+                        if (this.postId) { //编辑某个帖子
+                            method = "put";
+                            message = "编辑";
+                        } else { //新增一个帖子
+                            method = "post";
+                            message = "发帖";
+                        }
                         this.$message({
-                            message: "请求错误",
-                            type:"error"
-                        });
-                        this.submitButtonLoading = false;
+                            type: "error",
+                            message: `${message}失败`,
+                            duration: 1500
+                        })
                     }
-                );
+                });
+//                if (!this.postContent.title || !this.postContent.title.trim()) {
+//                    this.$message({
+//                        type: "error",
+//                        message: "请填写帖子标题!"
+//                    });
+//                    return;
+//                }
             }
         }
     }
@@ -239,10 +355,25 @@
 
 <style lang="scss" scoped>
     @import "common/style/main";
+
     .main {
+        padding: 0.5rem;
+        overflow: hidden;
+        .cover-overview {
+            width: 150px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            right: 0.5rem;
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        }
         .post-title {
             flex-shrink: 0;
-            height: 5rem;
+            height: 3.75rem;
             display: flex;
             justify-content: flex-start;
             align-items: center;
@@ -261,7 +392,7 @@
             }
             .editor-overview.ql-editor {
                 width: 320px;
-                margin-left: 1rem;
+                margin-left: 0.5rem;
                 border: 1px solid #ddd;
                 overflow: auto;
                 word-break: break-all;
@@ -298,10 +429,17 @@
                 }
             }
         }
+        .post-uploader {
+            display: flex;
+            min-height: 3.75rem;
+            flex-shrink: 0;
+            justify-content: flex-start;
+            align-items: center;
+        }
         .label {
-            width: 55px;
+            width: 80px;
             color: #7a8190;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             flex-shrink: 0;
         }
     }

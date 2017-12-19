@@ -142,13 +142,11 @@
 
                 getDataLock: false,
                 //搜索关键字
-                keyword: ""
+                keyword: "",
+                dataTotal: 0
             }
         },
         computed: {
-            dataTotal() {
-                return this.circleList ? this.circleList.length : 0;
-            },
             headers() {
                 let headers = {};
                 if (sessionStorage.getItem('token')) {
@@ -158,7 +156,7 @@
             }
         },
         mounted() {
-            this.getData();
+            this.fetchCirclesList();
             //获取视窗容器
             let circleContainer = document.getElementById("circle-container"),
                 //获取内部包裹容器高度
@@ -177,7 +175,7 @@
                     return;
                 }
                 if (circleWrapper.clientHeight <= circleContainer.clientHeight + circleContainer.scrollTop) {
-                    this.getData("more");
+                    this.fetchCirclesList("more");
                 }
             };
 
@@ -199,7 +197,7 @@
                 this.keyword = keyword;
                 //翻回第一页
                 this.page = 1;
-                this.getData();
+                this.fetchCirclesList();
             },
             //跳转圈子详情页面
             goCircleDetail(id) {
@@ -209,7 +207,7 @@
                 });
             },
             //获取圈子列表
-            getData(type) {
+            fetchCirclesList(type) {
                 this.getDataLock = true;
                 let size = this.size,
                     page = this.page;
@@ -240,6 +238,7 @@
                             if (response.data) {
                                 let data = response.data,
                                     list = data.list;
+                                this.dataTotal = data.total;
                                 if (!type || type === "newCircle") {
                                     this.circleList = list;
                                 } else if (type === "more") {
@@ -530,7 +529,7 @@
                                         type: "success",
                                         message: "添加圈子成功"
                                     });
-                                    this.getData("newCircle");
+                                    this.fetchCirclesList("newCircle");
                                 } else {
                                     this.$message({
                                         type: "error",
@@ -571,6 +570,7 @@
 
 <style lang="scss" scoped>
     @import "common/style/main";
+
     .main {
         .circle-container {
             flex-grow: 1;
