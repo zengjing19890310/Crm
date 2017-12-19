@@ -52,9 +52,6 @@
                     }
                 })
             },
-            imageUrl(url) {
-                return url ? `http://${url}` : '';
-            },
             showModal() {
                 window.Bus.$emit("clear-modal");
                 this.modal = true;

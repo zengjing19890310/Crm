@@ -7,8 +7,8 @@
             </div>
         </header>
         <div class="course-information">
-            <h4 @click="goOverview">{{courseData.description}}</h4>
-            <p>&yen;: {{courseData.price}}</p>
+            <h4 class="course-description" @click="goOverview">{{courseData.description}}</h4>
+            <p>&yen; : {{courseData.price}}</p>
             <p>
                 视频等级: {{courseData.level}}
             </p>
@@ -18,6 +18,7 @@
 
 <script>
     import modalComponent from "./modal.vue";
+
     export default {
         data() {
             return {
@@ -36,12 +37,12 @@
         },
         methods: {
             goOverview() {
-//                this.$router.push({
-//                    name: "offlineVideoOverview",
-//                    params: {
-//                        courseId: this.courseData.id
-//                    }
-//                })
+                this.$router.push({
+                    name: "onlineVideoOverview",
+                    params: {
+                        courseId: this.courseData.id
+                    }
+                })
             },
             showModal() {
                 window.Bus.$emit("clear-modal");
@@ -64,4 +65,10 @@
 
 <style lang="scss" scoped>
     @import "style/courseItemCommon";
+    .course-description {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+    }
 </style>

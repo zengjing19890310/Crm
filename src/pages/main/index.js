@@ -19,6 +19,7 @@ import circleDetail from "./components/circleDetail.vue";
 import offlineCourses from "./components/offlineCourses.vue";
 import onlineCourses from "./components/onlineCourses.vue";
 import offlineVideoOverview from "./components/offlineVideoOverview.vue";
+import onlineVideoOverview from "./components/onlineVideoOverview.vue";
 
 import editor from "./components/editor.vue";
 
@@ -35,6 +36,11 @@ const routes = [
 		path: "/offlineCourses",
 		name: "offlineCourses",
 		component: offlineCourses
+	},
+	{
+		path: "/onlineVideoOverview/:courseId",
+		name: "onlineVideoOverview",
+		component: onlineVideoOverview
 	},
 	{
 		path: "/onlineCourses",
@@ -134,6 +140,20 @@ let pathInfo = {
 		{
 			path: "/offlineVideoOverview",
 			name: "线下课程预览"
+		}
+	],
+	"onlineVideoOverview": [
+		{
+			path: "/",
+			name: "内容管理"
+		},
+		{
+			path: "/onlineCourses",
+			name: "线上课程"
+		},
+		{
+			path: "/onlineVideoOverview",
+			name: "线上课程预览"
 		}
 	],
 	"onlineCourses": [
@@ -315,9 +335,7 @@ let mainView = new Vue({
 		currentNav: [],
 		resizeLock: false
 	},
-	watch: {
-
-	},
+	watch: {},
 	mounted() {
 		this.checkWidth();
 		window.addEventListener("resize", this.checkWidth);
@@ -325,14 +343,14 @@ let mainView = new Vue({
 	methods: {
 		checkWidth() {
 			//400毫秒只能触发一次
-			if(!this.resizeLock){
+			if (!this.resizeLock) {
 				this.resizeLock = true;
 				let WIDTH = document.body.clientWidth;
 				WIDTH <= 1024 ? this.isCollapse = true : this.isCollapse = false;
 				window.Bus.$emit("resize-window", this.isCollapse);
-				setTimeout(()=>{
+				setTimeout(() => {
 					this.resizeLock = false;
-				},400);
+				}, 400);
 			}
 		},
 		clearModal() {

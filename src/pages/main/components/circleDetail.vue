@@ -6,7 +6,7 @@
             <div class="circle-detail-container" id="circle-detail-container">
                 <header class="top">
                     <div class="circle-image">
-                        <img :src="`http://${circleData.url}`" alt="圈子图片无法正常显示">
+                        <img :src="circleData.url" alt="圈子图片无法正常显示">
                     </div>
                     <div class="circle-title">
                         <h4>{{circleData.name}}</h4>

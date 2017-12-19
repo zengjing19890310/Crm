@@ -156,6 +156,13 @@
 
     export default {
         data() {
+            let nonnegative = (rule, value, callback) => {
+                if (value < 0) {
+                    callback(new Error('输入不能为负值'));
+                }else {
+                    callback();
+                }
+            };
             return {
                 startOptions: {
                     firstDayOfWeek: 1,
@@ -242,10 +249,12 @@
                         {required: true, message: "请添加视频", trigger: "blur"}
                     ],
                     person: [
-                        {type: 'number', required: true, message: '开课人数必须为数值', trigger: "blur"}
+                        {type: 'number', required: true, message: '必须为数值', trigger: "blur"},
+                        {validator: nonnegative, trigger: 'blur'}
                     ],
                     money: [
-                        {type: 'number', required: true, message: '课程价格必须为数值', trigger: "blur"}
+                        {type: 'number', required: true, message: '必须为数值', trigger: "blur"},
+                        {validator: nonnegative, trigger: 'blur'}
                     ]
                 },
                 //确定模态框用途,是新增或者编辑
@@ -333,8 +342,8 @@
         methods: {
             changeTeacher(id) {
 //                console.log("改变老师", id);
-                _.forEach(this.teacherList, (teacher,index) => {
-                    if(teacher.id === id){
+                _.forEach(this.teacherList, (teacher, index) => {
+                    if (teacher.id === id) {
                         this.courseForm.teachername = teacher.teachername;
                     }
                 });
@@ -506,8 +515,6 @@
                         })
                     }
                 });
-
-
             },
             dialogClose() {
                 this.dialogVisible = false;
@@ -540,46 +547,57 @@
                 this.modalType = "";
                 this.method = "";
             },
+            //编辑课程
             editCourse(id, course) {
-//                console.log("编辑", id, course);
                 this.modalType = "edit";
                 this.method = "put";
                 this.dialogVisible = true;
                 this.courseForm = JSON.parse(JSON.stringify(course));
             },
+            //删除课程
             deleteCourse(id, index) {
-//                console.log("删除", id, index);
-                this.$http({
-                    method: "delete",
-                    url: API(`/course/${id}`)
-                }).then(
-                    (res) => {
-                        let response = res.body;
-                        if (response) {
-                            if (response.code === 0 && response.msg === "成功") {
-                                this.$message({
-                                    type: "success",
-                                    message: "删除成功",
-                                    duration: 1500
-                                });
-                                this.offlineCoursesList.splice(index, 1);
-                            } else {
-                                this.$message({
-                                    type: "error",
-                                    message: "删除失败",
-                                    duration: 1500
-                                });
+                this.$confirm('确定删除?', '删除', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$http({
+                        method: "delete",
+                        url: API(`/course/${id}`)
+                    }).then(
+                        (res) => {
+                            let response = res.body;
+                            if (response) {
+                                if (response.code === 0 && response.msg === "成功") {
+                                    this.$message({
+                                        type: "success",
+                                        message: "删除成功",
+                                        duration: 1500
+                                    });
+                                    this.offlineCoursesList.splice(index, 1);
+                                } else {
+                                    this.$message({
+                                        type: "error",
+                                        message: "删除失败",
+                                        duration: 1500
+                                    });
+                                }
                             }
+                        },
+                        (res) => {
+                            this.$message({
+                                type: "error",
+                                message: "删除失败",
+                                duration: 1500
+                            });
                         }
-                    },
-                    (res) => {
-                        this.$message({
-                            type: "error",
-                            message: "删除失败",
-                            duration: 1500
-                        });
-                    }
-                );
+                    );
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
             },
             fetchCoursesList(type) {
                 this.getDataLock = true;

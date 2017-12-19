@@ -23,7 +23,6 @@
             }
         },
         mounted() {
-            this.calcHeight();
             //给window添加事件监听
             window.addEventListener('resize', this.calcHeight);
         },
@@ -31,6 +30,10 @@
             overviewData(value) {
                 if (value.url) {
                     this.url = util.fetchSrc(value.url);
+                    //获取到数据后,计算一次高度
+                    setTimeout(()=>{
+                        this.calcHeight();
+                    },0);
                 }
             }
         },
@@ -40,6 +43,7 @@
                     this.resizeLock = true;
                     let overviewWrapperHeight = document.getElementsByClassName("overview-wrapper");
                     this.videoHeight = overviewWrapperHeight[0].clientHeight;
+                    console.log(this.videoHeight);
                     setTimeout(()=>{
                         this.resizeLock = false;
                     },400);

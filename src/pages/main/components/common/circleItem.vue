@@ -65,22 +65,27 @@
 
 <style lang="scss" scoped>
     .circle-item {
-        width: 30%;
-        margin: 0.5rem;
-        height: 280px;
-        flex-grow: 0;
-        flex-shrink: 0;
-        background-color: #fff;
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        width: 20%;
+        min-width: 285px;
+        height: 240px;
+        margin: 5px;
+        border: 1px solid #d8dce5;
+        flex-shrink: 0;
+        flex-grow: 0;
+        background-color: #fff;
         border-radius: 5px;
         overflow: hidden;
-        -webkit-box-shadow: 0 2px 5px 1px rgba(0, 0, 0, .1);
-        -moz-box-shadow: 0 2px 5px 1px rgba(0, 0, 0, .1);
-        box-shadow: 0 2px 5px 1px rgba(0, 0, 0, .1);
+        -webkit-box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+
         .image-wrapper {
-            height: 160px;
+            height: 100px;
             position: relative;
             .image {
                 width: 100%;
