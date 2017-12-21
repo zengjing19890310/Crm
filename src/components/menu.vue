@@ -33,7 +33,7 @@
                         <!--<i class="el-icon-service"></i>-->
                         <div class="wrapper">
                             <span class="menu-icon customer-management-icon"></span>
-                            <p v-show="!isCollapse">客户管理</p>
+                            <p v-show="!isCollapse">人员管理</p>
                         </div>
                         <div class="wrapper arrow-wrapper">
                             <i :class="['el-icon-arrow-right',{'rotate-down':curr==='2'}]"></i>
@@ -52,6 +52,12 @@
                                 <router-link to="/customerShare">
                                     <!--<i class="el-icon-share"></i>-->
                                     <p>分享关系</p>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/customerServices">
+                                    <!--<i class="el-icon-share"></i>-->
+                                    <p>客服</p>
                                 </router-link>
                             </li>
                         </ul>

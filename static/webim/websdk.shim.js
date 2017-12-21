@@ -7,9 +7,9 @@
         _e = function() {},
         https = location.protocol === 'https:';
 
-    _im.Helper = _im.utils;;
+    _im.Helper = _im.utils;
     _im.Emoji = _im.EMOTIONS = {
-        path: 'static/img/faces/'
+        path: './faces/'
         , map: {
             '[):]': 'ee_1.png',
             '[:D]': 'ee_2.png',

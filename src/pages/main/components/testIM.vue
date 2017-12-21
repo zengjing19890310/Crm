@@ -44,13 +44,13 @@
                         发送消息
                     </header>
                     <div>
-                        <el-input type="textarea" v-model="message"></el-input>
+                        <!--<el-input type="textarea" v-model="message"></el-input>-->
+                        <chart-component v-model="message" :canEdit="true"></chart-component>
                         <el-button type="primary" style="margin-top:1rem;" @click="sendMessage">
                             发送消息
                         </el-button>
-                        <el-button type="primary">
-                            发送图片
-                        </el-button>
+                        <input type="file" ref="upload" id="upload" name="file" @change="fileChange" v-show="false">
+                        <el-button @click="sendImageMessage">传图片</el-button>
                     </div>
                 </div>
                 <div class="message-panel" style="width:50%;">
@@ -72,8 +72,8 @@
                                     <span v-else>{{log.to}}</span>
                                     说:
                                 </div>
-                                <div v-if="log.type==='text'" style="word-wrap: break-word;">
-                                    <pre> {{log.message}} </pre>
+                                <div v-if="log.type==='txt'" style="word-wrap: break-word;">
+                                    <pre v-html="log.message"> {{log.message}} </pre>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,12 @@
 
 <script>
     let util = require('../../../common/util');
+    import chartComponent from "./common/chartComponent.vue";
+
     export default {
+        components: {
+            "chart-component": chartComponent
+        },
         data() {
             return {
                 logs: [],
@@ -107,9 +112,50 @@
             }
         },
         methods: {
+            fileChange(e) {
+                // 生成本地消息id
+                let id = this.connect.getUniqueId();
+                // 创建图片消息
+                let msg = new WebIM.message('img', id);
+                // 选择图片的input
+                let upload = document.getElementById('upload');
+                // 将图片转化为二进制文件
+                let file = WebIM.utils.getFileUrl(upload);
+                let allowType = {
+                    'jpg': true,
+                    'gif': true,
+                    'png': true,
+                    'bmp': true
+                };
+                console.log(WebIM.config.apiURL);
+                if (file.filetype.toLowerCase() in allowType) {
+                    let option = {
+                        apiUrl: WebIM.config.apiURL,
+                        file: file,
+                        to: this.targetUser,                       // 接收消息对象
+                        roomType: false,
+                        chatType: 'singleChat',
+                        onFileUploadError: function (e) {      // 消息上传失败
+                            console.error('图片消息上传失败', e);
+                        },
+                        onFileUploadComplete: function () {   // 消息上传成功
+                            console.log('图片消息上传成功');
+                        },
+                        success: function () {                // 消息发送成功
+                            console.log('图片消息发送成功');
+                        },
+                        flashUpload: WebIM.flashUpload
+                    };
+                    msg.set(option);
+                    this.connect.send(msg.body);
+                }
+            },
             timeFormatter: util.timeFormatter,
+            sendImageMessage() {
+//                console.log("传送图片消息");
+                this.$refs.upload.click();
+            },
             sendMessage() {
-                console.log(this.message);
                 let _this = this;
                 // 生成本地消息id
                 let id = this.connect.getUniqueId();
@@ -119,7 +165,7 @@
                 if (this.targetUser) {
                     //消息时间
                     let timeStamp = Date.parse(new Date()),
-                        type = 'text';
+                        type = 'txt';
                     msg.set({
                         // 消息内容
                         msg: this.message,
@@ -141,12 +187,12 @@
                             _this.message = '';
                         },
                         fail: function (e) {
-//                            console.log("Send private text error");
+                            console.log("Send private text error");
                         }
                     });
                     msg.body.chatType = 'singleChat';
 //                    msg.body.ext.timeStamp = timeStamp;
-//                    //文字消息
+                    //文字消息
                     this.connect.send(msg.body);
                 } else {
                     this.$message({
@@ -181,7 +227,7 @@
                     pwd: user.password,
                     appKey: WebIM.config.appkey,
                     success: function (res) {
-                        console.log(res);
+//                        console.log(res);
 //                        console.log('登录成功');
                         _this.$message({
                             type: 'success',
@@ -225,7 +271,8 @@
                 }
             }
         },
-        mounted() {
+        mounted
+            () {
             let _this = this;
             this.connect = new WebIM.connection({
                 isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
@@ -240,12 +287,13 @@
 
 //            贴图消息
             document.addEventListener('paste', function (e) {
+                console.log(e.clipboardData);
                 if (e.clipboardData && e.clipboardData.types) {
                     if (e.clipboardData.items.length > 0) {
                         if (/^image\/\w+$/.test(e.clipboardData.items[0].type)) {
                             let blob = e.clipboardData.items[0].getAsFile();
                             let url = window.URL.createObjectURL(blob);
-                            let id = conn.getUniqueId();             // 生成本地消息id
+                            let id = this.connect.getUniqueId();             // 生成本地消息id
                             let msg = new WebIM.message('img', id);  // 创建图片消息
                             msg.set({
                                 apiUrl: WebIM.config.apiURL,
@@ -278,6 +326,10 @@
 //                    console.log('登录返回的token为:', res.accessToken);
                 },
                 onClosed: function (message) {
+                    this.$message({
+                        type: "error",
+                        message: "连接关闭"
+                    });
                 },         //连接关闭回调
                 onTextMessage: function (message) {
                     console.log(message);
@@ -290,13 +342,15 @@
                         to: message.to,
                         message: message.data,
                         timeStamp: timeStamp,
-                        type: 'text'
+                        type: 'txt'
                     });
                 },    //收到文本消息
                 onEmojiMessage: function (message) {
+                    console.log("收到表情消息");
+                    console.log(message);
                 },   //收到表情消息
                 onPictureMessage: function (message) {
-                    console.log(message, '收到图片消息');
+                    console.log("Location of Picture is ", message.url);
                 }, //收到图片消息
                 onCmdMessage: function (message) {
                 },     //收到命令消息
@@ -336,7 +390,7 @@
                     console.log('本机网络掉线');
                 },                 //本机网络掉线
                 onError: function (message) {
-                    console.error(message);
+//                    console.error(message);
                 },          //失败回调
                 onBlacklistUpdate: function (list) {       //黑名单变动
                     // 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
@@ -365,6 +419,7 @@
 
 <style lang="scss" scoped>
     @import "common/style/main";
+
     .main {
         overflow: auto;
         .form-container {

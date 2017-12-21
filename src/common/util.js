@@ -4,8 +4,9 @@ Vue.use(element);
 module.exports = {
 	//抓去iframe src字段
 	fetchSrc(src) {
-		let reg = /src="([^"]+)"/;
+		let reg = /src=["']([^["']+)["']/;
 		src.match(reg);
+		console.log(RegExp.$1);
 		return RegExp.$1;
 	},
 	//抓取URL后面的参数

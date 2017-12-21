@@ -9,20 +9,24 @@ import commonNav from "../../components/nav.vue";
 import homepage from "./components/homepage.vue";
 import userManagement from "./components/userManagement.vue";
 import roleManagement from "./components/roleManagement.vue";
-import customerInformation from "./components/customerInformation.vue";
 import permissionManagement from "./components/permissionManagement.vue";
+
+//人员管理
+import customerServices from "./components/customerServices.vue";
+import customerInformation from "./components/customerInformation.vue";
 import customerShare from "./components/customerShare.vue";
-import publishArticle from "./components/publishArticle.vue";
+
+//内容管理:圈子管理,线上课程,线下课程
 import circleManangement from "./components/circleManagement.vue";
 import circleDetail from "./components/circleDetail.vue";
-
 import offlineCourses from "./components/offlineCourses.vue";
 import onlineCourses from "./components/onlineCourses.vue";
 import offlineVideoOverview from "./components/offlineVideoOverview.vue";
 import onlineVideoOverview from "./components/onlineVideoOverview.vue";
-
+//公用组件:编辑器
 import editor from "./components/editor.vue";
-
+//测试组件
+import publishArticle from "./components/publishArticle.vue";
 import testIM from "./components/testIM.vue";
 
 //路由配置同步传输面包屑导航信息
@@ -83,6 +87,12 @@ const routes = [
 		path: "/customerInformation",
 		name: "customerInformation",
 		component: customerInformation,
+		children: []
+	},
+	{
+		path: "/customerServices",
+		name: "customerServices",
+		component: customerServices,
 		children: []
 	},
 	{
@@ -200,10 +210,21 @@ let pathInfo = {
 			name: "首页"
 		}
 	],
+
+	"customerServices": [
+		{
+			path: "/",
+			name: "人员管理"
+		},
+		{
+			path: "/customerServices",
+			name: "客服"
+		}
+	],
 	"customerInformation": [
 		{
 			path: "/",
-			name: "客户管理"
+			name: "人员管理"
 		},
 		{
 			path: "/customerInformation",
@@ -213,13 +234,14 @@ let pathInfo = {
 	"customerShare": [
 		{
 			path: "/",
-			name: "客户管理"
+			name: "人员管理"
 		},
 		{
 			path: "/customerShare",
 			name: "分享关系"
 		}
 	],
+
 	"publishArticle": [
 		{
 			path: "/",
