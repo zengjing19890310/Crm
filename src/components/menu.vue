@@ -48,12 +48,12 @@
                                     <p>客户信息</p>
                                 </router-link>
                             </li>
-                            <li>
-                                <router-link to="/customerShare">
-                                    <!--<i class="el-icon-share"></i>-->
-                                    <p>分享关系</p>
-                                </router-link>
-                            </li>
+                            <!--<li>-->
+                                <!--<router-link to="/customerShare">-->
+                                    <!--&lt;!&ndash;<i class="el-icon-share"></i>&ndash;&gt;-->
+                                    <!--<p>分享关系</p>-->
+                                <!--</router-link>-->
+                            <!--</li>-->
                             <li>
                                 <router-link to="/customerServices">
                                     <!--<i class="el-icon-share"></i>-->

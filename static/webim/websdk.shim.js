@@ -9,7 +9,7 @@
 
     _im.Helper = _im.utils;
     _im.Emoji = _im.EMOTIONS = {
-        path: './faces/'
+        path: '../../static/webim/faces/'
         , map: {
             '[):]': 'ee_1.png',
             '[:D]': 'ee_2.png',

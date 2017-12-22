@@ -26,6 +26,13 @@
                 isLocked: false
             }
         },
+        mounted() {
+            window.Bus.$on('emoji', (emoji) => {
+                let content = this.$el.innerHTML;
+                content += emoji;
+                this.$el.innerHTML = content;
+            });
+        },
         watch: {
             'value'(value) {
                 if (!this.isLocked && !this.innerText) {
@@ -35,7 +42,7 @@
                 if (!value) {
                     this.innerText = "";
                     this.$el.innerHTML = "";
-                }
+                 }
             }
         },
         methods: {
@@ -57,5 +64,6 @@
         font-size: 0.8rem;
         line-height: 1rem;
         overflow-y: auto;
+        word-break: break-all;
     }
 </style>

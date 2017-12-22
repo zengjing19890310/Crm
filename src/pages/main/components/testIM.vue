@@ -75,6 +75,9 @@
                                 <div v-if="log.type==='txt'" style="word-wrap: break-word;">
                                     <pre v-html="log.message"> {{log.message}} </pre>
                                 </div>
+                                <div v-if="log.type==='img'">
+                                    <img :src="log.url" style="max-width:100%;" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -285,38 +288,6 @@
                 isAutoLogin: true
             });
 
-//            贴图消息
-            document.addEventListener('paste', function (e) {
-                console.log(e.clipboardData);
-                if (e.clipboardData && e.clipboardData.types) {
-                    if (e.clipboardData.items.length > 0) {
-                        if (/^image\/\w+$/.test(e.clipboardData.items[0].type)) {
-                            let blob = e.clipboardData.items[0].getAsFile();
-                            let url = window.URL.createObjectURL(blob);
-                            let id = this.connect.getUniqueId();             // 生成本地消息id
-                            let msg = new WebIM.message('img', id);  // 创建图片消息
-                            msg.set({
-                                apiUrl: WebIM.config.apiURL,
-                                file: {data: blob, url: url},
-                                to: _this.targetUser,                      // 接收消息对象
-                                roomType: false,
-                                chatType: 'singleChat',
-                                onFileUploadError: function (error) {
-                                    console.log('Error');
-                                },
-                                onFileUploadComplete: function (data) {
-                                    console.log('Complete');
-                                },
-                                success: function (id) {
-                                    console.log('Success');
-                                }
-                            });
-                            _this.connect.send(msg.body);
-                        }
-                    }
-                }
-            });
-
             this.connect.listen({
                 onOpened: function (res) {          //连接成功回调
                     // 如果isAutoLogin设置为false，那么必须手动设置上线，否则无法收消息
@@ -332,7 +303,7 @@
                     });
                 },         //连接关闭回调
                 onTextMessage: function (message) {
-                    console.log(message);
+                    let messageParse = WebIM.utils.parseEmoji(message.data);
                     let timeStamp = new Date();
                     if (message.delay) {
                         timeStamp = message.delay;
@@ -340,7 +311,7 @@
                     _this.logs.push({
                         from: message.from,
                         to: message.to,
-                        message: message.data,
+                        message: messageParse,
                         timeStamp: timeStamp,
                         type: 'txt'
                     });
@@ -350,7 +321,29 @@
                     console.log(message);
                 },   //收到表情消息
                 onPictureMessage: function (message) {
-                    console.log("Location of Picture is ", message.url);
+                    if (!message || !message.url.trim()) {
+                        return;
+                    }
+                    let timeStamp = new Date(),
+                        showTime = true;
+                    if (message.delay) {
+                        timeStamp = message.delay;
+                    }
+                    if (timeStamp - _this.lastMessageTime < 2 * 60 * 1000) {
+                        showTime = false;
+                    } else {
+                        _this.lastMessageTime = timeStamp;
+                    }
+                    _this.logs.push({
+                        from: message.from,
+                        to: message.to,
+                        url: message.url,
+                        timeStamp: timeStamp,
+                        showTime: showTime,
+                        type: 'img'
+                    });
+
+                    console.log("收到图片消息", message, message.url);
                 }, //收到图片消息
                 onCmdMessage: function (message) {
                 },     //收到命令消息
