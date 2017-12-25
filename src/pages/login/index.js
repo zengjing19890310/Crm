@@ -23,7 +23,7 @@ let checkPassword = (rule, value, callback) => {
 let loginView = new Vue({
 	el: "#app",
 	data: {
-		appName: "好融易客户管理系统",
+		appName: "融开心客户管理系统",
 		logoUrl: require("../../common/images/logo.png"),
 		loginForm: {
 			phone: "",
@@ -64,10 +64,11 @@ let loginView = new Vue({
 						}
 					}).then(
 						(res) => {
+							// console.log(res);
 							//请求成功
 							if (res.ok && res.status === 200) {
 								let data = res.body;
-								if (data.code === 1) {
+								if (data.code !== 0) {
 									this.$message({
 										type: "error",
 										message: data.msg
@@ -75,7 +76,7 @@ let loginView = new Vue({
 									this.loginButtonLoading = false;
 								} else {
 									//获取username并存储在本地
-									let token = data.data;
+									let token = data.data.token;
 									// let token = data.data.username,
 									// 	nickname = data.data.nickname,
 									// 	userId = data.data.id;

@@ -13,12 +13,12 @@
                     <span slot="suffix" class="el-icon-search filter-input-icon" @click="searchKeyword"></span>
                 </el-input>
                 <el-select v-model="department" placeholder="请选择部门" size="small" class="department-select"
-                           v-show="moduleType!=='noSelect'">
-                    <el-option v-for="(department,index) in departments" :key="index" :label="department"
-                               :value="department"></el-option>
+                           v-if="moduleType!=='noSelect'">
+                    <el-option v-for="(dept,index) in departmentList" :key="index" :label="dept.deptName"
+                               :value="dept.id"></el-option>
                 </el-select>
                 <el-select v-model="role" placeholder="请选择角色" size="small" class="role-select"
-                           v-show="moduleType!=='noSelect'">
+                           v-if="moduleType!=='noSelect'">
                     <el-option v-for="(role,index) in roles" :key="index" :label="role"
                                :value="role"></el-option>
                 </el-select>
@@ -26,10 +26,10 @@
         </div>
         <div class="handle-wrapper">
             <!--icon="el-icon-circle-plus-outline"-->
-            <el-button type="primary" size="mini" class="add-button" @click="addItem">
+            <el-button type="primary" size="mini" class="add-button" @click="addItem" v-if="moduleName!=='userManagement'">
                 新添
             </el-button>
-            <el-dropdown trigger="click" v-show="moduleType!=='noSelect'">
+            <el-dropdown trigger="click" v-if="moduleType!=='noSelect'">
                 <span class="el-dropdown-link el-icon-more"
                       style="background-color:#303641;color:#fff;padding:7px 15px;border-radius:3px;"></span>
                 <el-dropdown-menu slot="dropdown">
@@ -41,6 +41,20 @@
                     </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
+            <el-dropdown trigger="click" v-if="moduleName==='userManagement'||moduleName==='roleManagement'">
+                <span class="el-dropdown-link el-icon-more"
+                      style="background-color:#303641;color:#fff;padding:7px 15px;border-radius:3px;"></span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item style="font-size: 12px;">
+                        <div @click="batchRemove">
+                            <i class="el-icon-delete" style="color:#FA5555"></i> 删除
+                        </div>
+                    </el-dropdown-item>
+                    <!--<el-dropdown-item style="font-size: 12px;">-->
+                        <!--<i class="el-icon-edit" style="color:#409EFF"></i> 修改-->
+                    <!--</el-dropdown-item>-->
+                </el-dropdown-menu>
+            </el-dropdown>
         </div>
     </header>
 </template>
@@ -49,39 +63,57 @@
     export default {
         data() {
             return {
+                userCheckedList:[],
                 department: '',
-                departments: [
-                    'K团',
-                    '招兵部',
-                    '开发部',
-                    '野狼团'
-                ],
+                departmentList: [],
                 role: '',
-                roles: [
-                    '团长',
-                    '经理',
-                    '销售人员'
-                ],
+                roleList: [],
                 moduleName: null,
-                keyword: null
+                keyword: null,
             }
         },
         props: {
             "data-count": Number,
-            "filter-type": String
+            "filter-type": String,
+            "route-name": String
         },
         created() {
             this.moduleType = this.filterType;
+            this.moduleName = this.routeName;
         },
         mounted() {
-
+            if (this.moduleName === "userManagement") {
+//                this.fetchDepartmentList();
+            }
         },
         methods: {
+            fetchDepartmentList() {
+                this.$http({
+                    url: API("/dept/list"),
+                    method: "get"
+                }).then(
+                    (res) => {
+                        console.log(res);
+                        let response = res.body;
+                        if (response.code === 0 && response.msg === "成功") {
+                            if (response.data) {
+                                this.departmentList = response.data;
+                            }
+                        }
+                    },
+                    (res) => {
+
+                    }
+                )
+            },
             addItem() {
                 this.$emit('add-item', this.moduleName);
             },
             searchKeyword() {
                 this.$emit('search-keyword', this.keyword, this.moduleName);
+            },
+            batchRemove() {
+                this.$emit('batch-remove',this.moduleName);
             }
         }
     }

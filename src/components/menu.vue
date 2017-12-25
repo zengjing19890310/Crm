@@ -3,7 +3,7 @@
         <div class="menu-top">
             <div class="logo" v-show="!isCollapse">
                 <img :src="logoUrl" alt="">
-                <p>{{menuTitle}}</p>
+                <!--<p>{{menuTitle}}</p>-->
             </div>
 
             <span :class="['collapse-icon',{'collapse-menu':isCollapse}]" @click="collapseMenu">

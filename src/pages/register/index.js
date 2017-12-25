@@ -115,21 +115,21 @@ let register = new Vue({
 														//请求成功
 														if (res.ok && res.status === 200) {
 															let data = res.body;
-															if (data.code === 1) {
+															if (data.code !== 0) {
 																this.$message({
 																	type: "error",
 																	message: data.msg
 																});
 															} else {
 																//获取token并存储在本地
-																let token = data.data.username,
-																	nickname = data.data.nickname,
-																	userId = data.data.id;
+																let token = data.data.token;
+																// nickname = data.data.nickname,
+																// userId = data.data.id;
 																if (token) {
 																	window.sessionStorage.setItem("token", token);
-																	window.sessionStorage.setItem("userId", userId);
-																	window.sessionStorage.setItem("nickname", nickname);
-																	window.sessionStorage.setItem("userInformation", JSON.stringify(data.data));
+																	// window.sessionStorage.setItem("userId", userId);
+																	// window.sessionStorage.setItem("nickname", nickname);
+																	// window.sessionStorage.setItem("userInformation", JSON.stringify(data.data));
 																	this.registerLoading = false;
 																	window.location.href = "../main";
 																}

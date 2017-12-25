@@ -500,7 +500,7 @@
             this.initConnect();
             this.addListener();
             this.autoLogin();
-            console.log(WebIM.Emoji);
+//            console.log(WebIM.Emoji);
 
         }
     }

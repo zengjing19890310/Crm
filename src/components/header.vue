@@ -51,48 +51,42 @@
         },
         watch: {
             userInformation(userInformation) {
-                window.Bus.$on('getUserInformation',(vm) =>{
+                window.Bus.$on('getUserInformation', (vm) => {
                     vm.userInformation = userInformation;
                 });
-                //连接socket
                 let id = this.userInformation.id;
                 let token = window.sessionStorage.getItem('token');
-                if(id && token){
-                    let webSocket = new WebSocket(`ws://192.168.0.109:8888/websocket/${id}?token=${token}`);
-                    webSocket.onerror = function(event) {
+                if (id && token) {
+                    //连接socket
+                    let webSocket = new WebSocket(`ws://192.168.100.109:8888/websocket/${id}?token=${token}`);
+                    webSocket.onerror = function (event) {
                         onError(event)
                     };
 
-                    webSocket.onopen = function(event) {
+                    webSocket.onopen = function (event) {
                         onOpen(event)
                     };
 
-                    webSocket.onmessage = function(event) {
+                    webSocket.onmessage = function (event) {
                         onMessage(event)
                     };
 
                     function onMessage(event) {
-                        console.log("onMessage",event);
-//                        document.getElementById('messages').innerHTML
-//                            += '<br />' + event.data;
+                        console.log("onMessage", event);
                     }
 
                     function onOpen(event) {
-                        console.log("onOpen",event);
-//                        document.getElementById('messages').innerHTML
-//                            = 'Connection established';
+                        console.log("onOpen", event);
                     }
 
                     function onError(event) {
                         console.error("onError");
-//                        alert(event.data);
                     }
 
                     function start() {
                         webSocket.send('hello');
                         return false;
                     }
-
                 }
             }
         },

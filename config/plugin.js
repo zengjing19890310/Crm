@@ -42,7 +42,7 @@ module.exports = {
             new webpack.DefinePlugin({ //定义全局常量,转换接口地址
                 API: function (api) {
                     // return 'http://mengcan.vicp.io' + api;
-                    return 'http://192.168.0.109:8888' + api;
+                    return 'http://192.168.100.109:8888' + api;
                 },
                 APIDEV: function(api) {
                     return 'http://mengcan.vicp.io' + api;
