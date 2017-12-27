@@ -11,10 +11,10 @@
                     route-name="permissionManagement"></filter-component>
             <div class="permission-wrapper">
                 <div class="tree-wrapper">
+                    <!--show-checkbox-->
                     <el-tree
                             :data="treeMenu"
                             ref="treeMenu"
-                            show-checkbox
                             node-key="id"
                             :highlight-current="true"
                             :expand-on-click-node="false"

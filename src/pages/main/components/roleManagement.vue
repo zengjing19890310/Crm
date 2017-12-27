@@ -127,53 +127,56 @@
                         <el-form-item label="角色名" prop="roleName">
                             <el-input v-model="role.roleName"></el-input>
                         </el-form-item>
-                        <el-form-item label="权限">
-                            <div class="resource-wrapper">
-                                <div class="tree-wrapper">
-                                    <!--@node-click="handleNodeClick"-->
-                                    <el-tree
-                                            :data="treeMenu"
-                                            ref="treeMenu"
-                                            show-checkbox
-                                            node-key="id"
-                                            :highlight-current="true"
-                                            :expand-on-click-node="false"
-                                            @current-change="handleNodeChange"
-                                            @check-change="handleTreeCheckedChange">
-                                    </el-tree>
-                                </div>
-                                <div class="table-wrapper" v-loading="resourceLock" element-loading-text="加载中...">
-                                    <el-table ref="resourceList"
-                                              :data="resourceList"
-                                              size="small"
-                                              height="360"
-                                              @selection-change="handleSelectionChange">
-                                        <el-table-column
-                                                type="selection"
-                                                width="55">
-                                        </el-table-column>
-                                        <el-table-column label="资源名称" prop="buttonName">
-
-                                        </el-table-column>
-                                        <el-table-column label="资源类型">
-                                            <template slot-scope="scope">
-                                                按钮
-                                            </template>
-                                        </el-table-column>
-                                        <el-table-column label="请求方式" prop="method">
-
-                                        </el-table-column>
-                                        <el-table-column label="URL" prop="url">
-
-                                        </el-table-column>
-                                        <el-table-column label="备注" prop="remark">
-
-                                        </el-table-column>
-                                    </el-table>
-                                </div>
-                            </div>
-                        </el-form-item>
                     </el-form>
+                    <div class="dialog-resource-container">
+                        <div class="label">
+                            权限
+                        </div>
+                        <div class="resource-wrapper">
+                            <div class="tree-wrapper">
+                                <!--@node-click="handleNodeClick"-->
+                                <!--@check-change="handleTreeCheckedChange"-->
+                                <!--:show-checkbox="false"-->
+                                <el-tree
+                                        :data="treeMenu"
+                                        ref="treeMenu"
+                                        node-key="id"
+                                        :highlight-current="true"
+                                        :expand-on-click-node="false"
+                                        @current-change="handleNodeChange">
+                                </el-tree>
+                            </div>
+                            <div class="table-wrapper" v-loading="resourceLock" element-loading-text="加载中...">
+                                <el-table ref="resourceList"
+                                          :data="resourceList"
+                                          size="small"
+                                          height="360"
+                                          @selection-change="handleSelectionChange">
+                                    <el-table-column
+                                            type="selection"
+                                            width="55">
+                                    </el-table-column>
+                                    <el-table-column label="资源名称" prop="buttonName">
+
+                                    </el-table-column>
+                                    <el-table-column label="资源类型">
+                                        <template slot-scope="scope">
+                                            按钮
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column label="请求方式" prop="method">
+
+                                    </el-table-column>
+                                    <el-table-column label="URL" prop="url">
+
+                                    </el-table-column>
+                                    <el-table-column label="备注" prop="remark">
+
+                                    </el-table-column>
+                                </el-table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <footer slot="footer">
                     <el-button type="primary" size="small" @click="submitForm">确定</el-button>
@@ -273,19 +276,18 @@
                 if (!resourceCheckedIds[menuId]) {
                     resourceCheckedIds[menuId] = [];
                 }
+                let ids = [];
                 if (selection && selection.length !== 0) {
-                    let ids = [];
                     _.forEach(selection, (value, index) => {
                         ids.push(value.id);
                     });
-                    resourceCheckedIds[menuId] = ids;
                 }
+                resourceCheckedIds[menuId] = ids;
                 this.resourceCheckedIds = resourceCheckedIds;
             },
             handleTreeCheckedChange() {
                 //获取当前被勾选中的菜单树
                 this.treeCheckedIds = this.$refs.treeMenu.getCheckedKeys();
-//                console.log(this.treeCheckedIds);
             },
             handleNodeChange(node) {
                 this.fetchResourceData(node.id);
@@ -313,7 +315,7 @@
                     }
                 )
             },
-            fetchMenuTree(treeCheckedIds) {
+            fetchMenuTree() {
                 this.$http({
                     url: API("/menu/tree"),
                     method: "get"
@@ -326,13 +328,6 @@
                                 _this = this;
                             util.initTree(response.data, treeMenu);
                             this.treeMenu = treeMenu;
-                            if (treeCheckedIds && treeCheckedIds.length !== 0) {
-                                _.forEach(treeCheckedIds, (treeId, index) => {
-                                    _this.$nextTick(()=>{
-                                        _this.$refs.treeMenu.setChecked(treeId,true);
-                                    });
-                                });
-                            }
                         }
                     },
                     (res) => {
@@ -345,6 +340,7 @@
                 this.role = JSON.parse(JSON.stringify(role));
                 this.modalVisible = true;
                 this.submitType = "post";
+
                 let resources = role.resources,
                     resourceCheckedIds = {},
                     treeCheckedIds = [];
@@ -371,31 +367,29 @@
                     if (treeCheckedIds && treeCheckedIds.length !== 0) {
                         this.treeCheckedIds = treeCheckedIds;
                     }
-                    this.fetchMenuTree(this.treeCheckedIds);
                 }
             },
             cancel() {
                 this.handelClose();
             },
             handelClose() {
-                this.modalVisible = false;
+                this.checkedTreeMenu = [];
+                this.resourceList = [];
+                this.treeCheckedIds = [];
+                this.resourceCheckedIds = {};
                 this.role = {
                     roleName: ""
                 };
                 this.modalType = "";
                 this.submitType = "";
+                //表单取消效验结果
                 this.$refs.roleForm.clearValidate();
                 //树型列表取消选择
-                this.$refs.treeMenu.setCheckedNodes([]);
-                this.$refs.treeMenu.setCurrentNode({});
+//                this.$refs.treeMenu.setCheckedNodes([]);
+//                this.$refs.treeMenu.setCurrentNode({});
                 //表格取消选择
                 this.$refs.resourceList.clearSelection();
-
-
-                this.checkedTreeMenu = [];
-                this.resourceList = [];
-                this.treeCheckedIds = [];
-                this.resourceCheckedIds = {}
+                this.modalVisible = false;
             },
             submitForm() {
                 this.$refs.roleForm.validate((result) => {
@@ -404,16 +398,16 @@
                         if (this.resourceCheckedIds) {
                             let roleId = this.role.id;
                             _.forEach(this.resourceCheckedIds, (buttonIds, menuId) => {
-                                let mid = parseInt(menuId);
-                                if (mid) {
-                                    resources.push({
-                                        type: 0,
-                                        buttonId: -1,
-                                        roleId: roleId,
-                                        menuId: mid
-                                    })
-                                }
                                 if (buttonIds && buttonIds.length !== 0) {
+                                    let mid = parseInt(menuId);
+                                    if (mid) {
+                                        resources.push({
+                                            type: 0,
+                                            buttonId: -1,
+                                            roleId: roleId,
+                                            menuId: mid
+                                        })
+                                    }
                                     _.forEach(buttonIds, (buttonId, index) => {
                                         resources.push({
                                             type: 1,
@@ -434,8 +428,6 @@
                             (res) => {
                                 let response = res.body;
                                 if (response && response.code === 0 && response.msg === "成功") {
-                                    this.fetchRolesList();
-
                                     this.modalVisible = false;
                                     this.$message({
                                         type: "success",
@@ -446,7 +438,7 @@
                                 } else {
                                     this.$message({
                                         type: "error",
-                                        message: `${this.modalType}失败`
+                                        message: `${this.modalType}失败,${response.msg}`
                                     });
                                 }
                             },
@@ -477,7 +469,6 @@
                 this.modalType = "新增";
                 this.modalVisible = true;
                 this.submitType = "post";
-                this.fetchMenuTree();
             },
             deleteRole(id, index) {
                 this.$confirm("是否删除该角色?", "警告", {
@@ -653,6 +644,7 @@
         },
         created() {
             this.fetchRolesList();
+            this.fetchMenuTree();
         },
         mounted() {
             const TRHEIGHT = 50;//通过行高动态计算首屏的数据条数最小数，直接顶出滚动条
@@ -762,21 +754,34 @@
         }
     }
 
-    .resource-wrapper {
-        height: 360px;
+    .dialog-resource-container {
         display: flex;
-        align-items: stretch;
-        max-width: 100%;
-        overflow: auto;
-        box-sizing: border-box;
-        .tree-wrapper {
-            padding: 0.5rem;
-            min-width: 150px;
+        .label {
+            box-sizing: border-box;
+            flex-grow: 0;
+            flex-shrink: 0;
+            text-align: right;
+            line-height: 2rem;
+            padding-right: 12px;
+            width: 80px;
         }
-        .table-wrapper {
-            margin-left: 0.5rem;
+        .resource-wrapper {
+            height: 360px;
+            display: flex;
+            align-items: stretch;
+            max-width: 100%;
             overflow: auto;
+            box-sizing: border-box;
             flex-grow: 1;
+            .tree-wrapper {
+                padding: 0.5rem;
+                min-width: 150px;
+            }
+            .table-wrapper {
+                margin-left: 0.5rem;
+                overflow: auto;
+                flex-grow: 1;
+            }
         }
     }
 </style>
