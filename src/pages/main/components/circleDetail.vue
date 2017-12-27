@@ -90,7 +90,7 @@
             }
             /*Firefox注册事件*/
             if (postContainer.addEventListener) {
-                postContainer.addEventListener('DOMMouseScroll', handler, false);
+//                postContainer.addEventListener('DOMMouseScroll', handler, false);
                 postContainer.addEventListener('scroll', handler);
             }
         },

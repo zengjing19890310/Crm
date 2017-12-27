@@ -9,14 +9,19 @@ let overView = new Vue({
 	data: {
 		id: "",
 		postData: {},
-		navi: null,
-		overviewLoading: true
+		navi: "",
+		overviewLoading: true,
+		type: ""
 	},
 	created() {
 		let search = document.location.search;
 		if (search) {
+			//帖子详情ID
 			this.id = util.fetchParam(search, "id");
+			//是否展示顶部固定Banner,参数取值1
 			this.navi = util.fetchParam(search, "navi");
+			//获取设备类型,1为安卓,2为iPhone
+			this.type = util.fetchParam(search, "type");
 			if (!this.id) {
 				this.$message({
 					type: "error",
@@ -32,13 +37,14 @@ let overView = new Vue({
 						let data = res.body;
 						if (data.code === 0 && data.msg === "成功") {
 							this.postData = data.data;
+							document.title = data.data.title;
 						} else {
 							this.$message({
 								type: "error",
 								message: "获取帖子失败"
 							});
 						}
-					}else {
+					} else {
 						this.$message({
 							type: "error",
 							message: "获取帖子失败"

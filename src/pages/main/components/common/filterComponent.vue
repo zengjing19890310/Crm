@@ -5,28 +5,29 @@
             <span class="count">{{dataCount}}</span>
             条
         </div>
-        <div class="filter-wrapper">
+        <div class="filter-wrapper" v-if="moduleType!=='onlyCount'||moduleName==='customerInformation'">
             <div class="condition-wrapper">
                 <el-input size="small" placeholder="搜索" v-model="keyword"
-                          :class="['search-input',{'no-select':moduleType==='noSelect'}]"
+                          :class="['search-input',{'no-select':moduleType==='noSelect','full-input':moduleName==='customerInformation'}]"
                           @keyup.enter.native="searchKeyword">
                     <span slot="suffix" class="el-icon-search filter-input-icon" @click="searchKeyword"></span>
                 </el-input>
                 <el-select v-model="department" placeholder="请选择部门" size="small" class="department-select"
-                           v-if="moduleType!=='noSelect'">
+                           v-if="moduleType!=='noSelect'&&moduleType!=='onlyCount'">
                     <el-option v-for="(dept,index) in departmentList" :key="index" :label="dept.deptName"
                                :value="dept.id"></el-option>
                 </el-select>
                 <el-select v-model="role" placeholder="请选择角色" size="small" class="role-select"
-                           v-if="moduleType!=='noSelect'">
+                           v-if="moduleType!=='noSelect'&&moduleType!=='onlyCount'">
                     <el-option v-for="(role,index) in roles" :key="index" :label="role"
                                :value="role"></el-option>
                 </el-select>
             </div>
         </div>
-        <div class="handle-wrapper">
+        <div class="handle-wrapper" v-if="moduleType!=='onlyCount'">
             <!--icon="el-icon-circle-plus-outline"-->
-            <el-button type="primary" size="mini" class="add-button" @click="addItem" v-if="moduleName!=='userManagement'">
+            <el-button type="primary" size="mini" class="add-button" @click="addItem"
+                       v-if="moduleName!=='userManagement'">
                 新添
             </el-button>
             <el-dropdown trigger="click" v-if="moduleType!=='noSelect'">
@@ -51,7 +52,7 @@
                         </div>
                     </el-dropdown-item>
                     <!--<el-dropdown-item style="font-size: 12px;">-->
-                        <!--<i class="el-icon-edit" style="color:#409EFF"></i> 修改-->
+                    <!--<i class="el-icon-edit" style="color:#409EFF"></i> 修改-->
                     <!--</el-dropdown-item>-->
                 </el-dropdown-menu>
             </el-dropdown>
@@ -63,7 +64,7 @@
     export default {
         data() {
             return {
-                userCheckedList:[],
+                userCheckedList: [],
                 department: '',
                 departmentList: [],
                 role: '',
@@ -113,7 +114,7 @@
                 this.$emit('search-keyword', this.keyword, this.moduleName);
             },
             batchRemove() {
-                this.$emit('batch-remove',this.moduleName);
+                this.$emit('batch-remove', this.moduleName);
             }
         }
     }
@@ -154,6 +155,9 @@
                     &.no-select {
                         max-width: 100%;
                         width: 100%;
+                    }
+                    &.full-input {
+                        max-width: 100%;
                     }
                     .filter-input-icon {
                         font-size: 1.4rem;

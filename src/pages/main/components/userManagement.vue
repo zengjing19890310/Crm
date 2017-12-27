@@ -138,7 +138,7 @@
                 </div>
                 <footer slot="footer">
                     <el-button type="primary" size="small" @click="submitEdit">确定</el-button>
-                    <el-button size="small">取消</el-button>
+                    <el-button size="small" @click="cancel">取消</el-button>
                 </footer>
             </el-dialog>
         </div>
@@ -170,15 +170,16 @@
                     deptId: "",
                     roles: []
                 },
-                rules: {
-
-                },
+                rules: {},
                 deptList: [],
                 rolesList: [],
                 inSubmit: false
             }
         },
         methods: {
+            cancel() {
+                this.handelClose();
+            },
             changeDept(current) {
 
             },
@@ -187,7 +188,6 @@
             },
             submitEdit() {
                 this.inSubmit = true;
-                console.log("提交", this.currentEditUser);
                 this.$http({
                     url: API("/sysuser/info"),
                     method: "put",
@@ -202,10 +202,18 @@
                                 message: "编辑用户信息成功"
                             });
                             this.fetchUserList();
+                        }else {
+                            this.$message({
+                                type: "error",
+                                message: "编辑用户信息失败"
+                            });
                         }
                     },
                     (res) => {
-
+                        this.$message({
+                            type: "error",
+                            message: "编辑用户信息失败"
+                        });
                     }
                 )
             },
@@ -221,7 +229,7 @@
                         }
                     },
                     (res) => {
-
+                        console.error("获取部门列表失败");
                     }
                 );
                 this.$http({
@@ -235,7 +243,7 @@
                         }
                     },
                     (res) => {
-
+                        console.error("获取角色列表失败");
                     }
                 )
             },
@@ -253,10 +261,15 @@
                 }).then(
                     () => {
                         let checked = [];
-                        id ? checked.push(id) : this.$message({
-                            type: "error",
-                            message: "获取用户ID失败"
-                        });
+                        if (id) {
+                            checked.push(id);
+                        } else {
+                            this.$message({
+                                type: "error",
+                                message: "获取用户ID失败"
+                            });
+                            return;
+                        }
                         this.$http({
                             url: API(`/sysuser`),
                             method: "delete",
@@ -267,7 +280,7 @@
                                 if (response.code === 0 && response.msg === "成功") {
                                     this.$message({
                                         type: "success",
-                                        message: "批量删除成功"
+                                        message: "删除用户成功"
                                     });
                                     this.userList.splice(index, 1);
                                     this.$refs.userList.clearSelection();
@@ -372,7 +385,13 @@
             },
             handelClose() {
                 this.modalVisible = false;
-                this.currentEditUser = {};
+                this.currentEditUser = {
+                    nickname: "",
+                    mobile: "",
+                    deptId: "",
+                    roles: []
+                };
+                this.$refs.userForm.clearValidate();
             },
             searchKeyword(keyword, moduleName) {
                 this.keyword = keyword;
@@ -392,7 +411,6 @@
                         });
                     }
                 }
-//                console.log(this.checkedUserList);
             },
             fetchUserList(type) {
                 this.getDataLock = true;
@@ -467,6 +485,7 @@
         }
         ,
         created() {
+            //获取用户列表
             this.fetchUserList();
             //获取编辑框下的内容列表
             this.fetchModalList();
@@ -505,7 +524,7 @@
             }
             /*Firefox注册事件*/
             if (scrollView.addEventListener) {
-                scrollView.addEventListener('DOMMouseScroll', handler, false);
+//                scrollView.addEventListener('DOMMouseScroll', handler, false);
                 scrollView.addEventListener('scroll', handler);
             }
 //            scrollView.addEventListener('wheel', handler);

@@ -196,7 +196,7 @@
                 }
                 /*Firefox注册事件*/
                 if (courseContainer.addEventListener) {
-                    courseContainer.addEventListener('DOMMouseScroll', handler, false);
+//                    courseContainer.addEventListener('DOMMouseScroll', handler, false);
                     courseContainer.addEventListener('scroll', handler);
                 }
             }

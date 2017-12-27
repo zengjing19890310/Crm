@@ -2,6 +2,24 @@ Vue.use(VueResource);
 Vue.use(element);
 
 module.exports = {
+	//将从后台读取的资源树格式化
+	initTree(treeData, result) {
+		let nodeObject = {};
+		if (treeData && treeData.length !== 0) {
+			_.forEach(treeData, (node, index) => {
+				nodeObject = {
+					id: node.id,
+					pid: node.pid,
+					label: node.menuName,
+					children: [],
+				};
+				if (node.childs && node.childs.length !== 0) {
+					this.initTree(node.childs, nodeObject.children);
+				}
+				result.push(nodeObject);
+			});
+		}
+	},
 	//抓去iframe src字段
 	fetchSrc(src) {
 		let reg = /src=["']([^["']+)["']/;
