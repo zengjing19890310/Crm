@@ -1,89 +1,112 @@
 <template>
     <div class="outer-container">
         <section class="main" v-loading="getDataLock" element-loading-text="加载中...">
-            <aside class="chart-list">
-                <!--聊天列表-->
-                <ul>
-                    <li :class="['chart-target',{active:chatTarget.username===target.username}]"
-                        v-for="(target,index) in chatList" @click="toggleTarget(target)">
-                        <div class="image-wrapper">
-                            <img :src="target.headImg" alt="">
-                        </div>
-                        <p class="username">
-                            {{target.nickname}}
-                        </p>
-                        <!--<p class="message-count">-->
-                        <!--{{target.unread > 99 ? '99+' : target.unread}}-->
-                        <!--</p>-->
-                        <!--{{target.username}}-->
-                    </li>
-                </ul>
-            </aside>
-            <div class="chart-container">
-                <div class="chart-content">
-                    <div class="content-wrapper" id="content-wrapper">
-                        <ul class="chart-content" id="chart-content">
-                            <!--from: message.from,-->
-                            <!--to: message.to,-->
-                            <!--message: message.data,-->
-                            <!--timeStamp: timeStamp,-->
-                            <!--type: 'text'-->
-                            <li v-for="(item,index) in logs" :key="index"
-                                class="message">
-                                <div style="text-align: center;line-height: 2.4rem; color:#999;" v-if="item.showTime">
-                                    {{timeFormatter(item.timeStamp)}}
+            <div class="chat-panel">
+                <div class="chat-list-wrapper">
+                    <header class="chat-title">常联系人</header>
+                    <aside class="chat-list">
+                        <!--聊天列表-->
+                        <ul>
+                            <li class="chart-target" style="font-size: 0.8rem;"
+                                v-show="!chatList || chatList.length===0">
+                                暂无会话
+                            </li>
+                            <li :class="['chart-target',{active:chatTarget.id===target.id}]"
+                                v-for="(target,index) in chatList" @click="toggleTarget(target)">
+                                <div class="image-wrapper">
+                                    <img :src="target.headImg" alt="">
                                 </div>
-                                <div :class="{'my-message':item.from===currentUser.id,'other-message':item.to===currentUser.id}">
-                                    <!--item.to===currentUser.id-->
-                                    <div v-show="item.to===currentUser.id">
-                                        <!--他人头像-->
-                                        <img class="icon" :src="chatTarget.headImg" alt="">
-                                    </div>
-                                    <!--图片消息-->
-                                    <div v-if="item.type==='txt'" class="message-wrapper">
-                                        <span :class="['arrow',{'my-message-arrow':item.from===currentUser.id,'other-message-arrow':item.to===currentUser.id}]"></span>
-                                        <div v-html="item.message"></div>
-                                    </div>
-                                    <!---->
-                                    <div v-if="item.type==='img'" class="message-wrapper">
-                                        <span :class="['arrow',{'my-message-arrow':item.from===currentUser.id,'other-message-arrow':item.to===currentUser.id}]"></span>
-                                        <img :src="item.url" alt="">
-                                    </div>
-                                    <div v-show="item.from===currentUser.id">
-                                        <!--我的头像-->
-                                        <img class="icon" :src="currentUser.headerImg" alt="">
-                                    </div>
-                                </div>
+                                <p class="username">
+                                    {{target.nickname}}
+                                </p>
+                                <!--<p class="message-count">-->
+                                <!--{{target.unread > 99 ? '99+' : target.unread}}-->
+                                <!--</p>-->
+                                <!--{{target.username}}-->
                             </li>
                         </ul>
-                    </div>
-                    <div class="input-wrapper">
-                        <header class="controller-bar">
-                            <div class="button face-button" @click.stop="selectFace">
-                                <div class="emoji-wrapper" v-show="emojiVisible" @click.stop>
-                                    <div v-for="(path,emoji) in emojiList">
-                                        <img :src="path" :alt="emoji" @click.stop="addFace(emoji)">
+                    </aside>
+                </div>
+                <div class="chat-container-wrapper">
+                    <header class="chat-title">
+                        <span v-if="chatTarget.nickname">正在和{{chatTarget.nickname}}聊天</span>
+                        <span v-else>
+                            当前无会话
+                        </span>
+                    </header>
+                    <div class="chat-container">
+                        <div class="chat-content">
+                            <div class="content-wrapper" id="content-wrapper">
+                                <ul class="chat-content" id="chat-content">
+                                    <!--from: message.from,-->
+                                    <!--to: message.to,-->
+                                    <!--message: message.data,-->
+                                    <!--timeStamp: timeStamp,-->
+                                    <!--type: 'text'-->
+                                    <li v-for="(item,index) in logs" :key="index"
+                                        class="message">
+                                        <div style="text-align: center;line-height: 2.4rem; color:#999;"
+                                             v-if="item.showTime">
+                                            {{timeFormatter(item.timeStamp)}}
+                                        </div>
+                                        <div :class="{'my-message':item.from===currentUser.id,'other-message':item.to===currentUser.id}">
+                                            <!--item.to===currentUser.id-->
+                                            <div v-show="item.to===currentUser.id">
+                                                <!--他人头像-->
+                                                <img class="icon" :src="chatTarget.headImg" alt="">
+                                            </div>
+                                            <!--图片消息-->
+                                            <div v-if="item.type==='txt'" class="message-wrapper">
+                                                <span :class="['arrow',{'my-message-arrow':item.from===currentUser.id,'other-message-arrow':item.to===currentUser.id}]"></span>
+                                                <div v-html="item.message"></div>
+                                            </div>
+                                            <!---->
+                                            <div v-if="item.type==='img'" class="message-wrapper">
+                                                <span :class="['arrow',{'my-message-arrow':item.from===currentUser.id,'other-message-arrow':item.to===currentUser.id}]"></span>
+                                                <img :src="item.url" alt="">
+                                            </div>
+                                            <div v-show="item.from===currentUser.id">
+                                                <!--我的头像-->
+                                                <img class="icon" :src="currentUser.headerImg" alt="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="input-wrapper">
+                                <el-input
+                                        type="textarea"
+                                        :rows="1"
+                                        resize="none"
+                                        placeholder="请输入内容"
+                                        class="textarea"
+                                        v-model="message" @keyup.enter="sendMessage">
+                                </el-input>
+                                <!--<chart-component @enter-press="sendMessage" v-model="message"-->
+                                                 <!--:canEdit="canEdit"></chart-component>-->
+                                <div class="controller-bar">
+                                    <div class="button face-button" @click.stop="selectFace">
+                                        <div class="emoji-wrapper" v-show="emojiVisible" @click.stop>
+                                            <div v-for="(path,emoji) in emojiList">
+                                                <img :src="path" :alt="emoji" @click.stop="addFace(emoji)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="button pic-button" @click="selectImage">
+                                        <input type="file" ref="image" id="image" name="file" @change="sendImageMessage"
+                                               v-show="false">
                                     </div>
                                 </div>
+                                <footer>
+                                    <el-button type="primary" size="mini" @click="sendMessage"
+                                               style="height:40px;width:100px;background-color: #ff9696;color:#fff;border:1px solid #ff9696;outline: none;">
+                                        发送
+                                    </el-button>
+                                </footer>
                             </div>
-                            <div class="button pic-button" @click="selectImage">
-                                <input type="file" ref="image" id="image" name="file" @change="sendImageMessage"
-                                       v-show="false">
-                            </div>
-                        </header>
-                        <chart-component @enter-press="sendMessage" v-model="message"
-                                         :canEdit="canEdit"></chart-component>
-                        <footer>
-                            <el-button type="primary" size="mini" @click="sendMessage">
-                                发送
-                            </el-button>
-                        </footer>
+                        </div>
                     </div>
                 </div>
-                <!--<aside class="chart-target-information">-->
-                <!--聊天对象信息-->
-                <!--{{currentUser.nickname}}-->
-                <!--</aside>-->
             </div>
         </section>
     </div>
@@ -93,11 +116,11 @@
     let getUserInformation = require('../../../common/userInformation');
     let chartScrollToBottom = () => {
         let contentWrapper = document.getElementById('content-wrapper'),
-            chartContent = document.getElementById('chart-content');
+            chatContent = document.getElementById('chat-content');
         setTimeout(function () {
-            if (chartContent.clientHeight > contentWrapper.clientHeight) {
+            if (chatContent.clientHeight > contentWrapper.clientHeight) {
                 let outerHeight = contentWrapper.clientHeight,
-                    innerHeight = chartContent.clientHeight;
+                    innerHeight = chatContent.clientHeight;
                 //需要滚动的距离
                 contentWrapper.scrollTop = innerHeight - outerHeight;
             }
@@ -106,7 +129,7 @@
 
     let util = require('../../../common/util');
 
-    import chartComponent from "./common/chartComponent.vue";
+    import chartComponent from "./common/chatComponent.vue";
 
     export default {
         computed: {
@@ -162,10 +185,13 @@
 
                 messageType: "txt",
                 canEdit: false,
-                lastMessageTime: null,
+                //保存各个对话框最后的消息时间
+                lastMessageTime: {},
 
                 //当前用户信息
-                userInformation: {}
+                userInformation: {},
+                //当前页面聊天记录缓存对象
+                chatCache: {}
             }
         },
         created() {
@@ -185,10 +211,6 @@
             }
         },
         methods: {
-            toggleTarget(target) {
-                this.chatTarget = target;
-                this.logs = [];
-            },
             timeFormatter: util.timeFormatter,
             fetchUserFriendList() {
                 this.$http({
@@ -202,6 +224,34 @@
                         console.error(res);
                     }
                 )
+            },
+            toggleTarget(target) {
+                let chatCache = JSON.parse(JSON.stringify(this.chatCache));
+                //在切换用户之前,保存当前的聊天记录
+                let targetId = this.chatTarget.id;
+                if (targetId) {
+                    if (!chatCache[targetId]) {
+                        chatCache[targetId] = [];
+                    } else {
+                        if (_.isArray(chatCache[targetId])) {
+                            chatCache[targetId] = chatCache[targetId].concat(this.logs);
+                        }
+                    }
+                }
+                console.log(chatCache);
+
+                //清空当前对话记录
+                this.logs = [];
+                //切换用户
+                this.chatTarget = target;
+                //加载之前的聊天消息
+                targetId = target.id;
+                //切换用户之后,载入当前用户聊天信息
+                if (targetId) {
+                    if (chatCache[targetId]) {
+                        this.logs = chatCache[targetId];
+                    }
+                }
             },
             sendMessage() {
                 if (!this.message || !this.message.trim()) {
@@ -224,10 +274,10 @@
                     let timeStamp = Date.parse(new Date()),
                         message = this.message,
                         showTime = true;
-                    if (timeStamp - this.lastMessageTime < 2 * 60 * 1000) {
+                    if (timeStamp - this.lastMessageTime[this.chatTarget.id] < 2 * 60 * 1000) {
                         showTime = false;
                     } else {
-                        this.lastMessageTime = timeStamp;
+                        this.lastMessageTime[this.chatTarget.id] = timeStamp;
                     }
                     msg.set({
                         // 消息内容
@@ -263,7 +313,7 @@
                 } else {
                     _this.$message({
                         type: "error",
-                        message: "消息发送失败"
+                        message: "消息发送失败,请选择聊天对象"
                     });
                 }
 
@@ -307,10 +357,10 @@
                 if (file.filetype.toLowerCase() in allowType) {
                     let timeStamp = Date.parse(new Date()),
                         showTime = true;
-                    if (timeStamp - this.lastMessageTime < 2 * 60 * 1000) {
+                    if (timeStamp - this.lastMessageTime[this.chatTarget.id] < 2 * 60 * 1000) {
                         showTime = false;
                     } else {
-                        this.lastMessageTime = timeStamp;
+                        this.lastMessageTime[this.chatTarget.id] = timeStamp;
                     }
                     let option = {
                         apiUrl: WebIM.config.apiURL,
@@ -366,7 +416,9 @@
                 //监测消息来源者是否位于chatList列表中
                 let checkResult = false;
                 _.forEach(this.chatList, (value, index) => {
-
+                    if (value.id === fromUser) {
+                        checkResult = true;
+                    }
                 });
                 if (!checkResult) {
                     this.$http({
@@ -398,20 +450,25 @@
                     (res) => {
                         let response = res.body;
                         if (response && response.code === 0 && response.msg === "成功") {
+                            //重新获取了好友列表
                             this.chatList = response.data;
-                            if (fromUser) {
-                                _.forEach(this.chatList, (target, index) => {
-                                    if (target.id === fromUser) {
-                                        this.chatTarget = target;
-                                    }
-                                })
-                            }
                         }
                     },
                     (res) => {
                         console.error(res);
                     }
                 )
+            },
+            //缓存聊天记录
+            cacheLog(msg, targetId) {
+                //读取当前的缓存对象
+                let chatCache = JSON.parse(JSON.stringify(this.chatCache));
+                if (!chatCache[targetId]) {
+                    chatCache[targetId] = [];
+                }
+                chatCache[targetId].push(msg);
+                this.chatCache = chatCache;
+//                console.log("缓存消息给",targetId,msg);
             },
             addListener() {
                 let _this = this;
@@ -448,21 +505,33 @@
                             _this.lastMessageTime = timeStamp;
                         }
                         let messageParse = WebIM.utils.parseEmoji(message.data);
-                        _this.logs.push({
+
+                        let msg = {
                             from: message.from,
                             to: message.to,
                             message: messageParse,
                             timeStamp: timeStamp,
                             showTime: showTime,
                             type: 'txt'
-                        });
-                        chartScrollToBottom();
+                        };
+
+                        //如果消息来源是当前聊天者,直接将消息存储到logs,否则,直接存入cache缓存对象
+                        if (message.from === _this.chatTarget.id) {
+                            _this.logs.push(msg);
+                            _this.$nextTick(() => {
+                                chartScrollToBottom();
+                            });
+                        } else {
+                            console.log("非当前会话");
+                            //将消息存储到聊天记录缓存
+                            _this.cacheLog(msg, message.from);
+                        }
                     },
                     //收到表情消息
                     onEmojiMessage: function (message) {
-                        console.log(message);
+//                        console.log(message);
                         _this.checkAndSetTarget(message);
-                        console.log("收到表情消息", message);
+//                        console.log("收到表情消息", message);
                     },
                     //收到图片消息
                     onPictureMessage: function (message) {
@@ -481,17 +550,26 @@
                         } else {
                             _this.lastMessageTime = timeStamp;
                         }
-                        _this.logs.push({
+
+                        let msg = {
                             from: message.from,
                             to: message.to,
                             url: message.url,
                             timeStamp: timeStamp,
                             showTime: showTime,
                             type: 'img'
-                        });
-                        _this.$nextTick(() => {
-                            chartScrollToBottom();
-                        });
+                        };
+
+                        //如果消息来源是当前聊天者,直接将消息存储到logs,否则,直接存入cache缓存对象
+                        if (message.from === _this.chatTarget.id) {
+                            _this.logs.push(msg);
+                            _this.$nextTick(() => {
+                                chartScrollToBottom();
+                            });
+                        } else {
+                            //将消息存储到聊天记录缓存
+                            _this.cacheLog(msg, message.from);
+                        }
                     },
                     //收到命令消息
                     onCmdMessage: function (message) {
@@ -641,184 +719,246 @@
     .main {
         padding: 0.5rem;
         flex-direction: row;
-        .chart-list {
+        .chat-panel {
+            width: 100%;
+            -webkit-border-radius: 0.5rem;
+            -moz-border-radius: 0.5rem;
+            border-radius: 0.5rem;
+            flex-grow: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        .chat-title {
+            height: 50px;
+            line-height: 50px;
+            font-size: 0.9rem;
+            padding-left: 40px;
+            flex-shrink: 0;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .chat-list-wrapper {
             flex-grow: 0;
             flex-shrink: 0;
-            width: 175px;
+            width: 350px;
             align-items: stretch;
-            overflow-y: auto;
-            background-color: rgba(215, 215, 215, 1);
-            .chart-target {
-                height: 50px;
-                display: flex;
-                align-items: center;
-                cursor: pointer;
-                &.active {
-                    background-color: rgba(242, 242, 242, 1);
-                }
-                .image-wrapper {
-                    width: 50px;
-                    height: 100%;
-                    flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            .chat-title {
+                background-color: #8692a8;
+                color: #2b303a;
+            }
+            .chat-list {
+                flex-grow: 1;
+                align-items: stretch;
+                overflow-y: auto;
+                background-color: #dee2e9;
+                .chart-target {
+                    padding-left: 40px;
+                    height: 50px;
                     display: flex;
                     align-items: center;
-                    justify-content: center;
-                    img {
-                        vertical-align: middle;
-                        display: block;
-                        width: 40px;
-                        height: 40px;
-                        background-color: #ddd;
-                        -webkit-border-radius: 50%;
-                        -moz-border-radius: 50%;
-                        border-radius: 50%;
+                    cursor: pointer;
+                    background-color: #eaedf2;
+                    &.active {
+                        background-color: #fafcff;
                     }
-                }
-                .username {
-                    flex-grow: 1;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    font-size: 0.8rem;
-                }
-                .message-count {
-                    min-width: 16px;
-                    height: 16px;
-                    line-height: 16px;
-                    font-size: 0.7rem;
-                    text-align: center;
-                    margin-right: 0.5rem;
-                    padding: 0 8px;
-                    -webkit-border-radius: 8px;
-                    -moz-border-radius: 8px;
-                    border-radius: 8px;
-                    color: #fff;
-                    background-color: #ff7676;
+                    .image-wrapper {
+                        width: 50px;
+                        height: 100%;
+                        flex-shrink: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        img {
+                            vertical-align: middle;
+                            display: block;
+                            width: 36px;
+                            height: 36px;
+                            background-color: #ddd;
+                            -webkit-border-radius: 50%;
+                            -moz-border-radius: 50%;
+                            border-radius: 50%;
+                        }
+                    }
+                    .username {
+                        flex-grow: 1;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        font-size: 0.8rem;
+                    }
+                    .message-count {
+                        min-width: 16px;
+                        height: 16px;
+                        line-height: 16px;
+                        font-size: 0.7rem;
+                        text-align: center;
+                        margin-right: 0.5rem;
+                        padding: 0 8px;
+                        -webkit-border-radius: 8px;
+                        -moz-border-radius: 8px;
+                        border-radius: 8px;
+                        color: #fff;
+                        background-color: #ff7676;
+                    }
                 }
             }
         }
-        .chart-container {
-            flex-grow: 1;
-            /*border: 1px solid #ddd;*/
+        .chat-container-wrapper {
             display: flex;
-            .chart-content {
+            flex-grow: 1;
+            flex-direction: column;
+            .chat-title {
+                background-color: #626d82;
+                color: #fff;
+            }
+            .chat-container {
                 flex-grow: 1;
+                /*border: 1px solid #ddd;*/
                 display: flex;
-                flex-direction: column;
-                .content-wrapper {
+                .chat-content {
                     flex-grow: 1;
-                    background-color: rgba(242, 242, 242, 1);
-                    overflow-y: auto;
-                    overflow-x: hidden;
-                    .chart-content {
-                        padding: 0.5rem 0.5rem 0 0.5rem;
-                    }
-                    .message {
-                        margin-bottom: 0.5rem;
-                        > div {
-                            .icon {
-                                display: block;
-                                height: 40px;
-                                width: 40px;
-                                border-radius: 20px;
-                                background-color: #d7d7d7;
-                            }
-                            &.my-message {
-                                display: flex;
-                                align-items: flex-start;
-                                justify-content: flex-end;
-                            }
-                            &.other-message {
-                                display: flex;
-                                align-items: flex-start;
-                                justify-content: flex-start;
-                            }
-
-                            .message-wrapper {
-                                word-wrap: break-word;
-                                margin: 0 1rem;
-                                padding: 0.8rem;
-                                max-width: 30%;
-                                background-color: #fff;
-                                border-radius: 5px;
-                                position: relative;
-                                div {
-                                    word-break: break-all;
-                                    font-size: 0.8rem;
-                                    line-height: 1rem;
-                                }
-                                img {
-                                    max-width: 100%;
-                                }
-                                .arrow {
-                                    position: absolute;
-                                    top: 0.8rem;
-                                    width: 0.6rem;
-                                    height: 0.6rem;
-                                    background-color: #fff;
-                                    -webkit-transform: rotate(45deg);
-                                    -moz-transform: rotate(45deg);
-                                    -ms-transform: rotate(45deg);
-                                    -o-transform: rotate(45deg);
-                                    transform: rotate(45deg);
-                                    &.my-message-arrow {
-                                        right: -4px;
-                                    }
-                                    &.other-message-arrow {
-                                        left: -4px;
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                }
-                .input-wrapper {
-                    height: 130px;
                     display: flex;
                     flex-direction: column;
-                    flex-shrink: 0;
-                    .controller-bar {
-                        flex-shrink: 0;
-                        display: flex;
-                        .button {
-                            width: 32px;
-                            height: 32px;
-                            margin: 0 0.5rem;
-                            cursor: pointer;
-                            &.face-button {
-                                background: url("../images/face.png") no-repeat 0 0;
-                                position: relative;
-                                .emoji-wrapper {
-                                    position: absolute;
-                                    left: 0;
-                                    bottom: 32px;
-                                    padding: 0.5rem;
-                                    background-color: #fff;
-                                    width: 256px;
+                    .content-wrapper {
+                        flex-grow: 1;
+                        background-color: #fafcff;
+                        overflow-y: auto;
+                        overflow-x: hidden;
+                        .chat-content {
+                            padding: 0.5rem 0.5rem 0 0.5rem;
+                        }
+                        .message {
+                            margin-bottom: 0.5rem;
+                            > div {
+                                .icon {
+                                    display: block;
+                                    height: 40px;
+                                    width: 40px;
+                                    border-radius: 20px;
+                                    background-color: inherit;
+                                }
+                                &.my-message {
                                     display: flex;
-                                    flex-wrap: wrap;
-                                    align-items: center;
+                                    align-items: flex-start;
+                                    justify-content: flex-end;
+                                    .message-wrapper {
+                                        position: relative;
+                                        top: 0.4rem;
+                                        background-color: #c0c7d4;
+                                        .arrow {
+                                            background-color: inherit;
+                                        }
+                                    }
+                                }
+                                &.other-message {
+                                    display: flex;
+                                    align-items: flex-start;
                                     justify-content: flex-start;
+                                    .message-wrapper {
+                                        background-color: #eaedf2;
+                                        .arrow {
+                                            background-color: inherit;
+                                        }
+                                    }
+                                }
+
+                                .message-wrapper {
+                                    word-wrap: break-word;
+                                    margin: 0 1rem;
+                                    padding: 0.4rem 0.8rem;
+                                    max-width: 30%;
+                                    background-color: #fff;
+                                    border-radius: 5px;
+                                    position: relative;
+                                    div {
+                                        word-break: break-all;
+                                        font-size: 0.8rem;
+                                        line-height: 1rem;
+                                    }
+                                    img {
+                                        max-width: 100%;
+                                    }
+                                    .arrow {
+                                        position: absolute;
+                                        top: 0.6rem;
+                                        width: 0.6rem;
+                                        height: 0.6rem;
+                                        background-color: #fff;
+                                        -webkit-transform: rotate(45deg);
+                                        -moz-transform: rotate(45deg);
+                                        -ms-transform: rotate(45deg);
+                                        -o-transform: rotate(45deg);
+                                        transform: rotate(45deg);
+                                        &.my-message-arrow {
+                                            right: -4px;
+                                        }
+                                        &.other-message-arrow {
+                                            left: -4px;
+                                        }
+                                    }
                                 }
                             }
-                            &.pic-button {
-                                background: url("../images/image.png") no-repeat 0 0;
-                            }
+
                         }
                     }
-                    footer {
+                    .input-wrapper {
+                        padding: 5px;
+                        height: 75px;
+                        background-color: #f6f6f6;
+                        display: flex;
                         flex-shrink: 0;
-                        text-align: right;
+                        align-items: center;
+                        .controller-bar {
+                            flex-shrink: 0;
+                            display: flex;
+                            .button {
+                                box-sizing: border-box;
+                                -webkit-border-radius: 5px;
+                                -moz-border-radius: 5px;
+                                border-radius: 5px;
+                                width: 60px;
+                                height: 40px;
+                                margin: 0 0.5rem;
+                                cursor: pointer;
+                                background-color: #fff !important;
+                                border: 1px solid #d4d4d4;
+                                &.face-button {
+                                    background: url("../images/face.png") no-repeat center;
+                                    position: relative;
+                                    .emoji-wrapper {
+                                        position: absolute;
+                                        right: 0;
+                                        bottom: 40px;
+                                        padding: 0.5rem;
+                                        background-color: #fff;
+                                        width: 256px;
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        align-items: center;
+                                        justify-content: flex-start;
+                                    }
+                                }
+                                &.pic-button {
+                                    margin-left: 0;
+                                    background: url("../images/image.png") no-repeat center;
+                                }
+                            }
+                        }
+                        footer {
+                            flex-shrink: 0;
+                            text-align: right;
+                        }
                     }
                 }
-            }
-            .chart-target-information {
-                flex-shrink: 0;
-                margin-left: 0.5rem;
-                width: 187px;
-                background-color: rgba(242, 242, 242, 1);
-                /*border: 1px solid #000;*/
+                .chat-target-information {
+                    flex-shrink: 0;
+                    margin-left: 0.5rem;
+                    width: 187px;
+                    background-color: rgba(242, 242, 242, 1);
+                }
             }
         }
     }

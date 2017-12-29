@@ -36,7 +36,7 @@
     export default {
         data() {
             return {
-                messageCount: 5,
+                messageCount: 0,
                 userInformation: {
                     nickname: '',
                     mobile: '',
@@ -61,9 +61,9 @@
                 console.log('帮助中心');
             },
             testIM() {
-                this.$router.push({
-                    path: "/testIM",
-                })
+//                this.$router.push({
+//                    path: "/testIM",
+//                })
             },
             logout() {
                 util.logout("normal");

@@ -89,7 +89,7 @@
 
 <script>
     let util = require('../../../common/util');
-    import chartComponent from "./common/chartComponent.vue";
+    import chartComponent from "./common/chatComponent.vue";
 
     export default {
         components: {

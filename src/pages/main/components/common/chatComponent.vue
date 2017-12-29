@@ -42,7 +42,7 @@
                 if (!value) {
                     this.innerText = "";
                     this.$el.innerHTML = "";
-                 }
+                }
             }
         },
         methods: {
@@ -57,13 +57,17 @@
 </script>
 <style lang="scss" rel="stylesheet/scss">
     .chartComponent {
-        padding: 0.5rem;
-        /*border: 1px solid #ddd;*/
+        box-sizing: border-box;
+        /*padding: 0.2rem 0.2rem 0.2rem 1rem;*/
         outline: none;
         flex-grow: 1;
         font-size: 0.8rem;
-        line-height: 1rem;
+        line-height: 38px;
+        height:40px;
+        padding-left: 1rem;
         overflow-y: auto;
         word-break: break-all;
+        border: 1px solid #d4d4d4;
+        background-color: #fff;
     }
 </style>
