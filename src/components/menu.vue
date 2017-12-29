@@ -20,7 +20,7 @@
                                 <span class="menu-icon homepage-icon"></span>
                                 <p v-show="!isCollapse">首页</p>
                             </div>
-                            <div class="wrapper arrow-wrapper">
+                            <div class="wrapper arrow-wrapper" v-show="false">
                                 <i :class="['el-icon-arrow-right',{'rotate-down':curr==='1'}]"></i>
                             </div>
                         </router-link>
@@ -210,7 +210,10 @@
                 height: 22px;
                 margin: 0 0 0 20px;
                 /*border: 1px solid red;*/
-                &.homepage-icon, &.content-management-icon {
+                &.homepage-icon {
+                    background: url(../common/images/homepageIcon.png) no-repeat 0 0;
+                }
+                &.content-management-icon {
                     background: url(../common/images/content-management.png) no-repeat 0 0;
                 }
                 &.customer-management-icon {

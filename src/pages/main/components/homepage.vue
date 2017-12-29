@@ -1,15 +1,16 @@
 <template>
     <div class="outer-container">
         <section class="main">
+            <img class="bg" :src="require('../../../common/images/homepage.png')"/>
             <!--<h4>首页</h4>-->
-            <div class="chart-container">
-                <high-chart :options="options" :styles="styles"></high-chart>
-                <high-chart :options="options" :styles="styles"></high-chart>
-                <high-chart :options="options" :styles="styles"></high-chart>
-                <high-chart :options="options" :styles="styles"></high-chart>
-                <high-chart :options="options" :styles="styles"></high-chart>
-                <high-chart :options="options" :styles="styles"></high-chart>
-            </div>
+            <!--<div class="chart-container">-->
+            <!--<high-chart :options="options" :styles="styles"></high-chart>-->
+            <!--<high-chart :options="options" :styles="styles"></high-chart>-->
+            <!--<high-chart :options="options" :styles="styles"></high-chart>-->
+            <!--<high-chart :options="options" :styles="styles"></high-chart>-->
+            <!--<high-chart :options="options" :styles="styles"></high-chart>-->
+            <!--<high-chart :options="options" :styles="styles"></high-chart>-->
+            <!--</div>-->
         </section>
     </div>
 </template>
@@ -90,22 +91,31 @@
         mounted() {
 
         },
-        methods: {
-
-        }
+        methods: {}
     }
 </script>
 
 <style lang="scss" scoped>
     @import "common/style/main";
+
     .main {
-        overflow: auto;
-    }
-    .chart-container {
-        display: flex;
-        flex-direction: row;
+        /*overflow: auto;*/
+        overflow: hidden;
         align-items: center;
-        justify-content: flex-start;
-        flex-flow: wrap;
+        justify-content: center;
+
+        .bg {
+            vertical-align: middle;
+            max-width: 50%;
+            display: block;
+        }
     }
+
+    /*.chart-container {*/
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*align-items: center;*/
+    /*justify-content: flex-start;*/
+    /*flex-flow: wrap;*/
+    /*}*/
 </style>

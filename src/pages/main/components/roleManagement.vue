@@ -428,13 +428,14 @@
                             (res) => {
                                 let response = res.body;
                                 if (response && response.code === 0 && response.msg === "成功") {
-                                    this.modalVisible = false;
                                     this.$message({
                                         type: "success",
                                         message: `${this.modalType}成功`
                                     });
                                     this.modalType = "";
                                     this.fetchRolesList();
+                                    this.modalVisible = false;
+                                    this.handelClose();
                                 } else {
                                     this.$message({
                                         type: "error",

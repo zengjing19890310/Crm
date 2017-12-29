@@ -52,6 +52,9 @@
         padding: 10px;
         > header {
           flex-shrink: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
         > div {
           flex-grow: 1;

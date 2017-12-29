@@ -3,7 +3,8 @@
     <div class="outer-container">
         <section class="main" v-loading="getDataLock" element-loading-text="加载中...">
             <filter-component :data-count="dataTotal" filter-type="onlyCount"
-                              route-name="customerInformation"></filter-component>
+                              route-name="customerInformation"
+                              @search-keyword="searchKeyword" :user-name="userName" @clear-username="clearUserName"></filter-component>
             <div class="customer-container">
                 <div class="left-panel" id="customer-table">
                     <!--左边客户列表-->
@@ -79,13 +80,15 @@
                             <template slot-scope="scope">
                                 <div @click.stop>
                                     <el-row>
-                                        <el-col>
+                                        <el-col v-show="true">
                                             <!--如果有权限,应该显示下拉菜单-->
-                                            <el-select v-model="scope.row.vipLevel" size="small" @change="handleLevelChange(scope.row)">
-                                                <el-option v-for="(level,index) in customerLevelList" :value="level.id" :label="level.levelName"></el-option>
+                                            <el-select v-model="scope.row.vipLevel" size="small"
+                                                       @change="handleLevelChange($event,scope.row)">
+                                                <el-option v-for="(level,index) in customerLevelList" :value="level.id"
+                                                           :label="level.levelName"></el-option>
                                             </el-select>
                                         </el-col>
-                                        <el-col>
+                                        <el-col v-if="false">
                                             <!--没有权限,则显示名称信息-->
                                             <span>{{scope.row.vipLevel}}</span>
                                         </el-col>
@@ -124,12 +127,22 @@
                                 </p>
                             </div>
                             <footer class="more">
-
+                                <div class="more-share">
+                                    <span>他的更多分享:</span>
+                                    <div v-if="upLevelInformation.shares&&upLevelInformation.shares.length!==0">
+                                        <img class="head-img" v-for="(share,index) in upLevelInformation.shares"
+                                             :src="share.headImg" alt="">
+                                    </div>
+                                    <span v-if="upLevelInformation.count>4">...</span>
+                                </div>
+                                <div class="count-share" @click="fetchShareList(upLevelInformation)">
+                                    <i class="share-icon"></i>{{upLevelInformation.count || "-"}}
+                                </div>
                             </footer>
                         </div>
                     </div>
-                    <div class="my-share text-control"  v-loading="levelLoading" element-loading-text="加载中...">
-                        <header>下层关系</header>
+                    <div class="my-share text-control" v-loading="levelLoading" element-loading-text="加载中...">
+                        <header>{{currentCustomer.nickname || "-"}}的分享</header>
                         <div class="level-wrapper">
                             <div class="down-level-information">
                                 <p>
@@ -140,7 +153,16 @@
                                 </p>
                             </div>
                             <footer class="more">
-
+                                <div class="more-share">
+                                    <span>他的更多分享:</span>
+                                    <div v-if="currentCustomer.shares&&currentCustomer.shares.length!==0">
+                                        <img class="head-img" v-for="(share,index) in currentCustomer.shares"
+                                             :src="share.headImg" alt="">
+                                    </div>
+                                </div>
+                                <div class="count-share" @click="fetchShareList(currentCustomer)">
+                                    <i class="share-icon"></i>{{currentCustomer.count || "-"}}
+                                </div>
                             </footer>
                         </div>
                     </div>
@@ -167,7 +189,8 @@
                 upLevelInformation: {},
                 levelLoading: false,
                 customerLevelList: [],
-
+                userId: "",
+                userName: ""
             }
         },
         created() {
@@ -212,14 +235,83 @@
             }
         },
         methods: {
+            //清除选中的上下级关键字
+            clearUserName(){
+                this.userName = "";
+                this.userId = "";
+                this.upLevelInformation = {};
+                this.page = 1;
+                this.fetchCustomerList();
+            },
+            //关键字查找
+            searchKeyword(keyword) {
+                this.keyword = keyword;
+                this.page = 1;
+                this.fetchCustomerList();
+            },
+            //通过分享上下级,获取包含上下级条件的
+            fetchShareList(user) {
+                this.userName = user.nickname || user.mobile;
+                this.userId = user.id;
+                this.upLevelInformation = {};
+                this.page = 1;
+                this.fetchCustomerList();
+            },
+            //客户等级修改成功
+            handleLevelChange(vipLevel, val) {
+                if (this.customerLevelList && this.customerLevelList.length !== 0) {
+                    _.forEach(this.customerLevelList, (level, index) => {
+                        if (level.id === vipLevel) {
+                            val.levelName = level.levelName;
+                        }
+                    });
+                }
+//                console.log("改变用户VIP等级", val);
+                //将VIP等级改变发送到服务器
+                let editObj = {
+                    userId: val.id,
+                    levelId: val.vipLevel
+                };
+                this.$http({
+                    url: API("/customer"),
+                    method: "put",
+                    params: editObj
+                }).then(
+                    (res) => {
+                        console.log(res);
+                        let response = res.body;
+                        if (response && response.code === 0 && response.msg === "成功") {
+                            this.$message({
+                                type: "success",
+                                message: "修改客户等级成功"
+                            });
+                        } else {
+                            this.$message({
+                                type: "success",
+                                message: "修改客户等级失败"
+                            });
+                            this.fetchCustomerList();
+                        }
+                    },
+                    (res) => {
+                        this.$message({
+                            type: "success",
+                            message: "修改客户等级失败"
+                        });
+                        this.fetchCustomerList();
+                    }
+                )
+
+            },
+            //获取客户等级下拉框选项,有权限时提供编辑功能
             fetchCustomerLevelList() {
                 this.$http({
-                    url:API("/customer/level"),
-                    method:"get"
+                    url: API("/customer/level"),
+                    method: "get"
                 }).then(
                     (res) => {
                         let response = res.body;
-                        if(response&&response.code===0&&response.msg==="成功"){
+                        if (response && response.code === 0 && response.msg === "成功") {
                             this.customerLevelList = response.data;
                         }
                     },
@@ -231,7 +323,7 @@
             //获取客户列表分页
             fetchCustomerList(type) {
                 this.getDataLock = true;
-                let url, method, page, size;
+                let url, method, page, size, keyword = this.keyword, userId = this.userId;
                 url = API("/customer");
                 method = "get";
                 page = this.page;
@@ -252,7 +344,9 @@
                     method: method,
                     params: {
                         page: page,
-                        size: size
+                        size: size,
+                        userId: userId,
+                        key: keyword
                     }
                 }).then(
                     (res) => {
@@ -288,16 +382,18 @@
             },
             //左侧表格选中行变化
             handleCurrentChange(val) {
-                this.currentCustomer = val;
-                let pid = val.pid;
-                if (pid) {
-                    this.fetchUpLevel(pid);
-                } else {
-                    this.upLevelInformation = {};
-                    this.$message({
-                        type: "error",
-                        message: "获取上级ID失败"
-                    });
+                if (val) {
+                    this.currentCustomer = val;
+                    let pid = val.pid;
+                    if (pid) {
+                        this.fetchUpLevel(pid);
+                    } else {
+                        this.upLevelInformation = {};
+//                        this.$message({
+//                            type: "error",
+//                            message: "获取上级ID失败"
+//                        });
+                    }
                 }
             },
             //根据表格选中行pid获取右侧上级信息
@@ -344,6 +440,7 @@
         flex-direction: column;
         .up-level-information, .down-level-information {
             flex-grow: 1;
+            flex-shrink: 0;
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-start;
@@ -360,6 +457,37 @@
             width: 100%;
             height: 60px;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .more-share {
+                display: flex;
+                flex-grow: 3;
+                flex-shrink: 0;
+                align-items: center;
+                .head-img {
+                    width: 36px;
+                    height: 36px;
+                    vertical-align: middle;
+                    -webkit-border-radius: 50%;
+                    -moz-border-radius: 50%;
+                    border-radius: 50%;
+                    margin-left: 0.2rem;
+                }
+            }
+            .count-share {
+                flex-grow: 1;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                .share-icon {
+                    display: inline-block;
+                    width: 22px;
+                    height: 22px;
+                    background: #fff url("../../../common/images/user-management.png") no-repeat 0 0;
+                }
+            }
         }
     }
 </style>

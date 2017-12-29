@@ -55,7 +55,7 @@ module.exports = {
 			return value < 10 ? "0" + value : value;
 		};
 		let date = new Date(timeStamp);
-		return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDay()} ${prependZero(date.getHours())}:${prependZero(date.getMinutes())}`;
+		return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay()} ${prependZero(date.getHours())}:${prependZero(date.getMinutes())}`;
 	},
 	//处理各种需要登出的情况
 	logout(type, message) {

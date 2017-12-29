@@ -103,15 +103,16 @@
         .post-overview {
             display: flex;
             flex-grow: 1;
+            flex-shrink: 0;
             .post-url {
-                width: 100px;
+                width: 150px;
                 flex-grow: 0;
                 flex-shrink: 0;
                 overflow: hidden;
                 img {
                     display: block;
-                    height: 100%;
-                    width: 100%;
+                    height: 100px;
+                    width: 150px;
                 }
                 margin-right:0.5rem;
             }

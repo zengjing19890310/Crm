@@ -18,7 +18,7 @@ WebIM.config = {
 	/*
      * Application AppKey
      */
-	appkey: "1119171202115481#lichiim",
+	appkey: "1105171201115139#lichi-happy",
 
 	/*
      * Whether to use wss

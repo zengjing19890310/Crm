@@ -30,7 +30,6 @@
             index: Number
         },
         mounted() {
-            console.log(this.courseData);
             window.Bus.$on('clear-modal', () => {
                 this.modal = false;
             });

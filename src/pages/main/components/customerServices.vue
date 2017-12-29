@@ -4,17 +4,17 @@
             <aside class="chart-list">
                 <!--聊天列表-->
                 <ul>
-                    <li :class="['chart-target',{active:chartTarget.username===target.username}]"
-                        v-for="(target,index) in chartList" @click="selectTarget(target)">
+                    <li :class="['chart-target',{active:chatTarget.username===target.username}]"
+                        v-for="(target,index) in chatList" @click="toggleTarget(target)">
                         <div class="image-wrapper">
-                            <img :src="target.url" alt="">
+                            <img :src="target.headImg" alt="">
                         </div>
                         <p class="username">
-                            {{target.username}}
+                            {{target.nickname}}
                         </p>
-                        <p class="message-count">
-                            {{target.unread > 99 ? '99+' : target.unread}}
-                        </p>
+                        <!--<p class="message-count">-->
+                        <!--{{target.unread > 99 ? '99+' : target.unread}}-->
+                        <!--</p>-->
                         <!--{{target.username}}-->
                     </li>
                 </ul>
@@ -30,25 +30,28 @@
                             <!--type: 'text'-->
                             <li v-for="(item,index) in logs" :key="index"
                                 class="message">
-                                <div style="text-align: center;line-height: 2.4rem;" v-if="item.showTime">
+                                <div style="text-align: center;line-height: 2.4rem; color:#999;" v-if="item.showTime">
                                     {{timeFormatter(item.timeStamp)}}
                                 </div>
-                                <div :class="{'my-message':item.from===currentUser.username,'other-message':item.to===currentUser.username}">
-                                    <div v-show="item.to===currentUser.username">
+                                <div :class="{'my-message':item.from===currentUser.id,'other-message':item.to===currentUser.id}">
+                                    <!--item.to===currentUser.id-->
+                                    <div v-show="item.to===currentUser.id">
                                         <!--他人头像-->
-                                        <img class="icon" :src="chartTarget.url" alt="">
+                                        <img class="icon" :src="chatTarget.headImg" alt="">
                                     </div>
+                                    <!--图片消息-->
                                     <div v-if="item.type==='txt'" class="message-wrapper">
-                                        <span :class="['arrow',{'my-message-arrow':item.from===currentUser.username,'other-message-arrow':item.to===currentUser.username}]"></span>
+                                        <span :class="['arrow',{'my-message-arrow':item.from===currentUser.id,'other-message-arrow':item.to===currentUser.id}]"></span>
                                         <div v-html="item.message"></div>
                                     </div>
+                                    <!---->
                                     <div v-if="item.type==='img'" class="message-wrapper">
-                                        <span :class="['arrow',{'my-message-arrow':item.from===currentUser.username,'other-message-arrow':item.to===currentUser.username}]"></span>
+                                        <span :class="['arrow',{'my-message-arrow':item.from===currentUser.id,'other-message-arrow':item.to===currentUser.id}]"></span>
                                         <img :src="item.url" alt="">
                                     </div>
-                                    <div v-show="item.from===currentUser.username">
+                                    <div v-show="item.from===currentUser.id">
                                         <!--我的头像-->
-                                        <img class="icon" :src="currentUser.url" alt="">
+                                        <img class="icon" :src="currentUser.headerImg" alt="">
                                     </div>
                                 </div>
                             </li>
@@ -87,6 +90,7 @@
 </template>
 
 <script>
+    let getUserInformation = require('../../../common/userInformation');
     let chartScrollToBottom = () => {
         let contentWrapper = document.getElementById('content-wrapper'),
             chartContent = document.getElementById('chart-content');
@@ -116,7 +120,7 @@
                     });
                 }
                 return list;
-            },
+            }
         },
         components: {
             "chart-component": chartComponent
@@ -125,42 +129,80 @@
             return {
                 emojiVisible: false,
                 //会话列表
-                chartList: [
-                    {
-                        username: "user001",
-                        url: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3787911176,2095677006&fm=27&gp=0.jpg",
-                        unread: 2,
-                        nickname: "用户001"
-                    },
-                    {
-                        username: "kefu001",
-                        url: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513844788329&di=47755f24c1fdd90594d8571420e66a80&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fd009b3de9c82d15857f46e8c8b0a19d8bc3e429c.jpg",
-                        unread: 215,
-                        nickname: "客服001"
-                    }
+                chatList: [
+//                    {
+//                        username: "user001",
+//                        url: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3787911176,2095677006&fm=27&gp=0.jpg",
+//                        unread: 2,
+//                        nickname: "用户001"
+//                    },
+//                    {
+//                        username: "kefu001",
+//                        url: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513844788329&di=47755f24c1fdd90594d8571420e66a80&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fd009b3de9c82d15857f46e8c8b0a19d8bc3e429c.jpg",
+//                        unread: 215,
+//                        nickname: "客服001"
+//                    }
                 ],
                 //当前用户
                 currentUser: {
-                    username: "kefu001",
-                    nickname: "客服001",
-                    url: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513844788329&di=47755f24c1fdd90594d8571420e66a80&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fd009b3de9c82d15857f46e8c8b0a19d8bc3e429c.jpg"
+//                    username: "kefu001",
+//                    nickname: "客服001",
+//                    url: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513844788329&di=47755f24c1fdd90594d8571420e66a80&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fd009b3de9c82d15857f46e8c8b0a19d8bc3e429c.jpg"
+                },
+                //聊天目标
+                chatTarget: {
+//                    username: "user001",
+//                    nickname: "用户001",
+//                    url: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3787911176,2095677006&fm=27&gp=0.jpg"
                 },
                 getDataLock: false,
                 connect: null,
                 logs: [],
                 message: "",
-                chartTarget: {
-                    username: "user001",
-                    nickname: "用户001",
-                    url: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3787911176,2095677006&fm=27&gp=0.jpg"
-                },
+
                 messageType: "txt",
                 canEdit: false,
-                lastMessageTime: null
+                lastMessageTime: null,
+
+                //当前用户信息
+                userInformation: {}
+            }
+        },
+        created() {
+            //获取当前用户信息
+            getUserInformation.getUserInformation(this);
+        },
+        mounted() {
+            this.initConnect();
+            this.addListener();
+            this.fetchUserFriendList();
+        },
+        watch: {
+            userInformation(user) {
+                if (user.id) {
+                    this.autoLogin(user.id);
+                }
             }
         },
         methods: {
+            toggleTarget(target) {
+                this.chatTarget = target;
+                this.logs = [];
+            },
             timeFormatter: util.timeFormatter,
+            fetchUserFriendList() {
+                this.$http({
+                    url: API("/sysuser/friends"),
+                    method: "get"
+                }).then(
+                    (res) => {
+                        console.log(res);
+                    },
+                    (res) => {
+                        console.error(res);
+                    }
+                )
+            },
             sendMessage() {
                 if (!this.message || !this.message.trim()) {
                     this.$message({
@@ -177,7 +219,7 @@
                 // 创建文本消息
                 let msg = new WebIM.message(this.messageType, id);
 
-                if (this.chartTarget.username) {
+                if (this.chatTarget.id) {
                     //消息时间
                     let timeStamp = Date.parse(new Date()),
                         message = this.message,
@@ -191,14 +233,14 @@
                         // 消息内容
                         msg: this.message,
                         // 接收消息对象（用户id）
-                        to: this.chartTarget.username,
+                        to: this.chatTarget.id,
                         roomType: false,
                         success: function (id, serverMsgId) {
                             let messageParse = WebIM.utils.parseEmoji(message);
                             let obj = {
-                                from: _this.currentUser.username,
+                                from: _this.currentUser.id,
                                 fromNickname: _this.currentUser.nickname,
-                                to: _this.chartTarget.username,
+                                to: _this.chatTarget.id,
                                 message: messageParse,
                                 timeStamp: timeStamp,
                                 type: _this.messageType,
@@ -274,7 +316,7 @@
                         apiUrl: WebIM.config.apiURL,
                         file: file,
                         // 接收消息对象
-                        to: this.chartTarget.username,
+                        to: this.chatTarget.id,
                         roomType: false,
                         chatType: 'singleChat',
                         // 消息上传失败
@@ -288,9 +330,9 @@
                         // 消息发送成功
                         success: function (e) {
                             let obj = {
-                                from: _this.currentUser.username,
+                                from: _this.currentUser.id,
                                 fromNickname: _this.currentUser.nickname,
-                                to: _this.chartTarget.username,
+                                to: _this.chatTarget.id,
                                 url: file.url,
                                 timeStamp: timeStamp,
                                 type: _this.messageType,
@@ -319,6 +361,58 @@
                     isAutoLogin: true
                 });
             },
+            checkAndSetTarget(message) {
+                let fromUser = message.from;
+                //监测消息来源者是否位于chatList列表中
+                let checkResult = false;
+                _.forEach(this.chatList, (value, index) => {
+
+                });
+                if (!checkResult) {
+                    this.$http({
+                        url: API(`/sysuser/friends/${fromUser}`),
+                        method: "post"
+                    }).then(
+                        (res) => {
+                            let response = res.body;
+                            if (response && response.code === 0 && response.msg === "成功") {
+                                //获取好友列表
+                                this.fetchChatList(fromUser);
+                            }
+                        },
+                        (res) => {
+                            console.error(res);
+                        }
+                    )
+                } else {
+                    //该对话已经存在于好友列表中
+//                    this.fetchChatList();
+                }
+            },
+            //获取chatList
+            fetchChatList(fromUser) {
+                this.$http({
+                    url: API("/sysuser/friends"),
+                    method: "get"
+                }).then(
+                    (res) => {
+                        let response = res.body;
+                        if (response && response.code === 0 && response.msg === "成功") {
+                            this.chatList = response.data;
+                            if (fromUser) {
+                                _.forEach(this.chatList, (target, index) => {
+                                    if (target.id === fromUser) {
+                                        this.chatTarget = target;
+                                    }
+                                })
+                            }
+                        }
+                    },
+                    (res) => {
+                        console.error(res);
+                    }
+                )
+            },
             addListener() {
                 let _this = this;
                 //给连接增加各种监听事件
@@ -338,6 +432,8 @@
                     },
                     //收到文本消息
                     onTextMessage: function (message) {
+                        console.log(message);
+                        _this.checkAndSetTarget(message);
                         if (!message || !message.data.trim()) {
                             return;
                         }
@@ -364,10 +460,14 @@
                     },
                     //收到表情消息
                     onEmojiMessage: function (message) {
+                        console.log(message);
+                        _this.checkAndSetTarget(message);
                         console.log("收到表情消息", message);
                     },
                     //收到图片消息
                     onPictureMessage: function (message) {
+                        console.log(message);
+                        _this.checkAndSetTarget(message);
                         if (!message || !message.url.trim()) {
                             return;
                         }
@@ -392,8 +492,6 @@
                         _this.$nextTick(() => {
                             chartScrollToBottom();
                         });
-
-//                        console.log("收到图片消息", message, message.url);
                     },
                     //收到命令消息
                     onCmdMessage: function (message) {
@@ -473,12 +571,12 @@
                     }
                 });
             },
-            autoLogin() {
+            autoLogin(id) {
                 let _this = this;
                 let options = {
                     apiUrl: WebIM.config.apiURL,
-                    user: "kefu001",
-                    pwd: "123",
+                    user: id,
+                    pwd: "123456",
                     appKey: WebIM.config.appkey,
                     success: function (res) {
                         _this.$message({
@@ -486,6 +584,44 @@
                             message: '登录成功'
                         });
                         _this.canEdit = true;
+                        //设置本地currentUser
+                        _this.currentUser = _this.userInformation;
+                        //获取好友列表
+                        _this.fetchChatList();
+                        //登录成功后,连接SOCKET
+                        let token = window.sessionStorage.getItem('token');
+                        if (id && token) {
+                            //连接socket
+                            let webSocket = new WebSocket(`ws://192.168.100.109:8888/websocket/${id}?token=${token}`);
+                            webSocket.onerror = function (event) {
+                                onError(event)
+                            };
+
+                            webSocket.onopen = function (event) {
+                                onOpen(event)
+                            };
+
+                            webSocket.onmessage = function (event) {
+                                onMessage(event)
+                            };
+
+                            function onMessage(event) {
+                                console.log("onMessage", event);
+                            }
+
+                            function onOpen(event) {
+                                console.log("打开socket连接", event);
+                            }
+
+                            function onError(event) {
+                                console.error("onError");
+                            }
+
+                            function start() {
+                                webSocket.send('hello');
+                                return false;
+                            }
+                        }
                     },
                     error: function () {
                         console.error('登录失败');
@@ -494,14 +630,7 @@
                     }
                 };
                 this.connect.open(options);
-            }
-        },
-        mounted() {
-            this.initConnect();
-            this.addListener();
-            this.autoLogin();
-//            console.log(WebIM.Emoji);
-
+            },
         }
     }
 </script>
@@ -592,6 +721,7 @@
                                 height: 40px;
                                 width: 40px;
                                 border-radius: 20px;
+                                background-color: #d7d7d7;
                             }
                             &.my-message {
                                 display: flex;

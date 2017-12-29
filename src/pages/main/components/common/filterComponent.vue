@@ -57,6 +57,9 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
+        <div v-if="moduleName==='customerInformation'">
+            <el-tag v-show="userName" closable @close="clearUserName">{{userName}}</el-tag>
+        </div>
     </header>
 </template>
 
@@ -76,7 +79,8 @@
         props: {
             "data-count": Number,
             "filter-type": String,
-            "route-name": String
+            "route-name": String,
+            "user-name": String
         },
         created() {
             this.moduleType = this.filterType;
@@ -115,6 +119,9 @@
             },
             batchRemove() {
                 this.$emit('batch-remove', this.moduleName);
+            },
+            clearUserName() {
+                this.$emit("clear-username");
             }
         }
     }

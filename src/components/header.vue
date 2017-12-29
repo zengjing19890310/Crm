@@ -17,7 +17,7 @@
             <span class="shot-line"></span>
             <div>
                 <p>{{userInformation.nickname || '-'}}</p>
-                <img class="user-picture" :src="userInformation.photo" alt="头像"/>
+                <img class="user-picture" :src="userInformation.headerImg" alt=""/>
             </div>
         </div>
         <div class="logout">
@@ -54,40 +54,6 @@
                 window.Bus.$on('getUserInformation', (vm) => {
                     vm.userInformation = userInformation;
                 });
-                let id = this.userInformation.id;
-                let token = window.sessionStorage.getItem('token');
-                if (id && token) {
-                    //连接socket
-                    let webSocket = new WebSocket(`ws://192.168.100.109:8888/websocket/${id}?token=${token}`);
-                    webSocket.onerror = function (event) {
-                        onError(event)
-                    };
-
-                    webSocket.onopen = function (event) {
-                        onOpen(event)
-                    };
-
-                    webSocket.onmessage = function (event) {
-                        onMessage(event)
-                    };
-
-                    function onMessage(event) {
-                        console.log("onMessage", event);
-                    }
-
-                    function onOpen(event) {
-                        console.log("onOpen", event);
-                    }
-
-                    function onError(event) {
-                        console.error("onError");
-                    }
-
-                    function start() {
-                        webSocket.send('hello');
-                        return false;
-                    }
-                }
             }
         },
         methods: {
