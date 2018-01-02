@@ -41,10 +41,15 @@ module.exports = {
             }),
             new webpack.DefinePlugin({ //定义全局常量,转换接口地址
                 API: function (path) {
-                    // return 'http://122.114.109.199:8888' + api;
 
-                    // return 'http://mengcan.vicp.io' + api;
-                    return 'http://192.168.100.109:8089' + path;
+                    //生产环境
+                    return 'http://122.114.109.199:8888' + path;
+
+                    //马杰本机
+                    // return 'http://mengcan.vicp.io' + path;
+
+                    //开发环境
+                    // return 'http://192.168.100.109:8089' + path;
                 },
                 APIDEV: function(path) {
                     return 'http://mengcan.vicp.io' + path;
