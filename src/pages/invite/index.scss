@@ -5,10 +5,44 @@
   right: 0;
   bottom: 0;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  .full-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    &.is-not-browser {
+      z-index: 9999;
+      background-color: rgba(0, 0, 0, .75);
+      .full-panel-text {
+        color: #fff;
+        width: 60%;
+        height: 3.6rem;
+        text-align: center;
+        line-height: 3.6rem;
+        background-color: #489afe;
+        -webkit-border-radius: 0.2rem;
+        -moz-border-radius: 0.2rem;
+        border-radius: 0.2rem;
+        position: relative;
+        top: 3.6rem;
+        font-size: 0.8rem;
+      }
+      .full-panel-arrow {
+        display: block;
+        width: 3.6rem;
+        height: 3.6rem;
+        position: absolute;
+        top: 0;
+        right: 1.2rem;
+      }
+    }
+  }
   .modal {
     position: absolute;
     top: 0;
@@ -109,7 +143,7 @@
 
 //ipad pro尺寸
 //纵向
-@media screen and (min-width: 1024px) and (min-height: 1366px){
+@media screen and (min-width: 1024px) and (min-height: 1366px) {
   #app {
     .logo-slogan-wrapper {
       margin-top: 15%;
@@ -124,8 +158,9 @@
     }
   }
 }
+
 //横向
-@media screen and (min-width: 1366px) and (min-height: 1024px){
+@media screen and (min-width: 1366px) and (min-height: 1024px) {
   #app {
     .logo-slogan-wrapper {
       margin-top: 5%;

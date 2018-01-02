@@ -30,6 +30,7 @@ let invite = new Vue({
 		phoneUrl: require("../../common/images/invite-phone.png"),
 		downloadUrl: require("../../common/images/invite-button.png"),
 		topBgUrl: require("../../common/images/invite-bg.png"),
+		fullPanelArrowUrl: require("../../common/images/invite-arrow-icon.png"),
 		modalVisible: false,
 		shareForm: {
 			mobile: "",
@@ -50,7 +51,9 @@ let invite = new Vue({
 			buttonDisabled: true
 		},
 		//倒计时计时器
-		timer: null
+		timer: null,
+		isBrowser: true,
+		env: ""
 	},
 	created() {
 		let search = window.location.search;
@@ -68,38 +71,81 @@ let invite = new Vue({
 		let isIOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
 		if (isAndroid) {
 			// console.log("安卓机！");
-			this.downUrl = "http://app.lichijituan.cn/release/rongkaixin-1.0.0.apk";
+			this.downUrl = "http://app.lichijituan.cn:8081/release/rongkaixin-1.0.0.apk";
 		}
 		if (isIOS) {
 			// console.log("苹果机！");
-			this.downUrl = "#";
+			this.downUrl = "https://www.pgyer.com/8D2B";
+		}
+
+		//对useragent嗅探,并确定浏览环境
+		let webkit = userAgent.match(/Web[kK]it[\/]{0,1}([\d.]+)/),
+			android = userAgent.match(/(Android);?[\s\/]+([\d.]+)?/),
+			osx = !!userAgent.match(/\(Macintosh\; Intel /),
+			ipad = userAgent.match(/(iPad).*OS\s([\d_]+)/),
+			ipod = userAgent.match(/(iPod)(.*OS\s([\d_]+))?/),
+			iphone = !ipad && userAgent.match(/(iPhone\sOS)\s([\d_]+)/),
+			webos = userAgent.match(/(webOS|hpwOS)[\s\/]([\d.]+)/),
+			// win = /Win\d{2}|Windows/.test(platform),
+			wp = userAgent.match(/Windows Phone ([\d.]+)/),
+			touchpad = webos && userAgent.match(/TouchPad/),
+			kindle = userAgent.match(/Kindle\/([\d.]+)/),
+			silk = userAgent.match(/Silk\/([\d._]+)/),
+			blackberry = userAgent.match(/(BlackBerry).*Version\/([\d.]+)/),
+			bb10 = userAgent.match(/(BB10).*Version\/([\d.]+)/),
+			rimtabletos = userAgent.match(/(RIM\sTablet\sOS)\s([\d.]+)/),
+			playbook = userAgent.match(/PlayBook/),
+			chrome = userAgent.match(/Chrome\/([\d.]+)/) || userAgent.match(/CriOS\/([\d.]+)/),
+			firefox = userAgent.match(/Firefox\/([\d.]+)/),
+			firefoxos = userAgent.match(/\((?:Mobile|Tablet); rv:([\d.]+)\).*Firefox\/[\d.]+/),
+			ie = userAgent.match(/MSIE\s([\d.]+)/) || userAgent.match(/Trident\/[\d](?=[^\?]+).*rv:([0-9.].)/),
+			webview = !chrome && userAgent.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/),
+			safari = webview || userAgent.match(/Version\/([\d.]+)([^S](Safari)|[^M]*(Mobile)[^S]*(Safari))/);
+
+		let ua = navigator.userAgent.toLowerCase();
+		this.env = ua.match(/MicroMessenger/i) ? "微信" : ua.match(/WeiBo/i) ? "微博" : "";
+		// this.env = ua;
+		// ua.match(/MQQBrowser/i) ? "QQ" :
+		//如果是通过微信,QQ,微博打开的webview,需要隐藏页面并引导跳转
+		if (this.env) {
+			this.isBrowser = false;
 		}
 	},
 	methods: {
 		sendCode() {
+			let checkMobile = true,
+				_this = this;
 			//先验证手机字段是否正确
 			this.$refs.shareForm.validateField("mobile", (error) => {
-				console.error(error);
-			});
-			this.$http.get(API(`/code/sms?mobile=${this.shareForm.mobile}`)).then(
-				(res) => {
-					let response = res.body;
-					if (response && response.code === 0 && response.msg === "成功") {
-						this.$message({
-							type: "success",
-							message: "请查收验证码..."
-						});
-					} else {
-						this.$message({
-							type: "error",
-							message: response.msg
-						});
-					}
-				},
-				(res) => {
-					console.error(res);
+				if(error){
+					checkMobile = false;
+					_this.$message({
+						type: "error",
+						message: error
+					});
 				}
-			);
+			});
+			if (checkMobile) {
+				this.$http.get(API(`/code/sms?mobile=${this.shareForm.mobile}`)).then(
+					(res) => {
+						let response = res.body;
+						if (response && response.code === 0 && response.msg === "成功") {
+							this.$message({
+								type: "success",
+								message: "请查收验证码..."
+							});
+						} else {
+							this.$message({
+								type: "error",
+								message: response.msg
+							});
+						}
+					},
+					(res) => {
+						console.error(res);
+					}
+				);
+			}
 		},
 		share() {
 			this.modalVisible = !this.modalVisible;

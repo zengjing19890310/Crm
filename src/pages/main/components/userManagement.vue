@@ -76,6 +76,18 @@
                             </el-popover>
                         </template>
                     </el-table-column>
+
+                    <el-table-column
+                            prop="locked"
+                            label="使用状态"
+                            width="260">
+                        <template slot-scope="scope">
+                            <el-select v-model="scope.row.locked" @change="handleGrant($event,scope.row)">
+                                <el-option :value="1" label="启用">启用</el-option>
+                                <el-option :value="0" label="停用">停用</el-option>
+                            </el-select>
+                        </template>
+                    </el-table-column>
                     <!--prop="handle"-->
                     <el-table-column
 
@@ -177,6 +189,51 @@
             }
         },
         methods: {
+            handleGrant(val, current) {
+                let ids = [],
+                    id = current.id,
+                    locked = val;
+                if (id) {
+                    ids.push(id);
+                }
+
+                if (ids && ids.length !== 0) {
+                    this.$http({
+                        url: API(`/sysuser/grant`),
+                        method: "put",
+                        body:{
+                            ids:ids,
+                            locked:locked
+                        }
+                    }).then(
+                        (res) => {
+                            let response = res.body;
+                            if (response && response.code === 0 && response.msg === "成功") {
+                                this.$message({
+                                    type: "success",
+                                    message: "使用状态变更成功"
+                                });
+                            }else {
+                                this.$message({
+                                    type: "error",
+                                    message: "使用状态变更失败"
+                                });
+                            }
+                        },
+                        (res) => {
+                            this.$message({
+                                type: "error",
+                                message: "使用状态变更失败"
+                            });
+                        }
+                    )
+                }
+//                if (val === 1) {
+//                    console.log("启用", id);
+//                } else if (val === 0) {
+//                    console.log("停用", id);
+//                }
+            },
             cancel() {
                 this.handelClose();
             },
@@ -202,7 +259,7 @@
                                 message: "编辑用户信息成功"
                             });
                             this.fetchUserList();
-                        }else {
+                        } else {
                             this.$message({
                                 type: "error",
                                 message: "编辑用户信息失败"

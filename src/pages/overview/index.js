@@ -11,7 +11,13 @@ let overView = new Vue({
 		postData: {},
 		navi: "",
 		overviewLoading: true,
-		type: ""
+		type: "",
+		downUrl: "",
+	},
+	methods: {
+		download() {
+			window.location.href = this.downUrl;
+		}
 	},
 	created() {
 		let search = document.location.search;
@@ -63,5 +69,40 @@ let overView = new Vue({
 				}
 			);
 		}
+		let userAgent = navigator.userAgent, app = navigator.appVersion;
+		let isAndroid = userAgent.indexOf("Android") > -1 || userAgent.indexOf("Linux") > -1;
+		let isIOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+		if (isAndroid) {
+			// console.log("安卓机！");
+			this.downUrl = "http://app.lichijituan.cn/release/rongkaixin-1.0.0.apk";
+		}
+		if (isIOS) {
+			// console.log("苹果机！");
+			this.downUrl = "#";
+		}
+
+		//对useragent嗅探,并确定浏览环境
+		let webkit = userAgent.match(/Web[kK]it[\/]{0,1}([\d.]+)/),
+			android = userAgent.match(/(Android);?[\s\/]+([\d.]+)?/),
+			osx = !!userAgent.match(/\(Macintosh\; Intel /),
+			ipad = userAgent.match(/(iPad).*OS\s([\d_]+)/),
+			ipod = userAgent.match(/(iPod)(.*OS\s([\d_]+))?/),
+			iphone = !ipad && userAgent.match(/(iPhone\sOS)\s([\d_]+)/),
+			webos = userAgent.match(/(webOS|hpwOS)[\s\/]([\d.]+)/),
+			// win = /Win\d{2}|Windows/.test(platform),
+			wp = userAgent.match(/Windows Phone ([\d.]+)/),
+			touchpad = webos && userAgent.match(/TouchPad/),
+			kindle = userAgent.match(/Kindle\/([\d.]+)/),
+			silk = userAgent.match(/Silk\/([\d._]+)/),
+			blackberry = userAgent.match(/(BlackBerry).*Version\/([\d.]+)/),
+			bb10 = userAgent.match(/(BB10).*Version\/([\d.]+)/),
+			rimtabletos = userAgent.match(/(RIM\sTablet\sOS)\s([\d.]+)/),
+			playbook = userAgent.match(/PlayBook/),
+			chrome = userAgent.match(/Chrome\/([\d.]+)/) || userAgent.match(/CriOS\/([\d.]+)/),
+			firefox = userAgent.match(/Firefox\/([\d.]+)/),
+			firefoxos = userAgent.match(/\((?:Mobile|Tablet); rv:([\d.]+)\).*Firefox\/[\d.]+/),
+			ie = userAgent.match(/MSIE\s([\d.]+)/) || userAgent.match(/Trident\/[\d](?=[^\?]+).*rv:([0-9.].)/),
+			webview = !chrome && userAgent.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/),
+			safari = webview || userAgent.match(/Version\/([\d.]+)([^S](Safari)|[^M]*(Mobile)[^S]*(Safari))/);
 	}
 });

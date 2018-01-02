@@ -91,6 +91,7 @@ let register = new Vue({
 						code: this.registerForm.code,
 						password: this.registerForm.password
 					};
+					//注册成功后,用户将不能再自动跳转到登录后的页面,需要联系管理员,获得授权后自行登录
 					this.$http.post(API("/sysuser/regiter"), obj)
 						.then(
 							(res) => {
@@ -98,48 +99,51 @@ let register = new Vue({
 									let data = res.body;
 									if (data && data.code === 0 && data.msg === "成功") {
 										this.$message({
-											message: "注册成功,即将自动跳转...",
+											message: "你已注册成功，请联系管理员授权。",
 											type: "success",
 											duration: 1500,
 											onClose: () => {
-												this.$http({
-													url: API(`/authentication/form?username=${this.registerForm.phone}&password=${this.registerForm.password}`),
-													method: "POST",
-													headers: {
-														"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-														"Authorization": "Basic bGljaGk6YWJjZGVm",
-														"deviceId": this.registerForm.phone
-													}
-												}).then(
-													(res) => {
-														//请求成功
-														if (res.ok && res.status === 200) {
-															let data = res.body;
-															if (data.code !== 0) {
-																this.$message({
-																	type: "error",
-																	message: data.msg
-																});
-															} else {
-																//获取token并存储在本地
-																let token = data.data.token;
-																// nickname = data.data.nickname,
-																// userId = data.data.id;
-																if (token) {
-																	window.sessionStorage.setItem("token", token);
-																	// window.sessionStorage.setItem("userId", userId);
-																	// window.sessionStorage.setItem("nickname", nickname);
-																	// window.sessionStorage.setItem("userInformation", JSON.stringify(data.data));
-																	this.registerLoading = false;
-																	window.location.href = "../main";
-																}
-															}
-														}
-													},
-													(res) => {
-														this.registerLoading = false;
-													}
-												);
+												this.registerLoading = false;
+												window.location.href = "../login";
+												// 	this.$http({
+												// 		url: API(`/authentication/form?username=${this.registerForm.phone}&password=${this.registerForm.password}`),
+												// 		method: "POST",
+												// 		headers: {
+												// 			"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+												// 			"Authorization": "Basic bGljaGk6YWJjZGVm",
+												// 			"deviceId": this.registerForm.phone
+												// 		}
+												// 	}).then(
+												// 		(res) => {
+												// 			//请求成功
+												// 			if (res.ok && res.status === 200) {
+												// 				let data = res.body;
+												// 				if (data.code !== 0) {
+												// 					this.$message({
+												// 						type: "error",
+												// 						message: data.msg
+												// 					});
+												// 				} else {
+												// 					//获取token并存储在本地
+												// 					let token = data.data.token;
+												// 					// nickname = data.data.nickname,
+												// 					// userId = data.data.id;
+												// 					if (token) {
+												// 						window.sessionStorage.setItem("token", token);
+												// 						// window.sessionStorage.setItem("userId", userId);
+												// 						// window.sessionStorage.setItem("nickname", nickname);
+												// 						// window.sessionStorage.setItem("userInformation", JSON.stringify(data.data));
+												// 						this.registerLoading = false;
+												// 						window.location.href = "../login";
+												// 					}
+												// 				}
+												// 			}
+												// 		},
+												// 		(res) => {
+												// 			this.registerLoading = false;
+												// 		}
+												// 	);
+												// }
 											}
 										});
 									} else {

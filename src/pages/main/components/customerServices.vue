@@ -218,27 +218,28 @@
                     method: "get"
                 }).then(
                     (res) => {
-                        console.log(res);
+//                        console.log(res);
                     },
                     (res) => {
-                        console.error(res);
+//                        console.error(res);
                     }
                 )
             },
             toggleTarget(target) {
                 let chatCache = JSON.parse(JSON.stringify(this.chatCache));
                 //在切换用户之前,保存当前的聊天记录
-                let targetId = this.chatTarget.id;
+                let targetId = this.chatTarget.id,
+                    logs = JSON.parse(JSON.stringify(this.logs));
                 if (targetId) {
                     if (!chatCache[targetId]) {
                         chatCache[targetId] = [];
                     } else {
                         if (_.isArray(chatCache[targetId])) {
-                            chatCache[targetId] = chatCache[targetId].concat(this.logs);
+                            chatCache[targetId] = logs;
                         }
                     }
                 }
-                console.log(chatCache);
+                this.chatCache = chatCache;
 
                 //清空当前对话记录
                 this.logs = [];
@@ -252,6 +253,7 @@
                         this.logs = chatCache[targetId];
                     }
                 }
+                chartScrollToBottom();
             },
             sendMessage() {
                 if (!this.message || !this.message.trim()) {
@@ -499,10 +501,10 @@
                         if (message.delay) {
                             timeStamp = message.delay;
                         }
-                        if (timeStamp - _this.lastMessageTime < 2 * 60 * 1000) {
+                        if (timeStamp - _this.lastMessageTime[_this.chatTarget.id] < 2 * 60 * 1000) {
                             showTime = false;
                         } else {
-                            _this.lastMessageTime = timeStamp;
+                            _this.lastMessageTime[_this.chatTarget.id] = timeStamp;
                         }
                         let messageParse = WebIM.utils.parseEmoji(message.data);
 
@@ -545,10 +547,10 @@
                         if (message.delay) {
                             timeStamp = message.delay;
                         }
-                        if (timeStamp - _this.lastMessageTime < 2 * 60 * 1000) {
+                        if (timeStamp - _this.lastMessageTime[_this.chatTarget.id] < 2 * 60 * 1000) {
                             showTime = false;
                         } else {
-                            _this.lastMessageTime = timeStamp;
+                            _this.lastMessageTime[_this.chatTarget.id] = timeStamp;
                         }
 
                         let msg = {
@@ -670,7 +672,7 @@
                         let token = window.sessionStorage.getItem('token');
                         if (id && token) {
                             //连接socket
-                            let webSocket = new WebSocket(`ws://192.168.100.109:8888/websocket/${id}?token=${token}`);
+                            let webSocket = new WebSocket(WS(`/websocket/${id}?token=${token}`));
                             webSocket.onerror = function (event) {
                                 onError(event)
                             };
@@ -704,7 +706,7 @@
                     error: function () {
                         console.error('登录失败');
                         _this.canEdit = false;
-                        _this.autoLogin();
+//                        _this.autoLogin();
                     }
                 };
                 this.connect.open(options);

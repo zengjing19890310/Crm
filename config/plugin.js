@@ -40,12 +40,17 @@ module.exports = {
                 minChunks: 2 //当至少两个入口文件引用到同一个文件时,将其打包到common.js中
             }),
             new webpack.DefinePlugin({ //定义全局常量,转换接口地址
-                API: function (api) {
+                API: function (path) {
+                    // return 'http://122.114.109.199:8888' + api;
+
                     // return 'http://mengcan.vicp.io' + api;
-                    return 'http://192.168.100.109:8888' + api;
+                    return 'http://192.168.100.109:8089' + path;
                 },
-                APIDEV: function(api) {
-                    return 'http://mengcan.vicp.io' + api;
+                APIDEV: function(path) {
+                    return 'http://mengcan.vicp.io' + path;
+                },
+                WS: function (path) {
+                    return 'ws://192.168.100.109:8089' + path;
                 }
             }),
             new webpack.ProvidePlugin({//自动加载模块。 任何时候，当 identifier 被当作未赋值的变量时， module 就会自动被加载，并且 identifier 会被这个 module 输出的内容所赋值。
