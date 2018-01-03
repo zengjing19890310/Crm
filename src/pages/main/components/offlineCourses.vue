@@ -6,7 +6,7 @@
             <div class="offline-course-container" id="offline-course-container">
                 <div class="offline-course-wrapper">
                     <course-item v-for="(course,index) in offlineCoursesList" :course-data="course" :index="index"
-                                 @edit-course="editCourse" @delete-course="deleteCourse">
+                                 @edit-course="editCourse" @delete-course="deleteCourse" :key="course.id">
                         {{course.title}}
                     </course-item>
                 </div>
@@ -46,13 +46,13 @@
                         <el-form-item label="开课老师" prop="teacherId">
                             <el-select v-model="courseForm.teacherId" placeholder="请选择开课老师" @change="changeTeacher">
                                 <el-option v-for="(teacher,index) in teacherList" :label="teacher.teachername"
-                                           :value="teacher.id"></el-option>
+                                           :value="teacher.id" :key="teacher.id"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="开课城市" prop="locationId">
                             <el-select v-model="courseForm.locationId" placeholder="请选择开课城市" @change="changeLocation">
                                 <el-option v-for="(location,index) in locationList" :label="location.name"
-                                           :value="location.id"></el-option>
+                                           :value="location.id" :key="location.id"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="开课地址" prop="address">
@@ -569,6 +569,7 @@
                                         duration: 1500
                                     });
                                     this.offlineCoursesList.splice(index, 1);
+                                    this.dataTotal--;
                                 } else {
                                     this.$message({
                                         type: "error",
@@ -640,7 +641,7 @@
                                                 type: "warning",
                                                 message: "没有更多数据了"
                                             });
-                                            this.page--;
+                                            this.page=response.data.lastPage;
                                         }
                                     }
                                 }

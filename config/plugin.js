@@ -22,8 +22,30 @@ module.exports = {
             //     "dry": false,//不要删除任何东西，主要用于测试.
             //     "exclude": []//排除不删除的目录，主要用于避免删除公用的文件
             // }),
-            new webpack.DefinePlugin({//配置生产模式
-                'ENV': JSON.stringify('prod')
+            //配置生产模式
+            //定义全局常量,转换接口地址
+            new webpack.DefinePlugin({
+                'process.env': {
+                    NODE_ENV: JSON.stringify('production')
+                },
+                'ENV': JSON.stringify('prod'),
+                'API': function (path) {
+
+                    //生产环境
+                    // return 'http://122.114.109.199:8888' + path;
+
+                    //马杰本机
+                    // return 'http://mengcan.vicp.io' + path;
+
+                    //开发环境
+                    return 'http://192.168.100.109:8089' + path;
+                },
+                'APIDEV': function(path) {
+                    return 'http://mengcan.vicp.io' + path;
+                },
+                'WS': function (path) {
+                    return 'ws://192.168.100.109:8089' + path;
+                }
             }),
             // componentsStyle,
             extractSASS,
@@ -39,25 +61,6 @@ module.exports = {
                 filename: 'common/common.js',
                 minChunks: 2 //当至少两个入口文件引用到同一个文件时,将其打包到common.js中
             }),
-            new webpack.DefinePlugin({ //定义全局常量,转换接口地址
-                API: function (path) {
-
-                    //生产环境
-                    return 'http://122.114.109.199:8888' + path;
-
-                    //马杰本机
-                    // return 'http://mengcan.vicp.io' + path;
-
-                    //开发环境
-                    // return 'http://192.168.100.109:8089' + path;
-                },
-                APIDEV: function(path) {
-                    return 'http://mengcan.vicp.io' + path;
-                },
-                WS: function (path) {
-                    return 'ws://192.168.100.109:8089' + path;
-                }
-            }),
             new webpack.ProvidePlugin({//自动加载模块。 任何时候，当 identifier 被当作未赋值的变量时， module 就会自动被加载，并且 identifier 会被这个 module 输出的内容所赋值。
                 Vue: 'vue/dist/vue.common.js',
                 VueResource: 'vue-resource/dist/vue-resource.js',
@@ -66,12 +69,6 @@ module.exports = {
                 VueRouter: 'vue-router/dist/vue-router.js',
                 _: 'lodash'
             }),
-
-            new webpack.DefinePlugin({
-                'process.env': {
-                    NODE_ENV: JSON.stringify('production')
-                }
-            })
             //压缩代码插件"生产模式使用",下面两种方式效果是基本一致的
             /*new webpack.optimize.UglifyJsPlugin({
              compress:{

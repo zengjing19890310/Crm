@@ -18,7 +18,7 @@
                             <!--<i class="el-icon-menu"></i>-->
                             <div class="wrapper">
                                 <span class="menu-icon homepage-icon"></span>
-                                <p v-show="!isCollapse">首页</p>
+                                <p v-show="!isCollapse">概览</p>
                             </div>
                             <div class="wrapper arrow-wrapper" v-show="false">
                                 <i :class="['el-icon-arrow-right',{'rotate-down':curr==='1'}]"></i>

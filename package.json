@@ -50,9 +50,9 @@
     "webpack-dev-server": "^2.4.2"
   },
   "scripts": {
-    "dev": "rm ./dist -rf && webpack -d --colors",
+    "build": "rm ./dist -rf && webpack -d --colors",
     "prod": "rm ./dist -rf && webpack -p --colors",
-    "watch": "rm ./dist -rf && webpack -d -w --colors",
+    "dev": "rm ./dist -rf && webpack -d -w --colors",
     "analyze": "rm ./dist -rf && webpack --json --profile > testData/stats.json"
   },
   "keywords": [

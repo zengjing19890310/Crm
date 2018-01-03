@@ -55,7 +55,7 @@
                             label="角色"
                             width="260">
                         <template slot-scope="scope">
-                            <el-tag v-if="index<3" v-for="(tag,index) in scope.row.roles" size="mini"
+                            <el-tag v-if="index<3" v-for="(tag,index) in scope.row.roles" size="mini" :key="index"
                                     style="margin: 0.2rem;">
                                 <!--{{tag}}-->
                                 {{tag.roleName}}
@@ -65,7 +65,7 @@
                                         width="200"
                                         trigger="click" v-if="scope.row.roles.length>3">
                                 <div style="font-size: 12px;">
-                                    <el-tag v-for="(tag,index) in scope.row.roles" size="mini"
+                                    <el-tag v-for="(tag,index) in scope.row.roles" size="mini" :key="index"
                                             style="margin: 0.2rem;">
                                         <!--{{tag}}-->
                                         {{tag.roleName}}
@@ -137,13 +137,13 @@
                         </el-form-item>
                         <el-form-item label="部门">
                             <el-select v-model="currentEditUser.deptId" @change="changeDept">
-                                <el-option v-for="dept in deptList" :value="dept.id" :label="dept.deptName"></el-option>
+                                <el-option v-for="dept in deptList" :value="dept.id" :label="dept.deptName" :key="dept.id"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="角色">
                             <el-select v-model="currentEditUser.roleIds" multiple @change="changeRoles">
                                 <el-option v-for="role in rolesList" :value="role.id"
-                                           :label="role.roleName"></el-option>
+                                           :label="role.roleName" :key="role.id"></el-option>
                             </el-select>
                         </el-form-item>
                     </el-form>
@@ -310,6 +310,19 @@
             handleSelectAll(val) {
                 this.checkedUserList = val;
             },
+            editUser(user) {
+                let roleIds = [];
+                let currentEditUser = JSON.parse(JSON.stringify(user));
+                if (user.roles && user.roles.length !== 0) {
+                    _.forEach(user.roles, (role, index) => {
+                        roleIds.push(role.id);
+                    });
+                }
+                currentEditUser.roleIds = roleIds;
+                this.currentEditUser = currentEditUser;
+                this.modalVisible = true;
+            },
+            //删除单个用户
             deleteUser(id, index) {
                 this.$confirm('是否删除该用户?', '警告', {
                     confirmButtonText: '删除',
@@ -339,7 +352,8 @@
                                         type: "success",
                                         message: "删除用户成功"
                                     });
-                                    this.userList.splice(index, 1);
+                                    // this.userList.splice(index, 1);
+                                    // this.dataTotal--;
                                     this.$refs.userList.clearSelection();
                                     this.fetchUserList();
                                 } else {
@@ -361,18 +375,7 @@
 
                 )
             },
-            editUser(user) {
-                let roleIds = [];
-                let currentEditUser = JSON.parse(JSON.stringify(user));
-                if (user.roles && user.roles.length !== 0) {
-                    _.forEach(user.roles, (role, index) => {
-                        roleIds.push(role.id);
-                    });
-                }
-                currentEditUser.roleIds = roleIds;
-                this.currentEditUser = currentEditUser;
-                this.modalVisible = true;
-            },
+            //批量删除用户
             batchRemove() {
 //                console.log("批量删除", this.checkedUserList);
                 if (this.checkedUserList && this.checkedUserList.length !== 0) {
@@ -402,6 +405,7 @@
                                             type: "success",
                                             message: "批量删除成功"
                                         });
+                                        // this.dataTotal-=checked.length;
                                         checked = [];
                                         this.checkedUserList = [];
                                         this.$refs.userList.clearSelection();
@@ -485,7 +489,8 @@
                     this.page++;
                     page = this.page;
                 } else if (!type) {
-                    page = 1;
+                    this.page = 1;
+                    page = this.page;
                 }
 
                 url = API("/sysuser/all");

@@ -410,6 +410,7 @@
                     this.page++;
                     page = this.page;
                 } else if (!type) {
+                    this.page = 1;
                     page = 1;
                 }
                 url = API("/video");
@@ -429,7 +430,6 @@
                     }
                 }).then(
                     (res) => {
-                        console.log(res);
                         let response = res.body;
                         if (response) {
                             if (response.code === 0 && response.msg === "成功") {
@@ -446,7 +446,7 @@
                                                 type: "warning",
                                                 message: "没有更多数据了"
                                             });
-                                            this.page--;
+                                            this.page=response.data.lastPage;
                                         }
                                     }
                                 }
@@ -491,6 +491,7 @@
                                         duration: 1500
                                     });
                                     this.onlineCoursesList.splice(index, 1);
+                                    this.dataTotal--;
                                 } else {
                                     this.$message({
                                         type: "error",
