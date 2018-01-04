@@ -1,0 +1,79 @@
+@import "main";
+
+.main {
+  //筛选框通用样式
+  .customer-container {
+    flex-grow: 1;
+    overflow: hidden;
+    table {
+      background-color: #ddd;
+      font-size: 14px;
+      thead {
+        tr {
+          height: 40px;
+        }
+      }
+      th, td {
+        vertical-align: middle;
+      }
+    }
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    .left-panel {
+      width: 100%;
+      overflow: auto;
+    }
+    .right-panel {
+      margin-left: 0.5rem;
+      line-height: normal;
+      width: 24rem;
+      > div:last-child {
+        margin-bottom: 0;
+      }
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: stretch;
+      > div {
+        font-size: 0.8rem;
+        background-color: #fff;
+        margin-bottom: 0.5rem;
+        flex-grow: 1;
+        flex-shrink: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #d8dce5;
+        -webkit-box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        > header {
+          flex-shrink: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        > div {
+          flex-grow: 1;
+          white-space: normal;
+          overflow-y: auto;
+          display: flex;
+        }
+      }
+    }
+  }
+
+  .handleButton {
+    margin-right: 0.8rem;
+    padding-right: 0.8rem;
+    &.删除 {
+      color: #ff7575;
+    }
+    &.修改 {
+      color: #2f9fed;
+    }
+  }
+}

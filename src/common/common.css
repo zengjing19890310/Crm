@@ -1,0 +1,216 @@
+@font-face {
+    font-family: 'iconfont';
+    src: url('../common/font/iconfont.eot');
+    src: url('../common/font/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../common/font/iconfont.woff') format('woff'),
+    url('../common/font/iconfont.ttf') format('truetype'),
+    url('../common/font/iconfont.svg#iconfont') format('svg');
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*symbol引用阿里巴巴图标库*/
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+/*CssReset样式类重置应该写在这个地方*/
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    /*font-size: 100%;*/
+    /*font: inherit;*/
+    /*vertical-align: baseline;*/
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/*::-webkit-scrollbar {*/
+/*background-color: transparent;*/
+/*width: 10px;*/
+/*height: 10px;*/
+/*}*/
+
+/*!*滚动条里面的小方块，能上下左右移动(取决于是垂直滚动条还是水平滚动条)*!*/
+/*::-webkit-scrollbar-thumb {*/
+/*background: rgba(31, 45, 61,.2);*/
+/*width: 10px;*/
+/*height: 10px;*/
+/*border-radius: 5px;*/
+/*}*/
+/*!*滚动条交角样式*!*/
+/*::-webkit-scrollbar-corner{*/
+/*background: transparent;*/
+/*}*/
+/*::-webkit-scrollbar-thumb:horizontal {*/
+/*background: rgba(31, 45, 61,.2);*/
+/*}*/
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.clear:after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+/*覆盖通用header中，带放大镜搜索框，搜索框右侧内边距样式*/
+.container .search-container .el-input.el-input--suffix input.el-input__inner {
+    padding-right: 38px;
+}
+
+/*覆盖表格中，表头样式*/
+.table-wrap .table-header {
+    font-weight: bold;
+    text-align: center;
+    color: #666;
+}
+
+/*覆盖表格中，单元格样式*/
+.table-wrap .table-cell {
+    text-align: center;
+}
+
+#app {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.text-control {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/*旋转90°*/
+.rotate90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+/*添加渐变动画*/
+.transition {
+    transition: all linear .15s;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.el-icon-arrow-right {
+    transition: all linear .15s;
+    transform-origin: 75% center;
+}
+
+.rotate-down {
+    transform: rotate(90deg);
+}
+
+/*定制滚动条样式*/
+/* 滚动条整体部分，其中的属性有width,height,background,border（就和一个块级元素一样）等。*/
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* 滚动条两端的按钮。可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果。*/
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+/* 外层轨道。可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果。*/
+::-webkit-scrollbar-track {
+    display: none;
+}
+
+/* 内层轨道，滚动条中间部分（除去）。*/
+::-webkit-scrollbar-track-piece {
+    display: none;
+}
+
+/* 滚动条里面可以拖动的那部分 */
+::-webkit-scrollbar-thumb {
+    background-color: #303641;
+    border-radius: 5px;
+}
+
+/* 边角 */
+::-webkit-scrollbar-corner {
+
+}
+
+/* 定义右下角拖动块的样式 */
+::-webkit-resizer {
+
+}
+
+.permissionHidden {
+    display: none !important;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <meta charset="UTF-8">
+    <!--<title>融开心,信用让你更有钱 更赚钱</title>-->
+    <title>融开心移动端</title>
+</head>
+<body>
+<div id="app" v-cloak>
+    <div class="full-panel is-browser">
+        <div class="top-bg-wrapper">
+            <img :src="topBgUrl" class="top-bg" alt="">
+        </div>
+        <header class="logo-slogan-wrapper">
+            <img :src="logoUrl" class="logo" alt="">
+        </header>
+        <div class="phone-wrapper">
+            <img :src="phoneUrl" class="phone" alt="">
+        </div>
+        <div class="download-button-wrapper">
+            <img :src="downloadUrl" class="download-button" alt="" @click="share">
+        </div>
+        <footer class="wave">
+
+        </footer>
+        <transition name="el-fade-in-linear">
+            <div class="modal" v-show="modalVisible" @click="share">
+                <div class="form-wrapper" @click.stop>
+                    <el-form size="small" :model="shareForm" ref="shareForm" :rules="rules">
+                        <el-form-item prop="mobile">
+                            <el-input placeholder="手机号" v-model="shareForm.mobile"></el-input>
+                        </el-form-item>
+                        <el-form-item prop="code">
+                            <el-input placeholder="验证码" v-model="shareForm.code">
+                                <!--<el-button slot="append" type="primary" @click="sendCode" :disabled="sendCodeDisabled">发送验证码</el-button>-->
+                                <el-button slot="append"
+                                           @click="sendCode" style="background-color:#d8d8d8;color:#9b9b9b;">
+                                    {{sendCodeStatus.text}}
+                                </el-button>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" style="width: 100%;"
+                                       @click="done">完成
+                            </el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </div>
+        </transition>
+    </div>
+    <div class="full-panel is-not-browser" v-show="!isBrowser">
+        <div class="full-panel-text">
+            请在浏览器中打开下载
+        </div>
+        <img class="full-panel-arrow" :src="fullPanelArrowUrl" alt=""/>
+    </div>
+</div>
+</body>
+</html>
