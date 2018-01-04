@@ -626,15 +626,15 @@
                 }).then(
                     (res) => {
                         if (res.ok && res.status === 200) {
-                            let data = res.body;
-                            if (data.code === 0 && data.msg === "成功") {
-                                if (data.data) {
-                                    let list = data.data.list;
-                                    this.dataTotal = data.data.total;
+                            let response = res.body;
+                            if (response.code === 0 && response.msg === "成功") {
+                                if (response.data) {
+                                    let list = response.data.list;
+                                    this.dataTotal = response.data.total;
                                     if (!type || type === "newCourse") {
                                         this.offlineCoursesList = list;
                                     } else if (type === "more") {
-                                        if (this.page <= data.data.lastPage) {
+                                        if (this.page <= response.data.lastPage) {
                                             this.offlineCoursesList = this.offlineCoursesList.concat(list);
                                         } else {
                                             this.$message({
@@ -648,7 +648,7 @@
                             } else {
                                 this.$message({
                                     type: "error",
-                                    message: data.msg
+                                    message: response.msg
                                 });
                             }
                         }

@@ -114,23 +114,20 @@ let forgetView = new Vue({
 									this.$message({
 										type: "error",
 										message: data.msg,
-										duration: 1500,
-										onClose: () => {
-											// this.forgetForm = {
-											// 	phone: "",
-											// 	code: "",
-											// 	password: "",
-											// 	checkPassword: ""
-											// };
-										}
+										duration: 1500
 									});
 								}
 							}
 							this.forgetLoading = false;
 						},
 						(res) => {
+							if(res){
+								this.$message({
+									type:"error",
+									message:"请求失败"
+								});
+							}
 							this.forgetLoading = false;
-							console.error(res);
 						}
 					);
 
@@ -155,36 +152,35 @@ let forgetView = new Vue({
 		sendCode() {
 			// 单独验证电话号字段
 			this.$refs["forgetForm"].validateField("phone", (error) => {
-				// if(error){
-				// 	console.error(error);
-				// }
-			});
-			if (!this.sendCodeStatus.buttonDisabled) {
-				this.$http.get(API(`/code/sms?mobile=${this.forgetForm.phone}`))
-					.then(
-						(res) => {
-							console.log(res);
-						},
-						(res) => {
-							console.error(res);
-						}
-					);
-				this.sendCodeStatus = {
-					buttonDisabled: true,
-					text: "重新发送",
-					time: 60
-				};
-				this.timer = setInterval(() => {
-					if (this.sendCodeStatus.time > 1) {
-						this.sendCodeStatus.time--;
-					} else {
-						clearInterval(this.timer);
-						this.timer = null;
-						this.sendCodeStatus.time = 0;
-						this.sendCodeStatus.buttonDisabled = false;
+				if(!error){
+					if (!this.sendCodeStatus.buttonDisabled) {
+						this.$http.get(API(`/code/sms?mobile=${this.forgetForm.phone}`))
+							.then(
+								() => {
+									
+								},
+								() => {
+									
+								}
+							);
+						this.sendCodeStatus = {
+							buttonDisabled: true,
+							text: "重新发送",
+							time: 60
+						};
+						this.timer = setInterval(() => {
+							if (this.sendCodeStatus.time > 1) {
+								this.sendCodeStatus.time--;
+							} else {
+								clearInterval(this.timer);
+								this.timer = null;
+								this.sendCodeStatus.time = 0;
+								this.sendCodeStatus.buttonDisabled = false;
+							}
+						}, 1000);
 					}
-				}, 1000);
-			}
+				}
+			});
 		}
 	},
 	components: {}

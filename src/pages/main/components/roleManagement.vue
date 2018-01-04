@@ -43,7 +43,7 @@
                             width="500">
                         <template slot-scope="scope">
                             <el-tag v-if="index<3" v-for="(resource,index) in scope.row.resources" size="mini"
-                                    style="margin: 0.2rem;">
+                                    style="margin: 0.2rem;" :key="index">
                                 <!--菜单-->
                                 <span v-if="resource.type===0">
                                     {{resource.menuName || "-"}}
@@ -57,7 +57,7 @@
                                         width="200"
                                         trigger="click" v-if="scope.row.resources.length>3">
                                 <div style="font-size: 12px;">
-                                    <span v-for="(resource,index) in scope.row.resources">
+                                    <span v-for="(resource,index) in scope.row.resources" :key="index">
                                         <span v-if="index!==scope.row.resources.length-1">
                                             <span v-if="resource.type===0">
                                                 {{resource.menuName || "-"}}

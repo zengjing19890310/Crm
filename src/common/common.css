@@ -210,3 +210,7 @@ table {
 ::-webkit-resizer {
 
 }
+
+.permissionHidden {
+    display: none !important;
+}

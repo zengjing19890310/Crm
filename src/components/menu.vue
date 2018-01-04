@@ -29,7 +29,8 @@
             </li>
             <li>
                 <div :class="['menu-parent',{'collapse-menu':isCollapse}]">
-                    <div :class="['menu-item',{'collapse-menu':isCollapse}]" @click="toggleMenu('2')">
+                    <!-- ,'permissionHidden' -->
+                    <div :class="['menu-item',{'collapse-menu':isCollapse}]" @click="toggleMenu('2')" v-permission="{menuId:2,menuName:'人员管理'}">
                         <!--<i class="el-icon-service"></i>-->
                         <div class="wrapper">
                             <span class="menu-icon customer-management-icon"></span>

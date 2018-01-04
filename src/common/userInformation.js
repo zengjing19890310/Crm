@@ -12,7 +12,10 @@ function getUserInformation(vm) {
 	if (token) {
 		vm.$http({
 			url: API("/sysuser"),
-			method: "get"
+			method: "get",
+			headers:{
+				token:token
+			}
 		}).then(
 			(res) => {
 				if (res.ok && res.status === 200) {
@@ -35,7 +38,9 @@ function getUserInformation(vm) {
 				}
 			},
 			(res) => {
-				util.logout("error");
+				if(res){
+					util.logout("error");
+				}
 			}
 		);
 	}

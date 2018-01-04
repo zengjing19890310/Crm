@@ -7,7 +7,6 @@ let checkPhone = (rule, value, callback) => {
 	if (value === "" || value.trim() === "") {
 		callback(new Error("请输入手机号!"));
 	} else if (!reg.test(value)) {
-		console.log(value);
 		callback(new Error("手机号格式错误!"));
 	} else {
 		callback();
@@ -21,7 +20,7 @@ let checkCode = (rule, value, callback) => {
 		callback();
 	}
 };
-let invite = new Vue({
+let inviteView = new Vue({
 	el: "#app",
 	data: {
 		message: "App分享H5页面",
@@ -66,7 +65,8 @@ let invite = new Vue({
 				message: "获取分享人信息失败,请重新打开分享链接..."
 			});
 		}
-		let userAgent = navigator.userAgent, app = navigator.appVersion;
+		let userAgent = navigator.userAgent;
+		// let app = navigator.appVersion;
 		let isAndroid = userAgent.indexOf("Android") > -1 || userAgent.indexOf("Linux") > -1;
 		let isIOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
 		if (isAndroid) {
@@ -79,28 +79,30 @@ let invite = new Vue({
 		}
 
 		//对useragent嗅探,并确定浏览环境
-		let webkit = userAgent.match(/Web[kK]it[\/]{0,1}([\d.]+)/),
-			android = userAgent.match(/(Android);?[\s\/]+([\d.]+)?/),
-			osx = !!userAgent.match(/\(Macintosh\; Intel /),
-			ipad = userAgent.match(/(iPad).*OS\s([\d_]+)/),
-			ipod = userAgent.match(/(iPod)(.*OS\s([\d_]+))?/),
-			iphone = !ipad && userAgent.match(/(iPhone\sOS)\s([\d_]+)/),
-			webos = userAgent.match(/(webOS|hpwOS)[\s\/]([\d.]+)/),
+		let 
+			// webkit = userAgent.match(/Web[kK]it[\/]{0,1}([\d.]+)/),
+			// android = userAgent.match(/(Android);?[\s\/]+([\d.]+)?/),
+			// osx = !!userAgent.match(/\(Macintosh\; Intel /),
+			// ipad = userAgent.match(/(iPad).*OS\s([\d_]+)/),
+			// ipod = userAgent.match(/(iPod)(.*OS\s([\d_]+))?/),
+			// iphone = !ipad && userAgent.match(/(iPhone\sOS)\s([\d_]+)/),
+			// webos = userAgent.match(/(webOS|hpwOS)[\s\/]([\d.]+)/),
 			// win = /Win\d{2}|Windows/.test(platform),
-			wp = userAgent.match(/Windows Phone ([\d.]+)/),
-			touchpad = webos && userAgent.match(/TouchPad/),
-			kindle = userAgent.match(/Kindle\/([\d.]+)/),
-			silk = userAgent.match(/Silk\/([\d._]+)/),
-			blackberry = userAgent.match(/(BlackBerry).*Version\/([\d.]+)/),
-			bb10 = userAgent.match(/(BB10).*Version\/([\d.]+)/),
-			rimtabletos = userAgent.match(/(RIM\sTablet\sOS)\s([\d.]+)/),
-			playbook = userAgent.match(/PlayBook/),
+			// wp = userAgent.match(/Windows Phone ([\d.]+)/),
+			// touchpad = webos && userAgent.match(/TouchPad/),
+			// kindle = userAgent.match(/Kindle\/([\d.]+)/),
+			// silk = userAgent.match(/Silk\/([\d._]+)/),
+			// blackberry = userAgent.match(/(BlackBerry).*Version\/([\d.]+)/),
+			// bb10 = userAgent.match(/(BB10).*Version\/([\d.]+)/),
+			// rimtabletos = userAgent.match(/(RIM\sTablet\sOS)\s([\d.]+)/),
+			// playbook = userAgent.match(/PlayBook/),
 			chrome = userAgent.match(/Chrome\/([\d.]+)/) || userAgent.match(/CriOS\/([\d.]+)/),
-			firefox = userAgent.match(/Firefox\/([\d.]+)/),
-			firefoxos = userAgent.match(/\((?:Mobile|Tablet); rv:([\d.]+)\).*Firefox\/[\d.]+/),
-			ie = userAgent.match(/MSIE\s([\d.]+)/) || userAgent.match(/Trident\/[\d](?=[^\?]+).*rv:([0-9.].)/),
-			webview = !chrome && userAgent.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/),
-			safari = webview || userAgent.match(/Version\/([\d.]+)([^S](Safari)|[^M]*(Mobile)[^S]*(Safari))/);
+			// firefox = userAgent.match(/Firefox\/([\d.]+)/),
+			// firefoxos = userAgent.match(/\((?:Mobile|Tablet); rv:([\d.]+)\).*Firefox\/[\d.]+/),
+			// ie = userAgent.match(/MSIE\s([\d.]+)/) || userAgent.match(/Trident\/[\d](?=[^\?]+).*rv:([0-9.].)/),
+			// safari = webview || userAgent.match(/Version\/([\d.]+)([^S](Safari)|[^M]*(Mobile)[^S]*(Safari))/),
+			webview = !chrome && userAgent.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/);
+			
 
 		let ua = navigator.userAgent.toLowerCase();
 		this.env = ua.match(/MicroMessenger/i) ? "微信" : ua.match(/WeiBo/i) ? "微博" : "";
@@ -142,7 +144,12 @@ let invite = new Vue({
 						}
 					},
 					(res) => {
-						console.error(res);
+						if(res){
+							this.$message({
+								type:"error",
+								message:"请求验证码失败"
+							});
+						}
 					}
 				);
 			}

@@ -17,6 +17,7 @@ Desktop.ini
 
 #test/*.json
 dist/*
+node_modules
 node_modules/*
 *.rar
 *.zip

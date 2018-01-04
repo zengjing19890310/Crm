@@ -24,7 +24,6 @@ module.exports = {
 	fetchSrc(src) {
 		let reg = /src=["']([^["']+)["']/;
 		src.match(reg);
-		console.log(RegExp.$1);
 		return RegExp.$1;
 	},
 	//抓取URL后面的参数
@@ -58,44 +57,46 @@ module.exports = {
 		return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay()} ${prependZero(date.getHours())}:${prependZero(date.getMinutes())}`;
 	},
 	//处理各种需要登出的情况
-	logout(type, message) {
+	logout(type, message, alert) {
+		console.log(alert);
 		let vm = new Vue(),
-			statusCode = null,
+			// statusCode = null,
 			status = "error";
 		switch (type) {
 		case "access_token":
 			message = "token校验失败,请重新登录...";
-			statusCode = 1;
+			// statusCode = 1;
 			break;
 		case "error":
 			message = "请求结果错误,可能是因为请求错误";
-			statusCode = 2;
+			// statusCode = 2;
 			break;
 		case "normal":
 			message = "成功登出,即将跳转到登录页面";
 			status = "warning";
-			statusCode = 3;
+			// statusCode = 3;
 			break;
 		default:
 			if (!message) {
 				message = "未知错误,请重新登录...";
 			}
-			statusCode = 9;
+			// statusCode = 9;
 		}
-
-		vm.$message({
-			type: status,
-			message: message,
-			duration: 1500,
-			onClose: function () {
+		if(!alert){
+			vm.$message({
+				type: status,
+				message: message,
+				duration: 1500,
+				// onClose: function () {
 				// window.sessionStorage.removeItem("access_token");
 				// window.location.href = "../login";
 				//可能某些情况不需要跳转到登录,需要进行特殊处理
 				// if (statusCode !== 9 && statusCode !== 2) {
 				// 	window.location.href = "../login";
 				// }
-			}
-		});
+				// }
+			});
+		}
 		window.sessionStorage.removeItem("token");
 		window.sessionStorage.removeItem("userId");
 		window.sessionStorage.removeItem("nickname");

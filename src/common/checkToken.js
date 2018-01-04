@@ -1,7 +1,7 @@
 //除了登录页面,所有的页面都必须要获取access_token,验证登录状态
 let util = require("../common/util");
 
-function checkToken() {
+function checkToken(keep) {
 	if (!window["sessionStorage"]) {
 		window.Bus.$message({
 			type: "error",
@@ -17,7 +17,8 @@ function checkToken() {
 		if(!Vue.http.headers.common["token"]){
 			Vue.http.headers.common["token"] = token;
 		}
-	} else {
+	} else if(!keep){
+		//没有token,则通过util之中的登出方法返回登录页面
 		util.logout("access_token");
 	}
 }

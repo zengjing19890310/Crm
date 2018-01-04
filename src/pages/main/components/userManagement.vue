@@ -79,8 +79,7 @@
 
                     <el-table-column
                             prop="locked"
-                            label="使用状态"
-                            width="260">
+                            label="使用状态">
                         <template slot-scope="scope">
                             <el-select v-model="scope.row.locked" @change="handleGrant($event,scope.row)">
                                 <el-option :value="1" label="启用">启用</el-option>
@@ -90,7 +89,6 @@
                     </el-table-column>
                     <!--prop="handle"-->
                     <el-table-column
-
                             label="操作">
                         <template slot-scope="scope">
                             <el-dropdown trigger="click">

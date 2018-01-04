@@ -64,8 +64,7 @@ const routes = [
 	{
 		path: "/circleManagement",
 		name: "circleManagement",
-		component: circleManangement,
-		children: []
+		component: circleManangement
 	},
 	{
 		path: "/circleDetail/:id",
@@ -80,44 +79,37 @@ const routes = [
 	{
 		path: "/customerShare",
 		name: "customerShare",
-		component: customerShare,
-		children: []
+		component: customerShare
 	},
 	{
 		path: "/customerInformation",
 		name: "customerInformation",
-		component: customerInformation,
-		children: []
+		component: customerInformation
 	},
 	{
 		path: "/customerServices",
 		name: "customerServices",
-		component: customerServices,
-		children: []
+		component: customerServices
 	},
 	{
 		path: "/homepage",
 		name: "homepage",
-		component: homepage,
-		children: []
+		component: homepage
 	},
 	{
 		path: "/userManagement",
 		name: "userManagement",
-		component: userManagement,
-		children: []
+		component: userManagement
 	},
 	{
 		path: "/roleManagement",
 		name: "roleManagement",
-		component: roleManagement,
-		children: []
+		component: roleManagement
 	},
 	{
 		path: "/permissionManagement",
 		name: "permissionManagement",
-		component: permissionManagement,
-		children: []
+		component: permissionManagement
 	},
 	{
 		path: "/testIM",
@@ -326,6 +318,7 @@ const router = new VueRouter({
 	routes: routes
 });
 
+//验证token
 let checkToken = require("../../common/checkToken").checkToken;
 checkToken();
 
