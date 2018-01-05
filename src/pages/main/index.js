@@ -26,8 +26,8 @@ import onlineVideoOverview from "./components/onlineVideoOverview.vue";
 //公用组件:编辑器
 import editor from "./components/editor.vue";
 //测试组件
-import publishArticle from "./components/publishArticle.vue";
-import testIM from "./components/testIM.vue";
+// import publishArticle from "./components/publishArticle.vue";
+// import testIM from "./components/testIM.vue";
 
 //路由配置同步传输面包屑导航信息
 const routes = [
@@ -71,11 +71,11 @@ const routes = [
 		name: "circleDetail",
 		component: circleDetail
 	},
-	{
-		path: "/publishArticle",
-		name: "publishArticle",
-		component: publishArticle,
-	},
+	// {
+	// 	path: "/publishArticle",
+	// 	name: "publishArticle",
+	// 	component: publishArticle,
+	// },
 	{
 		path: "/customerShare",
 		name: "customerShare",
@@ -111,11 +111,11 @@ const routes = [
 		name: "permissionManagement",
 		component: permissionManagement
 	},
-	{
-		path: "/testIM",
-		name: "testIM",
-		component: testIM
-	},
+	// {
+	// 	path: "/testIM",
+	// 	name: "testIM",
+	// 	component: testIM
+	// },
 	{path: "/", redirect: "/homepage"}
 ];
 

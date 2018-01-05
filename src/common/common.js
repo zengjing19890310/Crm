@@ -5,7 +5,7 @@ require("element-ui/lib/theme-chalk/index.css");
 // require('./font/iconfont');
 import VueQuillEditor from "vue-quill-editor";
 
-Vue.use(Vuex);
+// Vue.use(Vuex);
 Vue.use(VueResource);
 Vue.use(VueRouter);
 Vue.use(element);

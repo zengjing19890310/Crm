@@ -6,7 +6,7 @@
             <div class="online-course-container" id="online-course-container">
                 <div class="online-course-wrapper">
                     <course-item v-for="(course,index) in onlineCoursesList" :course-data="course" :index="index"
-                                 @edit-course="editCourse" @delete-course="deleteCourse">
+                                 @edit-course="editCourse" @delete-course="deleteCourse" :key="course.id">
                         {{course.title}}
                     </course-item>
                 </div>
@@ -62,7 +62,7 @@
                         <el-form-item label="等级" prop="level">
                             <el-select v-model="courseForm.level" placeholder="请选择课程等级" @change="changeLocation">
                                 <el-option v-for="(level,index) in levelList" :label="level.name"
-                                           :value="level.id"></el-option>
+                                           :value="level.id" :key="level.id"></el-option>
                             </el-select>
                         </el-form-item>
                         <!--价格-->

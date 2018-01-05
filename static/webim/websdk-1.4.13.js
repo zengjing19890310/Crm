@@ -2,63 +2,63 @@
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
+	/******/ 	// The require function
+	/******/ 	function __webpack_require__(moduleId) {
 
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].exports;
+		/******/ 		// Check if module is in cache
+		/******/ 		if(installedModules[moduleId])
+		/******/ 			return installedModules[moduleId].exports;
 
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			exports: {},
-/******/ 			id: moduleId,
-/******/ 			loaded: false
-/******/ 		};
+		/******/ 		// Create a new module (and put it into the cache)
+		/******/ 		var module = installedModules[moduleId] = {
+			/******/ 			exports: {},
+			/******/ 			id: moduleId,
+			/******/ 			loaded: false
+			/******/ 		};
 
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+		/******/ 		// Execute the module function
+		/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
+		/******/ 		// Flag the module as loaded
+		/******/ 		module.loaded = true;
 
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
+		/******/ 		// Return the exports of the module
+		/******/ 		return module.exports;
+		/******/ 	}
 
 
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
+	/******/ 	// expose the modules object (__webpack_modules__)
+	/******/ 	__webpack_require__.m = modules;
 
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
+	/******/ 	// expose the module cache
+	/******/ 	__webpack_require__.c = installedModules;
 
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "./";
+	/******/ 	// __webpack_public_path__
+	/******/ 	__webpack_require__.p = "./";
 
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0);
+	/******/ 	// Load entry module and return exports
+	/******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
 /******/ ({
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(247);
+		module.exports = __webpack_require__(247);
 
 
-/***/ },
+		/***/ },
 
-/***/ 183:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 183:
+	/***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
-	//     http://underscorejs.org
-	//     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	//     Underscore may be freely distributed under the MIT license.
+		var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
+		//     http://underscorejs.org
+		//     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+		//     Underscore may be freely distributed under the MIT license.
 
-	(function() {
+		(function() {
 
 	  // Baseline setup
 	  // --------------
@@ -101,7 +101,7 @@
 	  // backwards-compatibility for the old `require()` API. If we're in
 	  // the browser, add `_` as a global object.
 	  if (true) {
-	    if (typeof module !== 'undefined' && module.exports) {
+	    if (typeof module !== "undefined" && module.exports) {
 	      exports = module.exports = _;
 	    }
 	    exports._ = _;
@@ -110,7 +110,7 @@
 	  }
 
 	  // Current version.
-	  _.VERSION = '1.8.3';
+	  _.VERSION = "1.8.3";
 
 	  // Internal function that returns an efficient (for current engines) version
 	  // of the passed-in callback, to be repeatedly applied in other Underscore
@@ -188,10 +188,10 @@
 	  // Related: http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength
 	  // Avoids a very nasty iOS 8 JIT bug on ARM-64. #2094
 	  var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
-	  var getLength = property('length');
+	  var getLength = property("length");
 	  var isArrayLike = function(collection) {
 	    var length = getLength(collection);
-	    return typeof length == 'number' && length >= 0 && length <= MAX_ARRAY_INDEX;
+	    return typeof length == "number" && length >= 0 && length <= MAX_ARRAY_INDEX;
 	  };
 
 	  // Collection Functions
@@ -319,7 +319,7 @@
 	  // Aliased as `includes` and `include`.
 	  _.contains = _.includes = _.include = function(obj, item, fromIndex, guard) {
 	    if (!isArrayLike(obj)) obj = _.values(obj);
-	    if (typeof fromIndex != 'number' || guard) fromIndex = 0;
+	    if (typeof fromIndex != "number" || guard) fromIndex = 0;
 	    return _.indexOf(obj, item, fromIndex) >= 0;
 	  };
 
@@ -442,7 +442,7 @@
 	        if (a < b || b === void 0) return -1;
 	      }
 	      return left.index - right.index;
-	    }), 'value');
+	    }), "value");
 	  };
 
 	  // An internal function used for aggregate "group by" operations.
@@ -699,7 +699,7 @@
 	  function createIndexFinder(dir, predicateFind, sortedIndex) {
 	    return function(array, item, idx) {
 	      var i = 0, length = getLength(array);
-	      if (typeof idx == 'number') {
+	      if (typeof idx == "number") {
 	        if (dir > 0) {
 	            i = idx >= 0 ? idx : Math.max(idx + length, i);
 	        } else {
@@ -765,7 +765,7 @@
 	  // available.
 	  _.bind = function(func, context) {
 	    if (nativeBind && func.bind === nativeBind) return nativeBind.apply(func, slice.call(arguments, 1));
-	    if (!_.isFunction(func)) throw new TypeError('Bind must be called on a function');
+	    if (!_.isFunction(func)) throw new TypeError("Bind must be called on a function");
 	    var args = slice.call(arguments, 2);
 	    var bound = function() {
 	      return executeBound(func, bound, context, this, args.concat(slice.call(arguments)));
@@ -795,7 +795,7 @@
 	  // defined on an object belong to it.
 	  _.bindAll = function(obj) {
 	    var i, length = arguments.length, key;
-	    if (length <= 1) throw new Error('bindAll must be passed function names');
+	    if (length <= 1) throw new Error("bindAll must be passed function names");
 	    for (i = 1; i < length; i++) {
 	      key = arguments[i];
 	      obj[key] = _.bind(obj[key], obj);
@@ -807,7 +807,7 @@
 	  _.memoize = function(func, hasher) {
 	    var memoize = function(key) {
 	      var cache = memoize.cache;
-	      var address = '' + (hasher ? hasher.apply(this, arguments) : key);
+	      var address = "" + (hasher ? hasher.apply(this, arguments) : key);
 	      if (!_.has(cache, address)) cache[address] = func.apply(this, arguments);
 	      return cache[address];
 	    };
@@ -957,9 +957,9 @@
 	  // ----------------
 
 	  // Keys in IE < 9 that won't be iterated by `for key in ...` and thus missed.
-	  var hasEnumBug = !{toString: null}.propertyIsEnumerable('toString');
-	  var nonEnumerableProps = ['valueOf', 'isPrototypeOf', 'toString',
-	                      'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
+	  var hasEnumBug = !{toString: null}.propertyIsEnumerable("toString");
+	  var nonEnumerableProps = ["valueOf", "isPrototypeOf", "toString",
+	                      "propertyIsEnumerable", "hasOwnProperty", "toLocaleString"];
 
 	  function collectNonEnumProps(obj, keys) {
 	    var nonEnumIdx = nonEnumerableProps.length;
@@ -967,7 +967,7 @@
 	    var proto = (_.isFunction(constructor) && constructor.prototype) || ObjProto;
 
 	    // Constructor is a special case.
-	    var prop = 'constructor';
+	    var prop = "constructor";
 	    if (_.has(obj, prop) && !_.contains(keys, prop)) keys.push(prop);
 
 	    while (nonEnumIdx--) {
@@ -1161,36 +1161,36 @@
 	    if (className !== toString.call(b)) return false;
 	    switch (className) {
 	      // Strings, numbers, regular expressions, dates, and booleans are compared by value.
-	      case '[object RegExp]':
+	      case "[object RegExp]":
 	      // RegExps are coerced to strings for comparison (Note: '' + /a/i === '/a/i')
-	      case '[object String]':
+	      case "[object String]":
 	        // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
 	        // equivalent to `new String("5")`.
-	        return '' + a === '' + b;
-	      case '[object Number]':
+	        return "" + a === "" + b;
+	      case "[object Number]":
 	        // `NaN`s are equivalent, but non-reflexive.
 	        // Object(NaN) is equivalent to NaN
 	        if (+a !== +a) return +b !== +b;
 	        // An `egal` comparison is performed for other numeric values.
 	        return +a === 0 ? 1 / +a === 1 / b : +a === +b;
-	      case '[object Date]':
-	      case '[object Boolean]':
+	      case "[object Date]":
+	      case "[object Boolean]":
 	        // Coerce dates and booleans to numeric primitive values. Dates are compared by their
 	        // millisecond representations. Note that invalid dates with millisecond representations
 	        // of `NaN` are not equivalent.
 	        return +a === +b;
 	    }
 
-	    var areArrays = className === '[object Array]';
+	    var areArrays = className === "[object Array]";
 	    if (!areArrays) {
-	      if (typeof a != 'object' || typeof b != 'object') return false;
+	      if (typeof a != "object" || typeof b != "object") return false;
 
 	      // Objects with different constructors are not equivalent, but `Object`s or `Array`s
 	      // from different frames are.
 	      var aCtor = a.constructor, bCtor = b.constructor;
 	      if (aCtor !== bCtor && !(_.isFunction(aCtor) && aCtor instanceof aCtor &&
 	                               _.isFunction(bCtor) && bCtor instanceof bCtor)
-	                          && ('constructor' in a && 'constructor' in b)) {
+	                          && ("constructor" in a && "constructor" in b)) {
 	        return false;
 	      }
 	    }
@@ -1260,19 +1260,19 @@
 	  // Is a given value an array?
 	  // Delegates to ECMA5's native Array.isArray
 	  _.isArray = nativeIsArray || function(obj) {
-	    return toString.call(obj) === '[object Array]';
+	    return toString.call(obj) === "[object Array]";
 	  };
 
 	  // Is a given variable an object?
 	  _.isObject = function(obj) {
 	    var type = typeof obj;
-	    return type === 'function' || type === 'object' && !!obj;
+	    return type === "function" || type === "object" && !!obj;
 	  };
 
 	  // Add some isType methods: isArguments, isFunction, isString, isNumber, isDate, isRegExp, isError.
-	  _.each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp', 'Error'], function(name) {
-	    _['is' + name] = function(obj) {
-	      return toString.call(obj) === '[object ' + name + ']';
+	  _.each(["Arguments", "Function", "String", "Number", "Date", "RegExp", "Error"], function(name) {
+	    _["is" + name] = function(obj) {
+	      return toString.call(obj) === "[object " + name + "]";
 	    };
 	  });
 
@@ -1280,15 +1280,15 @@
 	  // there isn't any inspectable "Arguments" type.
 	  if (!_.isArguments(arguments)) {
 	    _.isArguments = function(obj) {
-	      return _.has(obj, 'callee');
+	      return _.has(obj, "callee");
 	    };
 	  }
 
 	  // Optimize `isFunction` if appropriate. Work around some typeof bugs in old v8,
 	  // IE 11 (#1621), and in Safari 8 (#1929).
-	  if (typeof /./ != 'function' && typeof Int8Array != 'object') {
+	  if (typeof /./ != "function" && typeof Int8Array != "object") {
 	    _.isFunction = function(obj) {
-	      return typeof obj == 'function' || false;
+	      return typeof obj == "function" || false;
 	    };
 	  }
 
@@ -1304,7 +1304,7 @@
 
 	  // Is a given value a boolean?
 	  _.isBoolean = function(obj) {
-	    return obj === true || obj === false || toString.call(obj) === '[object Boolean]';
+	    return obj === true || obj === false || toString.call(obj) === "[object Boolean]";
 	  };
 
 	  // Is a given value equal to null?
@@ -1389,12 +1389,12 @@
 
 	   // List of HTML entities for escaping.
 	  var escapeMap = {
-	    '&': '&amp;',
-	    '<': '&lt;',
-	    '>': '&gt;',
-	    '"': '&quot;',
-	    "'": '&#x27;',
-	    '`': '&#x60;'
+	    "&": "&amp;",
+	    "<": "&lt;",
+	    ">": "&gt;",
+	    "\"": "&quot;",
+	    "'": "&#x27;",
+	    "`": "&#x60;"
 	  };
 	  var unescapeMap = _.invert(escapeMap);
 
@@ -1404,11 +1404,11 @@
 	      return map[match];
 	    };
 	    // Regexes for identifying a key that needs to be escaped
-	    var source = '(?:' + _.keys(map).join('|') + ')';
+	    var source = "(?:" + _.keys(map).join("|") + ")";
 	    var testRegexp = RegExp(source);
-	    var replaceRegexp = RegExp(source, 'g');
+	    var replaceRegexp = RegExp(source, "g");
 	    return function(string) {
-	      string = string == null ? '' : '' + string;
+	      string = string == null ? "" : "" + string;
 	      return testRegexp.test(string) ? string.replace(replaceRegexp, escaper) : string;
 	    };
 	  };
@@ -1429,7 +1429,7 @@
 	  // Useful for temporary DOM ids.
 	  var idCounter = 0;
 	  _.uniqueId = function(prefix) {
-	    var id = ++idCounter + '';
+	    var id = ++idCounter + "";
 	    return prefix ? prefix + id : id;
 	  };
 
@@ -1450,17 +1450,17 @@
 	  // string literal.
 	  var escapes = {
 	    "'":      "'",
-	    '\\':     '\\',
-	    '\r':     'r',
-	    '\n':     'n',
-	    '\u2028': 'u2028',
-	    '\u2029': 'u2029'
+	    "\\":     "\\",
+	    "\r":     "r",
+	    "\n":     "n",
+	    "\u2028": "u2028",
+	    "\u2029": "u2029"
 	  };
 
 	  var escaper = /\\|'|\r|\n|\u2028|\u2029/g;
 
 	  var escapeChar = function(match) {
-	    return '\\' + escapes[match];
+	    return "\\" + escapes[match];
 	  };
 
 	  // JavaScript micro-templating, similar to John Resig's implementation.
@@ -1476,7 +1476,7 @@
 	      (settings.escape || noMatch).source,
 	      (settings.interpolate || noMatch).source,
 	      (settings.evaluate || noMatch).source
-	    ].join('|') + '|$', 'g');
+	    ].join("|") + "|$", "g");
 
 	    // Compile the template source, escaping string literals appropriately.
 	    var index = 0;
@@ -1499,14 +1499,14 @@
 	    source += "';\n";
 
 	    // If a variable is not specified, place data values in local scope.
-	    if (!settings.variable) source = 'with(obj||{}){\n' + source + '}\n';
+	    if (!settings.variable) source = "with(obj||{}){\n" + source + "}\n";
 
 	    source = "var __t,__p='',__j=Array.prototype.join," +
 	      "print=function(){__p+=__j.call(arguments,'');};\n" +
-	      source + 'return __p;\n';
+	      source + "return __p;\n";
 
 	    try {
-	      var render = new Function(settings.variable || 'obj', '_', source);
+	      var render = new Function(settings.variable || "obj", "_", source);
 	    } catch (e) {
 	      e.source = source;
 	      throw e;
@@ -1517,8 +1517,8 @@
 	    };
 
 	    // Provide the compiled source as a convenience for precompilation.
-	    var argument = settings.variable || 'obj';
-	    template.source = 'function(' + argument + '){\n' + source + '}';
+	    var argument = settings.variable || "obj";
+	    template.source = "function(" + argument + "){\n" + source + "}";
 
 	    return template;
 	  };
@@ -1557,18 +1557,18 @@
 	  _.mixin(_);
 
 	  // Add all mutator Array functions to the wrapper.
-	  _.each(['pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'], function(name) {
+	  _.each(["pop", "push", "reverse", "shift", "sort", "splice", "unshift"], function(name) {
 	    var method = ArrayProto[name];
 	    _.prototype[name] = function() {
 	      var obj = this._wrapped;
 	      method.apply(obj, arguments);
-	      if ((name === 'shift' || name === 'splice') && obj.length === 0) delete obj[0];
+	      if ((name === "shift" || name === "splice") && obj.length === 0) delete obj[0];
 	      return result(this, obj);
 	    };
 	  });
 
 	  // Add all accessor Array functions to the wrapper.
-	  _.each(['concat', 'join', 'slice'], function(name) {
+	  _.each(["concat", "join", "slice"], function(name) {
 	    var method = ArrayProto[name];
 	    _.prototype[name] = function() {
 	      return result(this, method.apply(this._wrapped, arguments));
@@ -1585,7 +1585,7 @@
 	  _.prototype.valueOf = _.prototype.toJSON = _.prototype.value;
 
 	  _.prototype.toString = function() {
-	    return '' + this._wrapped;
+	    return "" + this._wrapped;
 	  };
 
 	  // AMD registration happens at the end for compatibility with AMD loaders
@@ -1600,20 +1600,20 @@
 	      return _;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	  }
-	}.call(this));
+		}.call(this));
 
 
-/***/ },
+		/***/ },
 
-/***/ 206:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 206:
+	/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+		"use strict";
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+		var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	;
-	(function () {
+	
+		(function () {
 
 	    var EMPTYFN = function EMPTYFN() {};
 	    var _code = __webpack_require__(207).code;
@@ -1629,7 +1629,7 @@
 
 	    var _createActiveXHR = function _createActiveXHR() {
 	        try {
-	            return new window.ActiveXObject('Microsoft.XMLHTTP');
+	            return new window.ActiveXObject("Microsoft.XMLHTTP");
 	        } catch (e) {
 	            return false;
 	        }
@@ -1639,13 +1639,13 @@
 	        crossDomain = crossDomain || true;
 	        var temp = _createStandardXHR() || _createActiveXHR();
 
-	        if ('withCredentials' in temp) {
+	        if ("withCredentials" in temp) {
 	            return temp;
 	        }
 	        if (!crossDomain) {
 	            return temp;
 	        }
-	        if (typeof window.XDomainRequest === 'undefined') {
+	        if (typeof window.XDomainRequest === "undefined") {
 	            return temp;
 	        }
 	        var xhr = new XDomainRequest();
@@ -1656,8 +1656,8 @@
 	            xhr.readyState = 4;
 	            xhr.status = 200;
 
-	            var xmlDoc = new ActiveXObject('Microsoft.XMLDOM');
-	            xmlDoc.async = 'false';
+	            var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+	            xmlDoc.async = "false";
 	            xmlDoc.loadXML(xhr.responseText);
 	            xhr.responseXML = xmlDoc;
 	            xhr.response = xhr.responseText;
@@ -1672,23 +1672,23 @@
 	    };
 
 	    var _hasFlash = function () {
-	        if ('ActiveXObject' in window) {
+	        if ("ActiveXObject" in window) {
 	            try {
-	                return new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
+	                return new ActiveXObject("ShockwaveFlash.ShockwaveFlash");
 	            } catch (ex) {
 	                return 0;
 	            }
 	        } else {
 	            if (navigator.plugins && navigator.plugins.length > 0) {
-	                return navigator.plugins['Shockwave Flash'];
+	                return navigator.plugins["Shockwave Flash"];
 	            }
 	        }
 	        return 0;
 	    }();
 
 	    var _tmpUtilXHR = _xmlrequest(),
-	        _hasFormData = typeof FormData !== 'undefined',
-	        _hasBlob = typeof Blob !== 'undefined',
+	        _hasFormData = typeof FormData !== "undefined",
+	        _hasBlob = typeof Blob !== "undefined",
 	        _isCanSetRequestHeader = _tmpUtilXHR.setRequestHeader || false,
 	        _hasOverrideMimeType = _tmpUtilXHR.overrideMimeType || false,
 	        _isCanUploadFileAsync = _isCanSetRequestHeader && _hasFormData,
@@ -1697,16 +1697,16 @@
 
 	    if (!Object.keys) {
 	        Object.keys = function () {
-	            'use strict';
+	            "use strict";
 
 	            var hasOwnProperty = Object.prototype.hasOwnProperty,
-	                hasDontEnumBug = !{ toString: null }.propertyIsEnumerable('toString'),
-	                dontEnums = ['toString', 'toLocaleString', 'valueOf', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable', 'constructor'],
+	                hasDontEnumBug = !{ toString: null }.propertyIsEnumerable("toString"),
+	                dontEnums = ["toString", "toLocaleString", "valueOf", "hasOwnProperty", "isPrototypeOf", "propertyIsEnumerable", "constructor"],
 	                dontEnumsLength = dontEnums.length;
 
 	            return function (obj) {
-	                if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object' && (typeof obj !== 'function' || obj === null)) {
-	                    throw new TypeError('Object.keys called on non-object');
+	                if ((typeof obj === "undefined" ? "undefined" : _typeof(obj)) !== "object" && (typeof obj !== "function" || obj === null)) {
+	                    throw new TypeError("Object.keys called on non-object");
 	                }
 
 	                var result = [],
@@ -1773,7 +1773,7 @@
 	        getIEVersion: function () {
 	            var ua = navigator.userAgent,
 	                matches,
-	                tridentMap = { '4': 8, '5': 9, '6': 10, '7': 11 };
+	                tridentMap = { "4": 8, "5": 9, "6": 10, "7": 11 };
 
 	            matches = ua.match(/MSIE (\d+)/i);
 
@@ -1788,37 +1788,37 @@
 	        }(),
 
 	        stringify: function stringify(json) {
-	            if (typeof JSON !== 'undefined' && JSON.stringify) {
+	            if (typeof JSON !== "undefined" && JSON.stringify) {
 	                return JSON.stringify(json);
 	            } else {
-	                var s = '',
+	                var s = "",
 	                    arr = [];
 
 	                var iterate = function iterate(json) {
 	                    var isArr = false;
 
-	                    if (Object.prototype.toString.call(json) === '[object Array]') {
-	                        arr.push(']', '[');
+	                    if (Object.prototype.toString.call(json) === "[object Array]") {
+	                        arr.push("]", "[");
 	                        isArr = true;
-	                    } else if (Object.prototype.toString.call(json) === '[object Object]') {
-	                        arr.push('}', '{');
+	                    } else if (Object.prototype.toString.call(json) === "[object Object]") {
+	                        arr.push("}", "{");
 	                    }
 
 	                    for (var o in json) {
-	                        if (Object.prototype.toString.call(json[o]) === '[object Null]') {
-	                            json[o] = 'null';
-	                        } else if (Object.prototype.toString.call(json[o]) === '[object Undefined]') {
-	                            json[o] = 'undefined';
+	                        if (Object.prototype.toString.call(json[o]) === "[object Null]") {
+	                            json[o] = "null";
+	                        } else if (Object.prototype.toString.call(json[o]) === "[object Undefined]") {
+	                            json[o] = "undefined";
 	                        }
 
-	                        if (json[o] && _typeof(json[o]) === 'object') {
-	                            s += ',' + (isArr ? '' : '"' + o + '":' + (isArr ? '"' : '')) + iterate(json[o]) + '';
+	                        if (json[o] && _typeof(json[o]) === "object") {
+	                            s += "," + (isArr ? "" : "\"" + o + "\":" + (isArr ? "\"" : "")) + iterate(json[o]) + "";
 	                        } else {
-	                            s += ',"' + (isArr ? '' : o + '":"') + json[o] + '"';
+	                            s += ",\"" + (isArr ? "" : o + "\":\"") + json[o] + "\"";
 	                        }
 	                    }
 
-	                    if (s != '') {
+	                    if (s != "") {
 	                        s = s.slice(1);
 	                    }
 
@@ -1832,8 +1832,8 @@
 	            var suc = options.success || EMPTYFN;
 	            var err = options.error || EMPTYFN;
 
-	            var appKey = options.appKey || '';
-	            var devInfos = appKey.split('#');
+	            var appKey = options.appKey || "";
+	            var devInfos = appKey.split("#");
 	            if (devInfos.length !== 2) {
 	                err({
 	                    type: _code.WEBIM_CONNCTION_APPKEY_NOT_ASSIGN_ERROR
@@ -1844,13 +1844,13 @@
 	            var orgName = devInfos[0];
 	            var appName = devInfos[1];
 	            var https = https || options.https;
-	            var user = options.user || '';
-	            var pwd = options.pwd || '';
+	            var user = options.user || "";
+	            var pwd = options.pwd || "";
 
 	            var apiUrl = options.apiUrl;
 
 	            var loginJson = {
-	                grant_type: 'password',
+	                grant_type: "password",
 	                username: user,
 	                password: pwd,
 	                timestamp: +new Date()
@@ -1858,8 +1858,8 @@
 	            var loginfo = utils.stringify(loginJson);
 
 	            var options = {
-	                url: apiUrl + '/' + orgName + '/' + appName + '/token',
-	                dataType: 'json',
+	                url: apiUrl + "/" + orgName + "/" + appName + "/token",
+	                dataType: "json",
 	                data: loginfo,
 	                success: suc,
 	                error: err
@@ -1869,13 +1869,13 @@
 
 	        getFileUrl: function getFileUrl(fileInputId) {
 	            var uri = {
-	                url: '',
-	                filename: '',
-	                filetype: '',
-	                data: ''
+	                url: "",
+	                filename: "",
+	                filetype: "",
+	                data: ""
 	            };
 
-	            var fileObj = typeof fileInputId === 'string' ? document.getElementById(fileInputId) : fileInputId;
+	            var fileObj = typeof fileInputId === "string" ? document.getElementById(fileInputId) : fileInputId;
 
 	            if (!utils.isCanUploadFileAsync || !fileObj) {
 	                return uri;
@@ -1887,18 +1887,18 @@
 	                        var u = fileItems.item(0);
 	                        uri.data = u;
 	                        uri.url = window.URL.createObjectURL(u);
-	                        uri.filename = u.name || '';
+	                        uri.filename = u.name || "";
 	                    }
 	                } else {
 	                    // IE
 	                    var u = document.getElementById(fileInputId).value;
 	                    uri.url = u;
-	                    var pos1 = u.lastIndexOf('/');
-	                    var pos2 = u.lastIndexOf('\\');
+	                    var pos1 = u.lastIndexOf("/");
+	                    var pos2 = u.lastIndexOf("\\");
 	                    var pos = Math.max(pos1, pos2);
 	                    if (pos < 0) uri.filename = u;else uri.filename = u.substring(pos + 1);
 	                }
-	                var index = uri.filename.lastIndexOf('.');
+	                var index = uri.filename.lastIndexOf(".");
 	                if (index != -1) {
 	                    uri.filetype = uri.filename.substring(index + 1).toLowerCase();
 	                }
@@ -1915,14 +1915,14 @@
 	            }
 	            var kb = Math.round(fileSize / 1000);
 	            if (kb < 1000) {
-	                fileSize = kb + ' KB';
+	                fileSize = kb + " KB";
 	            } else if (kb >= 1000) {
 	                var mb = kb / 1000;
 	                if (mb < 1000) {
-	                    fileSize = mb.toFixed(1) + ' MB';
+	                    fileSize = mb.toFixed(1) + " MB";
 	                } else {
 	                    var gb = mb / 1000;
-	                    fileSize = gb.toFixed(1) + ' GB';
+	                    fileSize = gb.toFixed(1) + " GB";
 	                }
 	            }
 	            return fileSize;
@@ -1935,9 +1935,9 @@
 	                    if (file.files.length > 0) {
 	                        fileLength = file.files[0].size;
 	                    }
-	                } else if (file.select && 'ActiveXObject' in window) {
+	                } else if (file.select && "ActiveXObject" in window) {
 	                    file.select();
-	                    var fileobject = new ActiveXObject('Scripting.FileSystemObject');
+	                    var fileobject = new ActiveXObject("Scripting.FileSystemObject");
 	                    var file = fileobject.GetFile(file.value);
 	                    fileLength = file.Size;
 	                }
@@ -1949,13 +1949,13 @@
 
 	        trim: function trim(str) {
 
-	            str = typeof str === 'string' ? str : '';
+	            str = typeof str === "string" ? str : "";
 
-	            return str.trim ? str.trim() : str.replace(/^\s|\s$/g, '');
+	            return str.trim ? str.trim() : str.replace(/^\s|\s$/g, "");
 	        },
 
 	        parseEmoji: function parseEmoji(msg) {
-	            if (typeof WebIM.Emoji === 'undefined' || typeof WebIM.Emoji.map === 'undefined') {
+	            if (typeof WebIM.Emoji === "undefined" || typeof WebIM.Emoji.map === "undefined") {
 	                return msg;
 	            } else {
 	                var emoji = WebIM.Emoji,
@@ -1964,7 +1964,7 @@
 	                for (var face in emoji.map) {
 	                    if (emoji.map.hasOwnProperty(face)) {
 	                        while (msg.indexOf(face) > -1) {
-	                            msg = msg.replace(face, '<img class="emoji" src="' + emoji.path + emoji.map[face] + '" />');
+	                            msg = msg.replace(face, "<img class=\"emoji\" src=\"" + emoji.path + emoji.map[face] + "\" />");
 	                        }
 	                    }
 	                }
@@ -1980,7 +1980,7 @@
 
 	                var prefix = /^https?/gm.test(v);
 
-	                return "<a href='" + (prefix ? v : '//' + v) + "' target='_blank'>" + v + "</a>";
+	                return "<a href='" + (prefix ? v : "//" + v) + "' target='_blank'>" + v + "</a>";
 	            });
 
 	            return msg;
@@ -1989,12 +1989,12 @@
 	        parseJSON: function parseJSON(data) {
 
 	            if (window.JSON && window.JSON.parse) {
-	                return window.JSON.parse(data + '');
+	                return window.JSON.parse(data + "");
 	            }
 
 	            var requireNonComma,
 	                depth = null,
-	                str = utils.trim(data + '');
+	                str = utils.trim(data + "");
 
 	            return str && !utils.trim(str.replace(/(,)|(\[|{)|(}|])|"(?:[^"\\\r\n]|\\["\\\/bfnrt]|\\u[\da-fA-F]{4})*"\s*:?|true|false|null|-?(?!0\d)\d+(?:\.\d+|)(?:[eE][+-]?\d+|)/g, function (token, comma, open, close) {
 
@@ -2008,17 +2008,17 @@
 
 	                requireNonComma = open || comma;
 	                depth += !close - !open;
-	                return '';
-	            })) ? Function('return ' + str)() : Function('Invalid JSON: ' + data)();
+	                return "";
+	            })) ? Function("return " + str)() : Function("Invalid JSON: " + data)();
 	        },
 
 	        parseUploadResponse: function parseUploadResponse(response) {
-	            return response.indexOf('callback') > -1 ? //lte ie9
+	            return response.indexOf("callback") > -1 ? //lte ie9
 	            response.slice(9, -1) : response;
 	        },
 
 	        parseDownloadResponse: function parseDownloadResponse(response) {
-	            return response && response.type && response.type === 'application/json' || 0 > Object.prototype.toString.call(response).indexOf('Blob') ? this.url + '?token=' : window.URL.createObjectURL(response);
+	            return response && response.type && response.type === "application/json" || 0 > Object.prototype.toString.call(response).indexOf("Blob") ? this.url + "?token=" : window.URL.createObjectURL(response);
 	        },
 
 	        uploadFile: function uploadFile(options) {
@@ -2038,10 +2038,10 @@
 	            }
 
 	            var orgName, appName, devInfos;
-	            var appKey = options.appKey || this.context.appKey || '';
+	            var appKey = options.appKey || this.context.appKey || "";
 
 	            if (appKey) {
-	                devInfos = appKey.split('#');
+	                devInfos = appKey.split("#");
 	                orgName = devInfos[0];
 	                appName = devInfos[1];
 	            }
@@ -2055,10 +2055,10 @@
 	            }
 
 	            var apiUrl = options.apiUrl;
-	            var uploadUrl = apiUrl + '/' + orgName + '/' + appName + '/chatfiles';
+	            var uploadUrl = apiUrl + "/" + orgName + "/" + appName + "/chatfiles";
 
 	            if (!utils.isCanUploadFileAsync) {
-	                if (utils.hasFlash && typeof options.flashUpload === 'function') {
+	                if (utils.hasFlash && typeof options.flashUpload === "function") {
 	                    options.flashUpload && options.flashUpload(uploadUrl, options);
 	                } else {
 	                    options.onFileUploadError({
@@ -2093,11 +2093,11 @@
 	                });
 	            };
 	            if (xhr.upload) {
-	                xhr.upload.addEventListener('progress', options.onFileUploadProgress, false);
+	                xhr.upload.addEventListener("progress", options.onFileUploadProgress, false);
 	            }
 	            if (xhr.addEventListener) {
-	                xhr.addEventListener('abort', options.onFileUploadCanceled, false);
-	                xhr.addEventListener('load', function (e) {
+	                xhr.addEventListener("abort", options.onFileUploadCanceled, false);
+	                xhr.addEventListener("load", function (e) {
 	                    try {
 	                        var json = utils.parseJSON(xhr.responseText);
 	                        try {
@@ -2117,7 +2117,7 @@
 	                        });
 	                    }
 	                }, false);
-	                xhr.addEventListener('error', onError, false);
+	                xhr.addEventListener("error", onError, false);
 	            } else if (xhr.onreadystatechange) {
 	                xhr.onreadystatechange = function () {
 	                    if (xhr.readyState === 4) {
@@ -2148,14 +2148,14 @@
 	                };
 	            }
 
-	            xhr.open('POST', uploadUrl);
+	            xhr.open("POST", uploadUrl);
 
-	            xhr.setRequestHeader('restrict-access', 'true');
-	            xhr.setRequestHeader('Accept', '*/*'); // Android QQ browser has some problem with this attribute.
-	            xhr.setRequestHeader('Authorization', 'Bearer ' + acc);
+	            xhr.setRequestHeader("restrict-access", "true");
+	            xhr.setRequestHeader("Accept", "*/*"); // Android QQ browser has some problem with this attribute.
+	            xhr.setRequestHeader("Authorization", "Bearer " + acc);
 
 	            var formData = new FormData();
-	            formData.append('file', options.file.data);
+	            formData.append("file", options.file.data);
 	            // fix: ie8 status error
 	            window.XDomainRequest && (xhr.readyState = 2);
 	            xhr.send(formData);
@@ -2187,12 +2187,12 @@
 	                return;
 	            }
 	            var xhr = utils.xmlrequest();
-	            if ('addEventListener' in xhr) {
-	                xhr.addEventListener('load', function (e) {
+	            if ("addEventListener" in xhr) {
+	                xhr.addEventListener("load", function (e) {
 	                    options.onFileDownloadComplete(xhr.response, xhr);
 	                }, false);
-	                xhr.addEventListener('error', onError, false);
-	            } else if ('onreadystatechange' in xhr) {
+	                xhr.addEventListener("error", onError, false);
+	            } else if ("onreadystatechange" in xhr) {
 	                xhr.onreadystatechange = function () {
 	                    if (xhr.readyState === 4) {
 	                        if (ajax.status === 200) {
@@ -2215,21 +2215,21 @@
 	                };
 	            }
 
-	            var method = options.method || 'GET';
-	            var resType = options.responseType || 'blob';
-	            var mimeType = options.mimeType || 'text/plain; charset=x-user-defined';
+	            var method = options.method || "GET";
+	            var resType = options.responseType || "blob";
+	            var mimeType = options.mimeType || "text/plain; charset=x-user-defined";
 	            xhr.open(method, options.url);
-	            if (typeof Blob !== 'undefined') {
+	            if (typeof Blob !== "undefined") {
 	                xhr.responseType = resType;
 	            } else {
 	                xhr.overrideMimeType(mimeType);
 	            }
 
 	            var innerHeaer = {
-	                'X-Requested-With': 'XMLHttpRequest',
-	                'Accept': 'application/octet-stream',
-	                'share-secret': options.secret,
-	                'Authorization': 'Bearer ' + accessToken
+	                "X-Requested-With": "XMLHttpRequest",
+	                "Accept": "application/octet-stream",
+	                "share-secret": options.secret,
+	                "Authorization": "Bearer " + accessToken
 	            };
 	            var headers = options.headers || {};
 	            for (var key in headers) {
@@ -2246,15 +2246,15 @@
 	        },
 
 	        parseTextMessage: function parseTextMessage(message, faces) {
-	            if (typeof message !== 'string') {
+	            if (typeof message !== "string") {
 	                return;
 	            }
 
-	            if (Object.prototype.toString.call(faces) !== '[object Object]') {
+	            if (Object.prototype.toString.call(faces) !== "[object Object]") {
 	                return {
 	                    isemoji: false,
 	                    body: [{
-	                        type: 'txt',
+	                        type: "txt",
 	                        data: message
 	                    }]
 	                };
@@ -2269,7 +2269,7 @@
 	                return {
 	                    isemoji: false,
 	                    body: [{
-	                        type: 'txt',
+	                        type: "txt",
 	                        data: message
 	                    }]
 	                };
@@ -2281,13 +2281,13 @@
 
 	                if (tmsg) {
 	                    emessage.push({
-	                        type: 'txt',
+	                        type: "txt",
 	                        data: tmsg
 	                    });
 	                }
 	                if (!existEmoji) {
 	                    emessage.push({
-	                        type: 'txt',
+	                        type: "txt",
 	                        data: emoji[i]
 	                    });
 	                    continue;
@@ -2297,12 +2297,12 @@
 	                if (emojiStr) {
 	                    isemoji = true;
 	                    emessage.push({
-	                        type: 'emoji',
+	                        type: "emoji",
 	                        data: emojiStr
 	                    });
 	                } else {
 	                    emessage.push({
-	                        type: 'txt',
+	                        type: "txt",
 	                        data: emoji[i]
 	                    });
 	                }
@@ -2311,7 +2311,7 @@
 	            }
 	            if (receiveMsg) {
 	                emessage.push({
-	                    type: 'txt',
+	                    type: "txt",
 	                    data: receiveMsg
 	                });
 	            }
@@ -2324,7 +2324,7 @@
 	            return {
 	                isemoji: false,
 	                body: [{
-	                    type: 'txt',
+	                    type: "txt",
 	                    data: message
 	                }]
 	            };
@@ -2337,7 +2337,7 @@
 	                var args = window.location.search.match(pattern);
 	                for (var i in args) {
 	                    var str = args[i];
-	                    var eq = str.indexOf('=');
+	                    var eq = str.indexOf("=");
 	                    var key = str.substr(0, eq);
 	                    var value = str.substr(eq + 1);
 	                    uri[key] = value;
@@ -2353,7 +2353,7 @@
 	                var args = window.location.hash.match(pattern);
 	                for (var i in args) {
 	                    var str = args[i];
-	                    var eq = str.indexOf('=');
+	                    var eq = str.indexOf("=");
 	                    var key = str.substr(0, eq);
 	                    var value = str.substr(eq + 1);
 	                    uri[key] = value;
@@ -2373,7 +2373,7 @@
 	            }
 	        },
 	        ajax: function ajax(options) {
-	            var dataType = options.dataType || 'text';
+	            var dataType = options.dataType || "text";
 	            var suc = options.success || EMPTYFN;
 	            var error = options.error || EMPTYFN;
 	            var xhr = utils.xmlrequest();
@@ -2384,14 +2384,14 @@
 	                    if (status === 200) {
 	                        try {
 	                            switch (dataType) {
-	                                case 'text':
+	                                case "text":
 	                                    suc(xhr.responseText);
 	                                    return;
-	                                case 'json':
+	                                case "json":
 	                                    var json = utils.parseJSON(xhr.responseText);
 	                                    suc(json, xhr);
 	                                    return;
-	                                case 'xml':
+	                                case "xml":
 	                                    if (xhr.responseXML && xhr.responseXML.documentElement) {
 	                                        suc(xhr.responseXML.documentElement, xhr);
 	                                    } else {
@@ -2437,18 +2437,18 @@
 	                }
 	            }
 
-	            var type = options.type || 'POST',
+	            var type = options.type || "POST",
 	                data = options.data || null,
-	                tempData = '';
+	                tempData = "";
 
-	            if (type.toLowerCase() === 'get' && data) {
+	            if (type.toLowerCase() === "get" && data) {
 	                for (var o in data) {
 	                    if (data.hasOwnProperty(o)) {
-	                        tempData += o + '=' + data[o] + '&';
+	                        tempData += o + "=" + data[o] + "&";
 	                    }
 	                }
 	                tempData = tempData ? tempData.slice(0, -1) : tempData;
-	                options.url += (options.url.indexOf('?') > 0 ? '&' : '?') + (tempData ? tempData + '&' : tempData) + '_v=' + new Date().getTime();
+	                options.url += (options.url.indexOf("?") > 0 ? "&" : "?") + (tempData ? tempData + "&" : tempData) + "_v=" + new Date().getTime();
 	                data = null;
 	                tempData = null;
 	            }
@@ -2473,7 +2473,7 @@
 	            var Minutes = d.getMinutes(); //获取当前分钟数(0-59)
 	            var Seconds = d.getSeconds(); //获取当前秒数(0-59)
 	            var Milliseconds = d.getMilliseconds(); //获取当前毫秒
-	            return (Hours < 10 ? "0" + Hours : Hours) + ':' + (Minutes < 10 ? "0" + Minutes : Minutes) + ':' + (Seconds < 10 ? "0" + Seconds : Seconds) + ':' + Milliseconds + ' ';
+	            return (Hours < 10 ? "0" + Hours : Hours) + ":" + (Minutes < 10 ? "0" + Minutes : Minutes) + ":" + (Seconds < 10 ? "0" + Seconds : Seconds) + ":" + Milliseconds + " ";
 	        },
 
 	        getObjectKey: function getObjectKey(obj, val) {
@@ -2482,12 +2482,12 @@
 	                    return key;
 	                }
 	            }
-	            return '';
+	            return "";
 	        },
 
 	        sprintf: function sprintf() {
 	            var arg = arguments,
-	                str = arg[0] || '',
+	                str = arg[0] || "",
 	                i,
 	                len;
 	            for (i = 1, len = arg.length; i < len; i++) {
@@ -2497,9 +2497,9 @@
 	        },
 
 	        setCookie: function setCookie(name, value, days) {
-	            var cookie = name + '=' + encodeURIComponent(value);
-	            if (typeof days == 'number') {
-	                cookie += '; max-age: ' + days * 60 * 60 * 24;
+	            var cookie = name + "=" + encodeURIComponent(value);
+	            if (typeof days == "number") {
+	                cookie += "; max-age: " + days * 60 * 60 * 24;
 	            }
 	            document.cookie = cookie;
 	        },
@@ -2513,7 +2513,7 @@
 	            var list = all.split("; ");
 	            for (var i = 0; i < list.length; i++) {
 	                var cookie = list[i];
-	                var p = cookie.indexOf('=');
+	                var p = cookie.indexOf("=");
 	                var name = cookie.substring(0, p);
 	                var value = cookie.substring(p + 1);
 	                value = decodeURIComponent(value);
@@ -2524,17 +2524,17 @@
 	    };
 
 	    exports.utils = utils;
-	})();
+		})();
 
-/***/ },
+		/***/ },
 
-/***/ 207:
-/***/ function(module, exports) {
+	/***/ 207:
+	/***/ function(module, exports) {
 
-	"use strict";
+		"use strict";
 
-	;
-	(function () {
+	
+		(function () {
 
 	    exports.code = {
 	        WEBIM_CONNCTION_USER_NOT_ASSIGN_ERROR: 0,
@@ -2617,61 +2617,61 @@
 	        STATUS_CLOSED: 405,
 	        STATUS_ERROR: 406
 	    };
-	})();
+		})();
 
-/***/ },
+		/***/ },
 
-/***/ 211:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 211:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(213), __webpack_require__(214), __webpack_require__(215), __webpack_require__(216), __webpack_require__(217), __webpack_require__(218), __webpack_require__(219), __webpack_require__(220), __webpack_require__(221), __webpack_require__(222), __webpack_require__(223), __webpack_require__(224), __webpack_require__(225), __webpack_require__(226), __webpack_require__(227), __webpack_require__(228), __webpack_require__(229), __webpack_require__(230), __webpack_require__(231), __webpack_require__(232), __webpack_require__(233), __webpack_require__(234), __webpack_require__(235), __webpack_require__(236), __webpack_require__(237), __webpack_require__(238), __webpack_require__(239), __webpack_require__(240), __webpack_require__(241), __webpack_require__(242), __webpack_require__(243), __webpack_require__(244));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(213), __webpack_require__(214), __webpack_require__(215), __webpack_require__(216), __webpack_require__(217), __webpack_require__(218), __webpack_require__(219), __webpack_require__(220), __webpack_require__(221), __webpack_require__(222), __webpack_require__(223), __webpack_require__(224), __webpack_require__(225), __webpack_require__(226), __webpack_require__(227), __webpack_require__(228), __webpack_require__(229), __webpack_require__(230), __webpack_require__(231), __webpack_require__(232), __webpack_require__(233), __webpack_require__(234), __webpack_require__(235), __webpack_require__(236), __webpack_require__(237), __webpack_require__(238), __webpack_require__(239), __webpack_require__(240), __webpack_require__(241), __webpack_require__(242), __webpack_require__(243), __webpack_require__(244));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./x64-core", "./lib-typedarrays", "./enc-utf16", "./enc-base64", "./md5", "./sha1", "./sha256", "./sha224", "./sha512", "./sha384", "./sha3", "./ripemd160", "./hmac", "./pbkdf2", "./evpkdf", "./cipher-core", "./mode-cfb", "./mode-ctr", "./mode-ctr-gladman", "./mode-ofb", "./mode-ecb", "./pad-ansix923", "./pad-iso10126", "./pad-iso97971", "./pad-zeropadding", "./pad-nopadding", "./format-hex", "./aes", "./tripledes", "./rc4", "./rabbit", "./rabbit-legacy"], factory);
-		}
-		else {
+				define(["./core", "./x64-core", "./lib-typedarrays", "./enc-utf16", "./enc-base64", "./md5", "./sha1", "./sha256", "./sha224", "./sha512", "./sha384", "./sha3", "./ripemd160", "./hmac", "./pbkdf2", "./evpkdf", "./cipher-core", "./mode-cfb", "./mode-ctr", "./mode-ctr-gladman", "./mode-ofb", "./mode-ecb", "./pad-ansix923", "./pad-iso10126", "./pad-iso97971", "./pad-zeropadding", "./pad-nopadding", "./format-hex", "./aes", "./tripledes", "./rc4", "./rabbit", "./rabbit-legacy"], factory);
+			}
+			else {
 			// Global (browser)
-			root.CryptoJS = factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				root.CryptoJS = factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		return CryptoJS;
+			return CryptoJS;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 212:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 212:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory) {
-		if (true) {
+		(function (root, factory) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory();
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory();
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define([], factory);
-		}
-		else {
+				define([], factory);
+			}
+			else {
 			// Global (browser)
-			root.CryptoJS = factory();
-		}
-	}(this, function () {
+				root.CryptoJS = factory();
+			}
+		}(this, function () {
 
 		/**
 		 * CryptoJS core components.
 		 */
-		var CryptoJS = CryptoJS || (function (Math, undefined) {
+			var CryptoJS = CryptoJS || (function (Math, undefined) {
 		    /*
 		     * Local polyfil of Object.create
 		     */
 		    var create = Object.create || (function () {
-		        function F() {};
+		        function F() {}
 
 		        return function (obj) {
 		            var subtype;
@@ -2684,7 +2684,7 @@
 
 		            return subtype;
 		        };
-		    }())
+		    }());
 
 		    /**
 		     * CryptoJS namespace.
@@ -2731,7 +2731,7 @@
 		                }
 
 		                // Create default initializer
-		                if (!subtype.hasOwnProperty('init') || this.init === subtype.init) {
+		                if (!subtype.hasOwnProperty("init") || this.init === subtype.init) {
 		                    subtype.init = function () {
 		                        subtype.$super.init.apply(this, arguments);
 		                    };
@@ -2799,7 +2799,7 @@
 		                }
 
 		                // IE won't copy toString using the loop above
-		                if (properties.hasOwnProperty('toString')) {
+		                if (properties.hasOwnProperty("toString")) {
 		                    this.toString = properties.toString;
 		                }
 		            },
@@ -2966,7 +2966,7 @@
 		                    result /= 0x100000000;
 		                    result += 0.5;
 		                    return result * (Math.random() > .5 ? 1 : -1);
-		                }
+		                };
 		            });
 
 		            for (var i = 0, rcache; i < nBytes; i += 4) {
@@ -3015,7 +3015,7 @@
 		                hexChars.push((bite & 0x0f).toString(16));
 		            }
 
-		            return hexChars.join('');
+		            return hexChars.join("");
 		        },
 
 		        /**
@@ -3074,7 +3074,7 @@
 		                latin1Chars.push(String.fromCharCode(bite));
 		            }
 
-		            return latin1Chars.join('');
+		            return latin1Chars.join("");
 		        },
 
 		        /**
@@ -3125,7 +3125,7 @@
 		            try {
 		                return decodeURIComponent(escape(Latin1.stringify(wordArray)));
 		            } catch (e) {
-		                throw new Error('Malformed UTF-8 data');
+		                throw new Error("Malformed UTF-8 data");
 		            }
 		        },
 
@@ -3180,7 +3180,7 @@
 		         */
 		        _append: function (data) {
 		            // Convert string to WordArray, else assume WordArray already
-		            if (typeof data == 'string') {
+		            if (typeof data == "string") {
 		                data = Utf8.parse(data);
 		            }
 
@@ -3402,34 +3402,34 @@
 		    var C_algo = C.algo = {};
 
 		    return C;
-		}(Math));
+			}(Math));
 
 
-		return CryptoJS;
+			return CryptoJS;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 213:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 213:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory) {
-		if (true) {
+		(function (root, factory) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core"], factory);
-		}
-		else {
+				define(["./core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function (undefined) {
+			(function (undefined) {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -3712,36 +3712,36 @@
 		            return clone;
 		        }
 		    });
-		}());
+			}());
 
 
-		return CryptoJS;
+			return CryptoJS;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 214:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 214:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory) {
-		if (true) {
+		(function (root, factory) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core"], factory);
-		}
-		else {
+				define(["./core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Check if typed arrays are supported
-		    if (typeof ArrayBuffer != 'function') {
+		    if (typeof ArrayBuffer != "function") {
 		        return;
 		    }
 
@@ -3794,34 +3794,34 @@
 		    };
 
 		    subInit.prototype = WordArray;
-		}());
+			}());
 
 
-		return CryptoJS.lib.WordArray;
+			return CryptoJS.lib.WordArray;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 215:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 215:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory) {
-		if (true) {
+		(function (root, factory) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core"], factory);
-		}
-		else {
+				define(["./core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -3857,7 +3857,7 @@
 		                utf16Chars.push(String.fromCharCode(codePoint));
 		            }
 
-		            return utf16Chars.join('');
+		            return utf16Chars.join("");
 		        },
 
 		        /**
@@ -3916,7 +3916,7 @@
 		                utf16Chars.push(String.fromCharCode(codePoint));
 		            }
 
-		            return utf16Chars.join('');
+		            return utf16Chars.join("");
 		        },
 
 		        /**
@@ -3949,34 +3949,34 @@
 		    function swapEndian(word) {
 		        return ((word << 8) & 0xff00ff00) | ((word >>> 8) & 0x00ff00ff);
 		    }
-		}());
+			}());
 
 
-		return CryptoJS.enc.Utf16;
+			return CryptoJS.enc.Utf16;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 216:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 216:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory) {
-		if (true) {
+		(function (root, factory) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core"], factory);
-		}
-		else {
+				define(["./core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -4031,7 +4031,7 @@
 		                }
 		            }
 
-		            return base64Chars.join('');
+		            return base64Chars.join("");
 		        },
 
 		        /**
@@ -4074,7 +4074,7 @@
 
 		        },
 
-		        _map: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
+		        _map: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
 		    };
 
 		    function parseLoop(base64Str, base64StrLength, reverseMap) {
@@ -4090,34 +4090,34 @@
 		      }
 		      return WordArray.create(words, nBytes);
 		    }
-		}());
+			}());
 
 
-		return CryptoJS.enc.Base64;
+			return CryptoJS.enc.Base64;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 217:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 217:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory) {
-		if (true) {
+		(function (root, factory) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core"], factory);
-		}
-		else {
+				define(["./core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function (Math) {
+			(function (Math) {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -4364,34 +4364,34 @@
 		     *     var hmac = CryptoJS.HmacMD5(message, key);
 		     */
 		    C.HmacMD5 = Hasher._createHmacHelper(MD5);
-		}(Math));
+			}(Math));
 
 
-		return CryptoJS.MD5;
+			return CryptoJS.MD5;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 218:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 218:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory) {
-		if (true) {
+		(function (root, factory) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core"], factory);
-		}
-		else {
+				define(["./core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -4520,34 +4520,34 @@
 		     *     var hmac = CryptoJS.HmacSHA1(message, key);
 		     */
 		    C.HmacSHA1 = Hasher._createHmacHelper(SHA1);
-		}());
+			}());
 
 
-		return CryptoJS.SHA1;
+			return CryptoJS.SHA1;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 219:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 219:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory) {
-		if (true) {
+		(function (root, factory) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core"], factory);
-		}
-		else {
+				define(["./core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function (Math) {
+			(function (Math) {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -4725,34 +4725,34 @@
 		     *     var hmac = CryptoJS.HmacSHA256(message, key);
 		     */
 		    C.HmacSHA256 = Hasher._createHmacHelper(SHA256);
-		}(Math));
+			}(Math));
 
 
-		return CryptoJS.SHA256;
+			return CryptoJS.SHA256;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 220:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 220:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(219));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(219));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./sha256"], factory);
-		}
-		else {
+				define(["./core", "./sha256"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -4811,34 +4811,34 @@
 		     *     var hmac = CryptoJS.HmacSHA224(message, key);
 		     */
 		    C.HmacSHA224 = SHA256._createHmacHelper(SHA224);
-		}());
+			}());
 
 
-		return CryptoJS.SHA224;
+			return CryptoJS.SHA224;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 221:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 221:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(213));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(213));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./x64-core"], factory);
-		}
-		else {
+				define(["./core", "./x64-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -5140,34 +5140,34 @@
 		     *     var hmac = CryptoJS.HmacSHA512(message, key);
 		     */
 		    C.HmacSHA512 = Hasher._createHmacHelper(SHA512);
-		}());
+			}());
 
 
-		return CryptoJS.SHA512;
+			return CryptoJS.SHA512;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 222:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 222:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(213), __webpack_require__(221));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(213), __webpack_require__(221));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./x64-core", "./sha512"], factory);
-		}
-		else {
+				define(["./core", "./x64-core", "./sha512"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_x64 = C.x64;
@@ -5229,34 +5229,34 @@
 		     *     var hmac = CryptoJS.HmacSHA384(message, key);
 		     */
 		    C.HmacSHA384 = SHA512._createHmacHelper(SHA384);
-		}());
+			}());
 
 
-		return CryptoJS.SHA384;
+			return CryptoJS.SHA384;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 223:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 223:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(213));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(213));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./x64-core"], factory);
-		}
-		else {
+				define(["./core", "./x64-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function (Math) {
+			(function (Math) {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -5345,7 +5345,7 @@
 		        }),
 
 		        _doReset: function () {
-		            var state = this._state = []
+		            var state = this._state = [];
 		            for (var i = 0; i < 25; i++) {
 		                state[i] = new X64Word.init();
 		            }
@@ -5463,7 +5463,7 @@
 		                var lane = state[0];
 		                var roundConstant = ROUND_CONSTANTS[round];
 		                lane.high ^= roundConstant.high;
-		                lane.low  ^= roundConstant.low;;
+		                lane.low  ^= roundConstant.low;
 		            }
 		        },
 
@@ -5558,32 +5558,32 @@
 		     *     var hmac = CryptoJS.HmacSHA3(message, key);
 		     */
 		    C.HmacSHA3 = Hasher._createHmacHelper(SHA3);
-		}(Math));
+			}(Math));
 
 
-		return CryptoJS.SHA3;
+			return CryptoJS.SHA3;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 224:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 224:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory) {
-		if (true) {
+		(function (root, factory) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core"], factory);
-		}
-		else {
+				define(["./core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
 		/** @preserve
 		(c) 2012 by Cédric Mesnil. All rights reserved.
@@ -5596,7 +5596,7 @@
 		THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		*/
 
-		(function (Math) {
+			(function (Math) {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -5831,34 +5831,34 @@
 		     *     var hmac = CryptoJS.HmacRIPEMD160(message, key);
 		     */
 		    C.HmacRIPEMD160 = Hasher._createHmacHelper(RIPEMD160);
-		}(Math));
+			}(Math));
 
 
-		return CryptoJS.RIPEMD160;
+			return CryptoJS.RIPEMD160;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 225:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 225:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory) {
-		if (true) {
+		(function (root, factory) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core"], factory);
-		}
-		else {
+				define(["./core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -5886,7 +5886,7 @@
 		            hasher = this._hasher = new hasher.init();
 
 		            // Convert string to WordArray, else assume WordArray already
-		            if (typeof key == 'string') {
+		            if (typeof key == "string") {
 		                key = Utf8.parse(key);
 		            }
 
@@ -5982,32 +5982,32 @@
 		            return hmac;
 		        }
 		    });
-		}());
+			}());
 
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 226:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 226:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(218), __webpack_require__(225));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(218), __webpack_require__(225));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./sha1", "./hmac"], factory);
-		}
-		else {
+				define(["./core", "./sha1", "./hmac"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -6131,34 +6131,34 @@
 		    C.PBKDF2 = function (password, salt, cfg) {
 		        return PBKDF2.create(cfg).compute(password, salt);
 		    };
-		}());
+			}());
 
 
-		return CryptoJS.PBKDF2;
+			return CryptoJS.PBKDF2;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 227:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 227:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(218), __webpack_require__(225));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(218), __webpack_require__(225));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./sha1", "./hmac"], factory);
-		}
-		else {
+				define(["./core", "./sha1", "./hmac"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -6269,37 +6269,37 @@
 		    C.EvpKDF = function (password, salt, cfg) {
 		        return EvpKDF.create(cfg).compute(password, salt);
 		    };
-		}());
+			}());
 
 
-		return CryptoJS.EvpKDF;
+			return CryptoJS.EvpKDF;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 228:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 228:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(227));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(227));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./evpkdf"], factory);
-		}
-		else {
+				define(["./core", "./evpkdf"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
 		/**
 		 * Cipher core components.
 		 */
-		CryptoJS.lib.Cipher || (function (undefined) {
+			CryptoJS.lib.Cipher || (function (undefined) {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -6471,7 +6471,7 @@
 		         */
 		        _createHelper: (function () {
 		            function selectCipherStrategy(key) {
-		                if (typeof key == 'string') {
+		                if (typeof key == "string") {
 		                    return PasswordBasedCipher;
 		                } else {
 		                    return SerializableCipher;
@@ -6500,7 +6500,7 @@
 		    var StreamCipher = C_lib.StreamCipher = Cipher.extend({
 		        _doFinalize: function () {
 		            // Process partial blocks
-		            var finalProcessedBlocks = this._process(!!'flush');
+		            var finalProcessedBlocks = this._process(!!"flush");
 
 		            return finalProcessedBlocks;
 		        },
@@ -6775,10 +6775,10 @@
 		                padding.pad(this._data, this.blockSize);
 
 		                // Process final blocks
-		                var finalProcessedBlocks = this._process(!!'flush');
+		                var finalProcessedBlocks = this._process(!!"flush");
 		            } else /* if (this._xformMode == this._DEC_XFORM_MODE) */ {
 		                // Process final blocks
-		                var finalProcessedBlocks = this._process(!!'flush');
+		                var finalProcessedBlocks = this._process(!!"flush");
 
 		                // Unpad data
 		                padding.unpad(finalProcessedBlocks);
@@ -7019,7 +7019,7 @@
 		         *     var ciphertextParams = CryptoJS.lib.SerializableCipher._parse(ciphertextStringOrParams, format);
 		         */
 		        _parse: function (ciphertext, format) {
-		            if (typeof ciphertext == 'string') {
+		            if (typeof ciphertext == "string") {
 		                return format.parse(ciphertext, this);
 		            } else {
 		                return ciphertext;
@@ -7157,35 +7157,35 @@
 		            return plaintext;
 		        }
 		    });
-		}());
+			}());
 
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 229:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 229:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
 		/**
 		 * Cipher Feedback block mode.
 		 */
-		CryptoJS.mode.CFB = (function () {
+			CryptoJS.mode.CFB = (function () {
 		    var CFB = CryptoJS.lib.BlockCipherMode.extend();
 
 		    CFB.Encryptor = CFB.extend({
@@ -7239,43 +7239,43 @@
 		    }
 
 		    return CFB;
-		}());
+			}());
 
 
-		return CryptoJS.mode.CFB;
+			return CryptoJS.mode.CFB;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 230:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 230:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
 		/**
 		 * Counter block mode.
 		 */
-		CryptoJS.mode.CTR = (function () {
+			CryptoJS.mode.CTR = (function () {
 		    var CTR = CryptoJS.lib.BlockCipherMode.extend();
 
 		    var Encryptor = CTR.Encryptor = CTR.extend({
 		        processBlock: function (words, offset) {
 		            // Shortcuts
-		            var cipher = this._cipher
+		            var cipher = this._cipher;
 		            var blockSize = cipher.blockSize;
 		            var iv = this._iv;
 		            var counter = this._counter;
@@ -7291,7 +7291,7 @@
 		            cipher.encryptBlock(keystream, 0);
 
 		            // Increment counter
-		            counter[blockSize - 1] = (counter[blockSize - 1] + 1) | 0
+		            counter[blockSize - 1] = (counter[blockSize - 1] + 1) | 0;
 
 		            // Encrypt
 		            for (var i = 0; i < blockSize; i++) {
@@ -7303,99 +7303,99 @@
 		    CTR.Decryptor = Encryptor;
 
 		    return CTR;
-		}());
+			}());
 
 
-		return CryptoJS.mode.CTR;
+			return CryptoJS.mode.CTR;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 231:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 231:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
 		/** @preserve
 		 * Counter block mode compatible with  Dr Brian Gladman fileenc.c
 		 * derived from CryptoJS.mode.CTR
 		 * Jan Hruby jhruby.web@gmail.com
 		 */
-		CryptoJS.mode.CTRGladman = (function () {
+			CryptoJS.mode.CTRGladman = (function () {
 		    var CTRGladman = CryptoJS.lib.BlockCipherMode.extend();
 
-			function incWord(word)
-			{
-				if (((word >> 24) & 0xff) === 0xff) { //overflow
-				var b1 = (word >> 16)&0xff;
-				var b2 = (word >> 8)&0xff;
-				var b3 = word & 0xff;
+				function incWord(word)
+				{
+					if (((word >> 24) & 0xff) === 0xff) { //overflow
+						var b1 = (word >> 16)&0xff;
+						var b2 = (word >> 8)&0xff;
+						var b3 = word & 0xff;
 
-				if (b1 === 0xff) // overflow b1
-				{
-				b1 = 0;
-				if (b2 === 0xff)
-				{
-					b2 = 0;
-					if (b3 === 0xff)
-					{
-						b3 = 0;
+						if (b1 === 0xff) // overflow b1
+						{
+							b1 = 0;
+							if (b2 === 0xff)
+							{
+								b2 = 0;
+								if (b3 === 0xff)
+								{
+									b3 = 0;
+								}
+								else
+								{
+									++b3;
+								}
+							}
+							else
+							{
+								++b2;
+							}
+						}
+						else
+						{
+							++b1;
+						}
+
+						word = 0;
+						word += (b1 << 16);
+						word += (b2 << 8);
+						word += b3;
 					}
 					else
 					{
-						++b3;
+						word += (0x01 << 24);
 					}
-				}
-				else
-				{
-					++b2;
-				}
-				}
-				else
-				{
-				++b1;
+					return word;
 				}
 
-				word = 0;
-				word += (b1 << 16);
-				word += (b2 << 8);
-				word += b3;
-				}
-				else
+				function incCounter(counter)
 				{
-				word += (0x01 << 24);
-				}
-				return word;
-			}
-
-			function incCounter(counter)
-			{
-				if ((counter[0] = incWord(counter[0])) === 0)
-				{
+					if ((counter[0] = incWord(counter[0])) === 0)
+					{
 					// encr_data in fileenc.c from  Dr Brian Gladman's counts only with DWORD j < 8
-					counter[1] = incWord(counter[1]);
+						counter[1] = incWord(counter[1]);
+					}
+					return counter;
 				}
-				return counter;
-			}
 
 		    var Encryptor = CTRGladman.Encryptor = CTRGladman.extend({
 		        processBlock: function (words, offset) {
 		            // Shortcuts
-		            var cipher = this._cipher
+		            var cipher = this._cipher;
 		            var blockSize = cipher.blockSize;
 		            var iv = this._iv;
 		            var counter = this._counter;
@@ -7408,9 +7408,9 @@
 		                this._iv = undefined;
 		            }
 
-					incCounter(counter);
+						incCounter(counter);
 
-					var keystream = counter.slice(0);
+						var keystream = counter.slice(0);
 		            cipher.encryptBlock(keystream, 0);
 
 		            // Encrypt
@@ -7423,45 +7423,45 @@
 		    CTRGladman.Decryptor = Encryptor;
 
 		    return CTRGladman;
-		}());
+			}());
 
 
 
 
-		return CryptoJS.mode.CTRGladman;
+			return CryptoJS.mode.CTRGladman;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 232:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 232:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
 		/**
 		 * Output Feedback block mode.
 		 */
-		CryptoJS.mode.OFB = (function () {
+			CryptoJS.mode.OFB = (function () {
 		    var OFB = CryptoJS.lib.BlockCipherMode.extend();
 
 		    var Encryptor = OFB.Encryptor = OFB.extend({
 		        processBlock: function (words, offset) {
 		            // Shortcuts
-		            var cipher = this._cipher
+		            var cipher = this._cipher;
 		            var blockSize = cipher.blockSize;
 		            var iv = this._iv;
 		            var keystream = this._keystream;
@@ -7485,37 +7485,37 @@
 		    OFB.Decryptor = Encryptor;
 
 		    return OFB;
-		}());
+			}());
 
 
-		return CryptoJS.mode.OFB;
+			return CryptoJS.mode.OFB;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 233:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 233:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
 		/**
 		 * Electronic Codebook block mode.
 		 */
-		CryptoJS.mode.ECB = (function () {
+			CryptoJS.mode.ECB = (function () {
 		    var ECB = CryptoJS.lib.BlockCipherMode.extend();
 
 		    ECB.Encryptor = ECB.extend({
@@ -7531,37 +7531,37 @@
 		    });
 
 		    return ECB;
-		}());
+			}());
 
 
-		return CryptoJS.mode.ECB;
+			return CryptoJS.mode.ECB;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 234:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 234:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
 		/**
 		 * ANSI X.923 padding strategy.
 		 */
-		CryptoJS.pad.AnsiX923 = {
+			CryptoJS.pad.AnsiX923 = {
 		    pad: function (data, blockSize) {
 		        // Shortcuts
 		        var dataSigBytes = data.sigBytes;
@@ -7586,37 +7586,37 @@
 		        // Remove padding
 		        data.sigBytes -= nPaddingBytes;
 		    }
-		};
+			};
 
 
-		return CryptoJS.pad.Ansix923;
+			return CryptoJS.pad.Ansix923;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 235:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 235:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
 		/**
 		 * ISO 10126 padding strategy.
 		 */
-		CryptoJS.pad.Iso10126 = {
+			CryptoJS.pad.Iso10126 = {
 		    pad: function (data, blockSize) {
 		        // Shortcut
 		        var blockSizeBytes = blockSize * 4;
@@ -7636,37 +7636,37 @@
 		        // Remove padding
 		        data.sigBytes -= nPaddingBytes;
 		    }
-		};
+			};
 
 
-		return CryptoJS.pad.Iso10126;
+			return CryptoJS.pad.Iso10126;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 236:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 236:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
 		/**
 		 * ISO/IEC 9797-1 Padding Method 2.
 		 */
-		CryptoJS.pad.Iso97971 = {
+			CryptoJS.pad.Iso97971 = {
 		    pad: function (data, blockSize) {
 		        // Add 0x80 byte
 		        data.concat(CryptoJS.lib.WordArray.create([0x80000000], 1));
@@ -7682,37 +7682,37 @@
 		        // Remove one more byte -- the 0x80 byte
 		        data.sigBytes--;
 		    }
-		};
+			};
 
 
-		return CryptoJS.pad.Iso97971;
+			return CryptoJS.pad.Iso97971;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 237:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 237:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
 		/**
 		 * Zero padding strategy.
 		 */
-		CryptoJS.pad.ZeroPadding = {
+			CryptoJS.pad.ZeroPadding = {
 		    pad: function (data, blockSize) {
 		        // Shortcut
 		        var blockSizeBytes = blockSize * 4;
@@ -7733,70 +7733,70 @@
 		        }
 		        data.sigBytes = i + 1;
 		    }
-		};
+			};
 
 
-		return CryptoJS.pad.ZeroPadding;
+			return CryptoJS.pad.ZeroPadding;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 238:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 238:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
 		/**
 		 * A noop padding strategy.
 		 */
-		CryptoJS.pad.NoPadding = {
+			CryptoJS.pad.NoPadding = {
 		    pad: function () {
 		    },
 
 		    unpad: function () {
 		    }
-		};
+			};
 
 
-		return CryptoJS.pad.NoPadding;
+			return CryptoJS.pad.NoPadding;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 239:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 239:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function (undefined) {
+			(function (undefined) {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -7841,34 +7841,34 @@
 		            return CipherParams.create({ ciphertext: ciphertext });
 		        }
 		    };
-		}());
+			}());
 
 
-		return CryptoJS.format.Hex;
+			return CryptoJS.format.Hex;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 240:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 240:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(216), __webpack_require__(217), __webpack_require__(227), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(216), __webpack_require__(217), __webpack_require__(227), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -8079,34 +8079,34 @@
 		     *     var plaintext  = CryptoJS.AES.decrypt(ciphertext, key, cfg);
 		     */
 		    C.AES = BlockCipher._createHelper(AES);
-		}());
+			}());
 
 
-		return CryptoJS.AES;
+			return CryptoJS.AES;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 241:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 241:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(216), __webpack_require__(217), __webpack_require__(227), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(216), __webpack_require__(217), __webpack_require__(227), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -8855,34 +8855,34 @@
 		     *     var plaintext  = CryptoJS.TripleDES.decrypt(ciphertext, key, cfg);
 		     */
 		    C.TripleDES = BlockCipher._createHelper(TripleDES);
-		}());
+			}());
 
 
-		return CryptoJS.TripleDES;
+			return CryptoJS.TripleDES;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 242:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 242:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(216), __webpack_require__(217), __webpack_require__(227), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(216), __webpack_require__(217), __webpack_require__(227), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -9000,34 +9000,34 @@
 		     *     var plaintext  = CryptoJS.RC4Drop.decrypt(ciphertext, key, cfg);
 		     */
 		    C.RC4Drop = StreamCipher._createHelper(RC4Drop);
-		}());
+			}());
 
 
-		return CryptoJS.RC4;
+			return CryptoJS.RC4;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 243:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 243:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(216), __webpack_require__(217), __webpack_require__(227), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(216), __webpack_require__(217), __webpack_require__(227), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -9198,34 +9198,34 @@
 		     *     var plaintext  = CryptoJS.Rabbit.decrypt(ciphertext, key, cfg);
 		     */
 		    C.Rabbit = StreamCipher._createHelper(Rabbit);
-		}());
+			}());
 
 
-		return CryptoJS.Rabbit;
+			return CryptoJS.Rabbit;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 244:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 244:
+	/***/ function(module, exports, __webpack_require__) {
 
-	;(function (root, factory, undef) {
-		if (true) {
+		(function (root, factory, undef) {
+			if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(212), __webpack_require__(216), __webpack_require__(217), __webpack_require__(227), __webpack_require__(228));
-		}
-		else if (typeof define === "function" && define.amd) {
+				module.exports = exports = factory(__webpack_require__(212), __webpack_require__(216), __webpack_require__(217), __webpack_require__(227), __webpack_require__(228));
+			}
+			else if (typeof define === "function" && define.amd) {
 			// AMD
-			define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
-		}
-		else {
+				define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
+			}
+			else {
 			// Global (browser)
-			factory(root.CryptoJS);
-		}
-	}(this, function (CryptoJS) {
+				factory(root.CryptoJS);
+			}
+		}(this, function (CryptoJS) {
 
-		(function () {
+			(function () {
 		    // Shortcuts
 		    var C = CryptoJS;
 		    var C_lib = C.lib;
@@ -9394,45 +9394,45 @@
 		     *     var plaintext  = CryptoJS.RabbitLegacy.decrypt(ciphertext, key, cfg);
 		     */
 		    C.RabbitLegacy = StreamCipher._createHelper(RabbitLegacy);
-		}());
+			}());
 
 
-		return CryptoJS.RabbitLegacy;
+			return CryptoJS.RabbitLegacy;
 
-	}));
+		}));
 
-/***/ },
+		/***/ },
 
-/***/ 247:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 247:
+	/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+		"use strict";
 
-	module.exports = __webpack_require__(248);
+		module.exports = __webpack_require__(248);
 
-/***/ },
+		/***/ },
 
-/***/ 248:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 248:
+	/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+		"use strict";
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+		var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	var _version = '1.4.2';
-	var _code = __webpack_require__(207).code;
-	var _utils = __webpack_require__(206).utils;
-	var _msg = __webpack_require__(249);
-	var _message = _msg._msg;
-	var _msgHash = {};
-	var Queue = __webpack_require__(250).Queue;
-	var CryptoJS = __webpack_require__(211);
-	var _ = __webpack_require__(183);
-	var stropheConn = null;
+		var _version = "1.4.2";
+		var _code = __webpack_require__(207).code;
+		var _utils = __webpack_require__(206).utils;
+		var _msg = __webpack_require__(249);
+		var _message = _msg._msg;
+		var _msgHash = {};
+		var Queue = __webpack_require__(250).Queue;
+		var CryptoJS = __webpack_require__(211);
+		var _ = __webpack_require__(183);
+		var stropheConn = null;
 
-	window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+		window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
 
-	if (window.XDomainRequest) {
+		if (window.XDomainRequest) {
 	    // not support ie8 send is not a function , canot
 	    // case send is object, doesn't has a attr of call
 	    // XDomainRequest.prototype.oldsend = XDomainRequest.prototype.send;
@@ -9440,19 +9440,19 @@
 	    //     XDomainRequest.prototype.oldsend.call(this, arguments);
 	    //     this.readyState = 2;
 	    // };
-	}
+		}
 
-	Strophe.Connection.prototype._sasl_auth1_cb = function (elem) {
+		Strophe.Connection.prototype._sasl_auth1_cb = function (elem) {
 	    // save stream:features for future usage
 	    this.features = elem;
 	    var i, child;
 	    for (i = 0; i < elem.childNodes.length; i++) {
 	        child = elem.childNodes[i];
-	        if (child.nodeName == 'bind') {
+	        if (child.nodeName == "bind") {
 	            this.do_bind = true;
 	        }
 
-	        if (child.nodeName == 'session') {
+	        if (child.nodeName == "session") {
 	            this.do_session = true;
 	        }
 	    }
@@ -9473,28 +9473,28 @@
 	                device_uuid = new Date().getTime() + Math.floor(Math.random().toFixed(6) * 1000000);
 	            }
 	            try {
-	                this.send($iq({ type: "set", id: "_bind_auth_2" }).c('bind', { xmlns: Strophe.NS.BIND }).c('resource', {}).t(resource).up().c('os').t('webim').up().c('device_uuid').t(device_uuid).up().c('is_manual_login').t('true').tree());
+	                this.send($iq({ type: "set", id: "_bind_auth_2" }).c("bind", { xmlns: Strophe.NS.BIND }).c("resource", {}).t(resource).up().c("os").t("webim").up().c("device_uuid").t(device_uuid).up().c("is_manual_login").t("true").tree());
 	            } catch (e) {
 	                console.log("Bind Error: ", e.message);
 	            }
 	        } else {
-	            this.send($iq({ type: "set", id: "_bind_auth_2" }).c('bind', { xmlns: Strophe.NS.BIND }).tree());
+	            this.send($iq({ type: "set", id: "_bind_auth_2" }).c("bind", { xmlns: Strophe.NS.BIND }).tree());
 	        }
 	    }
 	    return false;
-	};
+		};
 
-	Strophe.Request.prototype._newXHR = function () {
+		Strophe.Request.prototype._newXHR = function () {
 	    var xhr = _utils.xmlrequest(true);
 	    if (xhr.overrideMimeType) {
-	        xhr.overrideMimeType('text/xml');
+	        xhr.overrideMimeType("text/xml");
 	    }
 	    // use Function.bind() to prepend ourselves as an argument
 	    xhr.onreadystatechange = this.func.bind(null, this);
 	    return xhr;
-	};
+		};
 
-	Strophe.Websocket.prototype._closeSocket = function () {
+		Strophe.Websocket.prototype._closeSocket = function () {
 	    if (this.socket) {
 	        var me = this;
 	        setTimeout(function () {
@@ -9505,9 +9505,9 @@
 	    } else {
 	        this.socket = null;
 	    }
-	};
+		};
 
-	/**
+		/**
 	 *
 	 * Strophe.Websocket has a bug while logout:
 	 * 1.send: <presence xmlns='jabber:client' type='unavailable'/> is ok;
@@ -9520,13 +9520,13 @@
 	 * this will trigger socket.onError, therefore _doDisconnect again.
 	 * Fix it by overide  _onMessage
 	 */
-	Strophe.Websocket.prototype._onMessage = function (message) {
+		Strophe.Websocket.prototype._onMessage = function (message) {
 	    logMessage(message);
 	    // 获取Resource
 	    var data = message.data;
-	    if (data.indexOf('<jid>') > 0) {
-	        var start = data.indexOf('<jid>'),
-	            end = data.indexOf('</jid>'),
+	    if (data.indexOf("<jid>") > 0) {
+	        var start = data.indexOf("<jid>"),
+	            end = data.indexOf("</jid>"),
 	            data = data.substring(start + 5, end);
 	        stropheConn.setJid(data);
 	    }
@@ -9582,21 +9582,21 @@
 	        return;
 	    }
 	    this._conn._dataRecv(elem, message.data);
-	};
+		};
 
-	var _listenNetwork = function _listenNetwork(onlineCallback, offlineCallback) {
+		var _listenNetwork = function _listenNetwork(onlineCallback, offlineCallback) {
 
 	    if (window.addEventListener) {
-	        window.addEventListener('online', onlineCallback);
-	        window.addEventListener('offline', offlineCallback);
+	        window.addEventListener("online", onlineCallback);
+	        window.addEventListener("offline", offlineCallback);
 	    } else if (window.attachEvent) {
 	        if (document.body) {
-	            document.body.attachEvent('ononline', onlineCallback);
-	            document.body.attachEvent('onoffline', offlineCallback);
+	            document.body.attachEvent("ononline", onlineCallback);
+	            document.body.attachEvent("onoffline", offlineCallback);
 	        } else {
-	            window.attachEvent('load', function () {
-	                document.body.attachEvent('ononline', onlineCallback);
-	                document.body.attachEvent('onoffline', offlineCallback);
+	            window.attachEvent("load", function () {
+	                document.body.attachEvent("ononline", onlineCallback);
+	                document.body.attachEvent("onoffline", offlineCallback);
 	            });
 	        }
 	    } else {
@@ -9615,47 +9615,47 @@
 	         offlineCallback();
 	         });*/
 	    }
-	};
+		};
 
-	var _parseRoom = function _parseRoom(result) {
+		var _parseRoom = function _parseRoom(result) {
 	    var rooms = [];
-	    var items = result.getElementsByTagName('item');
+	    var items = result.getElementsByTagName("item");
 	    if (items) {
 	        for (var i = 0; i < items.length; i++) {
 	            var item = items[i];
-	            var roomJid = item.getAttribute('jid');
-	            var tmp = roomJid.split('@')[0];
+	            var roomJid = item.getAttribute("jid");
+	            var tmp = roomJid.split("@")[0];
 	            var room = {
 	                jid: roomJid,
-	                name: item.getAttribute('name'),
-	                roomId: tmp.split('_')[1]
+	                name: item.getAttribute("name"),
+	                roomId: tmp.split("_")[1]
 	            };
 	            rooms.push(room);
 	        }
 	    }
 	    return rooms;
-	};
+		};
 
-	var _parseRoomOccupants = function _parseRoomOccupants(result) {
+		var _parseRoomOccupants = function _parseRoomOccupants(result) {
 	    var occupants = [];
-	    var items = result.getElementsByTagName('item');
+	    var items = result.getElementsByTagName("item");
 	    if (items) {
 	        for (var i = 0; i < items.length; i++) {
 	            var item = items[i];
 	            var room = {
-	                jid: item.getAttribute('jid'),
-	                name: item.getAttribute('name')
+	                jid: item.getAttribute("jid"),
+	                name: item.getAttribute("name")
 	            };
 	            occupants.push(room);
 	        }
 	    }
 	    return occupants;
-	};
+		};
 
-	var _parseResponseMessage = function _parseResponseMessage(msginfo) {
+		var _parseResponseMessage = function _parseResponseMessage(msginfo) {
 	    var parseMsgData = { errorMsg: true, data: [] };
 
-	    var msgBodies = msginfo.getElementsByTagName('body');
+	    var msgBodies = msginfo.getElementsByTagName("body");
 	    if (msgBodies) {
 	        for (var i = 0; i < msgBodies.length; i++) {
 	            var msgBody = msgBodies[i];
@@ -9664,9 +9664,9 @@
 	                var childNode = msgBody.childNodes[0];
 	                if (childNode.nodeType == Strophe.ElementType.TEXT) {
 	                    var jsondata = childNode.wholeText || childNode.nodeValue;
-	                    jsondata = jsondata.replace('\n', '<br>');
+	                    jsondata = jsondata.replace("\n", "<br>");
 	                    try {
-	                        var data = eval('(' + jsondata + ')');
+	                        var data = eval("(" + jsondata + ")");
 	                        parseMsgData.errorMsg = false;
 	                        parseMsgData.data = [data];
 	                    } catch (e) {}
@@ -9674,10 +9674,10 @@
 	            }
 	        }
 
-	        var delayTags = msginfo.getElementsByTagName('delay');
+	        var delayTags = msginfo.getElementsByTagName("delay");
 	        if (delayTags && delayTags.length > 0) {
 	            var delayTag = delayTags[0];
-	            var delayMsgTime = delayTag.getAttribute('stamp');
+	            var delayMsgTime = delayTag.getAttribute("stamp");
 	            if (delayMsgTime) {
 	                parseMsgData.delayTimeStamp = delayMsgTime;
 	            }
@@ -9688,7 +9688,7 @@
 	            var child = msginfo.childNodes[0];
 	            if (child.nodeType == Strophe.ElementType.TEXT) {
 	                try {
-	                    var data = eval('(' + child.nodeValue + ')');
+	                    var data = eval("(" + child.nodeValue + ")");
 	                    parseMsgData.errorMsg = false;
 	                    parseMsgData.data = [data];
 	                } catch (e) {}
@@ -9696,43 +9696,43 @@
 	        }
 	    }
 	    return parseMsgData;
-	};
+		};
 
-	var _parseNameFromJidFn = function _parseNameFromJidFn(jid, domain) {
-	    domain = domain || '';
+		var _parseNameFromJidFn = function _parseNameFromJidFn(jid, domain) {
+	    domain = domain || "";
 	    var tempstr = jid;
-	    var findex = tempstr.indexOf('_');
+	    var findex = tempstr.indexOf("_");
 
 	    if (findex !== -1) {
 	        tempstr = tempstr.substring(findex + 1);
 	    }
-	    var atindex = tempstr.indexOf('@' + domain);
+	    var atindex = tempstr.indexOf("@" + domain);
 	    if (atindex !== -1) {
 	        tempstr = tempstr.substring(0, atindex);
 	    }
 	    return tempstr;
-	};
+		};
 
-	var _parseFriend = function _parseFriend(queryTag, conn, from) {
+		var _parseFriend = function _parseFriend(queryTag, conn, from) {
 	    var rouster = [];
-	    var items = queryTag.getElementsByTagName('item');
+	    var items = queryTag.getElementsByTagName("item");
 	    if (items) {
 	        for (var i = 0; i < items.length; i++) {
 	            var item = items[i];
-	            var jid = item.getAttribute('jid');
+	            var jid = item.getAttribute("jid");
 	            if (!jid) {
 	                continue;
 	            }
-	            var subscription = item.getAttribute('subscription');
+	            var subscription = item.getAttribute("subscription");
 	            var friend = {
 	                subscription: subscription,
 	                jid: jid
 	            };
-	            var ask = item.getAttribute('ask');
+	            var ask = item.getAttribute("ask");
 	            if (ask) {
 	                friend.ask = ask;
 	            }
-	            var name = item.getAttribute('name');
+	            var name = item.getAttribute("name");
 	            if (name) {
 	                friend.name = name;
 	            } else {
@@ -9740,21 +9740,21 @@
 	                friend.name = n;
 	            }
 	            var groups = [];
-	            Strophe.forEachChild(item, 'group', function (group) {
+	            Strophe.forEachChild(item, "group", function (group) {
 	                groups.push(Strophe.getText(group));
 	            });
 	            friend.groups = groups;
 	            rouster.push(friend);
 	            // B同意之后 -> B订阅A
 	            // fix: 含有ask标示的好友代表已经发送过反向订阅消息，不需要再次发送。
-	            if (conn && subscription == 'from' && !ask) {
+	            if (conn && subscription == "from" && !ask) {
 	                conn.subscribe({
 	                    toJid: jid,
 	                    message: "[resp:true]"
 	                });
 	            }
 
-	            if (conn && subscription == 'to') {
+	            if (conn && subscription == "to") {
 	                conn.subscribed({
 	                    toJid: jid
 	                });
@@ -9762,11 +9762,11 @@
 	        }
 	    }
 	    return rouster;
-	};
+		};
 
-	var _login = function _login(options, conn) {
-	    var accessToken = options.access_token || '';
-	    if (accessToken == '') {
+		var _login = function _login(options, conn) {
+	    var accessToken = options.access_token || "";
+	    if (accessToken == "") {
 	        var loginfo = _utils.stringify(options);
 	        conn.onError({
 	            type: _code.WEBIM_CONNCTION_OPEN_USERGRID_ERROR,
@@ -9790,56 +9790,56 @@
 
 	    conn.context.stropheConn = stropheConn;
 	    if (conn.route) {
-	        stropheConn.connect(conn.context.jid, '$t$' + accessToken, callback, conn.wait, conn.hold, conn.route);
+	        stropheConn.connect(conn.context.jid, "$t$" + accessToken, callback, conn.wait, conn.hold, conn.route);
 	    } else {
-	        stropheConn.connect(conn.context.jid, '$t$' + accessToken, callback, conn.wait, conn.hold);
+	        stropheConn.connect(conn.context.jid, "$t$" + accessToken, callback, conn.wait, conn.hold);
 	    }
-	};
+		};
 
-	var _parseMessageType = function _parseMessageType(msginfo) {
-	    var receiveinfo = msginfo.getElementsByTagName('received'),
-	        inviteinfo = msginfo.getElementsByTagName('invite'),
-	        deliveryinfo = msginfo.getElementsByTagName('delivery'),
-	        acked = msginfo.getElementsByTagName('acked'),
-	        error = msginfo.getElementsByTagName('error'),
-	        msgtype = 'normal';
-	    if (receiveinfo && receiveinfo.length > 0 && receiveinfo[0].namespaceURI === 'urn:xmpp:receipts') {
+		var _parseMessageType = function _parseMessageType(msginfo) {
+	    var receiveinfo = msginfo.getElementsByTagName("received"),
+	        inviteinfo = msginfo.getElementsByTagName("invite"),
+	        deliveryinfo = msginfo.getElementsByTagName("delivery"),
+	        acked = msginfo.getElementsByTagName("acked"),
+	        error = msginfo.getElementsByTagName("error"),
+	        msgtype = "normal";
+	    if (receiveinfo && receiveinfo.length > 0 && receiveinfo[0].namespaceURI === "urn:xmpp:receipts") {
 
-	        msgtype = 'received';
+	        msgtype = "received";
 	    } else if (inviteinfo && inviteinfo.length > 0) {
 
-	        msgtype = 'invite';
+	        msgtype = "invite";
 	    } else if (deliveryinfo && deliveryinfo.length > 0) {
 
-	        msgtype = 'delivery'; // 消息送达
+	        msgtype = "delivery"; // 消息送达
 	    } else if (acked && acked.length) {
 
-	        msgtype = 'acked'; // 消息已读
+	        msgtype = "acked"; // 消息已读
 	    } else if (error && error.length) {
 
 	        var errorItem = error[0],
-	            userMuted = errorItem.getElementsByTagName('user-muted');
+	            userMuted = errorItem.getElementsByTagName("user-muted");
 
 	        if (userMuted && userMuted.length) {
 
-	            msgtype = 'userMuted';
+	            msgtype = "userMuted";
 	        }
 	    }
 	    return msgtype;
-	};
+		};
 
-	var _handleMessageQueue = function _handleMessageQueue(conn) {
+		var _handleMessageQueue = function _handleMessageQueue(conn) {
 	    for (var i in _msgHash) {
 	        if (_msgHash.hasOwnProperty(i)) {
 	            _msgHash[i].send(conn);
 	        }
 	    }
-	};
+		};
 
-	var _loginCallback = function _loginCallback(status, msg, conn) {
+		var _loginCallback = function _loginCallback(status, msg, conn) {
 	    var conflict, error;
 
-	    if (msg === 'conflict') {
+	    if (msg === "conflict") {
 	        conflict = true;
 	        conn.close();
 	    }
@@ -9861,8 +9861,8 @@
 	            conn.handelSendQueue();
 	        }, 200);
 	        var handleMessage = function handleMessage(msginfo) {
-	            var delivery = msginfo.getElementsByTagName('delivery');
-	            var acked = msginfo.getElementsByTagName('acked');
+	            var delivery = msginfo.getElementsByTagName("delivery");
+	            var acked = msginfo.getElementsByTagName("acked");
 	            if (delivery.length) {
 	                conn.handleDeliveredMessage(msginfo);
 	                return true;
@@ -9914,12 +9914,12 @@
 	            return true;
 	        };
 
-	        conn.addHandler(handleMessage, null, 'message', null, null, null);
-	        conn.addHandler(handlePresence, null, 'presence', null, null, null);
-	        conn.addHandler(handlePing, 'urn:xmpp:ping', 'iq', 'get', null, null);
-	        conn.addHandler(handleIqRoster, 'jabber:iq:roster', 'iq', 'set', null, null);
-	        conn.addHandler(handleIqPrivacy, 'jabber:iq:privacy', 'iq', 'set', null, null);
-	        conn.addHandler(handleIq, null, 'iq', null, null, null);
+	        conn.addHandler(handleMessage, null, "message", null, null, null);
+	        conn.addHandler(handlePresence, null, "presence", null, null, null);
+	        conn.addHandler(handlePing, "urn:xmpp:ping", "iq", "get", null, null);
+	        conn.addHandler(handleIqRoster, "jabber:iq:roster", "iq", "set", null, null);
+	        conn.addHandler(handleIqPrivacy, "jabber:iq:privacy", "iq", "set", null, null);
+	        conn.addHandler(handleIq, null, "iq", null, null, null);
 
 	        conn.registerConfrIQHandler && conn.registerConfrIQHandler();
 
@@ -10007,43 +10007,43 @@
 	        conn.onError(error);
 	    }
 	    conn.context.status_now = status;
-	};
+		};
 
-	var _getJid = function _getJid(options, conn) {
-	    var jid = options.toJid || '';
+		var _getJid = function _getJid(options, conn) {
+	    var jid = options.toJid || "";
 
-	    if (jid === '') {
-	        var appKey = conn.context.appKey || '';
-	        var toJid = appKey + '_' + options.to + '@' + conn.domain;
+	    if (jid === "") {
+	        var appKey = conn.context.appKey || "";
+	        var toJid = appKey + "_" + options.to + "@" + conn.domain;
 
 	        if (options.resource) {
-	            toJid = toJid + '/' + options.resource;
+	            toJid = toJid + "/" + options.resource;
 	        }
 	        jid = toJid;
 	    }
 	    return jid;
-	};
+		};
 
-	var _getJidByName = function _getJidByName(name, conn) {
+		var _getJidByName = function _getJidByName(name, conn) {
 	    var options = {
 	        to: name
 	    };
 	    return _getJid(options, conn);
-	};
+		};
 
-	var _validCheck = function _validCheck(options, conn) {
+		var _validCheck = function _validCheck(options, conn) {
 	    options = options || {};
 
-	    if (options.user == '') {
+	    if (options.user == "") {
 	        conn.onError({
 	            type: _code.WEBIM_CONNCTION_USER_NOT_ASSIGN_ERROR
 	        });
 	        return false;
 	    }
 
-	    var user = options.user + '' || '';
-	    var appKey = options.appKey || '';
-	    var devInfos = appKey.split('#');
+	    var user = options.user + "" || "";
+	    var appKey = options.appKey || "";
+	    var devInfos = appKey.split("#");
 
 	    if (devInfos.length !== 2) {
 	        conn.onError({
@@ -10067,72 +10067,72 @@
 	        return false;
 	    }
 
-	    var jid = appKey + '_' + user.toLowerCase() + '@' + conn.domain,
-	        resource = options.resource || 'webim';
+	    var jid = appKey + "_" + user.toLowerCase() + "@" + conn.domain,
+	        resource = options.resource || "webim";
 
-	    conn.context.jid = jid + '/' + resource;
+	    conn.context.jid = jid + "/" + resource;
 	    conn.context.userId = user;
 	    conn.context.appKey = appKey;
 	    conn.context.appName = appName;
 	    conn.context.orgName = orgName;
 
 	    return true;
-	};
+		};
 
-	var _getXmppUrl = function _getXmppUrl(baseUrl, https) {
+		var _getXmppUrl = function _getXmppUrl(baseUrl, https) {
 	    if (/^(ws|http)s?:\/\/?/.test(baseUrl)) {
 	        return baseUrl;
 	    }
 
 	    var url = {
-	        prefix: 'http',
-	        base: '://' + baseUrl,
-	        suffix: '/http-bind/'
+	        prefix: "http",
+	        base: "://" + baseUrl,
+	        suffix: "/http-bind/"
 	    };
 
 	    if (https && _utils.isSupportWss) {
-	        url.prefix = 'wss';
-	        url.suffix = '/ws/';
+	        url.prefix = "wss";
+	        url.suffix = "/ws/";
 	    } else {
 	        if (https) {
-	            url.prefix = 'https';
+	            url.prefix = "https";
 	        } else if (window.WebSocket) {
-	            url.prefix = 'ws';
-	            url.suffix = '/ws/';
+	            url.prefix = "ws";
+	            url.suffix = "/ws/";
 	        }
 	    }
 
 	    return url.prefix + url.base + url.suffix;
-	};
+		};
 
-	function _deepClone(data) {
-	    var t = typeof data === 'undefined' ? 'undefined' : _typeof(data),
+		function _deepClone(data) {
+	    var t = typeof data === "undefined" ? "undefined" : _typeof(data),
 	        o,
 	        i,
 	        ni;
 
-	    if (t === 'array') {
+	    if (t === "array") {
 	        o = [];
-	    } else if (t === 'object') {
+	    } else if (t === "object") {
 	        o = {};
 	    } else {
 	        return data;
 	    }
 
-	    if (t === 'array') {
+	    if (t === "array") {
 	        for (i = 0, ni = data.length; i < ni; i++) {
 	            o.push(_deepClone(data[i]));
 	        }
 	        return o;
-	    } else if (t === 'object') {
+	    } else if (t === "object") {
 	        for (i in data) {
 	            o[i] = _deepClone(data[i]);
 	        }
 	        return o;
 	    }
-	}
+		}
 
-	/**
+		/**
 	 * The connection class.
 	 * @constructor
 	 * @param {Object} options - 创建连接的初始化参数
@@ -10151,8 +10151,8 @@
 	 * @returns {Class}  连接实例
 	 */
 
-	var connection = function connection(options) {
-	    if (!this instanceof connection) {
+		var connection = function connection(options) {
+	    if (!(this instanceof connection)) {
 	        return new connection(options);
 	    }
 
@@ -10163,10 +10163,10 @@
 	    this.wait = options.wait || 30;
 	    this.hold = options.hold || 1;
 	    this.retry = options.retry || false;
-	    this.https = options.https || location.protocol === 'https:';
+	    this.https = options.https || location.protocol === "https:";
 	    this.url = _getXmppUrl(options.url, this.https);
 	    this.route = options.route || null;
-	    this.domain = options.domain || 'easemob.com';
+	    this.domain = options.domain || "easemob.com";
 	    this.inactivity = options.inactivity || 30;
 	    this.heartBeatWait = options.heartBeatWait || 4500;
 	    this.maxRetries = options.maxRetries || 5;
@@ -10179,20 +10179,20 @@
 	    this.context = { status: _code.STATUS_INIT };
 	    this.sendQueue = new Queue(); //instead of sending message immediately,cache them in this queue
 	    this.intervalId = null; //clearInterval return value
-	    this.apiUrl = options.apiUrl || '';
+	    this.apiUrl = options.apiUrl || "";
 	    this.isWindowSDK = options.isWindowSDK || false;
-	    this.encrypt = options.encrypt || { encrypt: { type: 'none' } };
+	    this.encrypt = options.encrypt || { encrypt: { type: "none" } };
 	    this.delivery = options.delivery || false;
 	    this.saveLocal = options.saveLocal || false;
-	    this.user = '';
-	    this.orgName = '';
-	    this.appName = '';
-	    this.token = '';
+	    this.user = "";
+	    this.orgName = "";
+	    this.appName = "";
+	    this.token = "";
 	    this.unSendMsgArr = [];
 	    this.offLineSendConnecting = false;
 	    this.logOut = false;
 
-	    this.dnsArr = ['https://rs.easemob.com', 'https://rsbak.easemob.com', 'http://182.92.174.78', 'http://112.126.66.111']; //http dns server hosts
+	    this.dnsArr = ["https://rs.easemob.com", "https://rsbak.easemob.com", "http://182.92.174.78", "http://112.126.66.111"]; //http dns server hosts
 	    this.dnsIndex = 0; //the dns ip used in dnsArr currently
 	    this.dnsTotal = this.dnsArr.length; //max number of getting dns retries
 	    this.restHosts = null; //rest server ips
@@ -10220,16 +10220,16 @@
 	     }
 	     }
 	     */
-	};
+		};
 
-	connection.prototype.testInit = function (options) {
+		connection.prototype.testInit = function (options) {
 	    this.orgName = options.orgName;
 	    this.appName = options.appName;
 	    this.user = options.user;
 	    this.token = options.token;
-	};
+		};
 
-	/**
+		/**
 	 * 注册新用户
 	 * @param {Object} options - 用户信息
 	 * @param {String} options.username - 用户名
@@ -10238,27 +10238,27 @@
 	 * @param {Function} options.success - 注册成功回调
 	 * @param {Function} options.error - 注册失败
 	 */
-	connection.prototype.registerUser = function (options) {
-	    if (location.protocol != 'https:' && this.isHttpDNS) {
+		connection.prototype.registerUser = function (options) {
+	    if (location.protocol != "https:" && this.isHttpDNS) {
 	        this.dnsIndex = 0;
-	        this.getHttpDNS(options, 'signup');
+	        this.getHttpDNS(options, "signup");
 	    } else {
 	        this.signup(options);
 	    }
-	};
+		};
 
-	/**
+		/**
 	 * 处理发送队列
 	 * @private
 	 */
-	connection.prototype.handelSendQueue = function () {
+		connection.prototype.handelSendQueue = function () {
 	    var options = this.sendQueue.pop();
 	    if (options !== null) {
 	        this.sendReceiptsMessage(options);
 	    }
-	};
+		};
 
-	/**
+		/**
 	 * 注册监听函数
 	 * @param {Object} options - 回调函数集合
 	 * @param {connection~onOpened} options.onOpened - 处理登录的回调
@@ -10281,7 +10281,7 @@
 	 * @param {connection~onOnline} options.onOnline - 处理联网的回调
 	 * @param {connection~onCreateGroup} options.onCreateGroup - 处理创建群组的回调
 	 */
-	connection.prototype.listen = function (options) {
+		connection.prototype.listen = function (options) {
 	    /**
 	     * 登录成功后调用
 	     * @callback connection~onOpened
@@ -10387,15 +10387,15 @@
 	    this.onBlacklistUpdate = options.onBlacklistUpdate || _utils.emptyfn;
 
 	    _listenNetwork(this.onOnline, this.onOffline);
-	};
+		};
 
-	/**
+		/**
 	 * 发送心跳
 	 * webrtc需要强制心跳，加个默认为false的参数 向下兼容
 	 * @param {Boolean} forcing - 是否强制发送
 	 * @private
 	 */
-	connection.prototype.heartBeat = function (forcing) {
+		connection.prototype.heartBeat = function (forcing) {
 	    if (forcing !== true) {
 	        forcing = false;
 	    }
@@ -10409,68 +10409,68 @@
 
 	    var options = {
 	        toJid: this.domain,
-	        type: 'normal'
+	        type: "normal"
 	    };
 	    this.heartBeatID = setInterval(function () {
 	        // fix: do heartbeat only when websocket
 	        _utils.isSupportWss && me.ping(options);
 	    }, this.heartBeatWait);
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.stopHeartBeat = function () {
+		connection.prototype.stopHeartBeat = function () {
 	    if (typeof this.heartBeatID == "number") {
 	        this.heartBeatID = clearInterval(this.heartBeatID);
 	    }
-	};
+		};
 
-	/**
+		/**
 	 * 发送接收消息回执
 	 * @param {Object} options -
 	 * @private
 	 */
-	connection.prototype.sendReceiptsMessage = function (options) {
+		connection.prototype.sendReceiptsMessage = function (options) {
 	    var dom = $msg({
-	        from: this.context.jid || '',
+	        from: this.context.jid || "",
 	        to: this.domain,
-	        id: options.id || ''
-	    }).c('received', {
-	        xmlns: 'urn:xmpp:receipts',
-	        id: options.id || ''
+	        id: options.id || ""
+	    }).c("received", {
+	        xmlns: "urn:xmpp:receipts",
+	        id: options.id || ""
 	    });
 	    this.sendCommand(dom.tree());
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.cacheReceiptsMessage = function (options) {
+		connection.prototype.cacheReceiptsMessage = function (options) {
 	    this.sendQueue.push(options);
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.getStrophe = function () {
-	    if (location.protocol != 'https:' && this.isHttpDNS) {
+		connection.prototype.getStrophe = function () {
+	    if (location.protocol != "https:" && this.isHttpDNS) {
 	        //TODO: try this.xmppTotal times on fail
-	        var url = '';
+	        var url = "";
 	        var host = this.xmppHosts[this.xmppIndex];
-	        var domain = _utils.getXmlFirstChild(host, 'domain');
-	        var ip = _utils.getXmlFirstChild(host, 'ip');
+	        var domain = _utils.getXmlFirstChild(host, "domain");
+	        var ip = _utils.getXmlFirstChild(host, "ip");
 	        if (ip) {
 	            url = ip.textContent;
-	            var port = _utils.getXmlFirstChild(host, 'port');
-	            if (port.textContent != '80') {
-	                url += ':' + port.textContent;
+	            var port = _utils.getXmlFirstChild(host, "port");
+	            if (port.textContent != "80") {
+	                url += ":" + port.textContent;
 	            }
 	        } else {
 	            url = domain.textContent;
 	        }
 
-	        if (url != '') {
+	        if (url != "") {
 	            var parter = /(.+\/\/).+(\/.+)/;
 	            this.url = this.url.replace(parter, "$1" + url + "$2");
 	        }
@@ -10483,63 +10483,63 @@
 	        pollingTime: this.pollingTime
 	    });
 	    return stropheConn;
-	};
+		};
 
-	/**
+		/**
 	 *
 	 * @param data
 	 * @param tagName
 	 * @private
 	 */
-	connection.prototype.getHostsByTag = function (data, tagName) {
+		connection.prototype.getHostsByTag = function (data, tagName) {
 	    var tag = _utils.getXmlFirstChild(data, tagName);
 	    if (!tag) {
-	        console.log(tagName + ' hosts error');
+	        console.log(tagName + " hosts error");
 	        return null;
 	    }
-	    var hosts = tag.getElementsByTagName('hosts');
+	    var hosts = tag.getElementsByTagName("hosts");
 	    if (hosts.length == 0) {
-	        console.log(tagName + ' hosts error2');
+	        console.log(tagName + " hosts error2");
 	        return null;
 	    }
-	    return hosts[0].getElementsByTagName('host');
-	};
+	    return hosts[0].getElementsByTagName("host");
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.getRestFromHttpDNS = function (options, type) {
+		connection.prototype.getRestFromHttpDNS = function (options, type) {
 	    if (this.restIndex > this.restTotal) {
-	        console.log('rest hosts all tried,quit');
+	        console.log("rest hosts all tried,quit");
 	        return;
 	    }
-	    var url = '';
+	    var url = "";
 	    var host = this.restHosts[this.restIndex];
-	    var domain = _utils.getXmlFirstChild(host, 'domain');
-	    var ip = _utils.getXmlFirstChild(host, 'ip');
+	    var domain = _utils.getXmlFirstChild(host, "domain");
+	    var ip = _utils.getXmlFirstChild(host, "ip");
 	    if (ip) {
-	        var port = _utils.getXmlFirstChild(host, 'port');
-	        url = (location.protocol === 'https:' ? 'https:' : 'http:') + '//' + ip.textContent + ':' + port.textContent;
+	        var port = _utils.getXmlFirstChild(host, "port");
+	        url = (location.protocol === "https:" ? "https:" : "http:") + "//" + ip.textContent + ":" + port.textContent;
 	    } else {
-	        url = (location.protocol === 'https:' ? 'https:' : 'http:') + '//' + domain.textContent;
+	        url = (location.protocol === "https:" ? "https:" : "http:") + "//" + domain.textContent;
 	    }
 
-	    if (url != '') {
+	    if (url != "") {
 	        this.apiUrl = url;
 	        options.apiUrl = url;
 	    }
 
-	    if (type == 'login') {
+	    if (type == "login") {
 	        this.login(options);
 	    } else {
 	        this.signup(options);
 	    }
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.getHttpDNS = function (options, type) {
+		connection.prototype.getHttpDNS = function (options, type) {
 	    if (this.restHosts) {
 	        this.getRestFromHttpDNS(options, type);
 	        return;
@@ -10548,18 +10548,18 @@
 	    var suc = function suc(data, xhr) {
 	        data = new DOMParser().parseFromString(data, "text/xml").documentElement;
 	        //get rest ips
-	        var restHosts = self.getHostsByTag(data, 'rest');
+	        var restHosts = self.getHostsByTag(data, "rest");
 	        if (!restHosts) {
-	            console.log('rest hosts error3');
+	            console.log("rest hosts error3");
 	            return;
 	        }
 	        self.restHosts = restHosts;
 	        self.restTotal = restHosts.length;
 
 	        //get xmpp ips
-	        var xmppHosts = self.getHostsByTag(data, 'xmpp');
+	        var xmppHosts = self.getHostsByTag(data, "xmpp");
 	        if (!xmppHosts) {
-	            console.log('xmpp hosts error3');
+	            console.log("xmpp hosts error3");
 	            return;
 	        }
 	        self.xmppHosts = xmppHosts;
@@ -10569,16 +10569,16 @@
 	    };
 	    var error = function error(res, xhr, msg) {
 
-	        console.log('getHttpDNS error', res, msg);
+	        console.log("getHttpDNS error", res, msg);
 	        self.dnsIndex++;
 	        if (self.dnsIndex < self.dnsTotal) {
 	            self.getHttpDNS(options, type);
 	        }
 	    };
 	    var options2 = {
-	        url: this.dnsArr[this.dnsIndex] + '/easemob/server.xml',
-	        dataType: 'text',
-	        type: 'GET',
+	        url: this.dnsArr[this.dnsIndex] + "/easemob/server.xml",
+	        dataType: "text",
+	        type: "GET",
 
 	        // url: 'http://www.easemob.com/easemob/server.xml',
 	        // dataType: 'xml',
@@ -10587,21 +10587,21 @@
 	        error: error || _utils.emptyfn
 	    };
 	    _utils.ajax(options2);
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.signup = function (options) {
+		connection.prototype.signup = function (options) {
 	    var self = this;
-	    var orgName = options.orgName || '';
-	    var appName = options.appName || '';
-	    var appKey = options.appKey || '';
+	    var orgName = options.orgName || "";
+	    var appName = options.appName || "";
+	    var appKey = options.appKey || "";
 	    var suc = options.success || EMPTYFN;
 	    var err = options.error || EMPTYFN;
 
 	    if (!orgName && !appName && appKey) {
-	        var devInfos = appKey.split('#');
+	        var devInfos = appKey.split("#");
 	        if (devInfos.length === 2) {
 	            orgName = devInfos[0];
 	            appName = devInfos[1];
@@ -10615,10 +10615,10 @@
 	    }
 
 	    var error = function error(res, xhr, msg) {
-	        if (location.protocol != 'https:' && self.isHttpDNS) {
+	        if (location.protocol != "https:" && self.isHttpDNS) {
 	            if (self.restIndex + 1 < self.restTotal) {
 	                self.restIndex++;
-	                self.getRestFromHttpDNS(options, 'signup');
+	                self.getRestFromHttpDNS(options, "signup");
 	                return;
 	            }
 	        }
@@ -10627,26 +10627,26 @@
 	    };
 	    var https = options.https || https;
 	    var apiUrl = options.apiUrl;
-	    var restUrl = apiUrl + '/' + orgName + '/' + appName + '/users';
+	    var restUrl = apiUrl + "/" + orgName + "/" + appName + "/users";
 
 	    var userjson = {
 	        username: options.username,
 	        password: options.password,
-	        nickname: options.nickname || ''
+	        nickname: options.nickname || ""
 	    };
 
 	    var userinfo = _utils.stringify(userjson);
 	    var options2 = {
 	        url: restUrl,
-	        dataType: 'json',
+	        dataType: "json",
 	        data: userinfo,
 	        success: suc,
 	        error: error
 	    };
 	    _utils.ajax(options2);
-	};
+		};
 
-	/**
+		/**
 	 * 登录
 	 * @param {Object} options - 用户信息
 	 * @param {String} options.user - 用户名
@@ -10654,10 +10654,10 @@
 	 * @param {String} options.accessToken - token，跟密码二选一
 	 * @param {String} options.appKey - Appkey
 	 */
-	connection.prototype.open = function (options) {
+		connection.prototype.open = function (options) {
 	    var appkey = options.appKey,
-	        orgName = appkey.split('#')[0],
-	        appName = appkey.split('#')[1];
+	        orgName = appkey.split("#")[0],
+	        appName = appkey.split("#")[1];
 	    this.orgName = orgName;
 	    this.appName = appName;
 	    if (options.accessToken) {
@@ -10666,20 +10666,20 @@
 	    if (options.xmppURL) {
 	        this.url = _getXmppUrl(options.xmppURL, this.https);
 	    }
-	    if (location.protocol != 'https:' && this.isHttpDNS) {
+	    if (location.protocol != "https:" && this.isHttpDNS) {
 	        this.dnsIndex = 0;
-	        this.getHttpDNS(options, 'login');
+	        this.getHttpDNS(options, "login");
 	    } else {
 	        this.login(options);
 	    }
-	};
+		};
 
-	/**
+		/**
 	 *
 	 * @param options
 	 * @private
 	 */
-	connection.prototype.login = function (options) {
+		connection.prototype.login = function (options) {
 	    this.user = options.user;
 	    var pass = _validCheck(options, this);
 
@@ -10700,7 +10700,7 @@
 	    } else {
 	        var apiUrl = this.apiUrl;
 	        var userId = this.context.userId;
-	        var pwd = options.pwd || '';
+	        var pwd = options.pwd || "";
 	        var appName = this.context.appName;
 	        var orgName = this.context.orgName;
 
@@ -10713,10 +10713,10 @@
 	        };
 	        var error = function error(res, xhr, msg) {
 	            if (options.error) options.error();
-	            if (location.protocol != 'https:' && conn.isHttpDNS) {
+	            if (location.protocol != "https:" && conn.isHttpDNS) {
 	                if (conn.restIndex + 1 < conn.restTotal) {
 	                    conn.restIndex++;
-	                    conn.getRestFromHttpDNS(options, 'login');
+	                    conn.getRestFromHttpDNS(options, "login");
 	                    return;
 	                }
 	            }
@@ -10739,7 +10739,7 @@
 	        this.context.status = _code.STATUS_DOLOGIN_USERGRID;
 
 	        var loginJson = {
-	            grant_type: 'password',
+	            grant_type: "password",
 	            username: userId,
 	            password: pwd,
 	            timestamp: +new Date()
@@ -10747,21 +10747,21 @@
 	        var loginfo = _utils.stringify(loginJson);
 
 	        var options2 = {
-	            url: apiUrl + '/' + orgName + '/' + appName + '/token',
-	            dataType: 'json',
+	            url: apiUrl + "/" + orgName + "/" + appName + "/token",
+	            dataType: "json",
 	            data: loginfo,
 	            success: suc || _utils.emptyfn,
 	            error: error || _utils.emptyfn
 	        };
 	        _utils.ajax(options2);
 	    }
-	};
+		};
 
-	/**
+		/**
 	 * attach to xmpp server for BOSH
 	 * @private
 	 */
-	connection.prototype.attach = function (options) {
+		connection.prototype.attach = function (options) {
 	    var pass = _validCheck(options, this);
 
 	    if (!pass) {
@@ -10770,24 +10770,24 @@
 
 	    options = options || {};
 
-	    var accessToken = options.accessToken || '';
-	    if (accessToken == '') {
+	    var accessToken = options.accessToken || "";
+	    if (accessToken == "") {
 	        this.onError({
 	            type: _code.WEBIM_CONNCTION_TOKEN_NOT_ASSIGN_ERROR
 	        });
 	        return;
 	    }
 
-	    var sid = options.sid || '';
-	    if (sid === '') {
+	    var sid = options.sid || "";
+	    if (sid === "") {
 	        this.onError({
 	            type: _code.WEBIM_CONNCTION_SESSIONID_NOT_ASSIGN_ERROR
 	        });
 	        return;
 	    }
 
-	    var rid = options.rid || '';
-	    if (rid === '') {
+	    var rid = options.rid || "";
+	    if (rid === "") {
 	        this.onError({
 	            type: _code.WEBIM_CONNCTION_RID_NOT_ASSIGN_ERROR
 	        });
@@ -10810,13 +10810,13 @@
 	    var hold = this.hold;
 	    var wind = this.wind || 5;
 	    stropheConn.attach(jid, sid, rid, callback, wait, hold, wind);
-	};
+		};
 
-	/**
+		/**
 	 * 关闭连接
 	 * @param {String} reason
 	 */
-	connection.prototype.close = function (reason) {
+		connection.prototype.close = function (reason) {
 	    this.logOut = true;
 	    this.stopHeartBeat();
 
@@ -10831,26 +10831,26 @@
 
 	    this.context.status = _code.STATUS_CLOSING;
 	    this.context.stropheConn.disconnect(reason);
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.addHandler = function (handler, ns, name, type, id, from, options) {
+		connection.prototype.addHandler = function (handler, ns, name, type, id, from, options) {
 	    this.context.stropheConn.addHandler(handler, ns, name, type, id, from, options);
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.notifyVersion = function (suc, fail) {
+		connection.prototype.notifyVersion = function (suc, fail) {
 	    var jid = stropheConn.getJid();
 	    this.context.jid = jid;
 	    var dom = $iq({
-	        from: jid || '',
+	        from: jid || "",
 	        to: this.domain,
-	        type: 'result'
-	    }).c('query', { xmlns: 'jabber:iq:version' }).c('name').t('easemob').up().c('version').t(_version).up().c('os').t('webim');
+	        type: "result"
+	    }).c("query", { xmlns: "jabber:iq:version" }).c("name").t("easemob").up().c("version").t(_version).up().c("os").t("webim");
 
 	    var suc = suc || _utils.emptyfn;
 	    var error = fail || this.onError;
@@ -10862,20 +10862,20 @@
 	    };
 	    this.context.stropheConn.sendIQ(dom.tree(), suc, failFn);
 	    return;
-	};
+		};
 
-	/**
+		/**
 	 * handle all types of presence message
 	 * @private
 	 */
-	connection.prototype.handlePresence = function (msginfo) {
+		connection.prototype.handlePresence = function (msginfo) {
 	    if (this.isClosed()) {
 	        return;
 	    }
-	    var from = msginfo.getAttribute('from') || '';
-	    var to = msginfo.getAttribute('to') || '';
-	    var type = msginfo.getAttribute('type') || '';
-	    var presence_type = msginfo.getAttribute('presence_type') || '';
+	    var from = msginfo.getAttribute("from") || "";
+	    var to = msginfo.getAttribute("to") || "";
+	    var type = msginfo.getAttribute("type") || "";
+	    var presence_type = msginfo.getAttribute("presence_type") || "";
 	    var fromUser = _parseNameFromJidFn(from);
 	    var toUser = _parseNameFromJidFn(to);
 	    var isCreate = false;
@@ -10888,64 +10888,64 @@
 	        fromJid: from,
 	        toJid: to,
 	        type: type,
-	        chatroom: msginfo.getElementsByTagName('roomtype').length ? true : false
+	        chatroom: msginfo.getElementsByTagName("roomtype").length ? true : false
 	    };
 
-	    var showTags = msginfo.getElementsByTagName('show');
+	    var showTags = msginfo.getElementsByTagName("show");
 	    if (showTags && showTags.length > 0) {
 	        var showTag = showTags[0];
 	        info.show = Strophe.getText(showTag);
 	    }
-	    var statusTags = msginfo.getElementsByTagName('status');
+	    var statusTags = msginfo.getElementsByTagName("status");
 	    if (statusTags && statusTags.length > 0) {
 	        var statusTag = statusTags[0];
 	        info.status = Strophe.getText(statusTag);
-	        info.code = statusTag.getAttribute('code');
+	        info.code = statusTag.getAttribute("code");
 	    }
 
-	    var priorityTags = msginfo.getElementsByTagName('priority');
+	    var priorityTags = msginfo.getElementsByTagName("priority");
 	    if (priorityTags && priorityTags.length > 0) {
 	        var priorityTag = priorityTags[0];
 	        info.priority = Strophe.getText(priorityTag);
 	    }
 
-	    var error = msginfo.getElementsByTagName('error');
+	    var error = msginfo.getElementsByTagName("error");
 	    if (error && error.length > 0) {
 	        var error = error[0];
 	        info.error = {
-	            code: error.getAttribute('code')
+	            code: error.getAttribute("code")
 	        };
 	    }
 
-	    var destroy = msginfo.getElementsByTagName('destroy');
+	    var destroy = msginfo.getElementsByTagName("destroy");
 	    if (destroy && destroy.length > 0) {
 	        var destroy = destroy[0];
 	        info.destroy = true;
 
-	        var reason = destroy.getElementsByTagName('reason');
+	        var reason = destroy.getElementsByTagName("reason");
 	        if (reason && reason.length > 0) {
 	            info.reason = Strophe.getText(reason[0]);
 	        }
 	    }
 
-	    var members = msginfo.getElementsByTagName('item');
+	    var members = msginfo.getElementsByTagName("item");
 	    if (members && members.length > 0) {
 	        var member = members[0];
-	        var role = member.getAttribute('role');
-	        var jid = member.getAttribute('jid');
-	        var affiliation = member.getAttribute('affiliation');
+	        var role = member.getAttribute("role");
+	        var jid = member.getAttribute("jid");
+	        var affiliation = member.getAttribute("affiliation");
 	        // dismissed by group
-	        if (role == 'none' && jid) {
+	        if (role == "none" && jid) {
 	            var kickedMember = _parseNameFromJidFn(jid);
-	            var actor = member.getElementsByTagName('actor')[0];
-	            var actorNick = actor.getAttribute('nick');
+	            var actor = member.getElementsByTagName("actor")[0];
+	            var actorNick = actor.getAttribute("nick");
 	            info.actor = actorNick;
 	            info.kicked = kickedMember;
 	        }
 	        // Service Acknowledges Room Creation `createGroupACK`
-	        if (role == 'moderator' && info.code == '201') {
-	            if (affiliation === 'owner') {
-	                info.type = 'createGroupACK';
+	        if (role == "moderator" && info.code == "201") {
+	            if (affiliation === "owner") {
+	                info.type = "createGroupACK";
 	                isCreate = true;
 	            }
 	            // else
@@ -10953,48 +10953,48 @@
 	        }
 	    }
 
-	    var x = msginfo.getElementsByTagName('x');
+	    var x = msginfo.getElementsByTagName("x");
 	    if (x && x.length > 0) {
 	        // 加群申请
-	        var apply = x[0].getElementsByTagName('apply');
+	        var apply = x[0].getElementsByTagName("apply");
 	        // 加群成功
-	        var accept = x[0].getElementsByTagName('accept');
+	        var accept = x[0].getElementsByTagName("accept");
 	        // 同意加群后用户进群通知
-	        var item = x[0].getElementsByTagName('item');
+	        var item = x[0].getElementsByTagName("item");
 	        // 加群被拒绝
-	        var decline = x[0].getElementsByTagName('decline');
+	        var decline = x[0].getElementsByTagName("decline");
 	        // 被设为管理员
-	        var addAdmin = x[0].getElementsByTagName('add_admin');
+	        var addAdmin = x[0].getElementsByTagName("add_admin");
 	        // 被取消管理员
-	        var removeAdmin = x[0].getElementsByTagName('remove_admin');
+	        var removeAdmin = x[0].getElementsByTagName("remove_admin");
 	        // 被禁言
-	        var addMute = x[0].getElementsByTagName('add_mute');
+	        var addMute = x[0].getElementsByTagName("add_mute");
 	        // 取消禁言
-	        var removeMute = x[0].getElementsByTagName('remove_mute');
+	        var removeMute = x[0].getElementsByTagName("remove_mute");
 
 	        if (apply && apply.length > 0) {
 	            isApply = true;
-	            info.toNick = apply[0].getAttribute('toNick');
-	            info.type = 'joinGroupNotifications';
-	            var groupJid = apply[0].getAttribute('to');
-	            var gid = groupJid.split('@')[0].split('_');
+	            info.toNick = apply[0].getAttribute("toNick");
+	            info.type = "joinGroupNotifications";
+	            var groupJid = apply[0].getAttribute("to");
+	            var gid = groupJid.split("@")[0].split("_");
 	            gid = gid[gid.length - 1];
 	            info.gid = gid;
 	        } else if (accept && accept.length > 0) {
-	            info.type = 'joinPublicGroupSuccess';
+	            info.type = "joinPublicGroupSuccess";
 	        } else if (item && item.length > 0) {
-	            var affiliation = item[0].getAttribute('affiliation'),
-	                role = item[0].getAttribute('role');
-	            if (affiliation == 'member' || role == 'participant') {
+	            var affiliation = item[0].getAttribute("affiliation"),
+	                role = item[0].getAttribute("role");
+	            if (affiliation == "member" || role == "participant") {
 	                isMemberJoin = true;
-	                info.mid = info.fromJid.split('/');
+	                info.mid = info.fromJid.split("/");
 	                info.mid = info.mid[info.mid.length - 1];
-	                info.type = 'memberJoinPublicGroupSuccess';
-	                var roomtype = msginfo.getElementsByTagName('roomtype');
+	                info.type = "memberJoinPublicGroupSuccess";
+	                var roomtype = msginfo.getElementsByTagName("roomtype");
 	                if (roomtype && roomtype.length > 0) {
-	                    var type = roomtype[0].getAttribute('type');
-	                    if (type == 'chatroom') {
-	                        info.type = 'memberJoinChatRoomSuccess';
+	                    var type = roomtype[0].getAttribute("type");
+	                    if (type == "chatroom") {
+	                        info.type = "memberJoinChatRoomSuccess";
 	                    }
 	                }
 	            }
@@ -11006,26 +11006,26 @@
 	            info.owner = owner;
 	            info.gid = gid;
 	        } else if (addAdmin && addAdmin.length > 0) {
-	            var gid = _parseNameFromJidFn(addAdmin[0].getAttribute('mucjid'));
-	            var owner = _parseNameFromJidFn(addAdmin[0].getAttribute('from'));
+	            var gid = _parseNameFromJidFn(addAdmin[0].getAttribute("mucjid"));
+	            var owner = _parseNameFromJidFn(addAdmin[0].getAttribute("from"));
 	            info.owner = owner;
 	            info.gid = gid;
 	            info.type = "addAdmin";
 	        } else if (removeAdmin && removeAdmin.length > 0) {
-	            var gid = _parseNameFromJidFn(removeAdmin[0].getAttribute('mucjid'));
-	            var owner = _parseNameFromJidFn(removeAdmin[0].getAttribute('from'));
+	            var gid = _parseNameFromJidFn(removeAdmin[0].getAttribute("mucjid"));
+	            var owner = _parseNameFromJidFn(removeAdmin[0].getAttribute("from"));
 	            info.owner = owner;
 	            info.gid = gid;
 	            info.type = "removeAdmin";
 	        } else if (addMute && addMute.length > 0) {
-	            var gid = _parseNameFromJidFn(addMute[0].getAttribute('mucjid'));
-	            var owner = _parseNameFromJidFn(addMute[0].getAttribute('from'));
+	            var gid = _parseNameFromJidFn(addMute[0].getAttribute("mucjid"));
+	            var owner = _parseNameFromJidFn(addMute[0].getAttribute("from"));
 	            info.owner = owner;
 	            info.gid = gid;
 	            info.type = "addMute";
 	        } else if (removeMute && removeMute.length > 0) {
-	            var gid = _parseNameFromJidFn(removeMute[0].getAttribute('mucjid'));
-	            var owner = _parseNameFromJidFn(removeMute[0].getAttribute('from'));
+	            var gid = _parseNameFromJidFn(removeMute[0].getAttribute("mucjid"));
+	            var owner = _parseNameFromJidFn(removeMute[0].getAttribute("from"));
 	            info.owner = owner;
 	            info.gid = gid;
 	            info.type = "removeMute";
@@ -11036,21 +11036,21 @@
 	        // diff the
 	        info.presence_type = presence_type;
 	        info.original_type = info.type;
-	        var reflectUser = from.slice(from.lastIndexOf('/') + 1);
+	        var reflectUser = from.slice(from.lastIndexOf("/") + 1);
 
 	        if (reflectUser === this.context.userId) {
-	            if (info.type === '' && !info.code) {
-	                info.type = 'joinChatRoomSuccess';
-	            } else if (presence_type === 'unavailable' || info.type === 'unavailable') {
+	            if (info.type === "" && !info.code) {
+	                info.type = "joinChatRoomSuccess";
+	            } else if (presence_type === "unavailable" || info.type === "unavailable") {
 	                if (!info.status) {
 	                    // logout successfully.
-	                    info.type = 'leaveChatRoom';
+	                    info.type = "leaveChatRoom";
 	                } else if (info.code == 110) {
 	                    // logout or dismissied by admin.
-	                    info.type = 'leaveChatRoom';
+	                    info.type = "leaveChatRoom";
 	                } else if (info.error && info.error.code == 406) {
 	                    // The chat room is full.
-	                    info.type = 'reachChatRoomCapacity';
+	                    info.type = "reachChatRoomCapacity";
 	                }
 	            }
 	        }
@@ -11062,90 +11062,90 @@
 	            //subscribe | subscribed | unsubscribe | unsubscribed
 	        } else if (type == "" && !info.status && !info.error && !isCreate && !isApply && !isMemberJoin && !isDecline) {
 	            // info.type = 'joinPublicGroupSuccess';
-	        } else if (presence_type === 'unavailable' || type === 'unavailable') {
+	        } else if (presence_type === "unavailable" || type === "unavailable") {
 	            // There is no roomtype when a chat room is deleted.
 	            if (info.destroy) {
 	                // Group or Chat room Deleted.
-	                info.type = 'deleteGroupChat';
+	                info.type = "deleteGroupChat";
 	            } else if (info.code == 307 || info.code == 321) {
 	                // Dismissed by group.
-	                var nick = msginfo.getAttribute('nick');
-	                if (!nick) info.type = 'leaveGroup';else info.type = 'removedFromGroup';
+	                var nick = msginfo.getAttribute("nick");
+	                if (!nick) info.type = "leaveGroup";else info.type = "removedFromGroup";
 	            }
 	        }
 	    }
 	    this.onPresence(info, msginfo);
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.handlePing = function (e) {
+		connection.prototype.handlePing = function (e) {
 	    if (this.isClosed()) {
 	        return;
 	    }
-	    var id = e.getAttribute('id');
-	    var from = e.getAttribute('from');
-	    var to = e.getAttribute('to');
+	    var id = e.getAttribute("id");
+	    var from = e.getAttribute("from");
+	    var to = e.getAttribute("to");
 	    var dom = $iq({
 	        from: to,
 	        to: from,
 	        id: id,
-	        type: 'result'
+	        type: "result"
 	    });
 	    this.sendCommand(dom.tree());
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.handleIq = function (iq) {
+		connection.prototype.handleIq = function (iq) {
 	    return true;
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.handleIqPrivacy = function (msginfo) {
-	    var list = msginfo.getElementsByTagName('list');
+		connection.prototype.handleIqPrivacy = function (msginfo) {
+	    var list = msginfo.getElementsByTagName("list");
 	    if (list.length == 0) {
 	        return;
 	    }
 	    this.getBlacklist();
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.handleIqRoster = function (e) {
-	    var id = e.getAttribute('id');
-	    var from = e.getAttribute('from') || '';
+		connection.prototype.handleIqRoster = function (e) {
+	    var id = e.getAttribute("id");
+	    var from = e.getAttribute("from") || "";
 	    var name = _parseNameFromJidFn(from);
 	    var curJid = this.context.jid;
 	    var curUser = this.context.userId;
 
-	    var iqresult = $iq({ type: 'result', id: id, from: curJid });
+	    var iqresult = $iq({ type: "result", id: id, from: curJid });
 	    this.sendCommand(iqresult.tree());
 
-	    var msgBodies = e.getElementsByTagName('query');
+	    var msgBodies = e.getElementsByTagName("query");
 	    if (msgBodies && msgBodies.length > 0) {
 	        var queryTag = msgBodies[0];
 	        var rouster = _parseFriend(queryTag, this, from);
 	        this.onRoster(rouster);
 	    }
 	    return true;
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.handleMessage = function (msginfo) {
+		connection.prototype.handleMessage = function (msginfo) {
 	    var self = this;
 	    if (this.isClosed()) {
 	        return;
 	    }
 
-	    var id = msginfo.getAttribute('id') || '';
+	    var id = msginfo.getAttribute("id") || "";
 
 	    // cache ack into sendQueue first , handelSendQueue will do the send thing with the speed of  5/s
 	    this.cacheReceiptsMessage({
@@ -11157,14 +11157,14 @@
 	        return;
 	    }
 	    // send error
-	    var error = msginfo.getElementsByTagName('error');
-	    var errorCode = '';
-	    var errorText = '';
+	    var error = msginfo.getElementsByTagName("error");
+	    var errorCode = "";
+	    var errorText = "";
 	    var errorBool = false;
 	    if (error.length > 0) {
 	        errorBool = true;
-	        errorCode = error[0].getAttribute('code');
-	        var textDOM = error[0].getElementsByTagName('text');
+	        errorCode = error[0].getAttribute("code");
+	        var textDOM = error[0].getElementsByTagName("text");
 	        errorText = textDOM[0].textContent || textDOM[0].text;
 	    }
 
@@ -11178,15 +11178,15 @@
 	            continue;
 	        }
 
-	        var from = (msg.from + '').toLowerCase();
-	        var too = (msg.to + '').toLowerCase();
+	        var from = (msg.from + "").toLowerCase();
+	        var too = (msg.to + "").toLowerCase();
 	        var extmsg = msg.ext || {};
-	        var chattype = '';
-	        var typeEl = msginfo.getElementsByTagName('roomtype');
+	        var chattype = "";
+	        var typeEl = msginfo.getElementsByTagName("roomtype");
 	        if (typeEl.length) {
-	            chattype = typeEl[0].getAttribute('type') || 'chat';
+	            chattype = typeEl[0].getAttribute("type") || "chat";
 	        } else {
-	            chattype = msginfo.getAttribute('type') || 'chat';
+	            chattype = msginfo.getAttribute("type") || "chat";
 	        }
 
 	        var msgBodies = msg.bodies;
@@ -11198,7 +11198,7 @@
 
 	        try {
 	            switch (type) {
-	                case 'txt':
+	                case "txt":
 	                    var receiveMsg = msgBody.msg;
 	                    var sourceMsg = _.clone(receiveMsg);
 	                    /*
@@ -11263,7 +11263,7 @@
 	                        this.onTextMessage(msg);
 	                    }
 	                    break;
-	                case 'img':
+	                case "img":
 	                    var rwidth = 0;
 	                    var rheight = 0;
 	                    if (msgBody.size) {
@@ -11276,16 +11276,16 @@
 	                        from: from,
 	                        to: too,
 
-	                        url: location.protocol != 'https:' && self.isHttpDNS ? self.apiUrl + msgBody.url.substr(msgBody.url.indexOf("/", 9)) : msgBody.url,
+	                        url: location.protocol != "https:" && self.isHttpDNS ? self.apiUrl + msgBody.url.substr(msgBody.url.indexOf("/", 9)) : msgBody.url,
 	                        secret: msgBody.secret,
 	                        filename: msgBody.filename,
 	                        thumb: msgBody.thumb,
 	                        thumb_secret: msgBody.thumb_secret,
-	                        file_length: msgBody.file_length || '',
+	                        file_length: msgBody.file_length || "",
 	                        width: rwidth,
 	                        height: rheight,
-	                        filetype: msgBody.filetype || '',
-	                        accessToken: this.context.accessToken || '',
+	                        filetype: msgBody.filetype || "",
+	                        accessToken: this.context.accessToken || "",
 	                        ext: extmsg,
 	                        delay: parseMsgData.delayTimeStamp
 	                    };
@@ -11295,20 +11295,20 @@
 	                    msg.errorCode = errorCode;
 	                    this.onPictureMessage(msg);
 	                    break;
-	                case 'audio':
+	                case "audio":
 	                    var msg = {
 	                        id: id,
 	                        type: chattype,
 	                        from: from,
 	                        to: too,
 
-	                        url: location.protocol != 'https:' && self.isHttpDNS ? self.apiUrl + msgBody.url.substr(msgBody.url.indexOf("/", 9)) : msgBody.url,
+	                        url: location.protocol != "https:" && self.isHttpDNS ? self.apiUrl + msgBody.url.substr(msgBody.url.indexOf("/", 9)) : msgBody.url,
 	                        secret: msgBody.secret,
 	                        filename: msgBody.filename,
-	                        length: msgBody.length || '',
-	                        file_length: msgBody.file_length || '',
-	                        filetype: msgBody.filetype || '',
-	                        accessToken: this.context.accessToken || '',
+	                        length: msgBody.length || "",
+	                        file_length: msgBody.file_length || "",
+	                        filetype: msgBody.filetype || "",
+	                        accessToken: this.context.accessToken || "",
 	                        ext: extmsg,
 	                        delay: parseMsgData.delayTimeStamp
 	                    };
@@ -11318,18 +11318,18 @@
 	                    msg.errorCode = errorCode;
 	                    this.onAudioMessage(msg);
 	                    break;
-	                case 'file':
+	                case "file":
 	                    var msg = {
 	                        id: id,
 	                        type: chattype,
 	                        from: from,
 	                        to: too,
 
-	                        url: location.protocol != 'https:' && self.isHttpDNS ? self.apiUrl + msgBody.url.substr(msgBody.url.indexOf("/", 9)) : msgBody.url,
+	                        url: location.protocol != "https:" && self.isHttpDNS ? self.apiUrl + msgBody.url.substr(msgBody.url.indexOf("/", 9)) : msgBody.url,
 	                        secret: msgBody.secret,
 	                        filename: msgBody.filename,
 	                        file_length: msgBody.file_length,
-	                        accessToken: this.context.accessToken || '',
+	                        accessToken: this.context.accessToken || "",
 	                        ext: extmsg,
 	                        delay: parseMsgData.delayTimeStamp
 	                    };
@@ -11339,7 +11339,7 @@
 	                    msg.errorCode = errorCode;
 	                    this.onFileMessage(msg);
 	                    break;
-	                case 'loc':
+	                case "loc":
 	                    var msg = {
 	                        id: id,
 	                        type: chattype,
@@ -11357,18 +11357,18 @@
 	                    msg.errorCode = errorCode;
 	                    this.onLocationMessage(msg);
 	                    break;
-	                case 'video':
+	                case "video":
 	                    var msg = {
 	                        id: id,
 	                        type: chattype,
 	                        from: from,
 	                        to: too,
 
-	                        url: location.protocol != 'https:' && self.isHttpDNS ? self.apiUrl + msgBody.url.substr(msgBody.url.indexOf("/", 9)) : msgBody.url,
+	                        url: location.protocol != "https:" && self.isHttpDNS ? self.apiUrl + msgBody.url.substr(msgBody.url.indexOf("/", 9)) : msgBody.url,
 	                        secret: msgBody.secret,
 	                        filename: msgBody.filename,
 	                        file_length: msgBody.file_length,
-	                        accessToken: this.context.accessToken || '',
+	                        accessToken: this.context.accessToken || "",
 	                        ext: extmsg,
 	                        delay: parseMsgData.delayTimeStamp
 	                    };
@@ -11378,7 +11378,7 @@
 	                    msg.errorCode = errorCode;
 	                    this.onVideoMessage(msg);
 	                    break;
-	                case 'cmd':
+	                case "cmd":
 	                    var msg = {
 	                        id: id,
 	                        from: from,
@@ -11394,11 +11394,11 @@
 	                    this.onCmdMessage(msg);
 	                    break;
 	            }
-	            ;
+	            
 	            if (self.delivery) {
 	                var msgId = self.getUniqueId();
 	                var bodyId = msg.id;
-	                var deliverMessage = new WebIM.message('delivery', msgId);
+	                var deliverMessage = new WebIM.message("delivery", msgId);
 	                deliverMessage.set({
 	                    id: bodyId,
 	                    to: msg.from
@@ -11412,14 +11412,14 @@
 	            });
 	        }
 	    }
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.handleDeliveredMessage = function (message) {
+		connection.prototype.handleDeliveredMessage = function (message) {
 	    var id = message.id;
-	    var body = message.getElementsByTagName('body');
+	    var body = message.getElementsByTagName("body");
 	    var mid = 0;
 	    mid = body[0].innerHTML;
 	    var msg = {
@@ -11429,14 +11429,14 @@
 	    this.sendReceiptsMessage({
 	        id: id
 	    });
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.handleAckedMessage = function (message) {
+		connection.prototype.handleAckedMessage = function (message) {
 	    var id = message.id;
-	    var body = message.getElementsByTagName('body');
+	    var body = message.getElementsByTagName("body");
 	    var mid = 0;
 	    mid = body[0].innerHTML;
 	    var msg = {
@@ -11446,15 +11446,15 @@
 	    this.sendReceiptsMessage({
 	        id: id
 	    });
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.handleReceivedMessage = function (message) {
+		connection.prototype.handleReceivedMessage = function (message) {
 	    try {
 	        var received = message.getElementsByTagName("received");
-	        var mid = received[0].getAttribute('mid');
+	        var mid = received[0].getAttribute("mid");
 	        var body = message.getElementsByTagName("body");
 	        var id = body[0].innerHTML;
 	        var msg = {
@@ -11469,7 +11469,7 @@
 	        });
 	    }
 
-	    var rcv = message.getElementsByTagName('received'),
+	    var rcv = message.getElementsByTagName("received"),
 	        id,
 	        mid;
 
@@ -11479,7 +11479,7 @@
 	        } else {
 	            id = rcv[0].innerHTML || rcv[0].innerText;
 	        }
-	        mid = rcv[0].getAttribute('mid');
+	        mid = rcv[0].getAttribute("mid");
 	    }
 
 	    if (_msgHash[id]) {
@@ -11493,57 +11493,57 @@
 	        }
 	        delete _msgHash[id];
 	    }
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.handleInviteMessage = function (message) {
+		connection.prototype.handleInviteMessage = function (message) {
 	    var form = null;
-	    var invitemsg = message.getElementsByTagName('invite');
-	    var reasonDom = message.getElementsByTagName('reason')[0];
+	    var invitemsg = message.getElementsByTagName("invite");
+	    var reasonDom = message.getElementsByTagName("reason")[0];
 	    var reasonMsg = reasonDom.textContent;
-	    var id = message.getAttribute('id') || '';
+	    var id = message.getAttribute("id") || "";
 	    this.sendReceiptsMessage({
 	        id: id
 	    });
 
 	    if (invitemsg && invitemsg.length > 0) {
-	        var fromJid = invitemsg[0].getAttribute('from');
+	        var fromJid = invitemsg[0].getAttribute("from");
 	        form = _parseNameFromJidFn(fromJid);
 	    }
-	    var xmsg = message.getElementsByTagName('x');
+	    var xmsg = message.getElementsByTagName("x");
 	    var roomid = null;
 	    if (xmsg && xmsg.length > 0) {
 	        for (var i = 0; i < xmsg.length; i++) {
-	            if ('jabber:x:conference' === xmsg[i].namespaceURI) {
-	                var roomjid = xmsg[i].getAttribute('jid');
+	            if ("jabber:x:conference" === xmsg[i].namespaceURI) {
+	                var roomjid = xmsg[i].getAttribute("jid");
 	                roomid = _parseNameFromJidFn(roomjid);
 	            }
 	        }
 	    }
 	    this.onInviteMessage({
-	        type: 'invite',
+	        type: "invite",
 	        from: form,
 	        roomid: roomid,
 	        reason: reasonMsg
 	    });
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.handleMutedMessage = function (message) {
+		connection.prototype.handleMutedMessage = function (message) {
 	    var id = message.id;
 	    this.onMutedMessage({
 	        mid: id
 	    });
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 */
-	connection.prototype.sendCommand = function (dom, id) {
+		connection.prototype.sendCommand = function (dom, id) {
 	    if (this.isOpened()) {
 	        this.context.stropheConn.send(dom);
 	    } else {
@@ -11557,14 +11557,14 @@
 	            reconnect: true
 	        });
 	    }
-	};
+		};
 
-	/**
+		/**
 	 * 随机生成一个id用于消息id
 	 * @param {String} [prefix=WEBIM_] - 前缀
 	 * @returns {String} 唯一的id
 	 */
-	connection.prototype.getUniqueId = function (prefix) {
+		connection.prototype.getUniqueId = function (prefix) {
 	    // fix: too frequently msg sending will make same id
 	    if (this.autoIncrement) {
 	        this.autoIncrement++;
@@ -11576,37 +11576,37 @@
 	    var offset = cdate.getTime() - offdate.getTime();
 	    var hexd = parseFloat(offset).toString(16) + this.autoIncrement;
 
-	    if (typeof prefix === 'string' || typeof prefix === 'number') {
-	        return prefix + '_' + hexd;
+	    if (typeof prefix === "string" || typeof prefix === "number") {
+	        return prefix + "_" + hexd;
 	    } else {
-	        return 'WEBIM_' + hexd;
+	        return "WEBIM_" + hexd;
 	    }
-	};
+		};
 
-	/**
+		/**
 	 * send message
 	 * @param {Object} messageSource - 由 Class Message 生成
 	 */
-	connection.prototype.send = function (messageSource) {
+		connection.prototype.send = function (messageSource) {
 	    var self = this;
 	    var message = messageSource;
-	    if (message.type === 'txt') {
-	        if (this.encrypt.type === 'base64') {
+	    if (message.type === "txt") {
+	        if (this.encrypt.type === "base64") {
 	            message = _.clone(messageSource);
 	            message.msg = btoa(message.msg);
-	        } else if (this.encrypt.type === 'aes') {
+	        } else if (this.encrypt.type === "aes") {
 	            message = _.clone(messageSource);
 	            var key = CryptoJS.enc.Utf8.parse(this.encrypt.key);
 	            var iv = CryptoJS.enc.Utf8.parse(this.encrypt.iv);
 	            var mode = this.encrypt.mode.toLowerCase();
 	            var option = {};
-	            if (mode === 'cbc') {
+	            if (mode === "cbc") {
 	                option = {
 	                    iv: iv,
 	                    mode: CryptoJS.mode.CBC,
 	                    padding: CryptoJS.pad.Pkcs7
 	                };
-	            } else if (mode === 'ebc') {
+	            } else if (mode === "ebc") {
 	                option = {
 	                    mode: CryptoJS.mode.ECB,
 	                    padding: CryptoJS.pad.Pkcs7
@@ -11618,7 +11618,7 @@
 	        }
 	    }
 	    if (this.isWindowSDK) {
-	        WebIM.doQuery('{"type":"sendMessage","to":"' + message.to + '","message_type":"' + message.type + '","msg":"' + encodeURI(message.msg) + '","chatType":"' + message.chatType + '"}', function (response) {}, function (code, msg) {
+	        WebIM.doQuery("{\"type\":\"sendMessage\",\"to\":\"" + message.to + "\",\"message_type\":\"" + message.type + "\",\"msg\":\"" + encodeURI(message.msg) + "\",\"chatType\":\"" + message.chatType + "\"}", function (response) {}, function (code, msg) {
 	            var message = {
 	                data: {
 	                    data: "send"
@@ -11628,52 +11628,52 @@
 	            self.onError(message);
 	        });
 	    } else {
-	        if (Object.prototype.toString.call(message) === '[object Object]') {
-	            var appKey = this.context.appKey || '';
-	            var toJid = appKey + '_' + message.to + '@' + this.domain;
+	        if (Object.prototype.toString.call(message) === "[object Object]") {
+	            var appKey = this.context.appKey || "";
+	            var toJid = appKey + "_" + message.to + "@" + this.domain;
 
 	            if (message.group) {
-	                toJid = appKey + '_' + message.to + '@conference.' + this.domain;
+	                toJid = appKey + "_" + message.to + "@conference." + this.domain;
 	            }
 	            if (message.resource) {
-	                toJid = toJid + '/' + message.resource;
+	                toJid = toJid + "/" + message.resource;
 	            }
 
 	            message.toJid = toJid;
 	            message.id = message.id || this.getUniqueId();
 	            _msgHash[message.id] = new _message(message);
 	            _msgHash[message.id].send(this);
-	        } else if (typeof message === 'string') {
+	        } else if (typeof message === "string") {
 	            _msgHash[message] && _msgHash[message].send(this);
 	        }
 	    }
-	};
+		};
 
-	/**
+		/**
 	 * 添加联系人，已废弃不用
 	 * @param {Object} options
 	 * @deprecated
 	 */
-	connection.prototype.addRoster = function (options) {
+		connection.prototype.addRoster = function (options) {
 	    var jid = _getJid(options, this);
-	    var name = options.name || '';
-	    var groups = options.groups || '';
+	    var name = options.name || "";
+	    var groups = options.groups || "";
 
-	    var iq = $iq({ type: 'set' });
-	    iq.c('query', { xmlns: 'jabber:iq:roster' });
-	    iq.c('item', { jid: jid, name: name });
+	    var iq = $iq({ type: "set" });
+	    iq.c("query", { xmlns: "jabber:iq:roster" });
+	    iq.c("item", { jid: jid, name: name });
 
 	    if (groups) {
 	        for (var i = 0; i < groups.length; i++) {
-	            iq.c('group').t(groups[i]).up();
+	            iq.c("group").t(groups[i]).up();
 	        }
 	    }
 	    var suc = options.success || _utils.emptyfn;
 	    var error = options.error || _utils.emptyfn;
 	    this.context.stropheConn.sendIQ(iq.tree(), suc, error);
-	};
+		};
 
-	/**
+		/**
 	 * 删除联系人
 	 *
 	 * @param {Object} options
@@ -11681,33 +11681,33 @@
 	 * @param {Function} options.success - 成功回调，在这里面调用connection.unsubscribed才能真正删除联系人
 	 * @fires connection#unsubscribed
 	 */
-	connection.prototype.removeRoster = function (options) {
+		connection.prototype.removeRoster = function (options) {
 	    var jid = _getJid(options, this);
-	    var iq = $iq({ type: 'set' }).c('query', { xmlns: 'jabber:iq:roster' }).c('item', {
+	    var iq = $iq({ type: "set" }).c("query", { xmlns: "jabber:iq:roster" }).c("item", {
 	        jid: jid,
-	        subscription: 'remove'
+	        subscription: "remove"
 	    });
 
 	    var suc = options.success || _utils.emptyfn;
 	    var error = options.error || _utils.emptyfn;
 	    this.context.stropheConn.sendIQ(iq, suc, error);
-	};
+		};
 
-	/**
+		/**
 	 * 获取联系人
 	 * @param {Object} options
 	 * @param {Function} options.success - 获取好友列表成功
 	 */
-	connection.prototype.getRoster = function (options) {
+		connection.prototype.getRoster = function (options) {
 	    var dom = $iq({
-	        type: 'get'
-	    }).c('query', { xmlns: 'jabber:iq:roster' });
+	        type: "get"
+	    }).c("query", { xmlns: "jabber:iq:roster" });
 
 	    var options = options || {};
 	    var suc = options.success || this.onRoster;
 	    var completeFn = function completeFn(ele) {
 	        var rouster = [];
-	        var msgBodies = ele.getElementsByTagName('query');
+	        var msgBodies = ele.getElementsByTagName("query");
 	        if (msgBodies && msgBodies.length > 0) {
 	            var queryTag = msgBodies[0];
 	            rouster = _parseFriend(queryTag);
@@ -11728,9 +11728,9 @@
 	            type: _code.WEBIM_CONNCTION_DISCONNECTED
 	        });
 	    }
-	};
+		};
 
-	/**
+		/**
 	 * 订阅和反向订阅
 	 * @example
 	 *
@@ -11768,74 +11768,74 @@
 	 * @param {String} options.to - 想要订阅的联系人ID
 	 * @param {String} options.message - 发送给想要订阅的联系人的验证消息
 	 */
-	connection.prototype.subscribe = function (options) {
+		connection.prototype.subscribe = function (options) {
 	    var jid = _getJid(options, this);
-	    var pres = $pres({ to: jid, type: 'subscribe' });
+	    var pres = $pres({ to: jid, type: "subscribe" });
 	    if (options.message) {
-	        pres.c('status').t(options.message).up();
+	        pres.c("status").t(options.message).up();
 	    }
 	    if (options.nick) {
-	        pres.c('nick', { 'xmlns': 'http://jabber.org/protocol/nick' }).t(options.nick);
+	        pres.c("nick", { "xmlns": "http://jabber.org/protocol/nick" }).t(options.nick);
 	    }
 	    this.sendCommand(pres.tree());
-	};
+		};
 
-	/**
+		/**
 	 * 被订阅后确认同意被订阅
 	 * @param {Object} options - 订阅人的信息
 	 * @param {String} options.to - 订阅人的ID
 	 * @param {String} options.message=[resp:true] - 默认为[resp:true]，后续将去掉该参数
 	 */
-	connection.prototype.subscribed = function (options) {
-	    var message = '[resp:true]';
+		connection.prototype.subscribed = function (options) {
+	    var message = "[resp:true]";
 	    var jid = _getJid(options, this);
-	    var pres = $pres({ to: jid, type: 'subscribed' });
+	    var pres = $pres({ to: jid, type: "subscribed" });
 
 	    if (options.message) {
-	        pres.c('status').t(options.message).up();
+	        pres.c("status").t(options.message).up();
 	    }
 	    this.sendCommand(pres.tree());
-	};
+		};
 
-	/**
+		/**
 	 * 取消订阅成功，废弃不用
 	 * @param {Object} options
 	 * @deprecated
 	 */
-	connection.prototype.unsubscribe = function (options) {
+		connection.prototype.unsubscribe = function (options) {
 	    var jid = _getJid(options, this);
-	    var pres = $pres({ to: jid, type: 'unsubscribe' });
+	    var pres = $pres({ to: jid, type: "unsubscribe" });
 
 	    if (options.message) {
-	        pres.c('status').t(options.message);
+	        pres.c("status").t(options.message);
 	    }
 	    this.sendCommand(pres.tree());
-	};
+		};
 
-	/**
+		/**
 	 * 拒绝对方的订阅请求
 	 * @function connection#event:unsubscribed
 	 * @param {Object} options -
 	 * @param {String} options.to - 订阅人的ID
 	 */
-	connection.prototype.unsubscribed = function (options) {
+		connection.prototype.unsubscribed = function (options) {
 	    var jid = _getJid(options, this);
-	    var pres = $pres({ to: jid, type: 'unsubscribed' });
+	    var pres = $pres({ to: jid, type: "unsubscribed" });
 
 	    if (options.message) {
-	        pres.c('status').t(options.message).up();
+	        pres.c("status").t(options.message).up();
 	    }
 	    this.sendCommand(pres.tree());
-	};
+		};
 
-	/**
+		/**
 	 * 加入公开群组
 	 * @param {Object} options
 	 * @deprecated
 	 */
-	connection.prototype.joinPublicGroup = function (options) {
-	    var roomJid = this.context.appKey + '_' + options.roomId + '@conference.' + this.domain;
-	    var room_nick = roomJid + '/' + this.context.userId;
+		connection.prototype.joinPublicGroup = function (options) {
+	    var roomJid = this.context.appKey + "_" + options.roomId + "@conference." + this.domain;
+	    var room_nick = roomJid + "/" + this.context.userId;
 	    var suc = options.success || _utils.emptyfn;
 	    var err = options.error || _utils.emptyfn;
 	    var errorFn = function errorFn(ele) {
@@ -11847,22 +11847,22 @@
 	    var iq = $pres({
 	        from: this.context.jid,
 	        to: room_nick
-	    }).c('x', { xmlns: Strophe.NS.MUC });
+	    }).c("x", { xmlns: Strophe.NS.MUC });
 
 	    this.context.stropheConn.sendIQ(iq.tree(), suc, errorFn);
-	};
+		};
 
-	/**
+		/**
 	 * 获取聊天室列表
 	 * @param {Object} options
 	 * @deprecated
 	 */
-	connection.prototype.listRooms = function (options) {
+		connection.prototype.listRooms = function (options) {
 	    var iq = $iq({
-	        to: options.server || 'conference.' + this.domain,
+	        to: options.server || "conference." + this.domain,
 	        from: this.context.jid,
-	        type: 'get'
-	    }).c('query', { xmlns: Strophe.NS.DISCO_ITEMS });
+	        type: "get"
+	    }).c("query", { xmlns: Strophe.NS.DISCO_ITEMS });
 
 	    var suc = options.success || _utils.emptyfn;
 	    var error = options.error || this.onError;
@@ -11886,31 +11886,31 @@
 	        });
 	    };
 	    this.context.stropheConn.sendIQ(iq.tree(), completeFn, errorFn);
-	};
+		};
 
-	/**
+		/**
 	 * 获取群组成员列表
 	 * @param {Object} options
 	 * @deprecated
 	 */
-	connection.prototype.queryRoomMember = function (options) {
+		connection.prototype.queryRoomMember = function (options) {
 	    var domain = this.domain;
 	    var members = [];
 	    var iq = $iq({
-	        to: this.context.appKey + '_' + options.roomId + '@conference.' + this.domain,
-	        type: 'get'
-	    }).c('query', { xmlns: Strophe.NS.MUC + '#admin' }).c('item', { affiliation: 'member' });
+	        to: this.context.appKey + "_" + options.roomId + "@conference." + this.domain,
+	        type: "get"
+	    }).c("query", { xmlns: Strophe.NS.MUC + "#admin" }).c("item", { affiliation: "member" });
 
 	    var suc = options.success || _utils.emptyfn;
 	    var completeFn = function completeFn(result) {
-	        var items = result.getElementsByTagName('item');
+	        var items = result.getElementsByTagName("item");
 
 	        if (items) {
 	            for (var i = 0; i < items.length; i++) {
 	                var item = items[i];
 	                var mem = {
-	                    jid: item.getAttribute('jid'),
-	                    affiliation: 'member'
+	                    jid: item.getAttribute("jid"),
+	                    affiliation: "member"
 	                };
 	                members.push(mem);
 	            }
@@ -11925,63 +11925,63 @@
 	        });
 	    };
 	    this.context.stropheConn.sendIQ(iq.tree(), completeFn, errorFn);
-	};
+		};
 
-	/**
+		/**
 	 * 获取群组信息
 	 * @param {Object} options
 	 * @deprecated
 	 */
-	connection.prototype.queryRoomInfo = function (options) {
-	    console.log('QueryRoomInfo');
+		connection.prototype.queryRoomInfo = function (options) {
+	    console.log("QueryRoomInfo");
 	    var domain = this.domain;
 	    var iq = $iq({
-	        to: this.context.appKey + '_' + options.roomId + '@conference.' + domain,
-	        type: 'get'
-	    }).c('query', { xmlns: Strophe.NS.DISCO_INFO });
+	        to: this.context.appKey + "_" + options.roomId + "@conference." + domain,
+	        type: "get"
+	    }).c("query", { xmlns: Strophe.NS.DISCO_INFO });
 
 	    var suc = options.success || _utils.emptyfn;
 	    var members = [];
 
 	    var completeFn = function completeFn(result) {
-	        var settings = '';
-	        var features = result.getElementsByTagName('feature');
+	        var settings = "";
+	        var features = result.getElementsByTagName("feature");
 	        if (features) {
-	            settings = features[1].getAttribute('var') + '|' + features[3].getAttribute('var') + '|' + features[4].getAttribute('var');
+	            settings = features[1].getAttribute("var") + "|" + features[3].getAttribute("var") + "|" + features[4].getAttribute("var");
 	        }
 	        switch (settings) {
-	            case 'muc_public|muc_membersonly|muc_notallowinvites':
-	                settings = 'PUBLIC_JOIN_APPROVAL';
+	            case "muc_public|muc_membersonly|muc_notallowinvites":
+	                settings = "PUBLIC_JOIN_APPROVAL";
 	                break;
-	            case 'muc_public|muc_open|muc_notallowinvites':
-	                settings = 'PUBLIC_JOIN_OPEN';
+	            case "muc_public|muc_open|muc_notallowinvites":
+	                settings = "PUBLIC_JOIN_OPEN";
 	                break;
-	            case 'muc_hidden|muc_membersonly|muc_allowinvites':
-	                settings = 'PRIVATE_MEMBER_INVITE';
+	            case "muc_hidden|muc_membersonly|muc_allowinvites":
+	                settings = "PRIVATE_MEMBER_INVITE";
 	                break;
-	            case 'muc_hidden|muc_membersonly|muc_notallowinvites':
-	                settings = 'PRIVATE_OWNER_INVITE';
+	            case "muc_hidden|muc_membersonly|muc_notallowinvites":
+	                settings = "PRIVATE_OWNER_INVITE";
 	                break;
 	        }
-	        var owner = '';
-	        var fields = result.getElementsByTagName('field');
+	        var owner = "";
+	        var fields = result.getElementsByTagName("field");
 	        var fieldValues = {};
 	        if (fields) {
 	            for (var i = 0; i < fields.length; i++) {
 	                var field = fields[i];
-	                var fieldVar = field.getAttribute('var');
-	                var fieldSimplify = fieldVar.split('_')[1];
+	                var fieldVar = field.getAttribute("var");
+	                var fieldSimplify = fieldVar.split("_")[1];
 	                switch (fieldVar) {
-	                    case 'muc#roominfo_occupants':
-	                    case 'muc#roominfo_maxusers':
-	                    case 'muc#roominfo_affiliations':
-	                    case 'muc#roominfo_description':
-	                        fieldValues[fieldSimplify] = field.textContent || field.text || '';
+	                    case "muc#roominfo_occupants":
+	                    case "muc#roominfo_maxusers":
+	                    case "muc#roominfo_affiliations":
+	                    case "muc#roominfo_description":
+	                        fieldValues[fieldSimplify] = field.textContent || field.text || "";
 	                        break;
-	                    case 'muc#roominfo_owner':
+	                    case "muc#roominfo_owner":
 	                        var mem = {
-	                            jid: (field.textContent || field.text) + '@' + domain,
-	                            affiliation: 'owner'
+	                            jid: (field.textContent || field.text) + "@" + domain,
+	                            affiliation: "owner"
 	                        };
 	                        members.push(mem);
 	                        fieldValues[fieldSimplify] = field.textContent || field.text;
@@ -11997,7 +11997,7 @@
 	                //     break;
 	                // }
 	            }
-	            fieldValues['name'] = result.getElementsByTagName('identity')[0].getAttribute('name');
+	            fieldValues["name"] = result.getElementsByTagName("identity")[0].getAttribute("name");
 	        }
 	        suc(settings, members, fieldValues);
 	    };
@@ -12009,14 +12009,14 @@
 	        });
 	    };
 	    this.context.stropheConn.sendIQ(iq.tree(), completeFn, errorFn);
-	};
+		};
 
-	/**
+		/**
 	 * 获取聊天室管理员
 	 * @param {Object} options
 	 * @deprecated
 	 */
-	connection.prototype.queryRoomOccupants = function (options) {
+		connection.prototype.queryRoomOccupants = function (options) {
 	    var suc = options.success || _utils.emptyfn;
 	    var completeFn = function completeFn(result) {
 	        var occupants = [];
@@ -12035,64 +12035,64 @@
 	    };
 	    var info = $iq({
 	        from: this.context.jid,
-	        to: this.context.appKey + '_' + options.roomId + '@conference.' + this.domain,
-	        type: 'get'
-	    }).c('query', attrs);
+	        to: this.context.appKey + "_" + options.roomId + "@conference." + this.domain,
+	        type: "get"
+	    }).c("query", attrs);
 	    this.context.stropheConn.sendIQ(info.tree(), completeFn, errorFn);
-	};
+		};
 
-	/**
+		/**
 	 *
 	 * @deprecated
 	 * @private
 	 */
-	connection.prototype.setUserSig = function (desc) {
-	    var dom = $pres({ xmlns: 'jabber:client' });
-	    desc = desc || '';
-	    dom.c('status').t(desc);
+		connection.prototype.setUserSig = function (desc) {
+	    var dom = $pres({ xmlns: "jabber:client" });
+	    desc = desc || "";
+	    dom.c("status").t(desc);
 	    this.sendCommand(dom.tree());
-	};
+		};
 
-	/**
+		/**
 	 *
 	 * @private
 	 */
-	connection.prototype.setPresence = function (type, status) {
-	    var dom = $pres({ xmlns: 'jabber:client' });
+		connection.prototype.setPresence = function (type, status) {
+	    var dom = $pres({ xmlns: "jabber:client" });
 	    if (type) {
 	        if (status) {
-	            dom.c('show').t(type);
-	            dom.up().c('status').t(status);
+	            dom.c("show").t(type);
+	            dom.up().c("status").t(status);
 	        } else {
-	            dom.c('show').t(type);
+	            dom.c("show").t(type);
 	        }
 	    }
 	    this.sendCommand(dom.tree());
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 *
 	 */
-	connection.prototype.getPresence = function () {
-	    var dom = $pres({ xmlns: 'jabber:client' });
+		connection.prototype.getPresence = function () {
+	    var dom = $pres({ xmlns: "jabber:client" });
 	    var conn = this;
 	    this.sendCommand(dom.tree());
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 *
 	 */
-	connection.prototype.ping = function (options) {
+		connection.prototype.ping = function (options) {
 	    var options = options || {};
 	    var jid = _getJid(options, this);
 
 	    var dom = $iq({
-	        from: this.context.jid || '',
+	        from: this.context.jid || "",
 	        to: jid,
-	        type: 'get'
-	    }).c('ping', { xmlns: 'urn:xmpp:ping' });
+	        type: "get"
+	    }).c("ping", { xmlns: "urn:xmpp:ping" });
 
 	    var suc = options.success || _utils.emptyfn;
 	    var error = options.error || this.onError;
@@ -12110,46 +12110,46 @@
 	        });
 	    }
 	    return;
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 *
 	 */
-	connection.prototype.isOpened = function () {
+		connection.prototype.isOpened = function () {
 	    return this.context.status == _code.STATUS_OPENED;
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 *
 	 */
-	connection.prototype.isOpening = function () {
+		connection.prototype.isOpening = function () {
 	    var status = this.context.status;
 	    return status == _code.STATUS_DOLOGIN_USERGRID || status == _code.STATUS_DOLOGIN_IM;
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 *
 	 */
-	connection.prototype.isClosing = function () {
+		connection.prototype.isClosing = function () {
 	    return this.context.status == _code.STATUS_CLOSING;
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 *
 	 */
-	connection.prototype.isClosed = function () {
+		connection.prototype.isClosed = function () {
 	    return this.context.status == _code.STATUS_CLOSED;
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 *
 	 */
-	connection.prototype.clear = function () {
+		connection.prototype.clear = function () {
 	    var key = this.context.appKey;
 	    if (this.errorType != _code.WEBIM_CONNCTION_DISCONNECTED) {
 	        if (this.logOut) {
@@ -12176,15 +12176,15 @@
 	        };
 	        this.onError(message);
 	    }
-	};
+		};
 
-	/**
+		/**
 	 * 获取聊天室列表
 	 * @param {Object} options
 	 * @param {String} options.pagenum
 	 * @param {String} options.pagesize
 	 */
-	connection.prototype.getChatRooms = function (options) {
+		connection.prototype.getChatRooms = function (options) {
 
 	    var conn = this,
 	        token = options.accessToken || this.context.accessToken;
@@ -12209,7 +12209,7 @@
 	        }
 
 	        var suc = function suc(data, xhr) {
-	            typeof options.success === 'function' && options.success(data);
+	            typeof options.success === "function" && options.success(data);
 	        };
 
 	        var error = function error(res, xhr, msg) {
@@ -12229,10 +12229,10 @@
 	        };
 
 	        var opts = {
-	            url: apiUrl + '/' + orgName + '/' + appName + '/chatrooms',
-	            dataType: 'json',
-	            type: 'GET',
-	            headers: { 'Authorization': 'Bearer ' + token },
+	            url: apiUrl + "/" + orgName + "/" + appName + "/chatrooms",
+	            dataType: "json",
+	            type: "GET",
+	            headers: { "Authorization": "Bearer " + token },
 	            data: pageInfo,
 	            success: suc || _utils.emptyfn,
 	            error: error || _utils.emptyfn
@@ -12243,16 +12243,16 @@
 	            type: _code.WEBIM_CONNCTION_TOKEN_NOT_ASSIGN_ERROR
 	        });
 	    }
-	};
+		};
 
-	/**
+		/**
 	 * 加入聊天室
 	 * @param {Object} options
 	 * @param {String} options.roomId
 	 */
-	connection.prototype.joinChatRoom = function (options) {
-	    var roomJid = this.context.appKey + '_' + options.roomId + '@conference.' + this.domain;
-	    var room_nick = roomJid + '/' + this.context.userId;
+		connection.prototype.joinChatRoom = function (options) {
+	    var roomJid = this.context.appKey + "_" + options.roomId + "@conference." + this.domain;
+	    var room_nick = roomJid + "/" + this.context.userId;
 	    var suc = options.success || _utils.emptyfn;
 	    var err = options.error || _utils.emptyfn;
 	    var errorFn = function errorFn(ele) {
@@ -12265,19 +12265,19 @@
 	    var iq = $pres({
 	        from: this.context.jid,
 	        to: room_nick
-	    }).c('x', { xmlns: Strophe.NS.MUC + '#user' }).c('item', { affiliation: 'member', role: 'participant' }).up().up().c('roomtype', { xmlns: 'easemob:x:roomtype', type: 'chatroom' });
+	    }).c("x", { xmlns: Strophe.NS.MUC + "#user" }).c("item", { affiliation: "member", role: "participant" }).up().up().c("roomtype", { xmlns: "easemob:x:roomtype", type: "chatroom" });
 
 	    this.context.stropheConn.sendIQ(iq.tree(), suc, errorFn);
-	};
+		};
 
-	/**
+		/**
 	 * 退出聊天室
 	 * @param {Object} options
 	 * @param {String} options.roomId
 	 */
-	connection.prototype.quitChatRoom = function (options) {
-	    var roomJid = this.context.appKey + '_' + options.roomId + '@conference.' + this.domain;
-	    var room_nick = roomJid + '/' + this.context.userId;
+		connection.prototype.quitChatRoom = function (options) {
+	    var roomJid = this.context.appKey + "_" + options.roomId + "@conference." + this.domain;
+	    var room_nick = roomJid + "/" + this.context.userId;
 	    var suc = options.success || _utils.emptyfn;
 	    var err = options.error || _utils.emptyfn;
 	    var errorFn = function errorFn(ele) {
@@ -12289,25 +12289,25 @@
 	    var iq = $pres({
 	        from: this.context.jid,
 	        to: room_nick,
-	        type: 'unavailable'
-	    }).c('x', { xmlns: Strophe.NS.MUC + '#user' }).c('item', { affiliation: 'none', role: 'none' }).up().up().c('roomtype', { xmlns: 'easemob:x:roomtype', type: 'chatroom' });
+	        type: "unavailable"
+	    }).c("x", { xmlns: Strophe.NS.MUC + "#user" }).c("item", { affiliation: "none", role: "none" }).up().up().c("roomtype", { xmlns: "easemob:x:roomtype", type: "chatroom" });
 
 	    this.context.stropheConn.sendIQ(iq.tree(), suc, errorFn);
-	};
+		};
 
-	/**
+		/**
 	 * for windowSDK
 	 * @private
 	 *
 	 */
-	connection.prototype._onReceiveInviteFromGroup = function (info) {
-	    info = eval('(' + info + ')');
+		connection.prototype._onReceiveInviteFromGroup = function (info) {
+	    info = eval("(" + info + ")");
 	    var self = this;
 	    var options = {
 	        title: "Group invitation",
 	        msg: info.user + " invites you to join into group:" + info.group_id,
 	        agree: function agree() {
-	            WebIM.doQuery('{"type":"acceptInvitationFromGroup","id":"' + info.group_id + '","user":"' + info.user + '"}', function (response) {}, function (code, msg) {
+	            WebIM.doQuery("{\"type\":\"acceptInvitationFromGroup\",\"id\":\"" + info.group_id + "\",\"user\":\"" + info.user + "\"}", function (response) {}, function (code, msg) {
 	                var message = {
 	                    data: {
 	                        data: "acceptInvitationFromGroup error:" + msg
@@ -12318,7 +12318,7 @@
 	            });
 	        },
 	        reject: function reject() {
-	            WebIM.doQuery('{"type":"declineInvitationFromGroup","id":"' + info.group_id + '","user":"' + info.user + '"}', function (response) {}, function (code, msg) {
+	            WebIM.doQuery("{\"type\":\"declineInvitationFromGroup\",\"id\":\"" + info.group_id + "\",\"user\":\"" + info.user + "\"}", function (response) {}, function (code, msg) {
 	                var message = {
 	                    data: {
 	                        data: "declineInvitationFromGroup error:" + msg
@@ -12331,81 +12331,81 @@
 	    };
 
 	    this.onConfirmPop(options);
-	};
+		};
 
-	/**
+		/**
 	 * for windowSDK
 	 * @private
 	 *
 	 */
-	connection.prototype._onReceiveInviteAcceptionFromGroup = function (info) {
-	    info = eval('(' + info + ')');
+		connection.prototype._onReceiveInviteAcceptionFromGroup = function (info) {
+	    info = eval("(" + info + ")");
 	    var options = {
 	        title: "Group invitation response",
 	        msg: info.user + " agreed to join into group:" + info.group_id,
 	        agree: function agree() {}
 	    };
 	    this.onConfirmPop(options);
-	};
+		};
 
-	/**
+		/**
 	 * for windowSDK
 	 * @private
 	 *
 	 */
-	connection.prototype._onReceiveInviteDeclineFromGroup = function (info) {
-	    info = eval('(' + info + ')');
+		connection.prototype._onReceiveInviteDeclineFromGroup = function (info) {
+	    info = eval("(" + info + ")");
 	    var options = {
 	        title: "Group invitation response",
 	        msg: info.user + " rejected to join into group:" + info.group_id,
 	        agree: function agree() {}
 	    };
 	    this.onConfirmPop(options);
-	};
+		};
 
-	/**
+		/**
 	 * for windowSDK
 	 * @private
 	 *
 	 */
-	connection.prototype._onAutoAcceptInvitationFromGroup = function (info) {
-	    info = eval('(' + info + ')');
+		connection.prototype._onAutoAcceptInvitationFromGroup = function (info) {
+	    info = eval("(" + info + ")");
 	    var options = {
 	        title: "Group invitation",
 	        msg: "You had joined into the group:" + info.group_name + " automatically.Inviter:" + info.user,
 	        agree: function agree() {}
 	    };
 	    this.onConfirmPop(options);
-	};
+		};
 
-	/**
+		/**
 	 * for windowSDK
 	 * @private
 	 *
 	 */
-	connection.prototype._onLeaveGroup = function (info) {
-	    info = eval('(' + info + ')');
+		connection.prototype._onLeaveGroup = function (info) {
+	    info = eval("(" + info + ")");
 	    var options = {
 	        title: "Group notification",
 	        msg: "You have been out of the group:" + info.group_id + ".Reason:" + info.msg,
 	        agree: function agree() {}
 	    };
 	    this.onConfirmPop(options);
-	};
+		};
 
-	/**
+		/**
 	 * for windowSDK
 	 * @private
 	 *
 	 */
-	connection.prototype._onReceiveJoinGroupApplication = function (info) {
-	    info = eval('(' + info + ')');
+		connection.prototype._onReceiveJoinGroupApplication = function (info) {
+	    info = eval("(" + info + ")");
 	    var self = this;
 	    var options = {
 	        title: "Group join application",
 	        msg: info.user + " applys to join into group:" + info.group_id,
 	        agree: function agree() {
-	            WebIM.doQuery('{"type":"acceptJoinGroupApplication","id":"' + info.group_id + '","user":"' + info.user + '"}', function (response) {}, function (code, msg) {
+	            WebIM.doQuery("{\"type\":\"acceptJoinGroupApplication\",\"id\":\"" + info.group_id + "\",\"user\":\"" + info.user + "\"}", function (response) {}, function (code, msg) {
 	                var message = {
 	                    data: {
 	                        data: "acceptJoinGroupApplication error:" + msg
@@ -12416,7 +12416,7 @@
 	            });
 	        },
 	        reject: function reject() {
-	            WebIM.doQuery('{"type":"declineJoinGroupApplication","id":"' + info.group_id + '","user":"' + info.user + '"}', function (response) {}, function (code, msg) {
+	            WebIM.doQuery("{\"type\":\"declineJoinGroupApplication\",\"id\":\"" + info.group_id + "\",\"user\":\"" + info.user + "\"}", function (response) {}, function (code, msg) {
 	                var message = {
 	                    data: {
 	                        data: "declineJoinGroupApplication error:" + msg
@@ -12428,74 +12428,74 @@
 	        }
 	    };
 	    this.onConfirmPop(options);
-	};
+		};
 
-	/**
+		/**
 	 * for windowSDK
 	 * @private
 	 *
 	 */
-	connection.prototype._onReceiveAcceptionFromGroup = function (info) {
-	    info = eval('(' + info + ')');
+		connection.prototype._onReceiveAcceptionFromGroup = function (info) {
+	    info = eval("(" + info + ")");
 	    var options = {
 	        title: "Group notification",
 	        msg: "You had joined into the group:" + info.group_name + ".",
 	        agree: function agree() {}
 	    };
 	    this.onConfirmPop(options);
-	};
+		};
 
-	/**
+		/**
 	 * for windowSDK
 	 * @private
 	 *
 	 */
-	connection.prototype._onReceiveRejectionFromGroup = function () {
-	    info = eval('(' + info + ')');
+		connection.prototype._onReceiveRejectionFromGroup = function () {
+	    info = eval("(" + info + ")");
 	    var options = {
 	        title: "Group notification",
 	        msg: "You have been rejected to join into the group:" + info.group_name + ".",
 	        agree: function agree() {}
 	    };
 	    this.onConfirmPop(options);
-	};
+		};
 
-	/**
+		/**
 	 * for windowSDK
 	 * @private
 	 *
 	 */
-	connection.prototype._onUpdateMyGroupList = function (options) {
+		connection.prototype._onUpdateMyGroupList = function (options) {
 	    this.onUpdateMyGroupList(options);
-	};
+		};
 
-	/**
+		/**
 	 * for windowSDK
 	 * @private
 	 *
 	 */
-	connection.prototype._onUpdateMyRoster = function (options) {
+		connection.prototype._onUpdateMyRoster = function (options) {
 	    this.onUpdateMyRoster(options);
-	};
+		};
 
-	/**
+		/**
 	 * @private
 	 *
 	 */
-	connection.prototype.reconnect = function () {
+		connection.prototype.reconnect = function () {
 	    var that = this;
 	    setTimeout(function () {
 	        _login(that.context.restTokenData, that);
 	    }, (this.autoReconnectNumTotal == 0 ? 0 : this.autoReconnectInterval) * 1000);
 	    this.autoReconnectNumTotal++;
-	};
+		};
 
-	/**
+		/**
 	 *
 	 * @private
 	 * @deprecated
 	 */
-	connection.prototype.closed = function () {
+		connection.prototype.closed = function () {
 	    var message = {
 	        data: {
 	            data: "Closed error"
@@ -12503,19 +12503,19 @@
 	        type: _code.WEBIM_CONNECTION_CLOSED
 	    };
 	    this.onError(message);
-	};
+		};
 
-	/**
+		/**
 	 * 将消息序列化后存入localStorage
 	 * @param message {Object} 消息实体
 	 * @param type {String} 消息类型
 	 * @param status {String} 消息状态
 	 */
-	connection.prototype.addToLocal = function (message, type, status) {
+		connection.prototype.addToLocal = function (message, type, status) {
 	    if (!this.saveLocal) {
 	        return;
 	    }
-	    var sendByMe = typeof message.msg == 'string';
+	    var sendByMe = typeof message.msg == "string";
 	    if (!window.localStorage) return;
 	    try {
 	        var msg = _deepClone(message);
@@ -12523,7 +12523,7 @@
 	        console.log(e.message);
 	    }
 	    msg.data = msg.sourceMsg;
-	    if (type == 'txt') {
+	    if (type == "txt") {
 	        if (!message.data && !message.msg) {
 	            return;
 	        }
@@ -12545,32 +12545,32 @@
 	    if (!oldRecord || oldRecord == "") {
 	        record = serializedChatRecord;
 	    } else {
-	        record = oldRecord + '\n' + serializedChatRecord;
+	        record = oldRecord + "\n" + serializedChatRecord;
 	    }
 	    window.localStorage.setItem(this.user, record);
-	};
+		};
 
-	/**
+		/**
 	 * 将文本消息加密
 	 * @param messageSource {Object} 消息实体
 	 */
 
-	connection.prototype.enc = function (messageSource) {
+		connection.prototype.enc = function (messageSource) {
 	    var message = _.clone(messageSource);
-	    if (this.encrypt.type === 'base64') {
+	    if (this.encrypt.type === "base64") {
 	        message = btoa(messageSource);
-	    } else if (this.encrypt.type === 'aes') {
+	    } else if (this.encrypt.type === "aes") {
 	        var key = CryptoJS.enc.Utf8.parse(this.encrypt.key);
 	        var iv = CryptoJS.enc.Utf8.parse(this.encrypt.iv);
 	        var mode = this.encrypt.mode.toLowerCase();
 	        var option = {};
-	        if (mode === 'cbc') {
+	        if (mode === "cbc") {
 	            option = {
 	                iv: iv,
 	                mode: CryptoJS.mode.CBC,
 	                padding: CryptoJS.pad.Pkcs7
 	            };
-	        } else if (mode === 'ebc') {
+	        } else if (mode === "ebc") {
 	            option = {
 	                mode: CryptoJS.mode.ECB,
 	                padding: CryptoJS.pad.Pkcs7
@@ -12581,30 +12581,30 @@
 	        message = encryptedData.toString();
 	    }
 	    return message;
-	};
+		};
 
-	/**
+		/**
 	 * 将文本消息解密
 	 * @param source {Object} 消息实体
 	 * @returns {Object} 解密后的消息
 	 */
-	connection.prototype.decrypt = function (source) {
+		connection.prototype.decrypt = function (source) {
 	    var receiveMsg = source,
 	        self = this;
-	    if (self.encrypt.type === 'base64') {
+	    if (self.encrypt.type === "base64") {
 	        receiveMsg = atob(receiveMsg);
-	    } else if (self.encrypt.type === 'aes') {
+	    } else if (self.encrypt.type === "aes") {
 	        var key = CryptoJS.enc.Utf8.parse(self.encrypt.key);
 	        var iv = CryptoJS.enc.Utf8.parse(self.encrypt.iv);
 	        var mode = self.encrypt.mode.toLowerCase();
 	        var option = {};
-	        if (mode === 'cbc') {
+	        if (mode === "cbc") {
 	            option = {
 	                iv: iv,
 	                mode: CryptoJS.mode.CBC,
 	                padding: CryptoJS.pad.Pkcs7
 	            };
-	        } else if (mode === 'ebc') {
+	        } else if (mode === "ebc") {
 	            option = {
 	                mode: CryptoJS.mode.ECB,
 	                padding: CryptoJS.pad.Pkcs7
@@ -12616,20 +12616,20 @@
 	        receiveMsg = decryptedStr;
 	    }
 	    return receiveMsg;
-	};
+		};
 
-	/**
+		/**
 	 * 从localStorage获取消息并反序列化
 	 * @returns {Array|*} 所有消息组成的数组
 	 */
-	connection.prototype.getLocal = function () {
+		connection.prototype.getLocal = function () {
 	    if (!window.localStorage || !this.saveLocal) return;
 	    var user = this.user;
 	    var record = window.localStorage.getItem(user);
 
-	    if (!record || record == '') return;
+	    if (!record || record == "") return;
 
-	    var recordArr = record.split('\n');
+	    var recordArr = record.split("\n");
 	    for (var i in recordArr) {
 	        var recordItem = recordArr[i];
 	        recordItem = JSON.parse(recordItem);
@@ -12637,23 +12637,23 @@
 	        recordArr[i] = recordItem;
 	    }
 	    return recordArr;
-	};
+		};
 
-	/**
+		/**
 	 * used for blacklist
 	 * @private
 	 *
 	 */
-	function _parsePrivacy(iq) {
+		function _parsePrivacy(iq) {
 	    var list = [];
-	    var items = iq.getElementsByTagName('item');
+	    var items = iq.getElementsByTagName("item");
 
 	    if (items) {
 	        for (var i = 0; i < items.length; i++) {
 	            var item = items[i];
-	            var jid = item.getAttribute('value');
-	            var order = item.getAttribute('order');
-	            var type = item.getAttribute('type');
+	            var jid = item.getAttribute("value");
+	            var order = item.getAttribute("order");
+	            var type = item.getAttribute("type");
 	            if (!jid) {
 	                continue;
 	            }
@@ -12667,21 +12667,21 @@
 	        }
 	    }
 	    return list;
-	};
+		}
 
-	/**
+		/**
 	 * 获取好友黑名单
 	 *
 	 * @returns {Object} 好友列表
 	 */
-	connection.prototype.getBlacklist = function (options) {
+		connection.prototype.getBlacklist = function (options) {
 	    options = options || {};
-	    var iq = $iq({ type: 'get' });
+	    var iq = $iq({ type: "get" });
 	    var sucFn = options.success || _utils.emptyfn;
 	    var errFn = options.error || _utils.emptyfn;
 	    var me = this;
 
-	    iq.c('query', { xmlns: 'jabber:iq:privacy' }).c('list', { name: 'special' });
+	    iq.c("query", { xmlns: "jabber:iq:privacy" }).c("list", { name: "special" });
 
 	    this.context.stropheConn.sendIQ(iq.tree(), function (iq) {
 	        me.onBlacklistUpdate(_parsePrivacy(iq));
@@ -12690,9 +12690,9 @@
 	        me.onBlacklistUpdate([]);
 	        errFn();
 	    });
-	};
+		};
 
-	/**
+		/**
 	 * 将好友加入到黑名单
 	 * @param {Object} options
 	 * @param {Object[]} options.list - 调用这个函数后黑名单的所有名单列表，key值为好友的ID
@@ -12701,12 +12701,12 @@
 	 * @param {string} options.list[].jid - 要加到黑名单的好友的jid
 	 * @param {string} options.list[].name - 要加到黑名单的好友的ID
 	 */
-	connection.prototype.addToBlackList = function (options) {
-	    var iq = $iq({ type: 'set' });
+		connection.prototype.addToBlackList = function (options) {
+	    var iq = $iq({ type: "set" });
 	    var blacklist = options.list || {};
 	    var sucFn = options.success || _utils.emptyfn;
 	    var errFn = options.error || _utils.emptyfn;
-	    var piece = iq.c('query', { xmlns: 'jabber:iq:privacy' }).c('list', { name: 'special' });
+	    var piece = iq.c("query", { xmlns: "jabber:iq:privacy" }).c("list", { name: "special" });
 
 	    var keys = Object.keys(blacklist);
 	    var len = keys.length;
@@ -12714,19 +12714,19 @@
 
 	    for (var i = 0; i < len; i++) {
 	        var item = blacklist[keys[i]];
-	        var type = item.type || 'jid';
+	        var type = item.type || "jid";
 	        var jid = item.jid;
 
-	        piece = piece.c('item', { action: 'deny', order: order++, type: type, value: jid }).c('message');
+	        piece = piece.c("item", { action: "deny", order: order++, type: type, value: jid }).c("message");
 	        if (i !== len - 1) {
 	            piece = piece.up().up();
 	        }
 	    }
 
 	    this.context.stropheConn.sendIQ(piece.tree(), sucFn, errFn);
-	};
+		};
 
-	/**
+		/**
 	 * 将好友从黑名单移除
 	 * @param {Object} options
 	 * @param {Object[]} options.list - 调用这个函数后黑名单的所有名单列表，key值为好友的ID
@@ -12735,76 +12735,76 @@
 	 * @param {string} options.list[].jid - 要加到黑名单的好友的jid
 	 * @param {string} options.list[].name - 要加到黑名单的好友的ID
 	 */
-	connection.prototype.removeFromBlackList = function (options) {
-	    console.log('removeFromBlackList: ', options);
-	    var iq = $iq({ type: 'set' });
+		connection.prototype.removeFromBlackList = function (options) {
+	    console.log("removeFromBlackList: ", options);
+	    var iq = $iq({ type: "set" });
 	    var blacklist = options.list || {};
 	    var sucFn = options.success || _utils.emptyfn;
 	    var errFn = options.error || _utils.emptyfn;
-	    var piece = iq.c('query', { xmlns: 'jabber:iq:privacy' }).c('list', { name: 'special' });
+	    var piece = iq.c("query", { xmlns: "jabber:iq:privacy" }).c("list", { name: "special" });
 
 	    var keys = Object.keys(blacklist);
 	    var len = keys.length;
 
 	    for (var i = 0; i < len; i++) {
 	        var item = blacklist[keys[i]];
-	        var type = item.type || 'jid';
+	        var type = item.type || "jid";
 	        var jid = item.jid;
 	        var order = item.order;
 
-	        piece = piece.c('item', { action: 'deny', order: order, type: type, value: jid }).c('message');
+	        piece = piece.c("item", { action: "deny", order: order, type: type, value: jid }).c("message");
 	        if (i !== len - 1) {
 	            piece = piece.up().up();
 	        }
 	    }
 
 	    this.context.stropheConn.sendIQ(piece.tree(), sucFn, errFn);
-	};
+		};
 
-	/**
+		/**
 	 *
 	 * @private
 	 */
-	connection.prototype._getGroupJid = function (to) {
-	    var appKey = this.context.appKey || '';
-	    return appKey + '_' + to + '@conference.' + this.domain;
-	};
+		connection.prototype._getGroupJid = function (to) {
+	    var appKey = this.context.appKey || "";
+	    return appKey + "_" + to + "@conference." + this.domain;
+		};
 
-	/**
+		/**
 	 * 加入群组黑名单
 	 * @param {Object} options
 	 * @deprecated
 	 */
-	connection.prototype.addToGroupBlackList = function (options) {
+		connection.prototype.addToGroupBlackList = function (options) {
 	    var sucFn = options.success || _utils.emptyfn;
 	    var errFn = options.error || _utils.emptyfn;
 	    var jid = _getJid(options, this);
-	    var affiliation = 'admin'; //options.affiliation || 'admin';
+	    var affiliation = "admin"; //options.affiliation || 'admin';
 	    var to = this._getGroupJid(options.roomId);
-	    var iq = $iq({ type: 'set', to: to });
+	    var iq = $iq({ type: "set", to: to });
 
-	    iq.c('query', { xmlns: 'http://jabber.org/protocol/muc#' + affiliation }).c('item', {
-	        affiliation: 'outcast',
+	    iq.c("query", { xmlns: "http://jabber.org/protocol/muc#" + affiliation }).c("item", {
+	        affiliation: "outcast",
 	        jid: jid
 	    });
 
 	    this.context.stropheConn.sendIQ(iq.tree(), sucFn, errFn);
-	};
+		};
 
-	/**
+		/**
 	 *
 	 * @private
 	 */
-	function _parseGroupBlacklist(iq) {
+		function _parseGroupBlacklist(iq) {
 	    var list = {};
-	    var items = iq.getElementsByTagName('item');
+	    var items = iq.getElementsByTagName("item");
 
 	    if (items) {
 	        for (var i = 0; i < items.length; i++) {
 	            var item = items[i];
-	            var jid = item.getAttribute('jid');
-	            var affiliation = item.getAttribute('affiliation');
-	            var nick = item.getAttribute('nick');
+	            var jid = item.getAttribute("jid");
+	            var affiliation = item.getAttribute("affiliation");
+	            var nick = item.getAttribute("nick");
 	            if (!jid) {
 	                continue;
 	            }
@@ -12818,24 +12818,24 @@
 	        }
 	    }
 	    return list;
-	}
+		}
 
-	/**
+		/**
 	 * 获取群组黑名单
 	 * @param {Object} options
 	 * @deprecated
 	 */
-	connection.prototype.getGroupBlacklist = function (options) {
+		connection.prototype.getGroupBlacklist = function (options) {
 	    var sucFn = options.success || _utils.emptyfn;
 	    var errFn = options.error || _utils.emptyfn;
 
 	    // var jid = _getJid(options, this);
-	    var affiliation = 'admin'; //options.affiliation || 'admin';
+	    var affiliation = "admin"; //options.affiliation || 'admin';
 	    var to = this._getGroupJid(options.roomId);
-	    var iq = $iq({ type: 'get', to: to });
+	    var iq = $iq({ type: "get", to: to });
 
-	    iq.c('query', { xmlns: 'http://jabber.org/protocol/muc#' + affiliation }).c('item', {
-	        affiliation: 'outcast'
+	    iq.c("query", { xmlns: "http://jabber.org/protocol/muc#" + affiliation }).c("item", {
+	        affiliation: "outcast"
 	    });
 
 	    this.context.stropheConn.sendIQ(iq.tree(), function (msginfo) {
@@ -12843,24 +12843,24 @@
 	    }, function () {
 	        errFn();
 	    });
-	};
+		};
 
-	/**
+		/**
 	 * 从群组黑名单删除
 	 * @param {Object} options
 	 * @deprecated
 	 */
-	connection.prototype.removeGroupMemberFromBlacklist = function (options) {
+		connection.prototype.removeGroupMemberFromBlacklist = function (options) {
 	    var sucFn = options.success || _utils.emptyfn;
 	    var errFn = options.error || _utils.emptyfn;
 
 	    var jid = _getJid(options, this);
-	    var affiliation = 'admin'; //options.affiliation || 'admin';
+	    var affiliation = "admin"; //options.affiliation || 'admin';
 	    var to = this._getGroupJid(options.roomId);
-	    var iq = $iq({ type: 'set', to: to });
+	    var iq = $iq({ type: "set", to: to });
 
-	    iq.c('query', { xmlns: 'http://jabber.org/protocol/muc#' + affiliation }).c('item', {
-	        affiliation: 'none',
+	    iq.c("query", { xmlns: "http://jabber.org/protocol/muc#" + affiliation }).c("item", {
+	        affiliation: "none",
 	        jid: jid
 	    });
 
@@ -12869,32 +12869,32 @@
 	    }, function () {
 	        errFn();
 	    });
-	};
+		};
 
-	/**
+		/**
 	 * 修改群名称
 	 * @param {Object} options -
 	 * @deprecated
 	 */
-	connection.prototype.changeGroupSubject = function (options) {
+		connection.prototype.changeGroupSubject = function (options) {
 	    var sucFn = options.success || _utils.emptyfn;
 	    var errFn = options.error || _utils.emptyfn;
 
 	    // must be `owner`
-	    var affiliation = 'owner';
+	    var affiliation = "owner";
 	    var to = this._getGroupJid(options.roomId);
-	    var iq = $iq({ type: 'set', to: to });
+	    var iq = $iq({ type: "set", to: to });
 
-	    iq.c('query', { xmlns: 'http://jabber.org/protocol/muc#' + affiliation }).c('x', { type: 'submit', xmlns: 'jabber:x:data' }).c('field', { 'var': 'FORM_TYPE' }).c('value').t('http://jabber.org/protocol/muc#roomconfig').up().up().c('field', { 'var': 'muc#roomconfig_roomname' }).c('value').t(options.subject).up().up().c('field', { 'var': 'muc#roomconfig_roomdesc' }).c('value').t(options.description);
+	    iq.c("query", { xmlns: "http://jabber.org/protocol/muc#" + affiliation }).c("x", { type: "submit", xmlns: "jabber:x:data" }).c("field", { "var": "FORM_TYPE" }).c("value").t("http://jabber.org/protocol/muc#roomconfig").up().up().c("field", { "var": "muc#roomconfig_roomname" }).c("value").t(options.subject).up().up().c("field", { "var": "muc#roomconfig_roomdesc" }).c("value").t(options.description);
 
 	    this.context.stropheConn.sendIQ(iq.tree(), function (msginfo) {
 	        sucFn();
 	    }, function () {
 	        errFn();
 	    });
-	};
+		};
 
-	/**
+		/**
 	 * 删除群组
 	 *
 	 * @param {Object} options -
@@ -12908,25 +12908,25 @@
 	 </iq>
 	 * @deprecated
 	 */
-	connection.prototype.destroyGroup = function (options) {
+		connection.prototype.destroyGroup = function (options) {
 	    var sucFn = options.success || _utils.emptyfn;
 	    var errFn = options.error || _utils.emptyfn;
 
 	    // must be `owner`
-	    var affiliation = 'owner';
+	    var affiliation = "owner";
 	    var to = this._getGroupJid(options.roomId);
-	    var iq = $iq({ type: 'set', to: to });
+	    var iq = $iq({ type: "set", to: to });
 
-	    iq.c('query', { xmlns: 'http://jabber.org/protocol/muc#' + affiliation }).c('destroy').c('reason').t(options.reason || '');
+	    iq.c("query", { xmlns: "http://jabber.org/protocol/muc#" + affiliation }).c("destroy").c("reason").t(options.reason || "");
 
 	    this.context.stropheConn.sendIQ(iq.tree(), function (msginfo) {
 	        sucFn();
 	    }, function () {
 	        errFn();
 	    });
-	};
+		};
 
-	/**
+		/**
 	 * 主动离开群组
 	 *
 	 * @param {Object} options -
@@ -12939,32 +12939,32 @@
 	 <presence to="easemob-demo#chatdemoui_1479811172349@conference.easemob.com/mt002" type="unavailable"/>
 	 * @deprecated
 	 */
-	connection.prototype.leaveGroupBySelf = function (options) {
+		connection.prototype.leaveGroupBySelf = function (options) {
 	    var self = this;
 	    var sucFn = options.success || _utils.emptyfn;
 	    var errFn = options.error || _utils.emptyfn;
 
 	    // must be `owner`
 	    var jid = _getJid(options, this);
-	    var affiliation = 'admin';
+	    var affiliation = "admin";
 	    var to = this._getGroupJid(options.roomId);
-	    var iq = $iq({ type: 'set', to: to });
+	    var iq = $iq({ type: "set", to: to });
 
-	    iq.c('query', { xmlns: 'http://jabber.org/protocol/muc#' + affiliation }).c('item', {
-	        affiliation: 'none',
+	    iq.c("query", { xmlns: "http://jabber.org/protocol/muc#" + affiliation }).c("item", {
+	        affiliation: "none",
 	        jid: jid
 	    });
 
 	    this.context.stropheConn.sendIQ(iq.tree(), function (msgInfo) {
 	        sucFn(msgInfo);
-	        var pres = $pres({ type: 'unavailable', to: to + '/' + self.context.userId });
+	        var pres = $pres({ type: "unavailable", to: to + "/" + self.context.userId });
 	        self.sendCommand(pres.tree());
 	    }, function (errInfo) {
 	        errFn(errInfo);
 	    });
-	};
+		};
 
-	/**
+		/**
 	 * 群主从群组中踢人，后续会改为调用RestFul API
 	 *
 	 * @param {Object} options -
@@ -12981,14 +12981,14 @@
 	 </query>
 	 </iq>
 	 */
-	connection.prototype.leaveGroup = function (options) {
+		connection.prototype.leaveGroup = function (options) {
 	    var sucFn = options.success || _utils.emptyfn;
 	    var errFn = options.error || _utils.emptyfn;
 	    var list = options.list || [];
-	    var affiliation = 'admin';
+	    var affiliation = "admin";
 	    var to = this._getGroupJid(options.roomId);
-	    var iq = $iq({ type: 'set', to: to });
-	    var piece = iq.c('query', { xmlns: 'http://jabber.org/protocol/muc#' + affiliation });
+	    var iq = $iq({ type: "set", to: to });
+	    var piece = iq.c("query", { xmlns: "http://jabber.org/protocol/muc#" + affiliation });
 	    var keys = Object.keys(list);
 	    var len = keys.length;
 
@@ -12996,11 +12996,11 @@
 	        var name = list[keys[i]];
 	        var jid = _getJidByName(name, this);
 
-	        piece = piece.c('item', {
-	            affiliation: 'none',
+	        piece = piece.c("item", {
+	            affiliation: "none",
 	            jid: jid
-	        }).up().c('item', {
-	            role: 'none',
+	        }).up().c("item", {
+	            role: "none",
 	            jid: jid
 	        }).up();
 	    }
@@ -13010,9 +13010,9 @@
 	    }, function (errInfo) {
 	        errFn(errInfo);
 	    });
-	};
+		};
 
-	/**
+		/**
 	 * 添加群组成员
 	 *
 	 * @param {Object} options -
@@ -13034,14 +13034,14 @@
 	 </query>
 	 </iq>
 	 */
-	connection.prototype.addGroupMembers = function (options) {
+		connection.prototype.addGroupMembers = function (options) {
 	    var sucFn = options.success || _utils.emptyfn;
 	    var errFn = options.error || _utils.emptyfn;
 	    var list = options.list || [];
-	    var affiliation = 'admin';
+	    var affiliation = "admin";
 	    var to = this._getGroupJid(options.roomId);
-	    var iq = $iq({ type: 'set', to: to });
-	    var piece = iq.c('query', { xmlns: 'http://jabber.org/protocol/muc#' + affiliation });
+	    var iq = $iq({ type: "set", to: to });
+	    var piece = iq.c("query", { xmlns: "http://jabber.org/protocol/muc#" + affiliation });
 	    var len = list.length;
 
 	    for (var i = 0; i < len; i++) {
@@ -13049,18 +13049,18 @@
 	        var name = list[i];
 	        var jid = _getJidByName(name, this);
 
-	        piece = piece.c('item', {
-	            affiliation: 'member',
+	        piece = piece.c("item", {
+	            affiliation: "member",
 	            jid: jid
 	        }).up();
 
 	        var dom = $msg({
 	            to: to
-	        }).c('x', {
-	            xmlns: 'http://jabber.org/protocol/muc#user'
-	        }).c('invite', {
+	        }).c("x", {
+	            xmlns: "http://jabber.org/protocol/muc#user"
+	        }).c("invite", {
 	            to: jid
-	        }).c('reason').t(options.reason || '');
+	        }).c("reason").t(options.reason || "");
 
 	        this.sendCommand(dom.tree());
 	    }
@@ -13070,23 +13070,23 @@
 	    }, function (errInfo) {
 	        errFn(errInfo);
 	    });
-	};
+		};
 
-	/**
+		/**
 	 * 接受加入申请
 	 *
 	 * @param {Object} options -
 	 * @deprecated
 	 */
-	connection.prototype.acceptInviteFromGroup = function (options) {
+		connection.prototype.acceptInviteFromGroup = function (options) {
 	    options.success = function () {
 	        // then send sendAcceptInviteMessage
 	        // connection.prototype.sendAcceptInviteMessage(optoins);
 	    };
 	    this.addGroupMembers(options);
-	};
+		};
 
-	/**
+		/**
 	 * 拒绝入群申请
 	 * @param {Object} options -
 	 * @example
@@ -13101,7 +13101,7 @@
 	 </message>
 	 * @deprecated
 	 */
-	connection.prototype.rejectInviteFromGroup = function (options) {
+		connection.prototype.rejectInviteFromGroup = function (options) {
 	    // var from = _getJidByName(options.from, this);
 	    // var dom = $msg({
 	    //     from: from,
@@ -13115,23 +13115,23 @@
 	    // }).c('reason').t(options.reason || '');
 	    //
 	    // this.sendCommand(dom.tree());
-	};
+		};
 
-	/**
+		/**
 	 * 创建群组-异步
 	 * @param {Object} p -
 	 * @deprecated
 	 */
-	connection.prototype.createGroupAsync = function (p) {
+		connection.prototype.createGroupAsync = function (p) {
 	    var roomId = p.from;
 	    var me = this;
 	    var toRoom = this._getGroupJid(roomId);
-	    var to = toRoom + '/' + this.context.userId;
+	    var to = toRoom + "/" + this.context.userId;
 	    var options = this.groupOption;
 	    var suc = p.success || _utils.emptyfn;
 
 	    // Creating a Reserved Room
-	    var iq = $iq({ type: 'get', to: toRoom }).c('query', { xmlns: 'http://jabber.org/protocol/muc#owner' });
+	    var iq = $iq({ type: "get", to: toRoom }).c("query", { xmlns: "http://jabber.org/protocol/muc#owner" });
 
 	    // Strophe.info('step 1 ----------');
 	    // Strophe.info(options);
@@ -13139,66 +13139,66 @@
 	        // console.log(msgInfo);
 
 	        // for ie hack
-	        if ('setAttribute' in msgInfo) {
+	        if ("setAttribute" in msgInfo) {
 	            // Strophe.info('step 3 ----------');
-	            var x = msgInfo.getElementsByTagName('x')[0];
-	            x.setAttribute('type', 'submit');
+	            var x = msgInfo.getElementsByTagName("x")[0];
+	            x.setAttribute("type", "submit");
 	        } else {
 	            // Strophe.info('step 4 ----------');
-	            Strophe.forEachChild(msgInfo, 'x', function (field) {
-	                field.setAttribute('type', 'submit');
+	            Strophe.forEachChild(msgInfo, "x", function (field) {
+	                field.setAttribute("type", "submit");
 	            });
 	        }
 
-	        Strophe.info('step 5 ----------');
-	        Strophe.forEachChild(x, 'field', function (field) {
-	            var fieldVar = field.getAttribute('var');
-	            var valueDom = field.getElementsByTagName('value')[0];
+	        Strophe.info("step 5 ----------");
+	        Strophe.forEachChild(x, "field", function (field) {
+	            var fieldVar = field.getAttribute("var");
+	            var valueDom = field.getElementsByTagName("value")[0];
 	            Strophe.info(fieldVar);
 	            switch (fieldVar) {
-	                case 'muc#roomconfig_maxusers':
+	                case "muc#roomconfig_maxusers":
 	                    _setText(valueDom, options.optionsMaxUsers || 200);
 	                    break;
-	                case 'muc#roomconfig_roomname':
-	                    _setText(valueDom, options.subject || '');
+	                case "muc#roomconfig_roomname":
+	                    _setText(valueDom, options.subject || "");
 	                    break;
-	                case 'muc#roomconfig_roomdesc':
-	                    _setText(valueDom, options.description || '');
+	                case "muc#roomconfig_roomdesc":
+	                    _setText(valueDom, options.description || "");
 	                    break;
-	                case 'muc#roomconfig_publicroom':
+	                case "muc#roomconfig_publicroom":
 	                    // public 1
 	                    _setText(valueDom, +options.optionsPublic);
 	                    break;
-	                case 'muc#roomconfig_membersonly':
+	                case "muc#roomconfig_membersonly":
 	                    _setText(valueDom, +options.optionsMembersOnly);
 	                    break;
-	                case 'muc#roomconfig_moderatedroom':
+	                case "muc#roomconfig_moderatedroom":
 	                    _setText(valueDom, +options.optionsModerate);
 	                    break;
-	                case 'muc#roomconfig_persistentroom':
+	                case "muc#roomconfig_persistentroom":
 	                    _setText(valueDom, 1);
 	                    break;
-	                case 'muc#roomconfig_allowinvites':
+	                case "muc#roomconfig_allowinvites":
 	                    _setText(valueDom, +options.optionsAllowInvites);
 	                    break;
-	                case 'muc#roomconfig_allowvisitornickchange':
+	                case "muc#roomconfig_allowvisitornickchange":
 	                    _setText(valueDom, 0);
 	                    break;
-	                case 'muc#roomconfig_allowvisitorstatus':
+	                case "muc#roomconfig_allowvisitorstatus":
 	                    _setText(valueDom, 0);
 	                    break;
-	                case 'allow_private_messages':
+	                case "allow_private_messages":
 	                    _setText(valueDom, 0);
 	                    break;
-	                case 'allow_private_messages_from_visitors':
-	                    _setText(valueDom, 'nobody');
+	                case "allow_private_messages_from_visitors":
+	                    _setText(valueDom, "nobody");
 	                    break;
 	                default:
 	                    break;
 	            }
 	        });
 
-	        var iq = $iq({ to: toRoom, type: 'set' }).c('query', { xmlns: 'http://jabber.org/protocol/muc#owner' }).cnode(x);
+	        var iq = $iq({ to: toRoom, type: "set" }).c("query", { xmlns: "http://jabber.org/protocol/muc#owner" }).cnode(x);
 
 	        me.context.stropheConn.sendIQ(iq.tree(), function (msgInfo) {
 	            me.addGroupMembers({
@@ -13214,9 +13214,9 @@
 	    }, function (errInfo) {
 	        // errFn(errInfo);
 	    });
-	};
+		};
 
-	/**
+		/**
 	 * 创建群组
 	 * @param {Object} options -
 	 * @deprecated
@@ -13227,19 +13227,19 @@
 	 * 4. 添加房间成员
 	 * 5. 消息通知成员
 	 */
-	connection.prototype.createGroup = function (options) {
+		connection.prototype.createGroup = function (options) {
 	    this.groupOption = options;
 	    var roomId = +new Date();
 	    var toRoom = this._getGroupJid(roomId);
-	    var to = toRoom + '/' + this.context.userId;
+	    var to = toRoom + "/" + this.context.userId;
 
-	    var pres = $pres({ to: to }).c('x', { xmlns: 'http://jabber.org/protocol/muc' }).up().c('create', { xmlns: 'http://jabber.org/protocol/muc' }).up();
+	    var pres = $pres({ to: to }).c("x", { xmlns: "http://jabber.org/protocol/muc" }).up().c("create", { xmlns: "http://jabber.org/protocol/muc" }).up();
 
 	    // createGroupACK
 	    this.sendCommand(pres.tree());
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API接口创建群组
 	 * @param opt {Object} - 群组信息
 	 * @param opt.data.groupname {string} - 群组名
@@ -13250,16 +13250,16 @@
 	 * @param opt.data.allowinvites {Boolean} - 前提：opt.data.public=false, true: 允许成员邀请入群，false: 不允许成员邀请入群
 	 * @since 1.4.11
 	 */
-	connection.prototype.createGroupNew = function (opt) {
+		connection.prototype.createGroupNew = function (opt) {
 	    opt.data.owner = this.user;
 	    var options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/chatgroups',
-	        dataType: 'json',
-	        type: 'POST',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/chatgroups",
+	        dataType: "json",
+	        type: "POST",
 	        data: JSON.stringify(opt.data),
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = function (respData) {
@@ -13268,167 +13268,167 @@
 	    }.bind(this);
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API屏蔽群组，只对移动端有效
 	 * @param {Object} options -
 	 * @param {string} options.groupId - 需要屏蔽的群组ID
 	 * @since 1.4.11
 	 */
-	connection.prototype.blockGroup = function (opt) {
+		connection.prototype.blockGroup = function (opt) {
 	    var groupId = opt.groupId;
-	    groupId = 'notification_ignore_' + groupId;
+	    groupId = "notification_ignore_" + groupId;
 	    var data = {
 	        entities: []
 	    };
 	    data.entities[0] = {};
 	    data.entities[0][groupId] = true;
 	    var options = {
-	        type: 'PUT',
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'users' + '/' + this.user,
+	        type: "PUT",
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "users" + "/" + this.user,
 	        data: JSON.stringify(data),
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API发出入群申请
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组ID
 	 * @since 1.4.11
 	 */
-	connection.prototype.joinGroup = function (opt) {
+		connection.prototype.joinGroup = function (opt) {
 	    var options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + opt.groupId + '/' + 'apply',
-	        type: 'POST',
-	        dataType: 'json',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + opt.groupId + "/" + "apply",
+	        type: "POST",
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API分页获取群组列表
 	 * @param {Object} opt -
 	 * @param {Number} opt.limit - 每一页群组的最大数目
 	 * @param {string} opt.cursor=null - 游标，如果数据还有下一页，API 返回值会包含此字段，传递此字段可获取下一页的数据，为null时获取第一页数据
 	 * @since 1.4.11
 	 */
-	connection.prototype.listGroups = function (opt) {
+		connection.prototype.listGroups = function (opt) {
 	    var requestData = [];
-	    requestData['limit'] = opt.limit;
-	    requestData['cursor'] = opt.cursor;
-	    if (!requestData['cursor']) delete requestData['cursor'];
+	    requestData["limit"] = opt.limit;
+	    requestData["cursor"] = opt.cursor;
+	    if (!requestData["cursor"]) delete requestData["cursor"];
 	    if (isNaN(opt.limit)) {
-	        throw 'The parameter \"limit\" should be a number';
+	        throw "The parameter \"limit\" should be a number";
 	        return;
 	    }
 	    var options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/publicchatgroups',
-	        type: 'GET',
-	        dataType: 'json',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/publicchatgroups",
+	        type: "GET",
+	        dataType: "json",
 	        data: requestData,
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API根据groupId获取群组详情
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组ID
 	 * @since 1.4.11
 	 */
-	connection.prototype.getGroupInfo = function (opt) {
+		connection.prototype.getGroupInfo = function (opt) {
 	    var options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/chatgroups/' + opt.groupId,
-	        type: 'GET',
-	        dataType: 'json',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/chatgroups/" + opt.groupId,
+	        type: "GET",
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API列出某用户所加入的所有群组
 	 * @param {Object} opt - 加入两个回调函数即可，success, error
 	 * @since 1.4.11
 	 */
-	connection.prototype.getGroup = function (opt) {
+		connection.prototype.getGroup = function (opt) {
 	    var options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'users' + '/' + this.user + '/' + 'joined_chatgroups',
-	        dataType: 'json',
-	        type: 'GET',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "users" + "/" + this.user + "/" + "joined_chatgroups",
+	        dataType: "json",
+	        type: "GET",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API分页列出群组的所有成员
 	 * @param {Object} opt -
 	 * @param {Number} opt.pageNum - 页码
 	 * @param {Number} opt.pageSize - 每一页的最大群成员数目
 	 * @param {string} opt.groupId - 群ID
 	 */
-	connection.prototype.listGroupMember = function (opt) {
+		connection.prototype.listGroupMember = function (opt) {
 	    if (isNaN(opt.pageNum) || opt.pageNum <= 0) {
-	        throw 'The parameter \"pageNum\" should be a positive number';
+	        throw "The parameter \"pageNum\" should be a positive number";
 	        return;
 	    } else if (isNaN(opt.pageSize) || opt.pageSize <= 0) {
-	        throw 'The parameter \"pageSize\" should be a positive number';
+	        throw "The parameter \"pageSize\" should be a positive number";
 	        return;
-	    } else if (opt.groupId === null && typeof opt.groupId === 'undefined') {
-	        throw 'The parameter \"groupId\" should be added';
+	    } else if (opt.groupId === null && typeof opt.groupId === "undefined") {
+	        throw "The parameter \"groupId\" should be added";
 	        return;
 	    }
 	    var requestData = [],
 	        groupId = opt.groupId;
-	    requestData['pagenum'] = opt.pageNum;
-	    requestData['pagesize'] = opt.pageSize;
+	    requestData["pagenum"] = opt.pageNum;
+	    requestData["pagesize"] = opt.pageSize;
 	    var options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/chatgroups' + '/' + groupId + '/users',
-	        dataType: 'json',
-	        type: 'GET',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/chatgroups" + "/" + groupId + "/users",
+	        dataType: "json",
+	        type: "GET",
 	        data: requestData,
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API禁止群用户发言
 	 * @param {Object} opt -
 	 * @param {string} opt.username - 被禁言的群成员的ID
@@ -13436,150 +13436,150 @@
 	 * @param {string} opt.groupId - 群ID
 	 * @since 1.4.11
 	 */
-	connection.prototype.mute = function (opt) {
+		connection.prototype.mute = function (opt) {
 	    var groupId = opt.groupId,
 	        requestData = {
 	        "usernames": [opt.username],
 	        "mute_duration": opt.muteDuration
 	    },
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'mute',
-	        dataType: 'json',
-	        type: 'POST',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "mute",
+	        dataType: "json",
+	        type: "POST",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        },
 	        data: JSON.stringify(requestData)
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API取消对用户禁言
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群ID
 	 * @param {string} opt.username - 被取消禁言的群用户ID
 	 * @since 1.4.11
 	 */
-	connection.prototype.removeMute = function (opt) {
+		connection.prototype.removeMute = function (opt) {
 	    var groupId = opt.groupId,
 	        username = opt.username;
 	    var options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'mute' + '/' + username,
-	        dataType: 'json',
-	        type: 'DELETE',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "mute" + "/" + username,
+	        dataType: "json",
+	        type: "DELETE",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API获取群组下所有管理员
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组ID
 	 * @since 1.4.11
 	 */
-	connection.prototype.getGroupAdmin = function (opt) {
+		connection.prototype.getGroupAdmin = function (opt) {
 	    var groupId = opt.groupId;
 	    var options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/chatgroups' + '/' + groupId + '/admin',
-	        dataType: 'json',
-	        type: 'GET',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/chatgroups" + "/" + groupId + "/admin",
+	        dataType: "json",
+	        type: "GET",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API获取群组下所有被禁言成员
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组ID
 	 */
-	connection.prototype.getMuted = function (opt) {
+		connection.prototype.getMuted = function (opt) {
 	    var groupId = opt.groupId;
 	    var options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/chatgroups' + '/' + groupId + '/mute',
-	        dataType: 'json',
-	        type: 'GET',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/chatgroups" + "/" + groupId + "/mute",
+	        dataType: "json",
+	        type: "GET",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API设置群管理员
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组ID
 	 * @param {string} opt.username - 用户ID
 	 */
-	connection.prototype.setAdmin = function (opt) {
+		connection.prototype.setAdmin = function (opt) {
 	    var groupId = opt.groupId,
 	        requestData = {
 	        newadmin: opt.username
 	    },
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'admin',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "admin",
 	        type: "POST",
-	        dataType: 'json',
+	        dataType: "json",
 	        data: JSON.stringify(requestData),
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API取消群管理员
 	 * @param {Object} opt -
 	 * @param {string} opt.gorupId - 群组ID
 	 * @param {string} opt.username - 用户ID
 	 */
-	connection.prototype.removeAdmin = function (opt) {
+		connection.prototype.removeAdmin = function (opt) {
 	    var groupId = opt.groupId,
 	        username = opt.username,
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'admin' + '/' + username,
-	        type: 'DELETE',
-	        dataType: 'json',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "admin" + "/" + username,
+	        type: "DELETE",
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API同意用户加入群
 	 * @param {Object} opt -
 	 * @param {string} opt.applicant - 申请加群的用户名
 	 * @param {Object} opt.groupId - 群组ID
 	 */
-	connection.prototype.agreeJoinGroup = function (opt) {
+		connection.prototype.agreeJoinGroup = function (opt) {
 	    var groupId = opt.groupId,
 	        requestData = {
 	        "applicant": opt.applicant,
@@ -13587,27 +13587,27 @@
 	        "reason": "no clue"
 	    },
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'apply_verify',
-	        type: 'POST',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "apply_verify",
+	        type: "POST",
 	        dataType: "json",
 	        data: JSON.stringify(requestData),
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API拒绝用户加入群
 	 * @param {Object} opt -
 	 * @param {string} opt.applicant - 申请加群的用户名
 	 * @param {Object} opt.groupId - 群组ID
 	 */
-	connection.prototype.rejectJoinGroup = function (opt) {
+		connection.prototype.rejectJoinGroup = function (opt) {
 	    var groupId = opt.groupId,
 	        requestData = {
 	        "applicant": opt.applicant,
@@ -13615,298 +13615,298 @@
 	        "reason": "no clue"
 	    },
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'apply_verify',
-	        type: 'POST',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "apply_verify",
+	        type: "POST",
 	        dataType: "json",
 	        data: JSON.stringify(requestData),
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API添加用户至群组黑名单(单个)
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组ID
 	 * @param {stirng} opt.username - 用户ID
 	 */
-	connection.prototype.groupBlockSingle = function (opt) {
+		connection.prototype.groupBlockSingle = function (opt) {
 	    var groupId = opt.groupId,
 	        username = opt.username,
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'blocks' + '/' + 'users' + '/' + username,
-	        type: 'POST',
-	        dataType: 'json',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "blocks" + "/" + "users" + "/" + username,
+	        type: "POST",
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API添加用户至群组黑名单(批量)
 	 * @param {Object} opt -
 	 * @param {string[]} opt.username - 用户ID数组
 	 * @param {string} opt.groupId - 群组ID
 	 */
-	connection.prototype.groupBlockMulti = function (opt) {
+		connection.prototype.groupBlockMulti = function (opt) {
 	    var groupId = opt.groupId,
 	        usernames = opt.usernames,
 	        requestData = {
 	        usernames: usernames
 	    },
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'blocks' + '/' + 'users',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "blocks" + "/" + "users",
 	        data: JSON.stringify(requestData),
-	        type: 'POST',
-	        dataType: 'json',
+	        type: "POST",
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API将用户从群黑名单移除（单个）
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组ID
 	 * @param {string} opt.username - 用户名
 	 */
-	connection.prototype.removeGroupBlockSingle = function (opt) {
+		connection.prototype.removeGroupBlockSingle = function (opt) {
 	    var groupId = opt.groupId,
 	        username = opt.username,
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'blocks' + '/' + 'users' + '/' + username,
-	        type: 'DELETE',
-	        dataType: 'json',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "blocks" + "/" + "users" + "/" + username,
+	        type: "DELETE",
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API将用户从群黑名单移除（批量）
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组名
 	 * @param {string[]} opt.username - 用户ID数组
 	 */
-	connection.prototype.removeGroupBlockMulti = function (opt) {
+		connection.prototype.removeGroupBlockMulti = function (opt) {
 	    var groupId = opt.groupId,
-	        username = opt.username.join(','),
+	        username = opt.username.join(","),
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'blocks' + '/' + 'users' + '/' + username,
-	        type: 'DELETE',
-	        dataType: 'json',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "blocks" + "/" + "users" + "/" + username,
+	        type: "DELETE",
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API解散群组
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组ID
 	 */
-	connection.prototype.dissolveGroup = function (opt) {
+		connection.prototype.dissolveGroup = function (opt) {
 	    var groupId = opt.groupId,
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '?version=v3',
-	        type: 'DELETE',
-	        dataType: 'json',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "?version=v3",
+	        type: "DELETE",
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API获取群组黑名单
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组ID
 	 */
-	connection.prototype.getGroupBlacklistNew = function (opt) {
+		connection.prototype.getGroupBlacklistNew = function (opt) {
 	    var groupId = opt.groupId,
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'blocks' + '/' + 'users',
-	        type: 'GET',
-	        dataType: 'json',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "blocks" + "/" + "users",
+	        type: "GET",
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API离开群组
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组ID
 	 */
-	connection.prototype.quitGroup = function (opt) {
+		connection.prototype.quitGroup = function (opt) {
 	    var groupId = opt.groupId,
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'quit',
-	        type: 'DELETE',
-	        dataType: 'json',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "quit",
+	        type: "DELETE",
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API修改群信息
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组ID
 	 * @param {string} opt.groupName - 群组名
 	 * @param {string} opt.description - 群组简介
 	 */
-	connection.prototype.modifyGroup = function (opt) {
+		connection.prototype.modifyGroup = function (opt) {
 	    var groupId = opt.groupId,
 	        requestData = {
 	        groupname: opt.groupName,
 	        description: opt.description
 	    },
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId,
-	        type: 'PUT',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId,
+	        type: "PUT",
 	        data: JSON.stringify(requestData),
-	        dataType: 'json',
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API删除单个群成员
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组ID
 	 * @param {string} opt.username - 用户名
 	 */
-	connection.prototype.removeSingleGroupMember = function (opt) {
+		connection.prototype.removeSingleGroupMember = function (opt) {
 	    var groupId = opt.groupId,
 	        username = opt.username,
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'users' + '/' + username,
-	        type: 'DELETE',
-	        dataType: 'json',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "users" + "/" + username,
+	        type: "DELETE",
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API删除多个群成员
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组ID
 	 * @param {string[]} opt.users - 用户ID数组
 	 */
-	connection.prototype.removeMultiGroupMember = function (opt) {
+		connection.prototype.removeMultiGroupMember = function (opt) {
 	    var groupId = opt.groupId,
-	        users = opt.users.join(','),
+	        users = opt.users.join(","),
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'users' + '/' + users,
-	        type: 'DELETE',
-	        dataType: 'json',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "users" + "/" + users,
+	        type: "DELETE",
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	/**
+		/**
 	 * 通过RestFul API邀请群成员
 	 * @param {Object} opt -
 	 * @param {string} opt.groupId - 群组名
 	 * @param {string[]} opt.users - 用户名ID数组
 	 */
-	connection.prototype.inviteToGroup = function (opt) {
+		connection.prototype.inviteToGroup = function (opt) {
 	    var groupId = opt.groupId,
 	        users = opt.users,
 	        requestData = {
 	        usernames: users
 	    },
 	        options = {
-	        url: this.apiUrl + '/' + this.orgName + '/' + this.appName + '/' + 'chatgroups' + '/' + groupId + '/' + 'invite',
-	        type: 'POST',
+	        url: this.apiUrl + "/" + this.orgName + "/" + this.appName + "/" + "chatgroups" + "/" + groupId + "/" + "invite",
+	        type: "POST",
 	        data: JSON.stringify(requestData),
-	        dataType: 'json',
+	        dataType: "json",
 	        headers: {
-	            'Authorization': 'Bearer ' + this.token,
-	            'Content-Type': 'application/json'
+	            "Authorization": "Bearer " + this.token,
+	            "Content-Type": "application/json"
 	        }
 	    };
 	    options.success = opt.success || _utils.emptyfn;
 	    options.error = opt.error || _utils.emptyfn;
 	    WebIM.utils.ajax(options);
-	};
+		};
 
-	function _setText(valueDom, v) {
-	    if ('textContent' in valueDom) {
+		function _setText(valueDom, v) {
+	    if ("textContent" in valueDom) {
 	        valueDom.textContent = v;
-	    } else if ('text' in valueDom) {
+	    } else if ("text" in valueDom) {
 	        valueDom.text = v;
 	    } else {
 	        // Strophe.info('_setText 4 ----------');
 	        // valueDom.innerHTML = v;
 	    }
-	}
+		}
 
-	var WebIM = window.WebIM || {};
-	WebIM.connection = connection;
-	WebIM.utils = _utils;
-	WebIM.statusCode = _code;
-	WebIM.message = _msg.message;
-	WebIM.doQuery = function (str, suc, fail) {
-	    if (typeof window.cefQuery === 'undefined') {
+		var WebIM = window.WebIM || {};
+		WebIM.connection = connection;
+		WebIM.utils = _utils;
+		WebIM.statusCode = _code;
+		WebIM.message = _msg.message;
+		WebIM.doQuery = function (str, suc, fail) {
+	    if (typeof window.cefQuery === "undefined") {
 	        return;
 	    }
 	    window.cefQuery({
@@ -13915,50 +13915,50 @@
 	        onSuccess: suc,
 	        onFailure: fail
 	    });
-	};
+		};
 
-	/**************************** debug ****************************/
-	function logMessage(message) {
-	    WebIM && WebIM.config.isDebug && console.log(WebIM.utils.ts() + '[recv] ', message.data);
-	}
+		/**************************** debug ****************************/
+		function logMessage(message) {
+	    WebIM && WebIM.config.isDebug && console.log(WebIM.utils.ts() + "[recv] ", message.data);
+		}
 
-	if (WebIM && WebIM.config.isDebug) {
+		if (WebIM && WebIM.config.isDebug) {
 	    Strophe.Connection.prototype.rawOutput = function (data) {
-	        console.log('%c ' + WebIM.utils.ts() + '[send] ' + data, "background-color: #e2f7da");
+	        console.log("%c " + WebIM.utils.ts() + "[send] " + data, "background-color: #e2f7da");
 	    };
-	}
+		}
 
-	if (WebIM && WebIM.config && WebIM.config.isSandBox) {
-	    WebIM.config.xmppURL = WebIM.config.xmppURL.replace('.easemob.', '-sandbox.easemob.');
-	    WebIM.config.apiURL = WebIM.config.apiURL.replace('.easemob.', '-sdb.easemob.');
-	}
+		if (WebIM && WebIM.config && WebIM.config.isSandBox) {
+	    WebIM.config.xmppURL = WebIM.config.xmppURL.replace(".easemob.", "-sandbox.easemob.");
+	    WebIM.config.apiURL = WebIM.config.apiURL.replace(".easemob.", "-sdb.easemob.");
+		}
 
-	module.exports = WebIM;
+		module.exports = WebIM;
 
-	if (false) {
+		if (false) {
 	    module.hot.accept();
-	}
+		}
 
-/***/ },
+		/***/ },
 
-/***/ 249:
-/***/ function(module, exports, __webpack_require__) {
+	/***/ 249:
+	/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+		"use strict";
 
-	var CryptoJS = __webpack_require__(211);
-	;(function () {
-	    'use strict';
+		var CryptoJS = __webpack_require__(211);
+		(function () {
+	    "use strict";
 
 	    var _utils = __webpack_require__(206).utils;
 	    var Message = function Message(type, id) {
-	        if (!this instanceof Message) {
+	        if (!(this instanceof Message)) {
 	            return new Message(type);
 	        }
 
 	        this._msg = {};
 
-	        if (typeof Message[type] === 'function') {
+	        if (typeof Message[type] === "function") {
 	            Message[type].prototype.setGroup = this.setGroup;
 	            this._msg = new Message[type](id);
 	        }
@@ -13973,7 +13973,7 @@
 	     */
 	    Message.read = function (id) {
 	        this.id = id;
-	        this.type = 'read';
+	        this.type = "read";
 	    };
 
 	    Message.read.prototype.set = function (opt) {
@@ -13988,7 +13988,7 @@
 	     */
 	    Message.delivery = function (id) {
 	        this.id = id;
-	        this.type = 'delivery';
+	        this.type = "delivery";
 	    };
 
 	    Message.delivery.prototype.set = function (opt) {
@@ -14003,7 +14003,7 @@
 	     */
 	    Message.txt = function (id) {
 	        this.id = id;
-	        this.type = 'txt';
+	        this.type = "txt";
 	        this.body = {};
 	    };
 	    Message.txt.prototype.set = function (opt) {
@@ -14027,11 +14027,11 @@
 	     */
 	    Message.cmd = function (id) {
 	        this.id = id;
-	        this.type = 'cmd';
+	        this.type = "cmd";
 	        this.body = {};
 	    };
 	    Message.cmd.prototype.set = function (opt) {
-	        this.value = '';
+	        this.value = "";
 
 	        this.body = {
 	            to: opt.to,
@@ -14050,7 +14050,7 @@
 	     */
 	    Message.location = function (id) {
 	        this.id = id;
-	        this.type = 'loc';
+	        this.type = "loc";
 	        this.body = {};
 	    };
 	    Message.location.prototype.set = function (opt) {
@@ -14070,7 +14070,7 @@
 	     */
 	    Message.img = function (id) {
 	        this.id = id;
-	        this.type = 'img';
+	        this.type = "img";
 	        this.body = {};
 	    };
 	    Message.img.prototype.set = function (opt) {
@@ -14106,7 +14106,7 @@
 	     */
 	    Message.audio = function (id) {
 	        this.id = id;
-	        this.type = 'audio';
+	        this.type = "audio";
 	        this.body = {};
 	    };
 	    Message.audio.prototype.set = function (opt) {
@@ -14141,7 +14141,7 @@
 	     */
 	    Message.file = function (id) {
 	        this.id = id;
-	        this.type = 'file';
+	        this.type = "file";
 	        this.body = {};
 	    };
 	    Message.file.prototype.set = function (opt) {
@@ -14177,7 +14177,7 @@
 
 	    var _Message = function _Message(message) {
 
-	        if (!this instanceof _Message) {
+	        if (!(this instanceof _Message)) {
 	            return new _Message(message, conn);
 	        }
 
@@ -14191,38 +14191,38 @@
 
 	            message.ext = message.ext || {};
 	            message.ext.weichat = message.ext.weichat || {};
-	            message.ext.weichat.originType = message.ext.weichat.originType || 'webim';
+	            message.ext.weichat.originType = message.ext.weichat.originType || "webim";
 
 	            var dom;
 	            var json = {
-	                from: conn.context.userId || '',
+	                from: conn.context.userId || "",
 	                to: message.to,
 	                bodies: [message.body],
 	                ext: message.ext || {}
 	            };
 	            var jsonstr = _utils.stringify(json);
 	            dom = $msg({
-	                type: message.group || 'chat',
+	                type: message.group || "chat",
 	                to: message.toJid,
 	                id: message.id,
-	                xmlns: 'jabber:client'
-	            }).c('body').t(jsonstr);
+	                xmlns: "jabber:client"
+	            }).c("body").t(jsonstr);
 
 	            if (message.roomType) {
-	                dom.up().c('roomtype', { xmlns: 'easemob:x:roomtype', type: 'chatroom' });
+	                dom.up().c("roomtype", { xmlns: "easemob:x:roomtype", type: "chatroom" });
 	            }
 	            if (message.bodyId) {
 	                dom = $msg({
-	                    from: conn.context.jid || '',
+	                    from: conn.context.jid || "",
 	                    to: message.toJid,
 	                    id: message.id,
-	                    xmlns: 'jabber:client'
-	                }).c('body').t(message.bodyId);
+	                    xmlns: "jabber:client"
+	                }).c("body").t(message.bodyId);
 	                var delivery = {
-	                    xmlns: 'urn:xmpp:receipts',
+	                    xmlns: "urn:xmpp:receipts",
 	                    id: message.bodyId
 	                };
-	                dom.up().c('delivery', delivery);
+	                dom.up().c("delivery", delivery);
 	            }
 	            if (message.ackId) {
 
@@ -14230,20 +14230,20 @@
 	                    return;
 	                }
 	                dom = $msg({
-	                    from: conn.context.jid || '',
+	                    from: conn.context.jid || "",
 	                    to: message.toJid,
 	                    id: message.id,
-	                    xmlns: 'jabber:client'
-	                }).c('body').t(message.ackId);
+	                    xmlns: "jabber:client"
+	                }).c("body").t(message.ackId);
 	                var read = {
-	                    xmlns: 'urn:xmpp:receipts',
+	                    xmlns: "urn:xmpp:receipts",
 	                    id: message.ackId
 	                };
-	                dom.up().c('acked', read);
+	                dom.up().c("acked", read);
 	            }
 
 	            setTimeout(function () {
-	                if (typeof _msgHash !== 'undefined' && _msgHash[message.id]) {
+	                if (typeof _msgHash !== "undefined" && _msgHash[message.id]) {
 	                    _msgHash[message.id].msg.fail instanceof Function && _msgHash[message.id].msg.fail(message.id);
 	                }
 	            }, 60000);
@@ -14258,20 +14258,20 @@
 	            }
 	            var _tmpComplete = me.msg.onFileUploadComplete;
 	            var _complete = function _complete(data) {
-	                if (data.entities[0]['file-metadata']) {
-	                    var file_len = data.entities[0]['file-metadata']['content-length'];
+	                if (data.entities[0]["file-metadata"]) {
+	                    var file_len = data.entities[0]["file-metadata"]["content-length"];
 	                    // me.msg.file_length = file_len;
-	                    me.msg.filetype = data.entities[0]['file-metadata']['content-type'];
+	                    me.msg.filetype = data.entities[0]["file-metadata"]["content-type"];
 	                    if (file_len > 204800) {
 	                        me.msg.thumbnail = true;
 	                    }
 	                }
 
 	                me.msg.body = {
-	                    type: me.msg.type || 'file',
+	                    type: me.msg.type || "file",
 
-	                    url: (location.protocol != 'https:' && conn.isHttpDNS ? conn.apiUrl + data.uri.substr(data.uri.indexOf("/", 9)) : data.uri) + '/' + data.entities[0]['uuid'],
-	                    secret: data.entities[0]['share-secret'],
+	                    url: (location.protocol != "https:" && conn.isHttpDNS ? conn.apiUrl + data.uri.substr(data.uri.indexOf("/", 9)) : data.uri) + "/" + data.entities[0]["uuid"],
+	                    secret: data.entities[0]["share-secret"],
 	                    filename: me.msg.file.filename || me.msg.filename,
 	                    size: {
 	                        width: me.msg.width || 0,
@@ -14289,12 +14289,12 @@
 	            _utils.uploadFile.call(conn, me.msg);
 	        } else {
 	            me.msg.body = {
-	                type: me.msg.type === 'chat' ? 'txt' : me.msg.type,
+	                type: me.msg.type === "chat" ? "txt" : me.msg.type,
 	                msg: me.msg.msg
 	            };
-	            if (me.msg.type === 'cmd') {
+	            if (me.msg.type === "cmd") {
 	                me.msg.body.action = me.msg.action;
-	            } else if (me.msg.type === 'loc') {
+	            } else if (me.msg.type === "loc") {
 	                me.msg.body.addr = me.msg.addr;
 	                me.msg.body.lat = me.msg.lat;
 	                me.msg.body.lng = me.msg.lng;
@@ -14306,16 +14306,16 @@
 
 	    exports._msg = _Message;
 	    exports.message = Message;
-	})();
+		})();
 
-/***/ },
+		/***/ },
 
-/***/ 250:
-/***/ function(module, exports) {
+	/***/ 250:
+	/***/ function(module, exports) {
 
-	"use strict";
+		"use strict";
 
-	;(function () {
+		(function () {
 	    function Array_h(length) {
 	        this.array = length === undefined ? [] : new Array(length);
 	    }
@@ -14467,8 +14467,8 @@
 	        }
 	    };
 	    exports.Queue = Queue;
-	})();
+		})();
 
-/***/ }
+		/***/ }
 
 /******/ });

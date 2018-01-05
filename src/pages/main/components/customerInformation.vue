@@ -84,7 +84,7 @@
                                             <!--如果有权限,应该显示下拉菜单-->
                                             <el-select v-model="scope.row.vipLevel" size="small"
                                                        @change="handleLevelChange($event,scope.row)">
-                                                <el-option v-for="(level,index) in customerLevelList" :value="level.id"
+                                                <el-option v-for="(level,index) in customerLevelList" :key="index" :value="level.id"
                                                            :label="level.levelName"></el-option>
                                             </el-select>
                                         </el-col>
