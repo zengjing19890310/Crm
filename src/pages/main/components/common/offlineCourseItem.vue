@@ -13,7 +13,7 @@
             <p class="apply-status">
                 <span>报名: {{courseData.signUpPerson}}人</span>
                 <span class="short-line"></span>
-                <span>已缴费: {{courseData.signUpPerson}}人</span>
+                <span>已缴费: {{courseData.payPerson}}人</span>
             </p>
             <p>
                 开课时间: {{courseData.startTime}}

@@ -143,6 +143,10 @@
                                         node-key="id"
                                         :highlight-current="true"
                                         :expand-on-click-node="false"
+                                        :show-checkbox="true"
+                                        :default-expand-all="true"
+                                        :check-strictly="true"
+                                        @check-change="handleTreeCheckedChange"
                                         @current-change="handleNodeChange">
                                 </el-tree>
                             </div>
@@ -248,18 +252,18 @@
                 resourceList: [],
 
                 //树型菜单列表,勾选节点ID
-                treeCheckedIds: [],
+                menuCheckedIds: [],
                 //根据左侧树型菜单,勾选子级按钮ID
 //                例子:{
 //                    父级菜单ID:[子级按钮1ID,子级按钮2ID....]
 //                }
-                resourceCheckedIds: {}
+                buttonCheckedIds: {}
             }
         },
         methods: {
             setResourceCheckedStatus() {
                 let menuId = this.$refs.treeMenu.getCurrentKey(),
-                    checkedResource = this.resourceCheckedIds[menuId];
+                    checkedResource = this.buttonCheckedIds[menuId];
                 if (checkedResource && checkedResource.length !== 0) {
                     _.forEach(this.resourceList, (value, index) => {
                         if (checkedResource.indexOf(value.id) !== -1) {
@@ -272,9 +276,9 @@
             },
             handleSelectionChange(selection) {
                 let menuId = this.$refs.treeMenu.getCurrentKey(),
-                    resourceCheckedIds = JSON.parse(JSON.stringify(this.resourceCheckedIds));
-                if (!resourceCheckedIds[menuId]) {
-                    resourceCheckedIds[menuId] = [];
+                    buttonCheckedIds = JSON.parse(JSON.stringify(this.buttonCheckedIds));
+                if (!buttonCheckedIds[menuId]) {
+                    buttonCheckedIds[menuId] = [];
                 }
                 let ids = [];
                 if (selection && selection.length !== 0) {
@@ -282,12 +286,14 @@
                         ids.push(value.id);
                     });
                 }
-                resourceCheckedIds[menuId] = ids;
-                this.resourceCheckedIds = resourceCheckedIds;
+                buttonCheckedIds[menuId] = ids;
+                this.buttonCheckedIds = buttonCheckedIds;
             },
             handleTreeCheckedChange() {
                 //获取当前被勾选中的菜单树
-                this.treeCheckedIds = this.$refs.treeMenu.getCheckedKeys();
+                this.menuCheckedIds = this.$refs.treeMenu.getCheckedKeys();
+                // let menuCheckedNodes = this.$refs.treeMenu.getCheckedNodes();
+                // console.log(menuCheckedNodes);
             },
             handleNodeChange(node) {
                 this.fetchResourceData(node.id);
@@ -324,8 +330,7 @@
                         let response = res.body;
                         if (response && response.code === 0 && response.msg === "成功") {
                             //通过一个递归的方法,将treeMenu调整为可用的状态
-                            let treeMenu = [],
-                                _this = this;
+                            let treeMenu = [];
                             util.initTree(response.data, treeMenu);
                             this.treeMenu = treeMenu;
                         }
@@ -342,30 +347,33 @@
                 this.submitType = "post";
 
                 let resources = role.resources,
-                    resourceCheckedIds = {},
-                    treeCheckedIds = [];
+                    buttonCheckedIds = {},
+                    menuCheckedIds = [];
                 if (resources && resources.length !== 0) {
                     let menuId, buttonId;
                     _.forEach(resources, (value, key) => {
                         menuId = value.menuId;
                         buttonId = value.buttonId;
                         if (menuId) {
-                            if (!resourceCheckedIds[menuId]) {
-                                resourceCheckedIds[menuId] = [];
+                            if (!buttonCheckedIds[menuId]) {
+                                buttonCheckedIds[menuId] = [];
                             }
                             if (buttonId && buttonId !== -1) {
-                                resourceCheckedIds[menuId].push(buttonId);
+                                buttonCheckedIds[menuId].push(buttonId);
                             } else {
                                 //如果buttonId为-1,表示单独选中树中的菜单
-                                treeCheckedIds.push(menuId);
+                                menuCheckedIds.push(menuId);
                             }
                         }
                     });
                     //编辑一个角色时,首先要从role对象中获取之前的设置状态
-                    this.resourceCheckedIds = resourceCheckedIds;
+                    this.buttonCheckedIds = buttonCheckedIds;
 
-                    if (treeCheckedIds && treeCheckedIds.length !== 0) {
-                        this.treeCheckedIds = treeCheckedIds;
+                    if (menuCheckedIds && menuCheckedIds.length !== 0) {
+                        this.menuCheckedIds = menuCheckedIds;
+                        this.$nextTick(()=>{
+                            this.$refs.treeMenu.setCheckedKeys(this.menuCheckedIds);
+                        });
                     }
                 }
             },
@@ -375,8 +383,8 @@
             handelClose() {
                 this.checkedTreeMenu = [];
                 this.resourceList = [];
-                this.treeCheckedIds = [];
-                this.resourceCheckedIds = {};
+                this.menuCheckedIds = [];
+                this.buttonCheckedIds = {};
                 this.role = {
                     roleName: ""
                 };
@@ -395,25 +403,25 @@
                 this.$refs.roleForm.validate((result) => {
                     if (result) {
                         let resources = [];
-                        if (this.resourceCheckedIds) {
+                        if (this.buttonCheckedIds) {
                             let roleId = this.role.id;
-                            _.forEach(this.resourceCheckedIds, (buttonIds, menuId) => {
+                            _.forEach(this.menuCheckedIds, (menuId, index) => {
+                                resources.push({
+                                    type: 0,
+                                    buttonId: -1,
+                                    roleId: roleId,
+                                    menuId: menuId
+                                });
+                            });
+                            _.forEach(this.buttonCheckedIds, (buttonIds, menuId) => {
                                 if (buttonIds && buttonIds.length !== 0) {
                                     let mid = parseInt(menuId);
-                                    if (mid) {
-                                        resources.push({
-                                            type: 0,
-                                            buttonId: -1,
-                                            roleId: roleId,
-                                            menuId: mid
-                                        })
-                                    }
                                     _.forEach(buttonIds, (buttonId, index) => {
                                         resources.push({
-                                            type: 1,
-                                            buttonId: buttonId,
+                                            type:1,
+                                            buttonId:buttonId,
                                             roleId: roleId,
-                                            menuId: mid
+                                            menuId:mid
                                         });
                                     })
                                 }
@@ -430,7 +438,12 @@
                                 if (response && response.code === 0 && response.msg === "成功") {
                                     this.$message({
                                         type: "success",
-                                        message: `${this.modalType}成功`
+                                        message: `${this.modalType}成功,刷新页面后生效`,
+                                        duration:1500,
+                                        //是否刷新页面
+                                        // onClose(){
+                                        //     location.reload();
+                                        // }
                                     });
                                     this.modalType = "";
                                     this.fetchRolesList();
@@ -470,6 +483,8 @@
                 this.modalType = "新增";
                 this.modalVisible = true;
                 this.submitType = "post";
+                this.menuCheckedIds = [];
+                this.$refs.treeMenu.setCheckedKeys(this.menuCheckedIds);
             },
             deleteRole(id, index) {
                 this.$confirm("是否删除该角色?", "警告", {

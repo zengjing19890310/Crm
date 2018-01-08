@@ -5,10 +5,7 @@
                 <img :src="logoUrl" alt="">
                 <!--<p>{{menuTitle}}</p>-->
             </div>
-
-            <span :class="['collapse-icon',{'collapse-menu':isCollapse}]" @click="collapseMenu">
-
-            </span>
+            <span :class="['collapse-icon',{'collapse-menu':isCollapse}]" @click="collapseMenu"></span>
         </div>
         <ul>
             <li>
@@ -27,10 +24,11 @@
                     </div>
                 </div>
             </li>
-            <li>
+            <!--<li>-->
+            <li :class="['permissionHidden']" v-permission="{menuId:2,menuName:'人员管理'}">
                 <div :class="['menu-parent',{'collapse-menu':isCollapse}]">
                     <!-- ,'permissionHidden' -->
-                    <div :class="['menu-item',{'collapse-menu':isCollapse}]" @click="toggleMenu('2')" v-permission="{menuId:2,menuName:'人员管理'}">
+                    <div :class="['menu-item',{'collapse-menu':isCollapse}]" @click="toggleMenu('2')">
                         <!--<i class="el-icon-service"></i>-->
                         <div class="wrapper">
                             <span class="menu-icon customer-management-icon"></span>
@@ -43,7 +41,7 @@
                     <el-collapse-transition>
                         <ul :class="['child-menu',{'collapse-menu':isCollapse}]" v-show="curr==='2'"
                             @click="clearChildMenu">
-                            <li>
+                            <li :class="['permissionHidden']" v-permission="{menuId:8,menuName:'客户信息'}">
                                 <router-link to="/customerInformation">
                                     <!--<i class="el-icon-info"></i>-->
                                     <p>客户信息</p>
@@ -55,7 +53,7 @@
                                     <!--<p>分享关系</p>-->
                                 <!--</router-link>-->
                             <!--</li>-->
-                            <li>
+                            <li :class="['permissionHidden']" v-permission="{menuId:9,menuName:'客服'}">
                                 <router-link to="/customerServices">
                                     <!--<i class="el-icon-share"></i>-->
                                     <p>客服</p>
@@ -65,7 +63,8 @@
                     </el-collapse-transition>
                 </div>
             </li>
-            <li>
+            <!--<li>-->
+            <li :class="['permissionHidden']" v-permission="{menuId:3,menuName:'内容管理'}">
                 <div :class="['menu-parent',{'collapse-menu':isCollapse}]">
                     <div :class="['menu-item',{'collapse-menu':isCollapse}]" @click="toggleMenu('3')">
                         <!--<i class="el-icon-setting"></i>-->
@@ -86,27 +85,28 @@
                             <!--<p>发布文章</p>-->
                             <!--</router-link>-->
                             <!--</li>-->
-                            <li>
+                            <li :class="['permissionHidden']" v-permission="{menuId:5,menuName:'圈子管理'}">
                                 <router-link to="/circleManagement">
                                     <!--<i class="el-icon-edit"></i>-->
                                     <p>圈子管理</p>
                                 </router-link>
                             </li>
-                            <li>
-                                <router-link to="/offlineCourses">
-                                    线下课程
-                                </router-link>
-                            </li>
-                            <li>
+                            <li :class="['permissionHidden']" v-permission="{menuId:6,menuName:'线上课程'}">
                                 <router-link to="/onlineCourses">
                                     线上课程
+                                </router-link>
+                            </li>
+                            <li :class="['permissionHidden']" v-permission="{menuId:7,menuName:'线下课程'}">
+                                <router-link to="/offlineCourses">
+                                    线下课程
                                 </router-link>
                             </li>
                         </ul>
                     </el-collapse-transition>
                 </div>
             </li>
-            <li>
+            <!--<li>-->
+            <li :class="['permissionHidden']" v-permission="{menuId:4,menuName:'系统管理'}">
                 <div :class="['menu-parent',{'collapse-menu':isCollapse}]">
                     <div :class="['menu-item',{'collapse-menu':isCollapse}]" @click="toggleMenu('4')">
                         <!--<i class="el-icon-setting"></i>-->
@@ -121,19 +121,19 @@
                     <el-collapse-transition>
                         <ul :class="['child-menu',{'collapse-menu':isCollapse}]" v-show="curr==='4'"
                             @click="clearChildMenu">
-                            <li>
+                            <li :class="['permissionHidden']" v-permission="{menuId:10,menuName:'用户管理'}">
                                 <router-link to="/userManagement">
                                     <!--<i class="el-icon-success"></i>-->
                                     <p>用户管理</p>
                                 </router-link>
                             </li>
-                            <li>
+                            <li :class="['permissionHidden']" v-permission="{menuId:11,menuName:'角色管理'}">
                                 <router-link to="/roleManagement">
                                     <!--<i class="el-icon-success"></i>-->
                                     <p>角色管理</p>
                                 </router-link>
                             </li>
-                            <li>
+                            <li :class="['permissionHidden']" v-permission="{menuId:12,menuName:'权限管理'}">
                                 <router-link to="/permissionManagement">
                                     <!--<i class="el-icon-error"></i>-->
                                     <p>权限资源</p>

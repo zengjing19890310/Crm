@@ -17,6 +17,7 @@
                             ref="treeMenu"
                             node-key="id"
                             :highlight-current="true"
+                            :default-expand-all="true"
                             :expand-on-click-node="false"
                             @current-change="handleNodeChange"
                             @check-change="handleTreeCheckedChange">

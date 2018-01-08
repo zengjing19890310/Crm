@@ -62,11 +62,11 @@
                             </el-tag>
                             <el-popover placement="top"
                                         title=""
-                                        width="200"
+                                        width="245"
                                         trigger="click" v-if="scope.row.roles.length>3">
                                 <div style="font-size: 12px;">
                                     <el-tag v-for="(tag,index) in scope.row.roles" size="mini" :key="index"
-                                            style="margin: 0.2rem;">
+                                            style="margin: 0.2rem;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
                                         <!--{{tag}}-->
                                         {{tag.roleName}}
                                     </el-tag>
@@ -81,10 +81,17 @@
                             prop="locked"
                             label="使用状态">
                         <template slot-scope="scope">
-                            <el-select v-model="scope.row.locked" @change="handleGrant($event,scope.row)">
-                                <el-option :value="1" label="启用">启用</el-option>
-                                <el-option :value="0" label="停用">停用</el-option>
-                            </el-select>
+                            <div :class="['permissionHidden']" v-permission="{buttonId:74,buttonName:'用户启用停用'}">
+                                <el-select v-model="scope.row.locked" @change="handleGrant($event,scope.row)"
+                                           size="mini">
+                                    <el-option :value="1" label="启用">启用</el-option>
+                                    <el-option :value="0" label="停用">停用</el-option>
+                                </el-select>
+                            </div>
+                            <!--当验证没有"用户启用停用"权限时显示文字提示-->
+                            <div class="permissionHidden" v-no-permission-show="{buttonId:74,buttonName:'用户启用停用'}">
+                                {{scope.row.locked===1?"启用":"停用"}}
+                            </div>
                         </template>
                     </el-table-column>
                     <!--prop="handle"-->
@@ -135,7 +142,8 @@
                         </el-form-item>
                         <el-form-item label="部门">
                             <el-select v-model="currentEditUser.deptId" @change="changeDept">
-                                <el-option v-for="dept in deptList" :value="dept.id" :label="dept.deptName" :key="dept.id"></el-option>
+                                <el-option v-for="dept in deptList" :value="dept.id" :label="dept.deptName"
+                                           :key="dept.id"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="角色">
@@ -199,9 +207,9 @@
                     this.$http({
                         url: API(`/sysuser/grant`),
                         method: "put",
-                        body:{
-                            ids:ids,
-                            locked:locked
+                        body: {
+                            ids: ids,
+                            locked: locked
                         }
                     }).then(
                         (res) => {
@@ -211,7 +219,7 @@
                                     type: "success",
                                     message: "使用状态变更成功"
                                 });
-                            }else {
+                            } else {
                                 this.$message({
                                     type: "error",
                                     message: "使用状态变更失败"

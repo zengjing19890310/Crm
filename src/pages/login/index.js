@@ -98,8 +98,13 @@ let loginView = new Vue({
 								}
 							}
 						},
-						(res) => {
-							// console.error(res);
+						() => {
+							this.$message({
+								type: "error",
+								message: "网络异常...",
+								duration: 1500
+							});
+							this.loginButtonLoading = false;
 						}
 					);
 				} else {
