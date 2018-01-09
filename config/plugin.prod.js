@@ -82,6 +82,8 @@ module.exports = {
             new UglifyJsPlugin({//压缩代码插件"生产模式使用"
                 // compress:true,//是否压紧
                 sourceMap:true,//调试映射到原模块
+                exclude: /node_modules/,
+                cache: true
             })
         ];
         let files = fs.readdirSync(path.resolve(srcPath));
