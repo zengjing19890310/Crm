@@ -484,7 +484,9 @@
                 this.modalVisible = true;
                 this.submitType = "post";
                 this.menuCheckedIds = [];
-                this.$refs.treeMenu.setCheckedKeys(this.menuCheckedIds);
+                this.$nextTick(()=>{
+                    this.$refs.treeMenu.setCheckedKeys(this.menuCheckedIds);
+                });
             },
             deleteRole(id, index) {
                 this.$confirm("是否删除该角色?", "警告", {

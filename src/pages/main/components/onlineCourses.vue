@@ -60,7 +60,8 @@
                         </el-form-item>
                         <!--等级-->
                         <el-form-item label="等级" prop="level">
-                            <el-select v-model="courseForm.level" placeholder="请选择课程等级" @change="changeLocation">
+                            <!--@change="changeLocation"-->
+                            <el-select v-model="courseForm.level" placeholder="请选择课程等级">
                                 <el-option v-for="(level,index) in levelList" :label="level.name"
                                            :value="level.id"></el-option>
                             </el-select>

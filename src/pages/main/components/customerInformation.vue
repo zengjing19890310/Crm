@@ -251,6 +251,8 @@
             },
             //通过分享上下级,获取包含上下级条件的
             fetchShareList(user) {
+                this.keyword = "";
+                window.Bus.$emit("clean-keyword");
                 this.userName = user.nickname || user.mobile;
                 this.userId = user.id;
                 this.upLevelInformation = {};

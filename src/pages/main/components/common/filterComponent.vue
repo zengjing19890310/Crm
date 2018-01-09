@@ -72,8 +72,8 @@
                 departmentList: [],
                 role: '',
                 roleList: [],
-                moduleName: null,
-                keyword: null,
+                moduleName: "",
+                keyword: "",
             }
         },
         props: {
@@ -85,6 +85,9 @@
         created() {
             this.moduleType = this.filterType;
             this.moduleName = this.routeName;
+            window.Bus.$on("clean-keyword",()=>{
+                this.keyword = "";
+            });
         },
         mounted() {
             if (this.moduleName === "userManagement") {

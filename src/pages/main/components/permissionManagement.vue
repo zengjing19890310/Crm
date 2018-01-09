@@ -28,8 +28,8 @@
                             ref="resourceList"
                             :data="resourceList"
                             style="font-size: 12px;"
-                            :height="tableHeight"
-                            @selection-change="handleSelectionChange">
+                            :height="tableHeight">
+                        <!--@selection-change="handleSelectionChange"-->
                         <!--<el-table-column-->
                                 <!--type="selection"-->
                                 <!--width="55">-->
@@ -87,7 +87,8 @@
 //                }
                 resourceCheckedIds: {},
                 //记录当前数据总数
-                dataTotal: 0
+                dataTotal: 0,
+                tableHeight :0
             }
         },
         created() {
