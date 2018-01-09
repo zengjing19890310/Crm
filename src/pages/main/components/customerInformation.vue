@@ -80,7 +80,7 @@
                             <template slot-scope="scope">
                                 <div @click.stop>
                                     <el-row>
-                                        <el-col class="permissionHidden">
+                                        <el-col class="permissionHidden" v-permission="{buttonId:75,buttonName:'修改客户等级'}">
                                             <!--如果有权限,应该显示下拉菜单-->
                                             <el-select v-model="scope.row.vipLevel" size="small"
                                                        @change="handleLevelChange($event,scope.row)">
@@ -88,15 +88,12 @@
                                                            :label="level.levelName" :key="level.id"></el-option>
                                             </el-select>
                                         </el-col>
-                                        <el-col class="permissionHidden">
+                                        <el-col class="permissionHidden" v-no-permission-show="{buttonId:75,buttonName:'修改客户等级'}">
                                             <!--没有权限,则显示名称信息-->
-                                            <span>{{scope.row.vipLevel}}</span>
+                                            <span>{{scope.row.levelName}}</span>
                                         </el-col>
                                     </el-row>
-
                                 </div>
-
-
                             </template>
                         </el-table-column>
                     </el-table>
