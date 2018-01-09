@@ -26,10 +26,14 @@ module.exports = {
             //定义全局常量,转换接口地址
             new webpack.DefinePlugin({
                 'API': function (path) {
-                    return `http://122.114.109.199:8888${path}`;
+                    let api;
+                    api = 'http://192.168.100.109:8089'+path;
+                    return api;
                 },
                 'WS': function (path) {
-                    return `ws://122.114.109.199:8888${path}`;
+                    let ws;
+                    ws = 'ws://192.168.100.109:8089'+path;
+                    return ws;
                 }
             }),
             // componentsStyle,
@@ -85,7 +89,6 @@ module.exports = {
         ];
         let files = fs.readdirSync(path.resolve(srcPath));
         files.forEach(function (file, index) {
-            // console.log(file);
             let chunks = [file, 'common'];
             // if(file==='webSocketTest'){
             //     var chunks = [file,'socket','common'];
