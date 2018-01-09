@@ -1,7 +1,7 @@
 <template>
     <div class="path-container">
         <el-breadcrumb separator="/" v-if="navList && navList.length!==0">
-            <el-breadcrumb-item v-for="(nav,index) in navList" :to="{ path: nav.path }">{{nav.name}}</el-breadcrumb-item>
+            <el-breadcrumb-item v-for="(nav,index) in navList" :to="{ path: nav.path }" :key="index">{{nav.name}}</el-breadcrumb-item>
         </el-breadcrumb>
     </div>
 </template>

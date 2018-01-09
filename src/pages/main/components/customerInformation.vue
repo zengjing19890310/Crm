@@ -80,15 +80,15 @@
                             <template slot-scope="scope">
                                 <div @click.stop>
                                     <el-row>
-                                        <el-col v-show="true">
+                                        <el-col class="permissionHidden">
                                             <!--如果有权限,应该显示下拉菜单-->
                                             <el-select v-model="scope.row.vipLevel" size="small"
                                                        @change="handleLevelChange($event,scope.row)">
                                                 <el-option v-for="(level,index) in customerLevelList" :value="level.id"
-                                                           :label="level.levelName"></el-option>
+                                                           :label="level.levelName" :key="level.id"></el-option>
                                             </el-select>
                                         </el-col>
-                                        <el-col v-if="false">
+                                        <el-col class="permissionHidden">
                                             <!--没有权限,则显示名称信息-->
                                             <span>{{scope.row.vipLevel}}</span>
                                         </el-col>
@@ -130,7 +130,7 @@
                                 <div class="more-share">
                                     <span>他的更多分享:</span>
                                     <div v-if="upLevelInformation.shares&&upLevelInformation.shares.length!==0">
-                                        <img class="head-img" v-for="(share,index) in upLevelInformation.shares"
+                                        <img class="head-img" v-for="(share,index) in upLevelInformation.shares" :key="index"
                                              :src="share.headImg" alt="">
                                     </div>
                                     <span v-if="upLevelInformation.count>4">...</span>
@@ -157,7 +157,7 @@
                                     <span>他的更多分享:</span>
                                     <div v-if="currentCustomer.shares&&currentCustomer.shares.length!==0">
                                         <img class="head-img" v-for="(share,index) in currentCustomer.shares"
-                                             :src="share.headImg" alt="">
+                                             :src="share.headImg" alt="" :key="index">
                                     </div>
                                 </div>
                                 <div class="count-share" @click="fetchShareList(currentCustomer)">
