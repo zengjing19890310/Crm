@@ -29,22 +29,22 @@ module.exports = {
                     // include: path.resolve(__dirname, '../src'),
                     // exclude: path.resolve(__dirname, '../src/components')
                 },
-                {
-                    enforce: "pre",
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    loader: "eslint-loader",
-                    options: {
-                        //自动修复
-                        fix: true,
-                        //输出检查报告
-                        outputReport: {
-                            filePath: 'checkstyle.xml',
-                            formatter: require('eslint/lib/formatters/checkstyle')
-                        },
-                        'no-console':2
-                    }
-                },
+                // {
+                //     enforce: "pre",
+                //     test: /\.js$/,
+                //     exclude: /node_modules/,
+                //     loader: "eslint-loader",
+                //     options: {
+                //         //自动修复
+                //         fix: true,
+                //         //输出检查报告
+                //         outputReport: {
+                //             filePath: 'checkstyle.xml',
+                //             formatter: require('eslint/lib/formatters/checkstyle')
+                //         },
+                //         'no-console':2
+                //     }
+                // },
                 {
                     test: /\.js$/,
                     use: {

@@ -43,9 +43,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "build": "rm -rf ./dist && webpack -d --colors",
-    "prod": "rm ./dist -rf && webpack -p --colors",
-    "dev": "rm ./dist -rf && webpack -d -w --colors",
+    "build": "rm -rf ./dist && cross-env NODE_ENV=development webpack -d --colors",
+    "prod": "rm ./dist -rf && cross-env NODE_ENV=production webpack -p --colors",
+    "dev": "rm ./dist -rf && cross-env NODE_ENV=development webpack -d -w --colors",
     "analyze": "rm ./dist -rf && webpack --json --profile > testData/stats.json"
   },
   "keywords": [

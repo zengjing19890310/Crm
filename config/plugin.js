@@ -13,6 +13,8 @@ const componentsStyle = new ExtractTextPlugin({
     allChunks: false
 });
 
+console.log(process.env.NODE_ENV);
+
 module.exports = {
     init: function (srcPath) {
         let plugins = [
@@ -25,26 +27,32 @@ module.exports = {
             //配置生产模式
             //定义全局常量,转换接口地址
             new webpack.DefinePlugin({
-                'process.env': {
-                    NODE_ENV: JSON.stringify('production')
-                },
                 'ENV': JSON.stringify('prod'),
                 'API': function (path) {
-
-                    //生产环境
-                    // return 'http://122.114.109.199:8888' + path;
-
-                    //马杰本机
-                    // return 'http://mengcan.vicp.io' + path;
-
-                    //开发环境
-                    return 'http://192.168.100.109:8089' + path;
-                },
-                'APIDEV': function(path) {
-                    return 'http://mengcan.vicp.io' + path;
+                    let api;
+                    if (process.env.NODE_ENV && process.env.NODE_ENV === "development") {
+                        //开发环境
+                        api = `http://192.168.100.109:8089${path}`;
+                    } else if (process.env.NODE_ENV && process.env.NODE_ENV === "production") {
+                        //生产环境
+                        api = `http://122.114.109.199:8888${path}`;
+                    } else {
+                        api = `http://mengcan.vicp.io${path}`;
+                    }
+                    return api;
                 },
                 'WS': function (path) {
-                    return 'ws://192.168.100.109:8089' + path;
+                    let ws;
+                    if (process.env.NODE_ENV && process.env.NODE_ENV === "development") {
+                        //开发环境
+                        ws = `ws://192.168.100.109:8089${path}`;
+                    } else if (process.env.NODE_ENV && process.env.NODE_ENV === "production") {
+                        //生产环境
+                        ws = `ws://122.114.109.199:8888${path}`;
+                    } else {
+                        ws = `ws://mengcan.vicp.io${path}`;
+                    }
+                    return ws;
                 }
             }),
             // componentsStyle,

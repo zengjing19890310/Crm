@@ -30,10 +30,10 @@
                             style="font-size: 12px;"
                             :height="tableHeight"
                             @selection-change="handleSelectionChange">
-                        <el-table-column
-                                type="selection"
-                                width="55">
-                        </el-table-column>
+                        <!--<el-table-column-->
+                                <!--type="selection"-->
+                                <!--width="55">-->
+                        <!--</el-table-column>-->
                         <el-table-column label="资源名称" prop="buttonName">
 
                         </el-table-column>
