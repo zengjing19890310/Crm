@@ -44,7 +44,7 @@
   "devDependencies": {},
   "scripts": {
     "build": "rm -rf ./dist && cross-env NODE_ENV=dev webpack -d --colors",
-    "prod": "rm ./dist -rf && cross-env NODE_ENV=prod webpack -p --colors",
+    "prod": "rm ./dist -rf && cross-env NODE_ENV=prod webpack --colors",
     "dev": "rm ./dist -rf && cross-env NODE_ENV=dev webpack -d -w --colors",
     "analyze": "rm ./dist -rf && webpack --json --profile > testData/stats.json"
   },

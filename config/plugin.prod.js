@@ -1,5 +1,6 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
@@ -78,10 +79,10 @@ module.exports = {
              global_defs   : {DEBUG: false}     // global definitions,定义类似全局变量
              }
              }),*/
-            // new UglifyJSPlugin({//压缩代码插件"生产模式使用"
-            //     compress:true,//是否压紧
-            //     sourceMap:true,//调试映射到原模块
-            // })
+            new UglifyJsPlugin({//压缩代码插件"生产模式使用"
+                // compress:true,//是否压紧
+                sourceMap:true,//调试映射到原模块
+            })
         ];
         let files = fs.readdirSync(path.resolve(srcPath));
         files.forEach(function (file, index) {

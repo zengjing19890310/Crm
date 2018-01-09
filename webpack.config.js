@@ -36,7 +36,7 @@ const EntryConfig = require(path.resolve(__dirname, 'config/entry.js')).init(src
 //获取出口配置
 const OutputConfig = require(path.resolve(__dirname, 'config/output.js')).init();
 //获取插件配置
-const PluginConfig = Env === "dev" ? require(path.resolve(__dirname, 'config/plugin.dev.js')).init(srcPath) : require(path.resolve(__dirname, 'config/plugin.js')).init(srcPath);
+const PluginConfig = Env === "dev" ? require(path.resolve(__dirname, 'config/plugin.dev.js')).init(srcPath) : require(path.resolve(__dirname, 'config/plugin.prod.js')).init(srcPath);
 //获取模块配置
 const ModuleConfig = require(path.resolve(__dirname, 'config/module.js')).init();
 
