@@ -71,12 +71,18 @@ let inviteView = new Vue({
 		let isIOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
 		if (isAndroid) {
 			// console.log("安卓机！");
-			this.downUrl = "http://app.lichijituan.cn:8081/release/rongkaixin-1.0.0.apk";
+            this.fetchDownloadUrl("android");
+			// this.downUrl = "http://app.lichijituan.cn:8081/release/rongkaixin-1.0.0.apk";
 		}
 		if (isIOS) {
 			// console.log("苹果机！");
-			this.downUrl = "https://www.pgyer.com/8D2B";
+            this.fetchDownloadUrl("ios");
+			// this.downUrl = "https://www.pgyer.com/8D2B";
 		}
+
+        if (!isAndroid && !isIOS) {
+            this.fetchDownloadUrl();
+        }
 
 		//对useragent嗅探,并确定浏览环境
 		let 
@@ -114,6 +120,44 @@ let inviteView = new Vue({
 		}
 	},
 	methods: {
+        fetchDownloadUrl(type) {
+            this.$http({
+                method: "get",
+                url: "http://122.114.109.199:8888/version/new"
+                // url: API("/version/new")
+            }).then(
+                (res) => {
+                    let response = res.body;
+                    if (response && response.code === 0 && response.msg === "成功") {
+                        let data = response.data;
+                        // type为0指向安卓安装包
+                        if (data.type === 0 && type === "android") {
+                            // console.log("安卓", data.url);
+                            this.downUrl = data.url;
+                        } else if (data.type === 1 && type === "ios") {
+                            // console.log("苹果", data.url);
+                            this.downUrl = "https://www.pgyer.com/rongkaixin";
+                        } else {
+                            // console.log("其他环境", data.url);
+                            this.downUrl = data.url;
+                        }
+                    } else {
+                        this.$message({
+                            type: "error",
+                            message: `请求下载地址出错${response.msg}`,
+                            duration: 1500
+                        })
+                    }
+                },
+                (res) => {
+                    this.$message({
+                        type: "error",
+                        message: "请求下载地址出错",
+                        duration: 1500
+                    })
+                }
+            )
+        },
 		sendCode() {
 			let checkMobile = true,
 				_this = this;
@@ -175,7 +219,7 @@ let inviteView = new Vue({
 								});
 								//打开地址下载App
 								if (this.downUrl) {
-									location.href = this.downUrl;
+									window.location.href = this.downUrl;
 								} else {
 									this.$message({
 										type: "warning",
