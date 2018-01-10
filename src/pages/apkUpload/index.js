@@ -65,7 +65,7 @@ let apkUploaderView = new Vue({
         submitHandler() {
             this.$refs.uploadForm.validate((result) => {
                 if (result) {
-                    console.log("提交信息");
+                    // console.log("提交信息");
                     this.$http({
                         method: "post",
                         url: "http://122.114.109.199:8888/version",

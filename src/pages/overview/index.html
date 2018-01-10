@@ -10,7 +10,7 @@
 <div id="app" v-cloak v-loading="overviewLoading">
     <div :class="['post-container','ql-editor',{isApp:navi==='1'}]">
         <div class="app-fixed" v-if="navi==='1'">
-            <img src="" alt="">
+            <img :src="appLogoUrl" alt="">
             <p>投促金融，投资无限。</p>
             <span class="open-now-button" @click="download">立刻打开</span>
         </div>
@@ -24,6 +24,22 @@
         </header>
         <div class="post-content" v-html="postData.content"></div>
     </div>
+    <!--<div :class="['post-container','ql-editor','isApp']">-->
+        <!--<div class="app-fixed">-->
+            <!--<img :src="appLogoUrl" alt="">-->
+            <!--<p>投促金融，投资无限。</p>-->
+            <!--<span class="open-now-button" v-show="downUrl" @click="download">立刻打开</span>-->
+        <!--</div>-->
+        <!--<header>-->
+            <!--<p class="post-title">-->
+                <!--{{postData.title}}-->
+            <!--</p>-->
+            <!--<p class="post-user">-->
+                <!--{{postData.nickname}}-->
+            <!--</p>-->
+        <!--</header>-->
+        <!--<div class="post-content" v-html="postData.content"></div>-->
+    <!--</div>-->
 </div>
 </body>
 </html>

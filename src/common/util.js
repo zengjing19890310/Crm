@@ -98,9 +98,6 @@ module.exports = {
 			});
 		}
 		window.sessionStorage.removeItem("token");
-		// window.sessionStorage.removeItem("userId");
-		// window.sessionStorage.removeItem("nickname");
-		// window.sessionStorage.removeItem("userInformation");
 		window.location.href = "../login";
 	}
 };
