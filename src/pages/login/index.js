@@ -1,3 +1,14 @@
+//如果位于登录页面,则将token抹除
+if (!window["sessionStorage"]) {
+    window.Bus.$message({
+        type: "error",
+        message: "当前浏览器不能使用本地存储,请更换浏览器"
+    });
+}
+
+//删除token
+window.sessionStorage.removeItem("token");
+
 require("./index.scss");
 require("../../common/common");
 

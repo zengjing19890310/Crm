@@ -123,7 +123,7 @@ let overView = new Vue({
                             this.downUrl = data.url;
                         } else if (data.type === 1 && type === "ios") {
                             // console.log("苹果", data.url);
-                            this.downUrl = "https://www.pgyer.com/rongkaixin";
+                            this.downUrl = "https://www.pgyer.com/8D2B";
                         } else {
                             // console.log("其他环境", data.url);
                             this.downUrl = data.url;
