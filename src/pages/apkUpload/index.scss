@@ -1,0 +1,18 @@
+[v-cloak] {
+  display: none;
+}
+
+#app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .upload-wrapper {
+    width:60%;
+    header {
+      height:5rem;
+      line-height: 5rem;
+      text-align: center;
+    }
+  }
+}
+

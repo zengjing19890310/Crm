@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <meta charset="UTF-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+<body>
+<div id="app" v-cloak>
+    <section class="upload-wrapper" v-cloak>
+        <header>
+            <h4>{{title}}</h4>
+        </header>
+        <el-form :model="uploadForm" label-width="80px" size="small" ref="uploadForm" :rules="rules">
+            <el-form-item label="上传包">
+                <el-upload
+                        ref="uploader"
+                        drag
+                        :action="uploadUrl"
+                        accept=".apk,.ipa"
+                        :show-file-list="true"
+                        :multiple="false"
+                        :on-success="handleSuccess"
+                        :on-change="handleChange"
+                        :on-error="handleError">
+                    <i class="el-icon-upload"></i>
+                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                </el-upload>
+            </el-form-item>
+            <el-form-item label="下载地址" prop="url">
+                <el-input readonly v-model="uploadForm.url">
+                </el-input>
+            </el-form-item>
+            <el-form-item label="版本号" prop="version">
+                <el-input v-model="uploadForm.version"></el-input>
+            </el-form-item>
+            <el-form-item label="版本信息" prop="information">
+                <el-input
+                        type="textarea"
+                        :rows="3"
+                        :autosize="{minRows:3,maxRows:3}"
+                        resize="false"
+                        placeholder="请输入版本信息"
+                        v-model="uploadForm.information">
+                </el-input>
+            </el-form-item>
+            <el-form-item label="强制更新">
+                <el-switch
+                        v-model="uploadForm.status"
+                        active-text="是"
+                        inactive-text="否"
+                        :active-value="1"
+                        :inactive-value="0">
+                </el-switch>
+            </el-form-item>
+            <el-form-item label="操作系统">
+                <el-select v-model="uploadForm.type">
+                    <el-option :value="0" label="安卓"></el-option>
+                    <!--<el-option :value="1" label="苹果"></el-option>-->
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-button @click="submitHandler">确认</el-button>
+                <el-button @click="resetHandler">重置</el-button>
+            </el-form-item>
+        </el-form>
+    </section>
+</div>
+</body>
+</html>
