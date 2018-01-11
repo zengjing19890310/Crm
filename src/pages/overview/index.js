@@ -1,3 +1,5 @@
+window.sessionStorage.removeItem("token");
+
 require("./index.scss");
 require("../../common/common");
 //获取工具类
