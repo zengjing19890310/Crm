@@ -371,11 +371,11 @@
 
                     if (menuCheckedIds && menuCheckedIds.length !== 0) {
                         this.menuCheckedIds = menuCheckedIds;
-                        this.$nextTick(()=>{
-                            this.$refs.treeMenu.setCheckedKeys(this.menuCheckedIds);
-                        });
                     }
                 }
+                this.$nextTick(()=>{
+                    this.$refs.treeMenu.setCheckedKeys(this.menuCheckedIds);
+                });
             },
             cancel() {
                 this.handelClose();
