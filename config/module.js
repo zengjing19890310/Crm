@@ -57,7 +57,7 @@ module.exports = {
                 {
                     test: /\.(png|jpg|gif|ico)$/,
                     use: {
-                        loader: 'url-loader?limit=256&name=common/images/[name].[ext]'
+                        loader: 'url-loader?limit=256&name=common/images/[name].[hash].[ext]'
                     },
                     include: path.resolve(__dirname, '../src')
                 },
@@ -65,7 +65,7 @@ module.exports = {
                 {
                     test: /\.(woff|woff2|svg|eot|ttf)$/,
                     use: {
-                        loader: 'file-loader?&name=common/fonts/[name][hash].[ext]'
+                        loader: 'file-loader?&name=common/fonts/[name].[hash].[ext]'
                     }
                 },
                 //处理自定义vue组件

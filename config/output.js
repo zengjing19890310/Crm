@@ -2,7 +2,7 @@ const path = require('path');
 module.exports = {
     init:function(){
         return {
-            filename: '[name]/[name][hash].js',
+            filename: '[name]/[name].[hash].js',
             path: path.resolve(__dirname, '../dist/'),
             chunkFilename: 'common/common.js',
             pathinfo: false,
