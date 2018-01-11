@@ -5,11 +5,11 @@ const fs = require('fs');
 const webpack = require('webpack');
 
 const extractSASS = new ExtractTextPlugin({
-    filename: '[name]/[name].css',
+    filename: '[name]/[name][hash].css',
     allChunks: true
 });
 const componentsStyle = new ExtractTextPlugin({
-    filename: "common/components.css",
+    filename: "common/components[hash].css",
     allChunks: false
 });
 
@@ -47,7 +47,7 @@ module.exports = {
             // }),
             new webpack.optimize.CommonsChunkPlugin({
                 names: ['common'],
-                filename: 'common/common.js',
+                filename: 'common/common[hash].js',
                 minChunks: 2 //当至少两个入口文件引用到同一个文件时,将其打包到common.js中
             }),
             new webpack.ProvidePlugin({//自动加载模块。 任何时候，当 identifier 被当作未赋值的变量时， module 就会自动被加载，并且 identifier 会被这个 module 输出的内容所赋值。

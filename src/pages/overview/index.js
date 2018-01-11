@@ -108,42 +108,37 @@ let overView = new Vue({
     },
     methods: {
         fetchDownloadUrl(type) {
-            this.$http({
-                method: "get",
-                url: "http://122.114.109.199:8888/version/new"
-                // url: API("/version/new")
-            }).then(
-                (res) => {
-                    let response = res.body;
-                    if (response && response.code === 0 && response.msg === "成功") {
-                        let data = response.data;
-                        // type为0指向安卓安装包
-                        if (data.type === 0 && type === "android") {
-                            // console.log("安卓", data.url);
+            if (type === "ios") {
+                this.downUrl = "https://www.pgyer.com/8D2B";
+            } else if (type === "android" || !type) {
+                this.$http({
+                    method: "get",
+                    url: "http://122.114.109.199:8888/version/new"
+                    // url: API("/version/new")
+                }).then(
+                    (res) => {
+                        let response = res.body;
+                        if (response && response.code === 0 && response.msg === "成功") {
+                            let data = response.data;
+                            // type为0指向安卓安装包
                             this.downUrl = data.url;
-                        } else if (data.type === 1 && type === "ios") {
-                            // console.log("苹果", data.url);
-                            this.downUrl = "https://www.pgyer.com/8D2B";
                         } else {
-                            // console.log("其他环境", data.url);
-                            this.downUrl = data.url;
+                            this.$message({
+                                type: "error",
+                                message: `请求下载地址出错${response.msg}`,
+                                duration: 1500
+                            })
                         }
-                    } else {
+                    },
+                    (res) => {
                         this.$message({
                             type: "error",
-                            message: `请求下载地址出错${response.msg}`,
+                            message: "请求下载地址出错",
                             duration: 1500
                         })
                     }
-                },
-                (res) => {
-                    this.$message({
-                        type: "error",
-                        message: "请求下载地址出错",
-                        duration: 1500
-                    })
-                }
-            )
+                )
+            }
         },
         download() {
             if (this.downUrl) {
