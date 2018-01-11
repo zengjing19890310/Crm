@@ -13,8 +13,19 @@ module.exports = {
                 {
                     test: /\.css$/,
                     use: ExtractTextPlugin.extract({
-                        use: "css-loader",//?minimize启用压缩和混合
-                        fallback: "style-loader"
+                        use: {
+                            loader: "css-loader",
+                            options: {
+                                minimize: true,
+                                sourceMap: true
+                            }
+                        },//?minimize启用压缩和混合
+                        fallback: {
+                            loader: "style-loader",
+                            options: {
+                                sourceMap: true
+                            }
+                        }
                     }),
                     // include: path.resolve(__dirname, '../src'),
                     // exclude: path.resolve(__dirname, '../src/components')
@@ -23,8 +34,22 @@ module.exports = {
                     test: /\.scss$/,
                     use: ExtractTextPlugin.extract({
                         //如果需要，可以在 sass-loader 之前将 resolve-url-loader 链接进来
-                        use: ['css-loader', 'sass-loader'],
-                        fallback: 'style-loader'
+                        use: [
+                            {
+                                loader: "css-loader",
+                                options: {
+                                    minimize: true,
+                                    sourceMap: true
+                                }
+                            },
+                            "sass-loader"
+                        ],
+                        fallback: {
+                            loader: "style-loader",
+                            options: {
+                                sourceMap: true
+                            }
+                        }
                     }),
                     // include: path.resolve(__dirname, '../src'),
                     // exclude: path.resolve(__dirname, '../src/components')

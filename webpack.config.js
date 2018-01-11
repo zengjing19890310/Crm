@@ -41,7 +41,7 @@ const PluginConfig = Env === "dev" ? require(path.resolve(__dirname, 'config/plu
 const ModuleConfig = require(path.resolve(__dirname, 'config/module.js')).init();
 
 module.exports = {
-    // devtool:'cheap-module-source-map',
+    devtool: Env === "dev" ? "cheap-module-eval-source-map" : "cheap-module-source-map",
     context: path.resolve(__dirname, "webPackTemp"),
     entry: EntryConfig,
     output: OutputConfig,
