@@ -206,7 +206,6 @@
                         //获取上方工具条的高度
                         toolbar = document.getElementsByClassName("ql-toolbar");
                     this.editorHeight = wrapper[0].clientHeight - toolbar[0].clientHeight - 2;
-                    console.log(wrapper[0].clientHeight,toolbar[0].clientHeight,this.editorHeight);
                     setTimeout(() => {
                         this.resizeLock = false;
                     }, 400);
