@@ -61,7 +61,7 @@ if (token) {
     try {
         xhr.send();
     } catch (error) {
-        console.log(error);
+        window.location.href = "../login";
     }
 
 
