@@ -4,7 +4,8 @@
         <section class="main" v-loading="getDataLock" element-loading-text="加载中...">
             <filter-component :data-count="dataTotal" filter-type="onlyCount"
                               route-name="customerInformation"
-                              @search-keyword="searchKeyword" :user-name="userName" @clear-username="clearUserName"></filter-component>
+                              @search-keyword="searchKeyword" :user-name="userName"
+                              @clear-username="clearUserName"></filter-component>
             <div class="customer-container">
                 <div class="left-panel" id="customer-table">
                     <!--左边客户列表-->
@@ -80,7 +81,8 @@
                             <template slot-scope="scope">
                                 <div @click.stop>
                                     <el-row>
-                                        <el-col class="permissionHidden" v-permission="{buttonId:75,buttonName:'修改客户等级'}">
+                                        <el-col class="permissionHidden"
+                                                v-permission="{buttonId:75,buttonName:'修改客户等级'}">
                                             <!--如果有权限,应该显示下拉菜单-->
                                             <el-select v-model="scope.row.vipLevel" size="small"
                                                        @change="handleLevelChange($event,scope.row)">
@@ -88,7 +90,8 @@
                                                            :label="level.levelName" :key="level.id"></el-option>
                                             </el-select>
                                         </el-col>
-                                        <el-col class="permissionHidden" v-no-permission-show="{buttonId:75,buttonName:'修改客户等级'}">
+                                        <el-col class="permissionHidden"
+                                                v-no-permission-show="{buttonId:75,buttonName:'修改客户等级'}">
                                             <!--没有权限,则显示名称信息-->
                                             <span>{{scope.row.levelName}}</span>
                                         </el-col>
@@ -127,7 +130,8 @@
                                 <div class="more-share">
                                     <span>他的更多分享:</span>
                                     <div v-if="upLevelInformation.shares&&upLevelInformation.shares.length!==0">
-                                        <img class="head-img" v-for="(share,index) in upLevelInformation.shares" :key="index"
+                                        <img class="head-img" v-for="(share,index) in upLevelInformation.shares"
+                                             :key="index"
                                              :src="share.headImg" alt="">
                                     </div>
                                     <span v-if="upLevelInformation.count>4">...</span>
@@ -233,7 +237,7 @@
         },
         methods: {
             //清除选中的上下级关键字
-            clearUserName(){
+            clearUserName() {
                 this.userName = "";
                 this.userId = "";
                 this.upLevelInformation = {};

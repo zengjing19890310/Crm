@@ -24,9 +24,12 @@ function getUserInformation(vm) {
 						if (data.code === 0 && data.msg === "成功") {
 							if (data.data) {
 								vm.userInformation = data.data;
+<<<<<<< HEAD
 							} else {
 								//获取用户信息为空,踢出重新登录
 								util.logout();
+=======
+>>>>>>> 00544b5aa1e3eda4037b94d1d9c52a1c1e46ac5a
 							}
 						} else {
 							vm.$message({

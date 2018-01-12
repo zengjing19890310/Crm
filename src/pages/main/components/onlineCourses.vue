@@ -447,7 +447,7 @@
                                                 type: "warning",
                                                 message: "没有更多数据了"
                                             });
-                                            this.page=response.data.lastPage;
+                                            this.page = response.data.lastPage;
                                         }
                                     }
                                 }
